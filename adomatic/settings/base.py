@@ -46,7 +46,7 @@ ADOMATIC_APPS = (
     'apps.users',
 )
 
-INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + ADOMATIC_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
