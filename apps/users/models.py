@@ -65,12 +65,9 @@ class User(AbstractBaseUser, TimeStamped):
     # methods
     objects = UserManager()
 
-    USER_ROLES = (
-            ('ar', 'ADVERTISER'),
-            ('pb', 'PUBLISHER'),
-        )
-
-    role = models.CharField(max_length=2, choices=USER_ROLES)
+    # properties
+    is_advertiser = models.BooleanField(default=False)
+    is_publisher = models.BooleanField(default=False)
 
     # requirements for django.auth
     USERNAME_FIELD = 'email'
