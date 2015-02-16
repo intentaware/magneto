@@ -39,7 +39,9 @@ DEFAULT_APPS = (
     'django.contrib.staticfiles',
 )
 
-THIRD_PARTY_APPS = ()
+THIRD_PARTY_APPS = (
+    'registration',
+)
 
 ADOMATIC_APPS = (
     'apps.common',
@@ -92,6 +94,17 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+# Media files (All the uploads)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# Authentication
+AUTH_USER_MODEL = 'users.User'
+
+LOGIN_URL = ''
+LOGOUT_URL = ''
+LOGIN_REDIRECT_URL = ''
 
 
 try:
