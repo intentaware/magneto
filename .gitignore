@@ -158,3 +158,10 @@ crashlytics-build.properties
 
 ### SQLITE ###
 *.sqlite3
+
+
+### FABRIC ###
+adomatic/conf/fabric/
+
+### LOCAL_SETTINGS ###
+adomatic/settings/local.py
