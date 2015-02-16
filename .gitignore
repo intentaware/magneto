@@ -156,6 +156,7 @@ crashlytics.properties
 crashlytics-build.properties
 
 
+
 ### SQLITE ###
 *.sqlite3
 
@@ -163,5 +164,17 @@ crashlytics-build.properties
 ### FABRIC ###
 adomatic/conf/fabric/
 
+
+
 ### LOCAL_SETTINGS ###
 adomatic/settings/local.py
+
+
+
+### DJANGO ENVIRONMENT IGNORE ###
+/lib/
+bin
+/media/
+/static/
+/include/
+/local/
