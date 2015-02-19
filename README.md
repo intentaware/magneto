@@ -30,10 +30,10 @@ fab local update_envs
 ## The GIT branching structure
 best that we follow the `git flow` model. Branches and their roles are as follow
 
-master > major releases, tagged by version number. version number is YY.MM.DD,
-develop > major development branch, used for staging
-feature/name > we branch out from developing before developing a feature so that come back and checkout master to do hot-fixes
-hot-fix/name > for fixing stuff when things are live and we need to iron out minor kinks, this allows to leave our feature development on a seperate path
+`master` > major releases, tagged by version number. version number is YY.MM.DD,
+`develop` > major development branch, used for staging
+`feature/name` > we branch out from developing before developing a feature so that come back and checkout master to do hot-fixes
+`hot-fix/name` > for fixing stuff when things are live and we need to iron out minor kinks, this allows to leave our feature development on a seperate path
 
 seriously, if you are not using git-flow plug uptil now, you MUST!
 
