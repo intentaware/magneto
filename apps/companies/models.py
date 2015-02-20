@@ -7,7 +7,7 @@ from apps.common.models import *
 
 
 class Compnay(TimeStamped, SluggedFromName):
-    pass
+    is_active = models.BooleanField(default=True)
 
 
 class CompanyGroup(TimeStamped):
