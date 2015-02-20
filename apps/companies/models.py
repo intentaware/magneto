@@ -6,14 +6,14 @@ from jsonfield import JSONField
 from apps.common.models import *
 
 
-class Compnay(TimeStamped, SluggedFromName):
+class Company(TimeStamped, SluggedFromName):
     is_active = models.BooleanField(default=True)
     users = models.ManyToManyField('users.User', 
         through='companies.CompanyUser')
 
 
 class CompanyGroup(TimeStamped):
-    company = models.ForeignKey('companies.Compnay', related_name='groups')
+    company = models.ForeignKey('companies.Company', related_name='groups')
     permissions = JSONField()
 
 
@@ -21,7 +21,7 @@ class CompanyUser(TimeStamped):
     user = models.ForeignKey('users.User', related_name='memberships')
     group = models.ForeignKey('companies.CompanyGroup', 
         related_name='memberships')
-    company = models.ForeignKey('companies.Compnay', related_name='memberships')
+    company = models.ForeignKey('companies.Company', related_name='memberships')
 
     # override default group permissions?
     is_owner = models.BooleanField(default=False)
