@@ -8,6 +8,8 @@ from apps.common.models import *
 
 class Compnay(TimeStamped, SluggedFromName):
     is_active = models.BooleanField(default=True)
+    users = models.ManyToManyField('users.User', 
+        through='companies.CompanyUser')
 
 
 class CompanyGroup(TimeStamped):
