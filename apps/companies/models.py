@@ -1,5 +1,7 @@
 from django.db import models
+
 from django_extensions.db.fields import *
+from jsonfield import JSONField
 
 from apps.common.models import *
 
@@ -10,7 +12,7 @@ class Compnay(TimeStamped, SluggedFromName):
 
 class CompanyGroup(TimeStamped):
     company = models.ForeignKey('companies.Compnay', related_name='groups')
-
+    permissions = JSONField()
 
 class CompanyUser(TimeStamped):
     user = models.ForeignKey('users.User', related_name='memberships')
