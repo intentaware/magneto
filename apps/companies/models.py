@@ -31,9 +31,19 @@ class CompanyUser(TimeStamped):
     # check whether the membership is active or not
     is_active = models.BooleanField(default=True)
 
+    class Meta:
+        unique_together = ('user', 'group', 'company')
+
 
     def __unicode__(self):
         return '%s: %s' %(self.company.name, self.user.name)
+
+    def set_sefault(self):
+        if not self.is_active:
+            self.user.membership.all().update(is_active=False)
+            self.is_active = True
+            self.save()
+
 
 
 
