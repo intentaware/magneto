@@ -14,6 +14,7 @@ class CompanyGroup(TimeStamped):
     company = models.ForeignKey('companies.Compnay', related_name='groups')
     permissions = JSONField()
 
+
 class CompanyUser(TimeStamped):
     user = models.ForeignKey('users.User', related_name='memberships')
     group = models.ForeignKey('companies.CompanyGroup', 
@@ -21,13 +22,14 @@ class CompanyUser(TimeStamped):
     company = models.ForeignKey('companies.Compnay', related_name='memberships')
 
     # override default group permissions?
-    
     is_owner = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
     # default membership for the views
-    
     is_default = models.BooleanField(default=False)
+
+    # check whether the membership is active or not
+    is_active = models.BooleanField(default=True)
 
 
     def __unicode__(self):
