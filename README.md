@@ -38,6 +38,8 @@ best that we follow the `git flow` model. Branches and their roles are as follow
 seriously, if you are not using git-flow plug uptil now, you MUST!
 
 ## UI/UX
+
 TODO
+Using Material design 
 
 *Happy Coding :)*
