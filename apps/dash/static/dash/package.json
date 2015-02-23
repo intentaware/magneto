@@ -1,6 +1,7 @@
 {
   "name": "dash",
   "version": "0.0.0",
+  "description": "The all singing, all dancing crap of the world",
   "dependencies": {},
   "devDependencies": {
     "gulp": "~3.8.10",
