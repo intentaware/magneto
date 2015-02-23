@@ -44,3 +44,14 @@ class SluggedFromName(BaseModel):
 
     def __unicode__(self):
         return self.name
+
+
+class SulggedFromTitle(BaseModel):
+    title = models.CharField(max_length=256)
+    slug = AutoSlugField(populate_from='title', db_index=True)
+
+    class Meta:
+        abstract = True
+
+    def __unicode__(self):
+        return self.name
