@@ -47,6 +47,9 @@ ADOMATIC_APPS = (
     'apps.common',
     'apps.users',
     'apps.companies',
+
+    #for front end
+    'apps.dashboard',
 )
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + ADOMATIC_APPS
