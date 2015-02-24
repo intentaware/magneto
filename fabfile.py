@@ -76,3 +76,11 @@ def prepare():
     env.run('sudo pip install virtualenv')
     env.run('sudo apt-get install nodejs-legacy')
     env.run('sudo npm i -g bower gulp yo')
+
+
+def virtualenv_setup():
+    env.run("virtualenv %(venv_root)s" % env)
+
+
+def clone():
+    env.run("git clone git@github.com:adomattic/Vader.git %(project_root)s" % env)
