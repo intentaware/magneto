@@ -36,6 +36,9 @@ class TimeStamped(BaseModel):
 
 
 class SluggedFromName(BaseModel):
+    """
+    Quicly provides a slug field and automate its creation from name
+    """
     name = models.CharField(max_length=256)
     slug = AutoSlugField(populate_from='name', db_index=True)
 
@@ -47,6 +50,9 @@ class SluggedFromName(BaseModel):
 
 
 class SulggedFromTitle(BaseModel):
+    """
+    quickly provides a slug field and automate its creation from title
+    """
     title = models.CharField(max_length=256)
     slug = AutoSlugField(populate_from='title', db_index=True)
 
