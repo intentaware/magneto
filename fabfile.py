@@ -15,12 +15,12 @@ except ImportError:
 
 
 def local():
-    '''
+    """
     Environment settings for local.
 
     Usage:
          fab local <task>
-    '''
+    """
     env.run = lrun
     env.name = 'local'
     env.conf_path = 'local'
@@ -31,12 +31,12 @@ def local():
     env.venv = 'source %(venv_root)sbin/activate && ' % env
 
 def stage():
-    '''
+    """
     Environment Settings for Staging Server
 
     Usage:
         fab stage <task>
-    '''
+    """
     env.run = run
     env.name = 'adomattic-stage'
     env.conf_path = 'stage'
@@ -44,7 +44,7 @@ def stage():
     env.hosts = ['app.adomattic.com']
     env.user = 'root'
     env.key_filename = DEPLOY_KEY
-    env.branch = 'dev'
+    env.branch = 'develop'
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
     #env.backoffice = '/srv/%(name)s/apps/backoffice/static/backoffice/' % env
@@ -52,11 +52,11 @@ def stage():
 
 
 def update_envs():
-    '''
+    """
     Updates local environment settings to the default repo settings, useful for parallel programming
     Usage:
         fab local update_envs
-    '''
+    """
     env.run('cp adomatic/conf/%(conf_path)s/settings.py adomatic/settings/local.py' % env)
 
 
@@ -79,8 +79,52 @@ def prepare():
 
 
 def virtualenv_setup():
+    """
+    The third step
+    """
     env.run("virtualenv %(venv_root)s" % env)
 
 
 def clone():
+    """
+    This second step of server setup
+    """
     env.run("git clone git@github.com:adomattic/Vader.git %(project_root)s" % env)
+
+
+def git_pull():
+    """
+    pull from git
+    Usage:
+        fab <env> git_pull
+    """
+    with cd(env.project_root):
+        env.run('git fetch;' % env)
+        env.run('git checkout %(branch)s; git pull origin %(branch)s;' % env)
+
+def install_requirements():
+    """
+    install the environment python packages
+    Usage:
+        fab <env> install_requirements
+    """
+    with cd(env.project_root):
+        env.run('%(venv)s pip install -r requirements.txt' % env)
+
+def migrate():
+    """
+    migrates the database
+    """
+    with cd(env.project_root):
+        env.run('%(venv)s python manage.py migrate' % env)
+
+
+def deploy():
+    """
+    pull the latest from the repo, and deploy accordingly
+    """
+    git_pull()
+    install_requirements()
+    update_envs()
+    migrate()
+
