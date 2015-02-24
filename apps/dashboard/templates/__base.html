@@ -1,0 +1,55 @@
+<!doctype html>
+<html class="no-js" ng-app="dash">
+
+<head>
+  {% block meta %}
+  {% endblock %}
+
+  {% block meta %}
+  {% endblock %}
+
+  {% block styles_src %} 
+  {% endblock %}
+
+  {% styles_inline %}
+  {% endblock %}
+</head>
+
+<body layout="column">
+  <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+  <md-toolbar layout="row">
+    <button ng-click="toggleSidenav('left')" hide-gt-sm class="menuBtn">
+      <span class="visuallyhidden">Menu</span>
+    </button>
+    <h4>Adomatic</h4>
+  </md-toolbar>
+
+  <!--
+         Use `flex` [below] to have the side bar and content area
+         fill the available vertical display area
+     -->
+
+  <div layout="row" flex>
+
+    <!--
+          Use `flex` [below] to have the content area
+          fill the available horizontal display area on the right side
+      -->
+    <div ng-view></div>
+  </div>
+
+  {% block scripts_src %}
+  {% endblock %}
+
+  {% block scripts_inline %}
+  {% endblock %}
+
+  {% block extras %}
+  {% endblock %}
+
+</body>
+
+</html>
