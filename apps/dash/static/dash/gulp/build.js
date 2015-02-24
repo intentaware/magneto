@@ -81,6 +81,7 @@ gulp.task('misc', function () {
 
 gulp.task('clean', function (done) {
   $.del([paths.dist + '/', paths.tmp + '/'], done);
+  $.del([paths.django.tmp + '/'], {force: true});
 });
 
 gulp.task('build', ['html', 'images', 'fonts', 'misc']);
