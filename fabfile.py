@@ -69,7 +69,7 @@ def prepare():
     env.run('sudo apt-get update')
     env.run("sudo apt-get install locate python-setuptools git-core subversion mercurial htop screen byobu gcc")
     env.run('sudo apt-get install libjpeg62 libjpeg62-dev zlib1g-dev libfreetype6 libfreetype6-dev python-pycurl-dbg libcurl4-openssl-dev')
-    env.run('sudo apt-get install libpq-dev python-dev')
+    env.run('sudo apt-get install build-essential libpq-dev python-dev')
     env.run('sudo apt-get install libxml2-dev libxslt-dev')
     env.run('sudo apt-get install nginx-full uwsgi uwsgi-plugin-python')
     env.run('sudo apt-get install python-pip')
@@ -118,6 +118,14 @@ def migrate():
     """
     with cd(env.project_root):
         env.run('%(venv)s python manage.py migrate' % env)
+
+
+def uwsgi_install():
+    """
+    first install of uwsgi
+    """
+    with cd(env.project_root):
+        env.run('%(venv)s pip install uwsgi' % env)
 
 
 def deploy():
