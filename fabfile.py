@@ -4,6 +4,9 @@ from fabric.api import env, require, run, put, cd, task, settings as fabric_sett
 from fabric.api import local as lrun
 from fabric.contrib.console import confirm
 
+from fabric.network import ssh
+ssh.util.log_to_file("paramiko.log", 10)
+
 IMPORT_ERROR = 'Please add the location of \n DEPLOY_KEY, \n STAGE_KEY, \n LOCAL_PROJECT_PATH, \n LOCAL_ENVIRONMENT_PATH in adomatic.conf.fabric.variables'
 
 #importing fabric specific variables
@@ -26,7 +29,7 @@ def local():
     env.conf_path = 'local'
     env.project_root = LOCAL_PROJECT_PATH
     env.hosts = ['localhost']
-    env.branch = 'dev'
+    env.branch = 'develop'
     env.venv_root = LOCAL_ENVIRONMENT_PATH
     env.venv = 'source %(venv_root)sbin/activate && ' % env
 
@@ -44,6 +47,8 @@ def stage():
     env.hosts = ['app.adomattic.com']
     env.user = 'root'
     env.key_filename = DEPLOY_KEY
+    #env.no_keys = True
+    #env.use_ssh_config = False
     env.branch = 'develop'
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
