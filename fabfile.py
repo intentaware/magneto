@@ -57,7 +57,8 @@ def update_envs():
     Usage:
         fab local update_envs
     """
-    env.run('cp adomatic/conf/%(conf_path)s/settings.py adomatic/settings/local.py' % env)
+    with cd(env.project_root):
+        env.run('cp adomatic/conf/%(conf_path)s/settings.py adomatic/settings/local.py' % env)
 
 
 def prepare():
