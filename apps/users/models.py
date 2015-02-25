@@ -24,16 +24,15 @@ class UserManager(BaseUserManager):
             email = '@'.join([email_name.lower(), domain_part.lower()])
         return email
 
+
     def create_user(self, email=None, password=None, **extra_fields):
         """
         Creates and saves a User with the given email and password.
         """
-        now = _tz.now()
         email = self.normalize_email(email)
         user = self.model(
-            email=email, is_active=True, last_login=now, date_joined=now,
-            **extra_fields
-        )
+                email=email, is_active=True, **extra_fields
+            )
 
         if password:
             user.set_password(password)
@@ -41,6 +40,18 @@ class UserManager(BaseUserManager):
             user.set_unusable_password()
         user.save(using=self._db)
         return user
+        
+
+    def create_superuser(self, email, password, **extra_fields):
+        """
+        Creates and saves a SuperUser with the given email and password.
+        """
+        u = self.create_user(email, password, **extra_fields)
+        u.is_staff = True
+        u.is_active = True
+        u.is_superuser = True
+        u.save(using=self._db)
+        return u
 
 
 class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
@@ -76,11 +87,13 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     
+
     def __unicode__(self):
         name = self.email
         if self.first_name or self.last_name:
             name = u'%s %s' % (self.first_name, self.last_name)
         return name
+
 
     @property
     def name(self):
@@ -88,7 +101,12 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
             return u'%s %s' % (self.first_name, self.last_name)
         return None
 
+
     def get_username(self):
         if self.name:
             return self.name
         return self.email
+
+
+    def get_short_name(self):
+        return self.get_username()

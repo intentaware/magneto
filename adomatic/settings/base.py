@@ -41,12 +41,16 @@ DEFAULT_APPS = (
 
 THIRD_PARTY_APPS = (
     'registration',
+    'taggit',
 )
 
 ADOMATIC_APPS = (
     'apps.common',
     'apps.users',
     'apps.companies',
+
+    'apps.ads',
+    'apps.impressions',
 
     #for front end
     'apps.dashboard',

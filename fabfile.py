@@ -124,6 +124,10 @@ def migrate():
     with cd(env.project_root):
         env.run('%(venv)s python manage.py migrate' % env)
 
+def collect_static():
+    with cd(env.project_root):
+        env.run('%(venv)s python manage.py collectstatic --noinput' % env)
+
 
 def uwsgi_install():
     """
@@ -139,6 +143,11 @@ def copy_nginx_conf():
     env.run('sudo cp /srv/%(name)s/adomatic/conf/%(conf_path)s/nginx/%(conf_path)s.conf /etc/nginx/sites-available/%(conf_path)s.conf' % env)
 
 
+def restart_uwsgi():
+    with cd(env.project_root):
+        env.run('touch uwsgi/touch.py')
+
+
 def deploy():
     """
     pull the latest from the repo, and deploy accordingly
@@ -147,3 +156,5 @@ def deploy():
     install_requirements()
     update_envs()
     migrate()
+    collect_static()
+    restart_uwsgi()
