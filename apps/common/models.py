@@ -61,3 +61,14 @@ class SulggedFromTitle(BaseModel):
 
     def __unicode__(self):
         return self.name
+
+
+class ToCompany(BaseModel):
+    """
+    quickly creates a relationship to a company
+    """
+    compnay = models.ForeignKey('companies.Company', blank=True, null=True,
+        related_name='%(class)ss')
+
+    class Meta:
+        abstract = True

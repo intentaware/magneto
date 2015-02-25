@@ -2,7 +2,8 @@ from django.db import models
 from apps.common.models import *
 
 
-class Ad(SulggedFromTitle, TimeStamped):
+class Ad(TimeStamped, ToCompany):
+    name = models.CharField(max_length=256, default='')
     description = models.TextField(null=True, blank=True)
 
     starts_on = models.DateTimeField(null=True, blank=True)
