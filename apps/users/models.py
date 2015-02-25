@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 from apps.common.models import *
 
@@ -43,7 +43,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, TimeStamped):
+class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
 
     '''
     replacemnt for default auth.User model
@@ -72,6 +72,10 @@ class User(AbstractBaseUser, TimeStamped):
     # requirements for django.auth
     USERNAME_FIELD = 'email'
 
+    # The good old django admin
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    
     def __unicode__(self):
         name = self.email
         if self.first_name or self.last_name:
