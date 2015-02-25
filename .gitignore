@@ -171,7 +171,6 @@ adomatic/conf/fabric/
 adomatic/settings/local.py
 
 
-
 ### DJANGO ENVIRONMENT IGNORE ###
 /lib/
 bin
@@ -180,3 +179,4 @@ bin
 /include/
 /local/
 /share/
+/uwsgi/

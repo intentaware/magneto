@@ -127,6 +127,12 @@ def uwsgi_install():
     with cd(env.project_root):
         env.run('%(venv)s pip install uwsgi' % env)
 
+def copy_nginx_conf():
+    """
+    update nginx settings for the site and make them available in sites-available
+    """
+    env.run('sudo cp /srv/%(name)s/adomattic/conf/%(conf_path)s/nginx/%(conf_path)s.conf /etc/nginx/sites-available/%(conf_path)s.conf' % env)
+
 
 def deploy():
     """
@@ -136,4 +142,3 @@ def deploy():
     install_requirements()
     update_envs()
     migrate()
-
