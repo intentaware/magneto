@@ -5,13 +5,13 @@
   {% block meta %}
   {% endblock %}
 
-  {% block meta %}
+  {% block title %}
   {% endblock %}
 
   {% block styles_src %} 
   {% endblock %}
 
-  {% styles_inline %}
+  {% block styles_inline %}
   {% endblock %}
 </head>
 
@@ -40,6 +40,9 @@
       -->
     <div ng-view></div>
   </div>
+
+  {% block content %}
+  {% endblock %}
 
   {% block scripts_src %}
   {% endblock %}

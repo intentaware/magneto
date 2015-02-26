@@ -1,0 +1,28 @@
+from django.shortcuts import render
+from django.contrib.auth import login, authenticate
+from django.views.generic.edit import FormView
+
+from registration.backends.simple.views import \
+    RegistrationView as BaseRegistrationView
+from registration import signals
+
+from .forms import UserCreationForm
+
+
+class UserRegistrationView(BaseRegistrationView):
+    template_name = 'registration/registration_consumer.html'
+    form_class = UserCreationForm
+
+    def register(self, request, **cleaned_data):
+        email, password = cleaned_data['email'], cleaned_data['password1']
+        User.objects.create_user(email, password)
+
+        new_user = authenticate(username=email, password=password)
+        login(request, new_user)
+        signals.user_registered.send(sender=self.__class__,
+                                     user=new_user,
+                                     request=request)
+        return new_user
+
+    def get_success_url(self, request, user):
+        return '/backoffice/'
