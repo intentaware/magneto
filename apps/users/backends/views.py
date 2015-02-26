@@ -49,9 +49,9 @@ class CompanyRegistrationView(BaseRegistrationView):
                                      request=request)
 
         # create the institute and associate it with the newly created user
-        c = Company.objects.create(name=name)
-        cg = CompanyGroup.objects.create(name='Administrators')
-        CompanyUser.objects.create(user=user, company=c, group=g,
+        company = Company.objects.create(name=name)
+        group = CompanyGroup.objects.create(name='Administrators', company=company)
+        CompanyUser.objects.create(user=new_user, company=company, group=group,
             is_owner=True, is_superuser=True, is_default=True)
 
         return new_user
