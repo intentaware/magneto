@@ -32,3 +32,5 @@ class UserCreationForm(PasswordValidationForm):
             return email
 
 
+class CompanyCreationForm(UserCreationForm):
+    name = forms.CharField(required=True, max_length=128, label='Company Name')

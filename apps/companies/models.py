@@ -13,6 +13,7 @@ class Company(TimeStamped, SluggedFromName):
 
 
 class CompanyGroup(TimeStamped):
+    name = models.CharField(max_length=128)
     company = models.ForeignKey('companies.Company', related_name='groups')
     permissions = JSONField()
 

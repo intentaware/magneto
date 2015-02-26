@@ -6,7 +6,10 @@ from registration.backends.simple.views import \
     RegistrationView as BaseRegistrationView
 from registration import signals
 
-from .forms import UserCreationForm
+from .forms import UserCreationForm, CompanyCreationForm
+
+from apps.users.models import User
+from apps.companies.models import *
 
 
 class UserRegistrationView(BaseRegistrationView):
@@ -22,6 +25,35 @@ class UserRegistrationView(BaseRegistrationView):
         signals.user_registered.send(sender=self.__class__,
                                      user=new_user,
                                      request=request)
+        return new_user
+
+    def get_success_url(self, request, user):
+        return '/backoffice/'
+
+
+class CompanyRegistrationView(BaseRegistrationView):
+    template_name = 'registration/registration_company.html'
+    form_class = CompanyCreationForm
+
+    def register(self, request, **cleaned_data):
+        email, password, name = cleaned_data['email'], \
+            cleaned_data['password1'], cleaned_data['name']
+
+        User.objects.create_user(email, password)
+
+        # login the new user
+        new_user = authenticate(username=email, password=password)
+        login(request, new_user)
+        signals.user_registered.send(sender=self.__class__,
+                                     user=new_user,
+                                     request=request)
+
+        # create the institute and associate it with the newly created user
+        c = Company.objects.create(name=name)
+        cg = CompanyGroup.objects.create(name='Administrators')
+        CompanyUser.objects.create(user=user, company=c, group=g,
+            is_owner=True, is_superuser=True, is_default=True)
+
         return new_user
 
     def get_success_url(self, request, user):
