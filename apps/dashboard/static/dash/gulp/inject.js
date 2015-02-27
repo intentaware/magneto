@@ -83,6 +83,6 @@ gulp.task('inject', ['styles'], function() {
     .pipe($.inject(injectStyles, injectOptions))
     .pipe($.inject(injectScripts, injectOptions))
     .pipe(wiredep(wiredepOptions))
-    .pipe(gulp.dest(paths.django.tmp));
+    .pipe(gulp.dest(paths.django.debug));
 
 });
