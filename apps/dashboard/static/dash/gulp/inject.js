@@ -43,12 +43,14 @@ var wiredep = require('wiredep').stream;
 
 // });
 
-gulp.task('inject', ['styles'], function () {
+gulp.task('inject', ['styles'], function() {
 
   var injectStyles = gulp.src([
     paths.tmp + '/serve/{app,components}/**/*.css',
     '!' + paths.tmp + '/serve/app/vendor.css'
-  ], { read: false });
+  ], {
+    read: false
+  }).pipe($.print());
 
   var injectScripts = gulp.src([
     paths.src + '/{app,components}/**/*.js',
@@ -57,13 +59,24 @@ gulp.task('inject', ['styles'], function () {
   ]).pipe($.angularFilesort());
 
   var injectOptions = {
-    ignorePath: [paths.src, paths.tmp + '/serve'],
-    addRootSlash: false
+    //ignorePath: [paths.src, paths.tmp + '/serve'],
+    addRootSlash: false,
+    addPrefix: "{{ STATIC_URL }}dash/",
+    //relative: true
   };
 
   var wiredepOptions = {
     directory: 'bower_components',
-    exclude: [/bootstrap\.css/, /foundation\.css/]
+    ignorePath: '../../static/',
+    exclude: [/bootstrap\.css/, /foundation\.css/],
+    fileTypes: {
+      html: {
+        replace: {
+          js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>',
+          css: '<link rel="stylesheet" href="{{ STATIC_URL }}{{filePath}}" />'
+        }
+      }
+    }
   };
 
   return gulp.src(paths.django.debug + '/__base.html')
