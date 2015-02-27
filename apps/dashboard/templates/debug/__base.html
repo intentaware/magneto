@@ -15,13 +15,13 @@
 
   <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
   <!-- bower:css -->
-  <!-- run `gulp wiredep` to automaticaly populate bower styles dependencies -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}dash/bower_components/angular-material/angular-material.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:css({.tmp/serve,src}) styles/app.css -->
   <!-- inject:css -->
-  <!-- css files will be automaticaly insert here -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}dash//.tmp/serve/app/index.css">
   <!-- endinject -->
   <!-- endbuild -->
 {% endblock %}
@@ -57,13 +57,23 @@
 {% block scripts_src %}
   <!-- build:js(src) scripts/vendor.js -->
   <!-- bower:js -->
-  <!-- run `gulp wiredep` to automaticaly populate bower script dependencies -->
+  <script src="{{ STATIC_URL }}dash/bower_components/angular/angular.js"></script>
+  <script src="{{ STATIC_URL }}dash/bower_components/angular-animate/angular-animate.js"></script>
+  <script src="{{ STATIC_URL }}dash/bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="{{ STATIC_URL }}dash/bower_components/angular-touch/angular-touch.js"></script>
+  <script src="{{ STATIC_URL }}dash/bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="{{ STATIC_URL }}dash/bower_components/angular-resource/angular-resource.js"></script>
+  <script src="{{ STATIC_URL }}dash/bower_components/angular-route/angular-route.js"></script>
+  <script src="{{ STATIC_URL }}dash/bower_components/angular-aria/angular-aria.js"></script>
+  <script src="{{ STATIC_URL }}dash/bower_components/angular-material/angular-material.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
   <!-- inject:js -->
-  <!-- js files will be automaticaly insert here -->
+  <script src="{{ STATIC_URL }}dash//src/app/index.js"></script>
+  <script src="{{ STATIC_URL }}dash//src/components/navbar/navbar.controller.js"></script>
+  <script src="{{ STATIC_URL }}dash//src/app/main/main.controller.js"></script>
   <!-- endinject -->
 
   <!-- inject:partials -->
