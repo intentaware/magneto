@@ -8,10 +8,10 @@ gulp.paths = {
   tmp: '.tmp',
   e2e: 'e2e',
   django: {
-    tmp: '../../templates/tmp',
     debug: '../../templates/debug',
     dist: '../../templates/dist',
-    common:'../../templates'
+    common:'../../templates',
+    auth: '../../templates/registration'
   }
 };
 

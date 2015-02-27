@@ -42,6 +42,7 @@ DEFAULT_APPS = (
 THIRD_PARTY_APPS = (
     'registration',
     'taggit',
+    'widget_tweaks',
 )
 
 ADOMATIC_APPS = (

@@ -43,6 +43,29 @@ var wiredep = require('wiredep').stream;
 
 // });
 
+  var injectOptions = {
+    //ignorePath: [paths.src, paths.tmp + '/serve'],
+    addRootSlash: false,
+    addPrefix: "{{ STATIC_URL }}dash/",
+    //relative: true
+  };
+
+  var wiredepOptions = {
+    directory: 'bower_components',
+    ignorePath: '../../static/',
+    exclude: [/bootstrap\.css/, /foundation\.css/],
+    fileTypes: {
+      html: {
+        replace: {
+          js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>',
+          css: '<link rel="stylesheet" href="{{ STATIC_URL }}{{filePath}}" />'
+        }
+      }
+    }
+  };
+
+
+// injecting into dashboard
 gulp.task('inject:dashboard', ['styles'], function() {
 
   var injectScripts = gulp.src([
@@ -51,34 +74,13 @@ gulp.task('inject:dashboard', ['styles'], function() {
     '!' + paths.src + '/{app,components}/**/*.mock.js'
   ]).pipe($.angularFilesort());
 
-  var injectOptions = {
-    //ignorePath: [paths.src, paths.tmp + '/serve'],
-    addRootSlash: false,
-    addPrefix: "{{ STATIC_URL }}dash/",
-    //relative: true
-  };
-
-  var wiredepOptions = {
-    directory: 'bower_components',
-    ignorePath: '../../static/',
-    exclude: [/bootstrap\.css/, /foundation\.css/],
-    fileTypes: {
-      html: {
-        replace: {
-          js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>',
-          css: '<link rel="stylesheet" href="{{ STATIC_URL }}{{filePath}}" />'
-        }
-      }
-    }
-  };
-
   return gulp.src(paths.django.debug + '/__base.html')
     .pipe($.inject(injectScripts, injectOptions))
     .pipe(wiredep(wiredepOptions))
     .pipe(gulp.dest(paths.django.debug));
 
 });
-
+// injection into common base
 gulp.task('inject:common', ['styles'], function() {
   var injectStyles = gulp.src([
     paths.tmp + '/serve/{app,components}/**/*.css',
@@ -87,31 +89,27 @@ gulp.task('inject:common', ['styles'], function() {
     read: false
   }).pipe($.print());
 
-  var injectOptions = {
-    //ignorePath: [paths.src, paths.tmp + '/serve'],
-    addRootSlash: false,
-    addPrefix: "{{ STATIC_URL }}dash/",
-    //relative: true
-  };
-
-  var wiredepOptions = {
-    directory: 'bower_components',
-    ignorePath: '../../static/',
-    exclude: [/bootstrap\.css/, /foundation\.css/],
-    fileTypes: {
-      html: {
-        replace: {
-          js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>',
-          css: '<link rel="stylesheet" href="{{ STATIC_URL }}{{filePath}}" />'
-        }
-      }
-    }
-  };
-
-  return gulp.src(paths.django.debug + '/__base.html')
+  return gulp.src(paths.django.common + '/__base.html')
     .pipe($.inject(injectStyles, injectOptions))
     .pipe(wiredep(wiredepOptions))
-    .pipe(gulp.dest(paths.django.debug + '/_base.html'));
+    .pipe(gulp.dest(paths.django.common));
 });
 
-gulp.task('inject', ['inject:common', 'inject:dashboard']);
+// injecting into auth
+gulp.task('inject:auth', ['styles'], function() {
+
+  var injectScripts = gulp.src([
+    paths.src + '/auth/**/*.js',
+    '!' + paths.src + '/auth/**/*.spec.js',
+    '!' + paths.src + '/auth/**/*.mock.js'
+  ]).pipe($.angularFilesort());
+
+  return gulp.src(paths.django.auth + '/__base.html')
+    .pipe($.inject(injectScripts, injectOptions))
+    .pipe(wiredep(wiredepOptions))
+    .pipe(gulp.dest(paths.django.auth));
+
+});
+
+
+gulp.task('inject', ['inject:common', 'inject:dashboard', 'inject:auth']);
