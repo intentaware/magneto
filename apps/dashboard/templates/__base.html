@@ -1,5 +1,9 @@
 <!doctype html>
+{% if ng_app %}
 <html class="no-js" ng-app="dash">
+{% else %}
+<html class="no-js">
+{% endif %}
 
 <head>
   {% block meta %}
@@ -8,8 +12,19 @@
   {% block title %}
   {% endblock %}
 
-  {% block styles_src %} 
-  {% endblock %}
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}dash/bower_components/angular-material/angular-material.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:css({.tmp/serve,src}) styles/app.css -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}dash//.tmp/serve/app/index.css">
+  <!-- endinject -->
+  <!-- endbuild -->
 
   {% block styles_inline %}
   {% endblock %}
@@ -24,7 +39,7 @@
     <button ng-click="toggleSidenav('left')" hide-gt-sm class="menuBtn">
       <span class="visuallyhidden">Menu</span>
     </button>
-    <h4>Adomatic</h4>
+    <h1>Adomatic</h1>
   </md-toolbar>
 
   <!--

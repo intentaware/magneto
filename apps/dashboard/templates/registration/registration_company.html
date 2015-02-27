@@ -2,10 +2,26 @@
 {% load i18n %}
 
 {% block content %}
+<div class="layout-vertical" layout-fill>
+  <md-content>
+    <section class="jumbotron">
+      <form method="post">
+        {% csrf_token %}
+        <md-input-container>
+      <label>Title</label>
+      <input ng-model="user.title">
+    </md-input-container>
+        {{ form.as_p }}
+      </form>
+    </section>
+  </md-content>
+</div>
+{% comment %}
 <form method="post" action=".">
   {% csrf_token %}
   {{ form.as_p }}
 
   <input type="submit" value="{% trans 'Submit' %}" />
 </form>
+{% endcomment %}
 {% endblock %}
