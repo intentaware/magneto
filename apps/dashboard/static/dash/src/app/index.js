@@ -10,5 +10,4 @@ angular.module('dash', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngRe
       .otherwise({
         redirectTo: '/'
       });
-  })
-;
+  });
