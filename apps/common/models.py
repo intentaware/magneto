@@ -67,7 +67,7 @@ class ToCompany(BaseModel):
     """
     quickly creates a relationship to a company
     """
-    compnay = models.ForeignKey('companies.Company', blank=True, null=True,
+    company = models.ForeignKey('companies.Company', blank=True, null=True,
         related_name='%(class)ss')
 
     class Meta:
