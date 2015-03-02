@@ -52,7 +52,7 @@ def stage():
     env.branch = 'develop'
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
-    #env.backoffice = '/srv/%(name)s/apps/backoffice/static/backoffice/' % env
+    env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
 
 
 
@@ -146,6 +146,16 @@ def copy_nginx_conf():
 def restart_uwsgi():
     with cd(env.project_root):
         env.run('touch uwsgi/touch.py')
+
+
+def npm():
+    with cd(env.dashboard):
+        env.run('npm install')
+
+
+def bower():
+    with cd(env.dashboard):
+        env.run('bower install')
 
 
 def deploy():
