@@ -7,5 +7,7 @@ angular.module('auth', ['ngMaterial', 'ngMessages'])
       .accentPalette('orange');
   })
   .controller('AuthCtrl', function() {
+  })
+  .controller('FormCtrl', function() {
   });
 

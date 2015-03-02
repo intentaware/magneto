@@ -17,9 +17,6 @@
       <md-input-container>
         <label>{{ form.password2.label }}</label>
           {% render_field form.password2 placeholder=form.password2.label ng-model="password2" %}
-          <div ng-messages="">
-              <div ng-message>Please retype your password again</div>
-          </div>
       </md-input-container>
       <md-button class="md-raised md-primary" type="submit">Register</md-button>
     </form>

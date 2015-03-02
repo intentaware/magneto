@@ -40,6 +40,7 @@ class CompanyRegistrationView(BaseRegistrationView):
             cleaned_data['password1'], cleaned_data['name']
 
         User.objects.create_user(email, password)
+        print password
 
         # login the new user
         new_user = authenticate(username=email, password=password)
