@@ -39,15 +39,15 @@ function browserSyncInit(baseDir, files, browser) {
 
 gulp.task('serve', ['watch'], function () {
   browserSyncInit([
-    paths.tmp + '/serve',
+    paths.compile + '/serve',
     paths.src
   ], [
-    paths.tmp + '/serve/{app,components}/**/*.css',
+    paths.compile + '/serve/{app,components}/**/*.css',
     paths.src + '/js/**/*.js'
     //paths.src + '/{app,components}/**/*.js',
     //paths.src + 'src/assets/images/**/*',
-    //paths.tmp + '/serve/*.html',
-    //paths.tmp + '/serve/{app,components}/**/*.html',
+    //paths.compile + '/serve/*.html',
+    //paths.compile + '/serve/{app,components}/**/*.html',
     //paths.src + '/{app,components}/**/*.html'
   ]);
 });
@@ -57,7 +57,7 @@ gulp.task('serve:dist', ['build'], function () {
 });
 
 gulp.task('serve:e2e', ['inject'], function () {
-  browserSyncInit([paths.tmp + '/serve', paths.src], null, []);
+  browserSyncInit([paths.compile + '/serve', paths.src], null, []);
 });
 
 gulp.task('serve:e2e-dist', ['build'], function () {

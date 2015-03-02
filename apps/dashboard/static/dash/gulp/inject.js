@@ -15,8 +15,8 @@ var wiredep = require('wiredep').stream;
 // gulp.task('inject', ['styles'], function () {
 
 //   var injectStyles = gulp.src([
-//     paths.tmp + '/serve/{app,components}/**/*.css',
-//     '!' + paths.tmp + '/serve/app/vendor.css'
+//     paths.compile + '/serve/{app,components}/**/*.css',
+//     '!' + paths.compile + '/serve/app/vendor.css'
 //   ], { read: false });
 
 //   var injectScripts = gulp.src([
@@ -26,7 +26,7 @@ var wiredep = require('wiredep').stream;
 //   ]).pipe($.angularFilesort());
 
 //   var injectOptions = {
-//     ignorePath: [paths.src, paths.tmp + '/serve'],
+//     ignorePath: [paths.src, paths.compile + '/serve'],
 //     addRootSlash: false
 //   };
 
@@ -39,12 +39,12 @@ var wiredep = require('wiredep').stream;
 //     .pipe($.inject(injectStyles, injectOptions))
 //     .pipe($.inject(injectScripts, injectOptions))
 //     .pipe(wiredep(wiredepOptions))
-//     .pipe(gulp.dest(paths.tmp + '/serve'));
+//     .pipe(gulp.dest(paths.compile + '/serve'));
 
 // });
 
   var injectOptions = {
-    //ignorePath: [paths.src, paths.tmp + '/serve'],
+    //ignorePath: [paths.src, paths.compile + '/serve'],
     addRootSlash: false,
     addPrefix: "{{ STATIC_URL }}dash"
     //relative: true
@@ -81,8 +81,8 @@ var wiredepStyles = {
 // injection into common base
 gulp.task('inject:common', ['styles'], function() {
   var injectStyles = gulp.src([
-    paths.tmp + '/serve/**/*.css',
-    //'!' + paths.tmp + '/serve/app/vendor.css'
+    paths.compile + '/serve/**/*.css',
+    //'!' + paths.compile + '/serve/app/vendor.css'
   ], {
     read: false
   }).pipe($.print());

@@ -41,5 +41,5 @@ gulp.task('styles', function () {
       console.error(err.toString());
       this.emit('end');
     })
-    .pipe(gulp.dest(paths.tmp + '/serve/styles'));
+    .pipe(gulp.dest(paths.compile + '/serve/styles'));
 });
