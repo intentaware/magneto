@@ -8,20 +8,18 @@ from apps.common.models import *
 
 class Company(TimeStamped, SluggedFromName):
     is_active = models.BooleanField(default=True)
-    users = models.ManyToManyField('users.User', 
-        through='companies.CompanyUser')
+    users = models.ManyToManyField('users.User', through='companies.CompanyUser')
 
 
 class CompanyGroup(TimeStamped):
     name = models.CharField(max_length=128)
     company = models.ForeignKey('companies.Company', related_name='groups')
-    permissions = JSONField()
+    permissions = JSONField(default="[]")
 
 
 class CompanyUser(TimeStamped):
     user = models.ForeignKey('users.User', related_name='memberships')
-    group = models.ForeignKey('companies.CompanyGroup', 
-        related_name='memberships')
+    group = models.ForeignKey('companies.CompanyGroup', related_name='memberships')
     company = models.ForeignKey('companies.Company', related_name='memberships')
 
     # override default group permissions?
@@ -37,11 +35,10 @@ class CompanyUser(TimeStamped):
     class Meta:
         unique_together = ('user', 'group', 'company')
 
-
     def __unicode__(self):
         return '%s: %s' %(self.company.name, self.user.name)
 
-    def set_sefault(self):
+    def set_default(self):
         if not self.is_active:
             self.user.membership.all().update(is_active=False)
             self.is_active = True
