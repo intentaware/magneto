@@ -2,25 +2,25 @@
 {% load i18n widget_tweaks %}
 
 {% block auth_content %}
-<div class="layout-vertical" flex="50">
+<div class="layout-vertical" flex="50" flex-sm="100">
   <md-content class="md-padding" layout="column">
-    <form method="post" action=".">
+    <form name="companyForm" method="post" action=".">
       {% csrf_token %}
       <md-input-container>
         <label>{{ form.name.label }}</label>
-        {% render_field form.name placeholder=form.name.label %}
+        {% render_field form.name placeholder=form.name.label ng-model="reg.name" md-maxlength="128" %}
       </md-input-container>
       <md-input-container>
         <label>{{ form.email.label }}</label>
-        {% render_field form.email placeholder=form.email.label %}
+        {% render_field form.email placeholder=form.email.label ng-model="reg.email" md-maxlength="128" %}
       </md-input-container>
       <md-input-container>
         <label>{{ form.password1.label }}</label>
-        {% render_field form.password1 placeholder=form.password1.label %}
+        {% render_field form.password1 placeholder=form.password1.label ng-model="reg.password1" %}
       </md-input-container>
       <md-input-container>
         <label>{{ form.password2.label }}</label>
-        {% render_field form.password2 placeholder=form.password2.label %}
+        {% render_field form.password2 placeholder=form.password2.label ng-model="reg.password2" %}
       </md-input-container>
       <md-button class="md-raised md-primary" type="submit">Register</md-button>
     </form>
