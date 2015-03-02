@@ -6,24 +6,25 @@ from .serializers import UserRegistrationSerializer, CompanyRegistrationSerializ
 class UserRegistrationView(APIView):
 
     def post(self, request):
-        user = UserRegistrationSerializer(data=request.data)
-        if user.is_valid():
-            user = user.save()
+        serializer = UserRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            print serializer.data
+            user = serializer.save()
             return Response({
-                'user': user.id
+                "user": user.id
             }, status=201)
         else:
-            return Response(user.errors, status=400)
+            return Response(serializer.errors, status=400)
 
 
 class CompanyRegistrationView(APIView):
 
     def post(self, request):
-        company = CompanyRegistrationSerializer(data=request.data)
-        if company.is_valid():
-            company = company.save()
+        serializer = CompanyRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            member = serializer.save()
             return Response({
-                'company': company.id
+                'company': member.company.id
             }, status=201)
         else:
-            return Response(company.errors, status=400)
+            return Response(serializer.errors, status=400)

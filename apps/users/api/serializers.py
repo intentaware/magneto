@@ -10,6 +10,7 @@ class BaseRegistrationSerializer(serializers.Serializer):
     password2 = serializers.CharField(max_length=128)
 
     def validate_email(self, value):
+        print value
         email = value.lower()
         try:
             User.objects.get(email=email)
@@ -18,28 +19,28 @@ class BaseRegistrationSerializer(serializers.Serializer):
             return value
 
     def validate_password2(self, value):
-        if value != self.data['password1']:
+        if value != self.initial_data['password1']:
             raise serializers.ValidationError('Password Mismatch')
         else:
             return value
 
 
-class UserRegistrationSerializer(serializers.Serializer):
+class UserRegistrationSerializer(BaseRegistrationSerializer):
 
-    def save(self, **kwargs):
-        email = self.validated_data('email')
-        password = self.validated_data('password2')
+    def create(self, validated_data):
+        email = validated_data['email']
+        password = validated_data['password2']
 
         return User.objects.create_user(email, password)
 
 
-class CompanyRegistrationSerializer(serializers.Serializer):
+class CompanyRegistrationSerializer(BaseRegistrationSerializer):
     name = serializers.CharField(max_length=128)
 
-    def save(self, **kwargs):
-        name = self.validated_data('name')
-        email = self.validated_data('email')
-        password = self.validated_data('password2')
+    def create(self, validated_data):
+        name = validated_data['name']
+        email = validated_data['email']
+        password = validated_data['password2']
 
         user = User.objects.create_user(email=email, password=password)
 
