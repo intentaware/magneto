@@ -16,13 +16,13 @@
 
   <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}../static/dash/bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}dash/bower_components/angular-material/angular-material.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:css({.tmp/serve,src}) styles/app.css -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}dash//.tmp/serve/app/index.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}dash/.tmp/serve/styles/main.css">
   <!-- endinject -->
   <!-- endbuild -->
 
@@ -41,18 +41,19 @@
     </button>
     <h1>Adomatic</h1>
   </md-toolbar>
-
-  <!--
+    {% comment %}
+    <!--
          Use `flex` [below] to have the side bar and content area
          fill the available vertical display area
      -->
 
-  <div layout="row" flex>
+    <div layout="row" flex>
 
     <!--
           Use `flex` [below] to have the content area
           fill the available horizontal display area on the right side
       -->
+      {% endcomment %}
     <div ng-view></div>
   </div>
 

@@ -5,7 +5,7 @@ from .views import UserRegistrationView, CompanyRegistrationView
 
 urlpatterns = patterns('', 
     url(r'^register/$', 
-        UserRegistrationView.as_view(), name='registration_user',),
+        UserRegistrationView.as_view(), name='registration_register',),
     url(r'^company/$', 
         CompanyRegistrationView.as_view(), name='registration_company'),    
     (r'', include('registration.auth_urls')),

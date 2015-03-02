@@ -46,67 +46,85 @@ var wiredep = require('wiredep').stream;
   var injectOptions = {
     //ignorePath: [paths.src, paths.tmp + '/serve'],
     addRootSlash: false,
-    addPrefix: "{{ STATIC_URL }}dash/",
+    addPrefix: "{{ STATIC_URL }}dash"
     //relative: true
   };
 
-  var wiredepOptions = {
+  var wiredepScripts = {
     directory: 'bower_components',
     ignorePath: '../../static/',
-    exclude: [/bootstrap\.css/, /foundation\.css/],
+    exclude: ['.css'],
     fileTypes: {
       html: {
         replace: {
-          js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>',
+          js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>'
+          //css: '<link rel="stylesheet" href="{{ STATIC_URL }}{{filePath}}" />'
+        }
+      }
+    }
+  };
+
+var wiredepStyles = {
+    directory: 'bower_components',
+    ignorePath: '../static/',
+    exclude: ['.js'],
+    fileTypes: {
+      html: {
+        replace: {
+          //js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>'
           css: '<link rel="stylesheet" href="{{ STATIC_URL }}{{filePath}}" />'
         }
       }
     }
   };
 
-
-// injecting into dashboard
-gulp.task('inject:dashboard', ['styles'], function() {
-
-  var injectScripts = gulp.src([
-    paths.src + '/{app,components}/**/*.js',
-    '!' + paths.src + '/{app,components}/**/*.spec.js',
-    '!' + paths.src + '/{app,components}/**/*.mock.js'
-  ]).pipe($.angularFilesort());
-
-  return gulp.src(paths.django.debug + '/__base.html')
-    .pipe($.inject(injectScripts, injectOptions))
-    .pipe(wiredep(wiredepOptions))
-    .pipe(gulp.dest(paths.django.debug));
-
-});
 // injection into common base
 gulp.task('inject:common', ['styles'], function() {
   var injectStyles = gulp.src([
-    paths.tmp + '/serve/{app,components}/**/*.css',
-    '!' + paths.tmp + '/serve/app/vendor.css'
+    paths.tmp + '/serve/**/*.css',
+    //'!' + paths.tmp + '/serve/app/vendor.css'
   ], {
     read: false
   }).pipe($.print());
 
   return gulp.src(paths.django.common + '/__base.html')
     .pipe($.inject(injectStyles, injectOptions))
-    .pipe(wiredep(wiredepOptions))
+    .pipe(wiredep(wiredepStyles))
     .pipe(gulp.dest(paths.django.common));
+});
+
+
+// injecting into dashboard
+gulp.task('inject:dashboard', ['styles'], function() {
+
+  var injectScripts = gulp.src([
+    paths.src + '/js/**/*.js',
+    '!' + paths.src + '/js/auth/**/*.js'
+    //'!' + paths.src + '/{app,components}/**/*.spec.js',
+    //'!' + paths.src + '/{app,components}/**/*.mock.js'
+  ]).pipe($.angularFilesort())
+    .pipe($.jshint())
+    .pipe($.jshint.reporter('jshint-stylish'));
+
+  return gulp.src(paths.django.debug + '/__base.html')
+    .pipe($.inject(injectScripts, injectOptions))
+    .pipe(wiredep(wiredepScripts))
+    .pipe(gulp.dest(paths.django.debug));
+
 });
 
 // injecting into auth
 gulp.task('inject:auth', ['styles'], function() {
 
   var injectScripts = gulp.src([
-    paths.src + '/auth/**/*.js',
-    '!' + paths.src + '/auth/**/*.spec.js',
-    '!' + paths.src + '/auth/**/*.mock.js'
+    paths.src + '/js/auth/**/*.js'
+    //'!' + paths.src + '/auth/**/*.spec.js',
+    //'!' + paths.src + '/auth/**/*.mock.js'
   ]).pipe($.angularFilesort());
 
   return gulp.src(paths.django.auth + '/__base.html')
     .pipe($.inject(injectScripts, injectOptions))
-    .pipe(wiredep(wiredepOptions))
+    .pipe(wiredep(wiredepScripts))
     .pipe(gulp.dest(paths.django.auth));
 
 });

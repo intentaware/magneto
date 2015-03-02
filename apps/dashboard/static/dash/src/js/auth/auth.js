@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('auth', ['ngMaterial'])
+angular.module('auth', ['ngMaterial', 'ngMessages'])
   .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
-      .primaryPalette('pink')
+      .primaryPalette('blue')
       .accentPalette('orange');
   })
   .controller('AuthCtrl', function() {
-
   });
+

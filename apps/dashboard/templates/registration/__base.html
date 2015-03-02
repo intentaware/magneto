@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-  <div ng-app="auth" ng-controller="AuthCtrl">
+  <div ng-app="auth" class="auth" ng-controller="AuthCtrl" layout="row" layout-align="center center" layout-fill>
     {% block auth_content %}
     {% endblock %}
   </div>
@@ -20,12 +20,13 @@
   <script src="{{ STATIC_URL }}dash/bower_components/angular-route/angular-route.js"></script>
   <script src="{{ STATIC_URL }}dash/bower_components/angular-aria/angular-aria.js"></script>
   <script src="{{ STATIC_URL }}dash/bower_components/angular-material/angular-material.js"></script>
+  <script src="{{ STATIC_URL }}dash/bower_components/angular-messages/angular-messages.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
   <!-- inject:js -->
-  <script src="{{ STATIC_URL }}dash//src/auth/auth.js"></script>
+  <script src="{{ STATIC_URL }}dash/src/js/auth/auth.js"></script>
   <!-- endinject -->
 
   <!-- inject:partials -->

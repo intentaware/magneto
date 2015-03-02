@@ -13,9 +13,7 @@ gulp.task('styles', function () {
   };
 
   var injectFiles = gulp.src([
-    paths.src + '/{app,components}/**/*.scss',
-    '!' + paths.src + '/app/index.scss',
-    '!' + paths.src + '/app/vendor.scss'
+    paths.src + '/assets/styles/**/*.scss'
   ], { read: false });
 
   var injectOptions = {
@@ -29,21 +27,19 @@ gulp.task('styles', function () {
     addRootSlash: false
   };
 
-  var indexFilter = $.filter('index.scss');
+  var indexFilter = $.filter('main.scss');
 
   return gulp.src([
-    paths.src + '/app/index.scss',
-    paths.src + '/app/vendor.scss'
+    paths.src + '/assets/styles/main.scss'
   ])
-    .pipe(indexFilter)
-    .pipe($.inject(injectFiles, injectOptions))
-    .pipe(indexFilter.restore())
+    //.pipe(indexFilter)
+    //.pipe($.inject(injectFiles, injectOptions))
+    //.pipe(indexFilter.restore())
     .pipe($.sass(sassOptions))
-
-  .pipe($.autoprefixer())
+    .pipe($.autoprefixer())
     .on('error', function handleError(err) {
       console.error(err.toString());
       this.emit('end');
     })
-    .pipe(gulp.dest(paths.tmp + '/serve/app/'));
+    .pipe(gulp.dest(paths.tmp + '/serve/styles'));
 });

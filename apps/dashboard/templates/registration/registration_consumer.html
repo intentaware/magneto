@@ -1,11 +1,37 @@
-{% extends "__base.html" %}
-{% load i18n %}
+{% extends "registration/__base.html" %}
+{% load i18n widget_tweaks %}
 
-{% block content %}
+{% block auth_content %}
+<div class="layout-vertical" flex="50">
+  <md-content class="md-padding" layout="column">
+    <form method="post" action=".">
+      {% csrf_token %}
+      <md-input-container>
+        <label>{{ form.email.label }}</label>
+        {% render_field form.email placeholder=form.email.label %}
+      </md-input-container>
+      <md-input-container>
+        <label>{{ form.password1.label }}</label>
+        {% render_field form.password1 placeholder=form.password1.label ng-model="password1" %}
+      </md-input-container>
+      <md-input-container>
+        <label>{{ form.password2.label }}</label>
+          {% render_field form.password2 placeholder=form.password2.label ng-model="password2" %}
+          <div ng-messages="">
+              <div ng-message>Please retype your password again</div>
+          </div>
+      </md-input-container>
+      <md-button class="md-raised md-primary" type="submit">Register</md-button>
+    </form>
+  </md-content>
+</div>
+{% comment %}
 <form method="post" action=".">
   {% csrf_token %}
   {{ form.as_p }}
 
   <input type="submit" value="{% trans 'Submit' %}" />
 </form>
+{% endcomment %}
 {% endblock %}
+

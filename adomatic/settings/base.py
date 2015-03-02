@@ -53,7 +53,7 @@ ADOMATIC_APPS = (
     'apps.ads',
     'apps.impressions',
 
-    #for front end
+    # for front end
     'apps.dashboard',
 )
 
