@@ -36,6 +36,7 @@ DEFAULT_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
 )
 
@@ -43,6 +44,10 @@ THIRD_PARTY_APPS = (
     'registration',
     'taggit',
     'widget_tweaks',
+
+    # django photologue
+    'photologue',
+    'sortedm2m',
 )
 
 ADOMATIC_APPS = (

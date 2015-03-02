@@ -10,6 +10,9 @@ class Company(TimeStamped, SluggedFromName):
     is_active = models.BooleanField(default=True)
     users = models.ManyToManyField('users.User', through='companies.CompanyUser')
 
+    class Meta:
+        verbose_name_plural = "companies"
+
 
 class CompanyGroup(TimeStamped):
     name = models.CharField(max_length=128)
