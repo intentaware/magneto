@@ -158,6 +158,11 @@ def bower():
         env.run('bower install')
 
 
+def gulp():
+    with cd(env.dashboard):
+        env.run('gulp inject')
+
+
 def deploy():
     """
     pull the latest from the repo, and deploy accordingly
