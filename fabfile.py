@@ -155,7 +155,7 @@ def npm():
 
 def bower():
     with cd(env.dashboard):
-        env.run('bower install')
+        env.run('bower install --allow-root')
 
 
 def gulp():
