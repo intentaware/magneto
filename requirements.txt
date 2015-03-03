@@ -15,6 +15,7 @@ gnureadline==6.3.3
 ipython==2.4.1
 jsonfield==1.0.2
 paramiko==1.15.2
+psycopg2==2.6
 pycrypto==2.6.1
 requests==2.5.2
 six==1.9.0
