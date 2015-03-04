@@ -19,7 +19,6 @@ class BaseModel(models.Model):
         abstract = True
 
 
-
 class TimeStamped(BaseModel):
     """
     Provides created and updated timestamps on models.
@@ -37,7 +36,7 @@ class TimeStamped(BaseModel):
 
 class SluggedFromName(BaseModel):
     """
-    Quicly provides a slug field and automate its creation from name
+    Quickly provides a slug field and automate its creation from name
     """
     name = models.CharField(max_length=256)
     slug = AutoSlugField(populate_from='name', db_index=True)
