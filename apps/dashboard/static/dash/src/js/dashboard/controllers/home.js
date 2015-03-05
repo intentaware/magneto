@@ -5,4 +5,4 @@ angular.module('adomattic.dashboard')
     $scope.awesomeThings = [
       'angular structure test'
     ];
-  })
+  });
