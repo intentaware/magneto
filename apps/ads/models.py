@@ -26,6 +26,18 @@ class Ad(TimeStamped, ToCompany):
     # call to action
     c2a = models.URLField(verbose_name='Call to Action')
 
+    # sizes
+    SIZE_LEADERBOARD_STANDARD = '01'
+    SIZE_LEADERBOARD_LARGE = '02'
+    SIZE_LEADERBOARD_BILLBOARD = '03'
+
+    SIZE_RECTANGLE_MEDIUM = '11'
+    SIZE_RECTANGLE_LARGE = '12'
+    SIZE_HALFPAGE_STANDARD = '13'
+
+    SIZE_MOBILE_LARGE = '21'
+    SIZE_MOBILE_LEADERBOARD = '22'
+
     def increment(self):
         """
         increments the counter, whenever the ad is served
