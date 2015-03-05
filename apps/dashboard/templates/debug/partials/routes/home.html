@@ -24,9 +24,9 @@
           </md-input-container>
           <md-input-container flex="33">
             <label>Impressions</label>
-            <input type="number" min="1" name="serve_limit" ng-model="ad.serve_limit">
-            <div ng-messages="addAddForm.serve_limit.$error" ng-show="addAddForm.serve_limit.$dirty">
-              <div ng-message="min">Really? Do you really want to serve only one ad?</div>
+            <input type="number" min="10" name="serve_limit" ng-model="ad.serve_limit">
+            <div ng-messages="addAddForm.serve_limit.$error">
+              <div ng-message="min">This must be greater than 10</div>
             </div>
           </md-input-container>
         </div>
