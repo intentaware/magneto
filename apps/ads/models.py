@@ -11,12 +11,15 @@ class Ad(TimeStamped, ToCompany):
     starts_on = models.DateTimeField(null=True, blank=True)
     ends_on = models.DateTimeField(null=True, blank=True)
 
+    # set if it is a coupon ad
+    is_coupon_ad = models.BooleanField(default=False)
+
     # for ad serving purposes
     counter = models.BigIntegerField(default=0)
     serve_limit = models.BigIntegerField(default=100)
-    is_active = models.BooleanField(default=True)
 
-    is_coupon_ad = models.BooleanField(default=False)
+    # set the ad to inactive after the limit is served
+    is_active = models.BooleanField(default=True)
 
     # an ad can be part of many industries, we will leverage django-taggit
 
@@ -30,6 +33,15 @@ class Ad(TimeStamped, ToCompany):
         self.counter += self.counter
         self.save()
 
+    @property
+    def coupon_serve_limit(self):
+        """
+        Implement a method to get a cut of on serve limit
+        it will be mix of number of impressions, and number of coupon
+        served
+        :return:
+        """
+
 
 class Coupon(TimeStamped):
     code = ShortUUIDField()
@@ -40,4 +52,3 @@ class Coupon(TimeStamped):
 
     def __unicode__(self):
         return 'Ad: %s, Coupon: %s' %(self.ad.name, self.code)
-

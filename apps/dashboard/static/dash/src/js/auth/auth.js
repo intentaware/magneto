@@ -2,8 +2,8 @@
 
 angular.module('auth', ['ngMaterial', 'ngMessages'])
   .config(function($mdThemingProvider) {
-    $mdThemingProvider.theme('default')
-      .primaryPalette('blue')
+    $mdThemingProvider.theme('dark')
+      .primaryPalette('red')
       .accentPalette('orange');
   })
   .controller('AuthCtrl', function() {

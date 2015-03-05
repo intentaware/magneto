@@ -17,6 +17,8 @@ jsonfield==1.0.2
 paramiko==1.15.2
 psycopg2==2.6
 pycrypto==2.6.1
+pytz==2014.10
 requests==2.5.2
+shortuuid==0.4.2
 six==1.9.0
 wsgiref==0.1.2

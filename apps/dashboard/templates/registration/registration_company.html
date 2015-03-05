@@ -2,7 +2,7 @@
 {% load i18n widget_tweaks %}
 
 {% block auth_content %}
-<div class="layout-vertical" flex="50" flex-sm="100">
+<div flex="50" flex-sm="100" layout-align="center center">
   <md-content class="md-padding" layout="column">
     <form name="signupForm" method="post" action="." ng-controller="FormCtrl" ng-init="reg.name='{{ form.data.name }}'; reg.email='{{ form.data.email }}';">
       {% csrf_token %}
