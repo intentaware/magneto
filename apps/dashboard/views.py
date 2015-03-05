@@ -9,7 +9,7 @@ class LoginRequiredMixin(TemplateView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
+        return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
 class SetSessionData(TemplateView):
@@ -50,8 +50,6 @@ class DashboardView(SetSessionData):
             template = 'debug/__base.html'
         else:
             template = 'dist/__base.html'
-
-        print template
         return [template]
 
 
@@ -61,9 +59,10 @@ class AngularPartials(LoginRequiredMixin):
         from django.conf import settings
 
         if settings.DEBUG:
-            base = 'debug/__base.html'
+            base = 'debug/partials/'
         else:
-            base = 'dist/__base.html'
+            base = 'dist/partials/'
 
         template_name = base + self.kwargs['template_name']
+        print template_name
         return [template_name]

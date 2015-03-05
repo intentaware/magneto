@@ -11,7 +11,11 @@ angular.module('adomattic', [
   'adomattic.dashboard'
 ])
   .constant('urls', {
-    templateBaseUrl: '/partials/dashboard/',
+    partials: {
+      routes: '/dashboard/partials/routes/',
+      directives: '/dashboard/partials/directives/',
+      dialogs: '/dashboard/partials/dialogs/'
+    },
     apiBaseUrl: '/api/'
   })
   .config(function ($mdThemingProvider) {
@@ -22,7 +26,7 @@ angular.module('adomattic', [
   })
   .config(function ($routeProvider, urls) {
     $routeProvider.when('/', {
-      templateUrl: urls + 'home.js',
+      templateUrl: urls.partials.routes + 'home.html',
       controller: 'DashboardHome'
     });
   })

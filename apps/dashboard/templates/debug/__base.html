@@ -18,16 +18,26 @@
 
 
 {% block content %}
-<div ng-app="adomattic" layout="column"></div>
+  <div ng-app="adomattic" layout="column">
+    <md-toolbar layout="row">
+      <!--<button ng-click="toggleSidenav('left')" hide-gt-sm class="menuBtn">
+        <span class="visuallyhidden">Menu</span>
+      </button>-->
+      <h1>Adomatic</h1>
+    </md-toolbar>
+    <md-content ng-view>
+
+    </md-content>
+  </div>
 {% endblock %}
 
 {% block scripts_inline %}
   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
   <script>
-    (function(b, o, i, l, e, r) {
+    (function (b, o, i, l, e, r) {
       b.GoogleAnalyticsObject = l;
       b[l] || (b[l] =
-        function() {
+        function () {
           (b[l].q = b[l].q || []).push(arguments)
         });
       b[l].l = +new Date;
@@ -60,6 +70,7 @@
   <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
   <!-- inject:js -->
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/dashboard.js"></script>
+  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/home.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/app.js"></script>
   <!-- endinject -->
 
