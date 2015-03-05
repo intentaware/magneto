@@ -35,6 +35,9 @@ class CompanyUser(TimeStamped):
     # check whether the membership is active or not
     is_active = models.BooleanField(default=True)
 
+    # phone number
+    phone = models.CharField(max_length=32, blank=True, null=True)
+
     class Meta:
         unique_together = ('user', 'group', 'company')
 

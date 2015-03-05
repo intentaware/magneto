@@ -1,3 +1,42 @@
 {% verbatim %}
-  {{ awesomeThings[0] }}
+  <div layout="column">
+    <div flex="50" flex-sm="100">
+      <form name="addAdForm">
+        <md-input-container>
+          <label>Name</label>
+          <input type="text" name="name" ng-model="ad.name">
+        </md-input-container>
+        <md-input-container>
+          <label>Description</label>
+          <textarea name="description" ng-model="ad.description" md-maxlength="256">{{ ad.description }}</textarea>
+        </md-input-container>
+        <md-input-container>
+          <label></label>
+        </md-input-container>
+        <div layout="row" layout-sm="column">
+          <md-input-container flex="33">
+            <label>Start On</label>
+            <input type="date" name="starts_on" ng-model="ad.starts_on">
+          </md-input-container>
+          <md-input-container flex="33">
+            <label>Ends On</label>
+            <input type="date" name="ends_on" ng-model="ad.ends_on">
+          </md-input-container>
+          <md-input-container flex="33">
+            <label>Impressions</label>
+            <input type="number" min="1" name="serve_limit" ng-model="ad.serve_limit">
+            <div ng-messages="addAddForm.serve_limit.$error" ng-show="addAddForm.serve_limit.$dirty">
+              <div ng-message="min">Really? Do you really want to serve only one ad?</div>
+            </div>
+          </md-input-container>
+        </div>
+        <md-input-container>
+          <md-checkbox ng-model="ad.is_coupon_ad">
+            Is this a coupon ad?
+          </md-checkbox>
+        </md-input-container>
+        <md-button class="md-raised md-primary">Submit</md-button>
+      </form>
+    </div>
+  </div>
 {% endverbatim %}
