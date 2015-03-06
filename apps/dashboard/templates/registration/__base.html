@@ -3,8 +3,11 @@
 
 {% block content %}
   <div ng-app="auth" layout="column" layout-fill>
+  <md-toolbar layout="row">
+    <span><img src="{{ STATIC_URL }}dash/src/assets/images/redlogo.png" width="175"></span>
+  </md-toolbar>
 
-  <div ng-controller="AuthCtrl" layout="row" layout-align="center center" layout-fill>
+  <div ng-controller="AuthCtrl" layout="row" layout-align="center center" layout-fill flex>
 
     {% block auth_content %}
     {% endblock %}
