@@ -3,9 +3,11 @@ from apps.users.models import User
 
 
 class PasswordValidationForm(forms.Form):
-    password1 = forms.CharField(label='Password', 
+    password1 = forms.CharField(
+        label='Password',
         widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', 
+    password2 = forms.CharField(
+        label='Password confirmation',
         widget=forms.PasswordInput)
 
     def clean_password2(self):

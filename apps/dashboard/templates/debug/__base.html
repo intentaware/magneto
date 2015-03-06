@@ -18,7 +18,7 @@
 
 
 {% block content %}
-  <div ng-app="adomattic" layout="column">
+  <div ng-app="adomattic" layout="column" flex>
     <md-toolbar layout="row" layout-padding>
 
       <button ng-click="toggleSidenav('left')" hide-gt-sm class="menuBtn">
@@ -28,7 +28,7 @@
 
     </md-toolbar>
 
-    <div layout="row" flex>
+    <div layout="row">
       <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
                   md-is-locked-open="$media('gt-sm')">
         <md-button>Home</md-button>
@@ -39,8 +39,9 @@
         <md-divider></md-divider>
         <md-button>Logout</md-button>
       </md-sidenav>
-      <div layout="column" flex id="content">
-        <md-content layout="column" flex class="md-padding" ng-view></md-content>
+
+      <div layout="column" id="content" flex>
+        <md-content layout="column" class="md-padding" ng-view></md-content>
       </div>
     </div>
 
@@ -86,6 +87,8 @@
 
   <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
   <!-- inject:js -->
+  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/ads/list.js"></script>
+  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/ads/create.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/dashboard.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/api/ad.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/forms/create-ad.js"></script>

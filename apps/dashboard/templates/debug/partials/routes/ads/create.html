@@ -1,0 +1,68 @@
+{% verbatim %}
+  <div layout="column">
+    <div flex="50" flex-sm="100">
+      <form name="CreateAdForm" ng-controller="CreateAdFormCtrl" ng-submit="saveAd()">
+        <md-input-container>
+          <label>Name</label>
+          <input type="text" name="name" ng-model="ad.name">
+
+          <div ng-messages="CreateAdForm.name.$error">
+            <div ng-message="required">This is required, It will help you identify each ad from the other</div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <label>Description</label>
+          <textarea name="description" ng-model="ad.description" md-maxlength="256"
+                    required>{{ ad.description }}</textarea>
+
+          <div ng-messages="CreateAdForm.description.$error">
+            <div ng-message="required" ng-show="CreateAdForm.description.$error">Required</div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <label>Call to Action</label>
+          <input text="text" name="c2a" ng-model="ad.c2a" required>
+
+          <div ng-messages="CreateAdForm.c2a.$error">
+            <div ng-message>URL for this advertisment when it is clicked</div>
+          </div>
+        </md-input-container>
+        <div layout="row" layout-sm="column">
+          <md-input-container flex="33">
+            <label>Start On</label>
+            <input type="date" name="starts_on" ng-model="ad.starts_on">
+                        <div ng-messages="CreateAdForm.starts_on.$error">
+              <div ng-message>Start date for serving ad</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="33">
+            <label>Ends On</label>
+            <input type="date" name="ends_on" ng-model="ad.ends_on">
+                        <div ng-messages="CreateAdForm.c2a.$error">
+              <div ng-message>Cut of date</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="33">
+            <label>Impressions</label>
+            <input type="number" min="10" name="serve_limit" ng-model="ad.serve_limit">
+
+            <div ng-messages="CreateAdForm.serve_limit.$error" ng-show="CreateAdForm.$dirty">
+              <div ng-message="min">This must be greater than 10 {{ ad.serve_limit }}</div>
+            </div>
+          </md-input-container>
+        </div>
+        <md-input-container>
+          <label>Select Image</label>
+          <input type="file" name="file" ng-model="ad.image">
+        </md-input-container>
+        <md-input-container>
+          <md-checkbox ng-model="ad.is_coupon_ad">
+            Is this a coupon ad?
+          </md-checkbox>
+        </md-input-container>
+        <md-button class="md-raised md-primary">Submit</md-button>
+      </form>
+    </div>
+  </div>
+{% endverbatim %}
+
