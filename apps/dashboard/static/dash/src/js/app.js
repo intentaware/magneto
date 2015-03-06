@@ -19,7 +19,7 @@ angular.module('adomattic', [
     apiBaseUrl: '/api/'
   })
   .config(function ($mdThemingProvider) {
-    $mdThemingProvider.theme('dark')
+    $mdThemingProvider.theme('default')
       .primaryPalette('red')
       .accentPalette('orange');
 
