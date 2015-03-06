@@ -28,7 +28,7 @@ class UserRegistrationView(BaseRegistrationView):
         return new_user
 
     def get_success_url(self, request, user):
-        return '/backoffice/'
+        return '/dashboard/'
 
 
 class CompanyRegistrationView(BaseRegistrationView):
@@ -59,4 +59,4 @@ class CompanyRegistrationView(BaseRegistrationView):
         return new_user
 
     def get_success_url(self, request, user):
-        return '/backoffice/'
+        return '/dashboard/'
