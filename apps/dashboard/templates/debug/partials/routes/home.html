@@ -1,7 +1,7 @@
 {% verbatim %}
   <div layout="column">
     <div flex="50" flex-sm="100">
-      <form name="CreateAdForm" ng-controller="CreateAdFormCtrl">
+      <form name="CreateAdForm" ng-controller="CreateAdFormCtrl" ng-submit="saveAd()">
         <md-input-container>
           <label>Name</label>
           <input type="text" name="name" ng-model="ad.name">
@@ -47,7 +47,7 @@
             <input type="number" min="10" name="serve_limit" ng-model="ad.serve_limit">
 
             <div ng-messages="CreateAdForm.serve_limit.$error" ng-show="CreateAdForm.$dirty">
-              <div ng-message="min">This must be greater than 10</div>
+              <div ng-message="min">This must be greater than 10 {{ ad.serve_limit }}</div>
             </div>
           </md-input-container>
         </div>

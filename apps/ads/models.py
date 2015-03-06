@@ -26,6 +26,7 @@ class Ad(TimeStamped, ToCompany):
     # call to action
     c2a = models.URLField(verbose_name='Call to Action')
 
+
     # sizes
     SIZE_LEADERBOARD_STANDARD = '01'
     SIZE_LEADERBOARD_LARGE = '02'
