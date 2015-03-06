@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
+{% verbatim %}
+  <div layout="column" md-padding>
+    <div layout="row">
+      <h3>Your Ads
+        <small>{{ ads.length }}</small>
+      </h3>
+    </div>
+    <div layout="row">
+      <md-card ng-repeat="a in ads" flex="33" flex-sm="100">
+        <img src="/static/dash/src/assets/images/yeoman.png">
+        <span style="font-size: 120%;"><strong>{{ a.name }}</strong></span>
+        <md-divider></md-divider>
+        {{ a.description }}
+        <md-divider></md-divider>
+        <span><strong>Impressions: </strong> {{ a.counter }}</span>
+        <span><strong>Last Served On: </strong> {{ a.updated_on | date }}</span>
 
-</body>
-</html>
+
+      </md-card>
+    </div>
+  </div>
+{% endverbatim %}

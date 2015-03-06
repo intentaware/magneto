@@ -28,7 +28,14 @@ angular.module('adomattic', [
     $routeProvider.when('/', {
       templateUrl: urls.partials.routes + 'home.html',
       controller: 'DashboardHome'
-    });
+    })
+      .when('/ads/', {
+        templateUrl: urls.partials.routes + 'ads/list.html',
+        controller: 'DashboardAdList'
+      })
+      .when('/ads/create/', {
+        templateUrl: urls.partials.routes + 'ads/create.html'
+      });
   })
   .config(function ($resourceProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;

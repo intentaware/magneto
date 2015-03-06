@@ -1,6 +1,9 @@
 {% verbatim %}
   <div layout="column">
-    <div flex="50" flex-sm="100">
+    <div layout="row" class="md-raised">
+      <h3>Create New Add</h3>
+    </div>
+    <div flex="50" flex-sm="100" layout="row">
       <form name="CreateAdForm" ng-controller="CreateAdFormCtrl" ng-submit="saveAd()">
         <md-input-container>
           <label>Name</label>
