@@ -9,5 +9,5 @@ angular.module('auth', ['ngMaterial', 'ngMessages'])
   .controller('AuthCtrl', function() {
   })
   .controller('FormCtrl', function() {
+    console.log('Iam on vin')
   });
-
