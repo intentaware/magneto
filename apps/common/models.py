@@ -27,7 +27,7 @@ class TimeStamped(BaseModel):
     a particular record
     """
 
-    created_on = CreationDateTimeField()
+    added_on = CreationDateTimeField()
     updated_on = ModificationDateTimeField()
 
     class Meta:
