@@ -18,7 +18,7 @@
 
 
 {% block content %}
-  <div ng-app="adomattic" layout="column" flex>
+  <div ng-app="adomattic" layout="column">
 
     {% if debug %}
       {% include 'debug/partials/includes/header.html' %}
@@ -26,13 +26,13 @@
       {% include 'dist/partials/includes/header.html' %}
     {% endif %}
 
-    <div layout="row">
+    <div layout="horizontal">
       {% if debug %}
         {% include 'debug/partials/includes/sidebar.html' %}
       {% else %}
         {% include 'dist/partials/includes/sidebar.html' %}
       {% endif %}
-      <div layout="column" flex>
+      <div layout="vertical" flex>
         <md-content layout="column" class="md-padding" ng-view></md-content>
       </div>
     </div>
@@ -81,8 +81,8 @@
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/dashboard.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/ads/list.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/ads/create.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/forms/create-ad.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/api/ad.js"></script>
+  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/forms/create-ad.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/home.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/app.js"></script>
   <!-- endinject -->

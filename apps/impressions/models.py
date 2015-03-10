@@ -5,7 +5,7 @@ from apps.common.models import TimeStamped
 
 
 class Impression(TimeStamped):
-    ad = models.ForeignKey('ads.Ad', related_name='impressions')
+    ad = models.ForeignKey('campaigns.Campaign', related_name='impressions')
     data = JSONField(blank=True, null=True)
 
     # if the impression is made from an already logged in user

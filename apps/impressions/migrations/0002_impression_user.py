@@ -9,14 +9,14 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('companies', '0005_auto_20150220_1302'),
+        ('impressions', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='compnay',
-            name='users',
-            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, through='companies.CompanyUser'),
+            model_name='impression',
+            name='user',
+            field=models.ForeignKey(related_name='impressions', to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]

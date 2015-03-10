@@ -5,14 +5,12 @@ from django.db import models, migrations
 import django.utils.timezone
 import jsonfield.fields
 import django_extensions.db.fields
-from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ads', '0004_auto_20150301_2248'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('campaigns', '0001_initial'),
     ]
 
     operations = [
@@ -23,8 +21,7 @@ class Migration(migrations.Migration):
                 ('created_on', django_extensions.db.fields.CreationDateTimeField(default=django.utils.timezone.now, editable=False, blank=True)),
                 ('updated_on', django_extensions.db.fields.ModificationDateTimeField(default=django.utils.timezone.now, editable=False, blank=True)),
                 ('data', jsonfield.fields.JSONField(null=True, blank=True)),
-                ('ad', models.ForeignKey(related_name='impressions', to='ads.Ad')),
-                ('user', models.ForeignKey(related_name='impressions', to=settings.AUTH_USER_MODEL)),
+                ('ad', models.ForeignKey(related_name='impressions', to='campaigns.Campaign')),
             ],
             options={
                 'abstract': False,

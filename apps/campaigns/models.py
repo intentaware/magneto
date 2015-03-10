@@ -4,7 +4,7 @@ from django_extensions.db.fields import ShortUUIDField
 from apps.common.models import TimeStamped, ToCompany
 
 
-class Ad(TimeStamped, ToCompany):
+class Campaign(TimeStamped, ToCompany):
     name = models.CharField(max_length=256, default='')
     description = models.TextField(null=True, blank=True)
 
@@ -27,18 +27,6 @@ class Ad(TimeStamped, ToCompany):
     c2a = models.URLField(verbose_name='Call to Action')
 
 
-    # sizes
-    SIZE_LEADERBOARD_STANDARD = '01'
-    SIZE_LEADERBOARD_LARGE = '02'
-    SIZE_LEADERBOARD_BILLBOARD = '03'
-
-    SIZE_RECTANGLE_MEDIUM = '11'
-    SIZE_RECTANGLE_LARGE = '12'
-    SIZE_HALFPAGE_STANDARD = '13'
-
-    SIZE_MOBILE_LARGE = '21'
-    SIZE_MOBILE_LEADERBOARD = '22'
-
     def increment(self):
         """
         increments the counter, whenever the ad is served
@@ -58,7 +46,7 @@ class Ad(TimeStamped, ToCompany):
 
 class Coupon(TimeStamped):
     code = ShortUUIDField()
-    ad = models.ForeignKey('ads.Ad', related_name='coupons')
+    campaign = models.ForeignKey(Campaign, related_name='coupons')
     redeemed_on = models.DateTimeField(null=True, blank=True)
     claimed_on = models.DateTimeField(null=True, blank=True)
     claimed_by = models.ForeignKey('users.User')

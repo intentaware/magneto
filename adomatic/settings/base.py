@@ -55,7 +55,7 @@ ADOMATIC_APPS = (
     'apps.users',
     'apps.companies',
 
-    'apps.ads',
+    'apps.campaigns',
     'apps.impressions',
     'apps.brands',
 
