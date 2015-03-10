@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os, sys
+import os
 CONF_DIR = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.join(CONF_DIR, os.pardir)
 
@@ -23,7 +23,7 @@ SECRET_KEY = '$r^ufp^!he)i22(@yw#+%y&%-)t3cdvipxbz4#s)g^5gifitt-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 

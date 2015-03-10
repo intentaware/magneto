@@ -47,8 +47,8 @@ def stage():
     env.hosts = ['app.adomattic.com']
     env.user = 'root'
     env.key_filename = DEPLOY_KEY
-    #env.no_keys = True
-    #env.use_ssh_config = False
+    # env.no_keys = True
+    # env.use_ssh_config = False
     env.branch = 'develop'
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env

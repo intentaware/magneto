@@ -24,10 +24,7 @@ class SetSessionData(TemplateView):
         :return:
         """
         user = self.request.user
-        print user
-        print user.memberships.count()
         if user and user.memberships.count() > 0:
-            print True
             membership = user.memberships.get(is_default=True)
             request.session['company'] = membership.company.id
 
@@ -64,5 +61,4 @@ class AngularPartials(LoginRequiredMixin):
             base = 'dist/partials/'
 
         template_name = base + self.kwargs['template_name']
-        print template_name
         return [template_name]
