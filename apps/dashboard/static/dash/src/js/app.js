@@ -27,13 +27,13 @@ angular.module('adomattic', [
   .config(function ($routeProvider, urls) {
     $routeProvider.when('/', {
       templateUrl: urls.partials.routes + 'home.html',
-      controller: 'DashboardHome'
+      controller: 'HomeCtrl'
     })
-      .when('/ads/', {
+      .when('/campaigns/', {
         templateUrl: urls.partials.routes + 'ads/list.html',
-        controller: 'DashboardAdList'
+        controller: 'CampaignListCtrl'
       })
-      .when('/ads/create/', {
+      .when('/campaigns/create/', {
         templateUrl: urls.partials.routes + 'ads/create.html'
       });
   })

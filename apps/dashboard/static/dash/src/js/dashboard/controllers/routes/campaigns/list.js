@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('DashboardAdList', function($scope, Ad) {
+  .controller('CampaignListCtrl', function($scope, Ad) {
     $scope.ads = Ad.query();
   });

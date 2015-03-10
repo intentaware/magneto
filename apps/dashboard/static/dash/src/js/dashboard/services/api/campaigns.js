@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .factory('Ad', function($resource, urls) {
+  .factory('Campaign', function($resource, urls) {
     return $resource(
-      urls.apiBaseUrl + 'ads/ads/:id:doc/:list/',
+      urls.apiBaseUrl + 'campaigns/campaigns/:id:doc/:list/',
       {
         id: '@id',
         doc: '@doc',
