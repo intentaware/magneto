@@ -1,4 +1,22 @@
-<md-sidenav layout="vertical" class="md-sidenav-left md-whiteframe-z1"
-            md-component-id="left" md-is-locked-open="$media('gt-sm')" flex>
-  <md-content></md-content>
+<md-sidenav layout="row" class="md-sidenav-left md-whiteframe-z1"
+            md-component-id="left" md-is-locked-open="$media('gt-sm')">
+  <md-content flex>
+    <ul class="adomattic-menu">
+      <li class="menu-heading">
+        <md-button>Home</md-button>
+      </li>
+      <li class="menu-heading">
+        <md-button>Campaigns</md-button>
+        <ul class="adomattic-nested-menu">
+          <li><md-button>New Campaign</md-button></li>
+          <li><md-button>Current Campaigns</md-button></li>
+          <li><md-button>Past Campaigns</md-button></li>
+        </ul>
+      </li>
+      <li class="menu-heading">
+        <md-button>Logout</md-button>
+      </li>
+      <li class="menu-heading"></li>
+    </ul>
+  </md-content>
 </md-sidenav>
