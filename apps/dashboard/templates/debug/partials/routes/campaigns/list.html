@@ -14,7 +14,7 @@
                   <h4><strong>{{ c.name }}</strong></h4>
                   <p>{{ c.description }}</p>
                   <p>
-                    <strong>Strats On: </strong>{{ c.starts_on | date:'short' }} 
+                    <strong>Starts On: </strong>{{ c.starts_on | date:'short' }} 
                     || <strong>Ends On: </strong> {{ c.ends_on | date:'short' }}
                     || <strong>Impressions: </strong> <strong>{{ c.impressions || 0 }}</strong> served of <strong>{{ c.serve_limit }}</strong> allowed.
                   </p>
