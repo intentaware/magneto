@@ -20,7 +20,7 @@ angular.module('adomattic', [
   })
   .config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('default')
-      .primaryPalette('red')
+      .primaryPalette('grey')
       .accentPalette('orange');
 
   })
