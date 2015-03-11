@@ -1,10 +1,7 @@
 {% verbatim %}
   <div layout="column">
-    <div layout="row" class="md-raised">
-      <h3>Create New Add</h3>
-    </div>
-    <div flex="50" flex-sm="100" layout="row">
-      <form name="CreateAdForm" ng-controller="CreateAdFormCtrl" ng-submit="saveAd()">
+    <div layout="row">
+      <form name="CreateAdForm" ng-controller="CampaignFormCtrl" ng-submit="saveAd()" flex>
         <md-input-container>
           <label>Name</label>
           <input type="text" name="name" ng-model="ad.name">
@@ -63,7 +60,7 @@
             Is this a coupon ad?
           </md-checkbox>
         </md-input-container>
-        <md-button class="md-raised md-primary">Submit</md-button>
+        <md-button class="md-raised md-primary">Create New Campaign</md-button>
       </form>
     </div>
   </div>

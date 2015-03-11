@@ -16,7 +16,7 @@
     font-size: 300%;
     font-weight: 700;
     top: 20%;
-    right: -10%;
+    right: 0;
     @include transform(translate(-50%, -50%));
   }
 }
@@ -27,4 +27,8 @@
 
 .bg-past {
   @include background(#cc0000);
+}
+
+.tile-linked {
+  cursor: pointer;
 }

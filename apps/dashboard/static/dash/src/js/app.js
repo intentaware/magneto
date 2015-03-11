@@ -30,11 +30,11 @@ angular.module('adomattic', [
       controller: 'HomeCtrl'
     })
       .when('/campaigns/', {
-        templateUrl: urls.partials.routes + 'ads/list.html',
+        templateUrl: urls.partials.routes + 'campaigns/list.html',
         controller: 'CampaignListCtrl'
       })
       .when('/campaigns/create/', {
-        templateUrl: urls.partials.routes + 'ads/create.html'
+        templateUrl: urls.partials.routes + 'campaigns/create.html'
       });
   })
   .config(function ($resourceProvider) {

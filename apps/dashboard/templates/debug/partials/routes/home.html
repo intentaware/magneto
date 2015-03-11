@@ -1,9 +1,9 @@
 {% verbatim %}
 <div layout="row">
   <md-card class="md-whiteframe-z1" flex="33" flex-sm="100">
-    <div class="tile tile-normal bg-past">
+    <div class="tile tile-normal bg-past tile-linked" ng-click="gotoCampaignList()">
       <span class="announcement">
-        320
+        {{ campaigns.length || 0 }}
       </span>
       <span class="title">
         Campaigns
