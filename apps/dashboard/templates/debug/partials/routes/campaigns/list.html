@@ -1,22 +1,31 @@
 {% verbatim %}
   <div layout="column" md-padding>
-    <div layout="row">
-      <h3>Your Ads
-        <small>{{ ads.length }}</small>
-      </h3>
-    </div>
-    <div layout="row">
-      <md-card ng-repeat="a in ads" flex="33" flex-sm="100">
-        <img src="/static/dash/src/assets/images/yeoman.png">
-        <span style="font-size: 120%;"><strong>{{ a.name }}</strong></span>
-        <md-divider></md-divider>
-        {{ a.description }}
-        <md-divider></md-divider>
-        <span><strong>Impressions: </strong> {{ a.counter }}</span>
-        <span><strong>Last Served On: </strong> {{ a.updated_on | date }}</span>
-
-
-      </md-card>
-    </div>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span>Current Campaigns</span>
+        </div>
+      </md-toolbar>
+      <md-content class="md-whiteframe-z1">
+        <div flex>
+          <md-list>
+            <md-item ng-repeat="c in campaigns">
+              <md-item-content>
+                <div class="md-tile-content">
+                  <h4><strong>{{ c.name }}</strong></h4>
+                  <p>{{ c.description }}</p>
+                  <p>
+                    <strong>Strats On: </strong>{{ c.starts_on | date:'short' }} 
+                    || <strong>Ends On: </strong> {{ c.ends_on | date:'short' }}
+                    || <strong>Impressions: </strong> <strong>{{ c.impressions || 0 }}</strong> served of <strong>{{ c.serve_limit }}</strong> allowed.
+                  </p>
+                </div>
+                <div class="md-title-right" style="padding-right: 10px;">
+                  <md-button class="md-primary md-raised">EDIT</md-button>
+                </div>
+              </md-item-content>
+              <md-divider></md-divider>
+            </md-item>
+        </div>
+      </md-content>
   </div>
 {% endverbatim %}
