@@ -4,7 +4,7 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignFormCtrl', function($scope, Campaign) {
+  .controller('CampaignFormCtrl', function($scope, $location, Campaign) {
     console.log('i am the form');
     console.log($scope);
 
@@ -12,6 +12,7 @@ angular.module('adomattic.dashboard')
     $scope.saveAd = function() {
       Campaign.save($scope.ad).$promise.then(function(data) {
         console.log(data);
+        $location.path('/campaigns/');
       });
     };
   });
