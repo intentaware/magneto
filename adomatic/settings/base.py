@@ -124,6 +124,8 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 ACCOUNT_ACTIVATION_DAYS = 30
 
 
+# For Registration process to be called from WordPress
+REGISTRATION_API_KEY = 'WP_nEhj6FkTJNiFfiS5moVeUE'
 
 try:
     from local import *

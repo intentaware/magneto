@@ -1,7 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserRegistrationSerializer, CompanyRegistrationSerializer
 
+from apps.api.permissions import UserRegistrationAPIPermission
+from .serializers import UserRegistrationSerializer, CompanyRegistrationSerializer
 
 class UserRegistrationView(APIView):
 
@@ -18,6 +19,7 @@ class UserRegistrationView(APIView):
 
 
 class CompanyRegistrationView(APIView):
+    permission_classes = (UserRegistrationAPIPermission, )
 
     def post(self, request):
         serializer = CompanyRegistrationSerializer(data=request.data)
