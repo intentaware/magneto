@@ -7,8 +7,11 @@ from apps.common.models import *
 
 
 class Company(TimeStamped, SluggedFromName):
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     users = models.ManyToManyField('users.User', through='companies.CompanyUser')
+
+    is_advertiser = models.BooleanField(default=False)
+    is_publisher = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "companies"
