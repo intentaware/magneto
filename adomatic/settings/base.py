@@ -44,6 +44,7 @@ THIRD_PARTY_APPS = (
     'registration',
     'taggit',
     'widget_tweaks',
+    'corsheaders',
 
     # django photologue
     'photologue',
@@ -67,6 +68,7 @@ INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + ADOMATIC_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -126,6 +128,10 @@ ACCOUNT_ACTIVATION_DAYS = 30
 
 # For Registration process to be called from WordPress
 REGISTRATION_API_KEY = 'WP_nEhj6FkTJNiFfiS5moVeUE'
+
+# CORS Headers https://github.com/ottoyiu/django-cors-headers
+
+CORS_ORIGIN_REGEX_WHITELIST = ('^(http?://)?(\w+\.)?adomattic\.com$', )
 
 try:
     from local import *

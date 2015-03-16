@@ -1,6 +1,7 @@
 Django==1.7.4
 Fabric==1.10.1
 Pillow==2.7.0
+django-cors-headers==1.0.0
 django-extensions==1.5.0
 django-model-utils==2.2
 django-photologue==3.1.1
