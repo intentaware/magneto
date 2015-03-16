@@ -133,6 +133,16 @@ REGISTRATION_API_KEY = 'WP_nEhj6FkTJNiFfiS5moVeUE'
 
 CORS_ORIGIN_REGEX_WHITELIST = ('^(http?://)?(\w+\.)?adomattic\.com$', )
 
+CORS_ALLOW_HEADERS = (
+        'x-requested-with',
+        'content-type',
+        'accept',
+        'origin',
+        'authorization',
+        'x-csrftoken',
+        'wp-api-key',
+    )
+
 try:
     from local import *
 except ImportError:
