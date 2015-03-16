@@ -8,6 +8,8 @@ class BaseRegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=128)
     password1 = serializers.CharField(max_length=128)
     password2 = serializers.CharField(max_length=128)
+    first_name = serializers.CharField(max_length=128)
+    last_name = serializers.CharField(max_length=128)
 
     def validate_email(self, value):
         print value
@@ -36,15 +38,30 @@ class UserRegistrationSerializer(BaseRegistrationSerializer):
 
 class CompanyRegistrationSerializer(BaseRegistrationSerializer):
     name = serializers.CharField(max_length=128)
+    is_advertiser = serializers.BooleanField(required=False)
+    is_publisher = serializers.BooleanField(required=False)
 
     def create(self, validated_data):
         name = validated_data['name']
         email = validated_data['email']
         password = validated_data['password2']
+        try:
+            is_publisher = validated_data['is_publisher']
+        except:
+            is_publisher = False
 
-        user = User.objects.create_user(email=email, password=password)
+        try:
+            is_advertiser = validated_data['is_advertiser']
+        except:
+            is_advertiser = False
 
-        company = Company.objects.create(name=name)
+        user = User.objects.create_user(
+            email=email, password=password, first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'])
+
+        company = Company.objects.create(
+            name=name, is_advertiser=is_advertiser, is_publisher=is_publisher
+        )
         group = CompanyGroup.objects.create(name='Administrators', company=company)
         cu = CompanyUser.objects.create(
             user=user, company=company, group=group,
