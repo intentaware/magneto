@@ -46,15 +46,30 @@
             <label>Impressions</label>
             <input type="number" min="10" name="serve_limit" ng-model="ad.serve_limit">
 
-            <div ng-messages="CreateAdForm.serve_limit.$error" ng-show="CreateAdForm.$dirty">
+            <div ng-messages="CampaignAddForm.serve_limit.$error" ng-show="CreateAdForm.$dirty">
               <div ng-message="min">This must be greater than 10</div>
             </div>
           </md-input-container>
         </div>
-        <md-input-container>
-          <label>Select Image</label>
-          <input type="file" name="file" ng-model="ad.image">
-        </md-input-container>
+        <div layout="row" layout-sm="column">
+
+          <md-input-container flex="75">
+            <label>Select Image</label>
+            <input class="md-button" type="file" accept="image/*" read-file ng-model="ad.image" />
+          </md-input-container>
+
+          <md-card flex="25">
+            <md-toolbar>
+              <md-toolbar-tools>
+                Live Preview: {{ ad.name }}
+              </md-toolbar-tools>
+            </md-toolbar>
+            <img ng-src="{{ ad.image }}" width="100%">
+              <md-card-content>
+                <small>{{ ad.description }}</small>
+              </md-card-content>
+          </md-card>
+        </div>
         <md-input-container>
           <md-checkbox ng-model="ad.is_coupon_ad">
             Is this a coupon ad?

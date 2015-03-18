@@ -51,10 +51,10 @@
             </div>
           </md-input-container>
         </div>
-        <md-input-container>
-          <label>Select Image</label>
-          <input type="file" name="file" ng-model="ad.image">
-        </md-input-container>
+        <div>
+          <label>Select Image to Upload</label>
+          <input type="file" read-file ng-model="ad.image" />
+        </div>
         <md-input-container>
           <md-checkbox ng-model="ad.is_coupon_ad">
             Is this a coupon ad?

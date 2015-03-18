@@ -5,7 +5,6 @@
 
 angular.module('adomattic.dashboard')
   .controller('CampaignFormCtrl', function($scope, $location, Campaign) {
-    console.log('i am the form');
     console.log($scope);
 
 
