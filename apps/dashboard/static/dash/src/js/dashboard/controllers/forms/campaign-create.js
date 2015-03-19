@@ -4,14 +4,23 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignFormCtrl', function($scope, $location, Campaign) {
-    console.log($scope);
+  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, Campaign) {
+    var self = this;
 
+    self.ad = {
+      name: undefined,
+      description: undefined,
+      image: undefined
+    };
 
-    $scope.saveAd = function() {
-      Campaign.save($scope.ad).$promise.then(function(data) {
+    self.saveAd = function() {
+      Campaign.save(self.ad).$promise.then(function(data) {
         console.log(data);
         $location.path('/campaigns/');
       });
     };
+
+    $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {
+      $rootScope.$emit('campaginFormUpdated', self.ad);
+    })
   });

@@ -18,7 +18,7 @@
 
 
 {% block content %}
-  <div ng-app="adomattic" layout="column">
+  <div ng-app="adomattic" layout="column" flex layout-fill>
 
     {% if debug %}
       {% include 'debug/partials/includes/header.html' %}
@@ -26,7 +26,7 @@
       {% include 'debug/partials/includes/header.html' %}
     {% endif %}
 
-    <div layout="row">
+    <div layout="row" flex layout-fill>
       {% if debug %}
         {% include 'debug/partials/includes/sidebar.html' %}
       {% else %}

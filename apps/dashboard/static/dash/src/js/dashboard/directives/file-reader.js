@@ -5,32 +5,31 @@ angular.module('adomattic.dashboard')
     return {
       restrict: 'A',
       require: '?ngModel',
-      link: function (scope, elm, atr, ngModel) {
-        console.log(scope);
+      link: function(scope, elm, atr, ngModel) {
 
 
-        var bindElement = function () {
+        var bindElement = function() {
           ngModel.$render = function() {};
 
-          elm.bind('change', function (e) {
+          elm.bind('change', function(e) {
 
             var el = e.target;
 
             if (!el.value) {
-              return
+              return;
             }
 
-            var read = function (f) {
+            var read = function(f) {
               console.log(f);
               var d = $q.defer();
               var r = new FileReader();
 
-              r.onload = function (ev) {
+              r.onload = function(ev) {
                 console.log(ev);
                 d.resolve(ev.target.result);
               };
 
-              r.onerror = function (ev) {
+              r.onerror = function(ev) {
                 console.log(ev);
                 d.reject(ev);
               };
@@ -44,11 +43,13 @@ angular.module('adomattic.dashboard')
 
             console.log(e);
 
+            // jshint expr:true
+
             $q.all(Array.prototype.slice.call(el.files, 0).map(read))
-              .then(function (values) {
-                (el.multiple) ? ngModel.$setViewValue(values) : ngModel.$setViewValue(values.length ? values[0] : null);
+              .then(function(values) {
+                (el.multiple) ? ngModel.$setViewValue(values): ngModel.$setViewValue(values.length ? values[0] : null);
                 el.disabled = false;
-              })
+              });
           });
         };
 
