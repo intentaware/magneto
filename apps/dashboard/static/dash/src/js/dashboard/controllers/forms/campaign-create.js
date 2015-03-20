@@ -14,9 +14,13 @@ angular.module('adomattic.dashboard')
     };
 
     self.saveAd = function() {
+      self.$saving = true;
       Campaign.save(self.ad).$promise.then(function(data) {
         console.log(data);
         $location.path('/campaigns/');
+      }, function(data) {
+        console.log(data);
+        self.$saving = false;
       });
     };
 

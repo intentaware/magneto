@@ -1,9 +1,11 @@
 @import 'plugins/bourbon/bourbon';
+@import 'plugins/pace/pace';
 
 @import 'components/tiles';
 @import 'components/sidebar';
 @import 'components/header';
 @import 'components/fonts';
+@import 'components/campaigns';
 
 .browsehappy {
   margin: 0.2em 0;

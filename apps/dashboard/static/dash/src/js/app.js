@@ -68,3 +68,5 @@ angular.module('adomattic', [
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
   });
+
+// pace.js options
