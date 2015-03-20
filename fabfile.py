@@ -171,6 +171,7 @@ def deploy():
     install_requirements()
     update_envs()
     migrate()
+    bower()
     gulp()
     collect_static()
     restart_uwsgi()
