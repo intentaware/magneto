@@ -5,7 +5,7 @@
         <form name="CreateAdForm" ng-controller="CampaignFormCtrl as campaignForm" ng-submit="campaignForm.saveAd()" ng-disabled="campaignForm.$saving" flex>
           <md-input-container>
             <label>Name</label>
-            <input type="text" name="name" ng-model="campaignForm.ad.name">  
+            <input type="text" name="name" ng-model="campaignForm.ad.name" required>  
 
             <div ng-messages="CreateAdForm.name.$error">
               <div ng-message="required">This is required, It will help you identify each ad from the other</div>

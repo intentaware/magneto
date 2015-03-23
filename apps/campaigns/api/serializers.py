@@ -6,9 +6,16 @@ from apps.api.fields import Base64ImageField
 
 
 class CampaignSerializer(serializers.ModelSerializer):
+    preview_image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Campaign
+
+    def get_preview_image_url(self, obj):
+        if obj.image:
+            return obj.image.get_preview_url()
+        else:
+            return ''
 
 
 class CreateCampaignSerializer(serializers.ModelSerializer):
