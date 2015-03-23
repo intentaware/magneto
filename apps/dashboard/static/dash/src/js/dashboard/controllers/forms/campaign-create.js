@@ -26,5 +26,5 @@ angular.module('adomattic.dashboard')
 
     $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {
       $rootScope.$emit('campaginFormUpdated', self.ad);
-    })
+    });
   });

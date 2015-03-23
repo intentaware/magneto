@@ -7,6 +7,7 @@ angular.module('adomattic', [
     'ngSanitize',
     'ngResource',
     'ngRoute',
+    //'ngMessages',
     'ngMaterial',
     'adomattic.dashboard'
   ])
