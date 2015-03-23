@@ -65,7 +65,10 @@
               Is this a coupon ad?
             </md-checkbox>
           </md-input-container>
-          <md-button type="submit" class="md-raised md-primary">Create New Campaign <span ng-if="campaignForm.$saving">(Creating ...)</span></md-button>
+          <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving">
+            <span ng-if="!campaignForm.$saving">Creating New Campaign</span>
+            <span ng-if="campaignForm.$saving">Creating New Campaign</span>
+          </md-button>
         </form>
       </div>
       <div flex="25" class="md-padding">
