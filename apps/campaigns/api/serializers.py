@@ -29,9 +29,9 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
         image = validated_data.get('image')
         if image:
             image = Photo.objects.create(
-                image=image, title=image.name, slug=image.name
+                image=image, title=image.name,
+                slug=image.name
             )
         i = validated_data
         i['image'] = image
         return Campaign.objects.create(**i)
-

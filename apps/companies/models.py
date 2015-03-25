@@ -13,6 +13,8 @@ class Company(TimeStamped, SluggedFromName):
     is_advertiser = models.BooleanField(default=False)
     is_publisher = models.BooleanField(default=False)
 
+    publisher_key = ShortUUIDField(blank=True, null=True)
+
     class Meta:
         verbose_name_plural = "companies"
 
