@@ -1,5 +1,5 @@
 """
-Django settings for adomatic project.
+Django settings for adomattic project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, sys
 CONF_DIR = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.join(CONF_DIR, os.pardir)
 
