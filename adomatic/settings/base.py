@@ -67,6 +67,7 @@ ADOMATIC_APPS = (
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + ADOMATIC_APPS
 
 MIDDLEWARE_CLASSES = (
+    'apps.impressions.middleware.ImpressionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -140,7 +141,12 @@ CORS_ALLOW_HEADERS = (
         'authorization',
         'x-csrftoken',
         'wp-api-key',
+        'publisher-key',
     )
+
+# Impression Engine
+
+IMPRESSION_COOKIE_NAME = 'magneto'
 
 try:
     from local import *

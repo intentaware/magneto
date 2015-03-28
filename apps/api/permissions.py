@@ -4,7 +4,7 @@ from rest_framework.permissions import BasePermission
 class UserRegistrationAPIPermission(BasePermission):
 
     def has_permission(self, request, view):
-        p = request.META.get('HTTP_WP_API_KEY')
+        p = request.META.get('HTTP_WP_API_KEY', None)
         from django.conf import settings
         if p == settings.REGISTRATION_API_KEY:
             return True
