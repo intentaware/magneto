@@ -26,8 +26,7 @@ class Campaign(TimeStamped, ToCompany):
     # call to action
     c2a = models.URLField(verbose_name='Call to Action')
 
-    # photologue
-    
+    # photologue    
     image = models.ForeignKey('photologue.Photo', related_name='campaigns', blank=True, null=True)
 
 
