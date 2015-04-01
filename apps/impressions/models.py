@@ -9,6 +9,9 @@ class ImpressionUser(TimeStamped):
     user = models.ForeignKey('users.User', blank=True, null=True)
     key = ShortUUIDField()
 
+    def __unicode__(self):
+        return self.key
+
 
 class Impression(TimeStamped):
     campaign = models.ForeignKey('campaigns.Campaign', related_name='impressions')
@@ -21,3 +24,6 @@ class Impression(TimeStamped):
         self.meta = request._request.META
         self.visitor, created = ImpressionUser.objects.get_or_create(key=request.customer)
         self.publisher = request.publisher
+
+    def __unicode__(self):
+        return '%s: %s' %(self.campaign, self.id)

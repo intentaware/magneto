@@ -29,6 +29,9 @@ class Campaign(TimeStamped, ToCompany):
     # photologue    
     image = models.ForeignKey('photologue.Photo', related_name='campaigns', blank=True, null=True)
 
+    def __unicode__(self):
+        return self.name
+    
 
     def increment(self):
         """

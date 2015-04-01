@@ -29,7 +29,8 @@ var addUnits = function (data, p) {
 //addUnits();
 
 axios({
-  url: 'http://localhost:8000/api/impressions/i/',
+  //url: 'http://localhost:8000/api/impressions/i/',
+  url: 'http://app.adomattic.com/api/impressions/i/',
   method: 'GET',
   headers: {
     'PUBLISHER-KEY': document['adomattic']
