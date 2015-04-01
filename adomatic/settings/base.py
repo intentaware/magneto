@@ -110,11 +110,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
+# Static Url is to be set as per the machine
+#STATIC_URL = '/static/'
 
 # Media files (All the uploads)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# Media Url is to be set as per the machine
+#MEDIA_URL = '/media/'
 
 # Authentication (and Registration-Redux)
 AUTH_USER_MODEL = 'users.User'
@@ -131,7 +133,14 @@ REGISTRATION_API_KEY = 'WP_nEhj6FkTJNiFfiS5moVeUE'
 
 # CORS Headers https://github.com/ottoyiu/django-cors-headers
 
-CORS_ORIGIN_REGEX_WHITELIST = ('^(http?://)?(\w+\.)?adomattic\.com$', )
+#CORS_ORIGIN_REGEX_WHITELIST = (
+#    '^(http?://)?(\w+\.)?adomattic\.com$',
+#    '^(http?://)?localhost:9000$'
+#)
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = (
         'x-requested-with',
@@ -142,6 +151,8 @@ CORS_ALLOW_HEADERS = (
         'x-csrftoken',
         'wp-api-key',
         'publisher-key',
+        'access-control-allow-origin',
+        'access-control-allow-credentials'
     )
 
 # Impression Engine

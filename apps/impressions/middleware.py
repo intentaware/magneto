@@ -18,6 +18,9 @@ class ImpressionMiddleware(object):
     def process_response(self, request, response):
         publisher = getattr(request, 'publisher', None)
         if publisher:
-            customer = shortuuid.uuid()
+            if request.customer:
+                customer = request.customer
+            else:
+                customer = shortuuid.uuid()
             response.set_signed_cookie('customer', customer)
         return response

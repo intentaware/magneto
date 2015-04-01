@@ -13,9 +13,11 @@ class ImpressionUser(TimeStamped):
 class Impression(TimeStamped):
     campaign = models.ForeignKey('campaigns.Campaign', related_name='impressions')
     meta = JSONField(blank=True, null=True)
-    user = models.ForeignKey(ImpressionUser, related_name='impressions')
-    pubisher = models.ForeignKey('companies.Company', related_name='impressions')
+    visitor = models.ForeignKey(ImpressionUser, related_name='impressions')
+    publisher = models.ForeignKey('companies.Company', related_name='impressions')
 
-    def new(self, request):
-        p = request.pubisher
-        return pubisher
+    def create_from_request(self, request, campaign):
+        self.campaign = campaign
+        self.meta = request._request.META
+        self.visitor, created = ImpressionUser.objects.get_or_create(key=request.customer)
+        self.publisher = request.publisher
