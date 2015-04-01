@@ -18,6 +18,10 @@ class Company(TimeStamped, SluggedFromName):
     class Meta:
         verbose_name_plural = "companies"
 
+    def get_target_campaigns(self, request):
+        from apps.campaigns.models import Campaign
+        return Campaign.objects.all().exclude(image=None).order_by('?')
+
 
 class CompanyGroup(TimeStamped):
     name = models.CharField(max_length=128)

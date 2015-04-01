@@ -10,3 +10,12 @@ class UserRegistrationAPIPermission(BasePermission):
             return True
         else:
             return False
+
+
+class PublisherAPIPermission(BasePermission):
+
+    def has_permission(self, request, view):
+        company = getattr(request, 'publisher', False)
+        if company:
+            return True
+        return False
