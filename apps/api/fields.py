@@ -39,8 +39,8 @@ class Base64ImageField(ImageField):
         if isinstance(base64_data, string_type):
             # Try to decode the file. Return validation error if it fails.
             frmt, b64_data = base64_data.split(';base64,')
-            print frmt
-            print b64_data
+            # print frmt
+            # print b64_data
             try:
                 decoded_file = base64.b64decode(b64_data)
             except TypeError:
