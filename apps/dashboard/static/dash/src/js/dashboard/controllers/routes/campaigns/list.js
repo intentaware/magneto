@@ -15,5 +15,5 @@ angular.module('adomattic.dashboard')
         targetEvent: ev,
         parent: angular.element(document.body)
       });
-    }
+    };
   });
