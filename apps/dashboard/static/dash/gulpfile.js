@@ -5,7 +5,7 @@ var gulp = require('gulp');
 gulp.paths = {
   src: 'src',
   dist: 'dist',
- compile: 'compile',
+  compile: 'compile',
   e2e: 'e2e',
   django: {
     debug: '../../templates/debug',
@@ -18,5 +18,5 @@ gulp.paths = {
 require('require-dir')('./gulp');
 
 gulp.task('default', ['clean'], function () {
-    gulp.start('build');
+    gulp.start('serve');
 });

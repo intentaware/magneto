@@ -51,11 +51,11 @@ class CompanyUser(TimeStamped):
         unique_together = ('user', 'group', 'company')
 
     def __unicode__(self):
-        return '%s: %s' %(self.company.name, self.user.name)
+        return '%s: %s' %(self.company.name, self.user)
 
     def set_default(self):
         if not self.is_active:
-            self.user.membership.all().update(is_active=False)
+            self.user.memberships.all().update(is_active=False)
             self.is_active = True
             self.save()
 

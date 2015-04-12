@@ -46,7 +46,8 @@ angular.module('adomattic', [
       });
   })
   .config(function($routeProvider, urls) {
-    $routeProvider.when('/', {
+    $routeProvider
+      .when('/', {
         templateUrl: urls.partials.routes + 'home.html',
         controller: 'HomeCtrl'
       })
@@ -58,7 +59,13 @@ angular.module('adomattic', [
         templateUrl: urls.partials.routes + 'campaigns/create.html',
         controller: 'CampaignCreateCtrl',
         controllerAs: 'campaignCreateRoute'
-      });
+      })
+      .when('/settings/', {
+        templateUrl: urls.partials.routes + 'settings/main.html',
+        controller: 'SettingsCtrl',
+        controllerAs: 'settings'
+      })
+      .otherwise('/');
   })
   .config(function($resourceProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;

@@ -1,5 +1,5 @@
 {% extends '__base.html' %}
-{% load i18n %}
+{% load i18n to_json %}
 
 {% block meta %}
   <meta charset="utf-8">
@@ -18,7 +18,7 @@
 
 
 {% block content %}
-  <div ng-app="adomattic" layout="column" flex layout-fill>
+  <div ng-app="adomattic" layout="column" flex layout-fill ng-init="globals = {{ globals | jsonify }};">
 
     {% if debug %}
       {% include 'debug/partials/includes/header.html' %}

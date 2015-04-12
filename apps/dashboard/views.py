@@ -1,8 +1,11 @@
+import json
+
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
+
+from .serializers import *
 
 
 class LoginRequiredMixin(TemplateView):
@@ -48,6 +51,22 @@ class DashboardView(SetSessionData):
         else:
             template = 'dist/__base.html'
         return [template]
+
+    def get_context_data(self, **kwargs):
+        """
+        sets the context data and global defaults for angular
+        """
+        request = self.request
+        user = DashboardUserSerializer(request.user).data
+        company = DashboardCompanySerializer(
+                request.user.memberships.get(is_default=True).company
+            ).data
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        context['globals'] = {
+            'user': user,
+            'company': company
+        }
+        return context
 
 
 class AngularPartials(LoginRequiredMixin):

@@ -24,21 +24,22 @@ gulp.task('partials', function () {
     .pipe(gulp.dest(paths.compile + '/partials/'));
 });
 
-gulp.task('html', ['inject', 'partials'], function () {
-  var partialsInjectFile = gulp.src(paths.compile + '/partials/templateCacheHtml.js', { read: false });
+gulp.task('html', ['inject'], function () {
+  /*var partialsInjectFile = gulp.src(paths.compile + '/partials/templateCacheHtml.js', { read: false });
   var partialsInjectOptions = {
     starttag: '<!-- inject:partials -->',
     ignorePath: paths.compile + '/partials',
     addRootSlash: false
   };
+  */
 
   var htmlFilter = $.filter('*.html');
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
   var assets;
 
-  return gulp.src(paths.compile + '/serve/*.html')
-    .pipe($.inject(partialsInjectFile, partialsInjectOptions))
+  return gulp.src(paths.django.debug + '/__base.html')
+    //.pipe($.inject(partialsInjectFile, partialsInjectOptions))
     .pipe(assets = $.useref.assets())
     .pipe($.rev())
     .pipe(jsFilter)
@@ -58,7 +59,7 @@ gulp.task('html', ['inject', 'partials'], function () {
       quotes: true
     }))
     .pipe(htmlFilter.restore())
-    .pipe(gulp.dest(paths.dist + '/'))
+    .pipe(gulp.dest(paths.django.dist + '/'))
     .pipe($.size({ title: paths.dist + '/', showFiles: true }));
 });
 
@@ -81,7 +82,7 @@ gulp.task('misc', function () {
 
 gulp.task('clean', function (done) {
   $.del([paths.dist + '/', paths.compile + '/'], done);
-  $.del([paths.djangocompile + '/'], {force: true});
+  $.del([paths.django.dist + '/'], {force: true});
 });
 
 gulp.task('build', ['html', 'images', 'fonts', 'misc']);
