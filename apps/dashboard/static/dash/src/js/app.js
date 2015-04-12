@@ -48,8 +48,8 @@ angular.module('adomattic', [
   .config(function($routeProvider, urls) {
     $routeProvider
       .when('/', {
-        templateUrl: urls.partials.routes + 'home.html',
-        controller: 'HomeCtrl'
+        templateUrl: urls.partials.routes + 'landing/__base.html',
+        //controller: 'HomeCtrl'
       })
       .when('/campaigns/', {
         templateUrl: urls.partials.routes + 'campaigns/list.html',

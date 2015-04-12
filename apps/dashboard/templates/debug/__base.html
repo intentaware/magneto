@@ -88,7 +88,9 @@
 
   <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
   <!-- inject:js -->
+  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/landing/publishers.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/dashboard.js"></script>
+  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/landing/campaigners.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/campaigns/list.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/campaigns/create.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/dialogs/campaigns/preview.js"></script>
@@ -97,7 +99,6 @@
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/navigation/header.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/forms/campaign-create.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/directives/file-reader.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/home.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/app.js"></script>
   <!-- endinject -->
 
