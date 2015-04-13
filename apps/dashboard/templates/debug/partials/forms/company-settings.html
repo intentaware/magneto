@@ -1,7 +1,7 @@
 {% verbatim %}
   <div layout-fill>
     <div layout layout-sm="column" layout-padding>
-      <form name="SettingsForm" ng-controller="SettingsFormCtrl as settingsForm" flex>
+      <form name="SettingsForm" ng-controller="SettingsFormCtrl as settingsForm" ng-submit="settingsForm.updateSettings()" flex>
         <div layout layout-sm="column">
         <md-input-container flex>
           <label>Name</label>
@@ -32,6 +32,9 @@
           <md-checkbox ng-model="settingsForm.company.is_publisher" ng-disbaled="settingsForm.company.is_publisher" flex>
               Publisher?
           </md-checkbox>
+        </div>
+        <div layout layout-sm="column">
+          <md-button type="submit" class="md-raised md-primary">Update Settings</md-button>
         </div>
       </form>
     </div>
