@@ -5,7 +5,7 @@
         <form name="CreateAdForm" ng-controller="CampaignFormCtrl as campaignForm" ng-submit="campaignForm.saveAd()" ng-disabled="campaignForm.$saving" flex>
           <md-input-container>
             <label>Name</label>
-            <input type="text" name="name" ng-model="campaignForm.ad.name" required>  
+            <input type="text" name="name" ng-model="campaignForm.ad.name" required>
 
             <div ng-messages="CreateAdForm.name.$error">
               <div ng-message="required">This is required, It will help you identify each ad from the other</div>
@@ -14,7 +14,7 @@
           <md-input-container>
             <label>Description</label>
             <textarea name="description" ng-model="campaignForm.ad.description" md-maxlength="256"
-                      required>{{ campaignForm.ad.description }}</textarea>  
+                      required>{{ campaignForm.ad.description }}</textarea>
 
             <div ng-messages="CreateAdForm.description.$error">
               <div ng-message="required" ng-show="CreateAdForm.description.$error">Required</div>
@@ -22,7 +22,7 @@
           </md-input-container>
           <md-input-container>
             <label>Call to Action</label>
-            <input text="text" name="c2a" ng-model="campaignForm.ad.c2a" required> 
+            <input text="text" name="c2a" ng-model="campaignForm.ad.c2a" required>
 
             <div ng-messages="CreateAdForm.c2a.$error">
               <div ng-message>URL for this advertisment when it is clicked</div>
@@ -44,20 +44,20 @@
               </div>
             </md-input-container>
             <md-input-container flex="33">
-              <label>Impressions</label>
-              <input type="number" min="10" name="serve_limit" ng-model="campaignForm.ad.serve_limit"> 
+              <label>Budget</label>
+              <input type="number" step=".01" name="budget" ng-model="campaignForm.ad.budget">
 
-              <div ng-messages="CampaignAddForm.serve_limit.$error" ng-show="CreateAdForm.$dirty">
-                <div ng-message="min">This must be greater than 10</div>
+              <div ng-messages="CampaignAddForm.budget.$error" ng-show="!campaignForm.ad.is_coupon_ad && campaignForm.ad.budget">
+                <div ng-message="min">This will buy you <strong>{{ campaignForm.ad.budget * globals.company.impressions_per_dollar }}</strong> impressions</div>
               </div>
             </md-input-container>
           </div>
-          <div layout="row" layout-sm="column"> 
+          <div layout="row" layout-sm="column">
 
             <md-input-container>
               <label>Select Image</label>
               <input class="md-button" type="file" accept="image/*" read-file ng-model="campaignForm.ad.image" />
-            </md-input-container> 
+            </md-input-container>
 
           </div>
           <md-input-container>
