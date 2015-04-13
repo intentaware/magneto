@@ -61,9 +61,7 @@ angular.module('adomattic', [
         controllerAs: 'campaignCreateRoute'
       })
       .when('/settings/', {
-        templateUrl: urls.partials.routes + 'settings/main.html',
-        controller: 'SettingsCtrl',
-        controllerAs: 'settings'
+        templateUrl: urls.partials.routes + 'settings/__base.html',
       })
       .otherwise('/');
   })

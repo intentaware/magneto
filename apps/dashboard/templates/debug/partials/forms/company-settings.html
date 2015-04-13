@@ -1,0 +1,32 @@
+{% verbatim %}
+  <div layout-fill>
+    <div layout layout-sm="column" layout-padding>
+      <form name="SettingsForm" ng-controller="SettingsFormCtrl as settingsForm" flex>
+        <div layout layout-sm="column">
+        <md-input-container flex>
+          <label>Name</label>
+          <input type="text" name="name" ng-model="settingsForm.company.name" ng-disabled='true'>
+          <div ng-messages="settingsForm.company.name.$error">
+            <div ng-message="required" class="disabled">Name of your company</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex>
+          <label>API Key</label>
+          <input type="text" name="publisher_key" ng-model="settingsForm.company.publisher_key" ng-disabled='true'>
+          <div ng-messages="settingsForm.company.publisher_key.$error">
+            <div ng-message="required" class="disabled">API key for developer</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex>
+          <label>Impressions per USD</label>
+          <input type="text" name="impressions_per_dollar" ng-model="settingsForm.company.impressions_per_dollar" ng-disabled='true'>
+          <div ng-messages="settingsForm.company.impressions_per_dollar.$error">
+            <div ng-message="required" class="disabled">Impressions/USD. Contact sales to get better rate.</div>
+          </div>
+        </md-input-container>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endverbatim %}
+

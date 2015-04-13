@@ -1,14 +1,21 @@
 {% verbatim %}
 <div layout-fill ng-controller="CampaignersLandingCtrl">
-  <md-card class="md-whiteframe-z1" flex="33" flex-sm="100">
-    <div class="tile tile-normal bg-past tile-linked" ng-click="gotoCampaignList()">
-      <span class="announcement">
-        {{ campaigns.length || 0 }}
-      </span>
-      <span class="title">
-        Campaigns
-      </span>
-    </div>
-  </md-card>
+  <div layout="row">
+    <md-subheader>
+      Dashboard for <strong>{{ globals.company.name }}</strong>
+    </md-subheader>
+  </div>
+  <div layout="row">
+    <md-card class="md-whiteframe-z1" flex="33" flex-sm="100">
+      <div class="tile tile-normal bg-past tile-linked" ng-click="gotoCampaignList()">
+        <span class="announcement">
+          {{ campaigns.length || 0 }}
+        </span>
+        <span class="title">
+          Campaigns
+        </span>
+      </div>
+    </md-card>
+  </div>
 </div>
 {% endverbatim %}
