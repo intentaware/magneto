@@ -18,6 +18,8 @@ class Campaign(TimeStamped, ToCompany):
     counter = models.BigIntegerField(default=0)
     serve_limit = models.BigIntegerField(default=100)
 
+    budget = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
+
     # set the ad to inactive after the limit is served
     is_active = models.BooleanField(default=True)
 
@@ -26,12 +28,12 @@ class Campaign(TimeStamped, ToCompany):
     # call to action
     c2a = models.URLField(verbose_name='Call to Action')
 
-    # photologue    
+    # photologue
     image = models.ForeignKey('photologue.Photo', related_name='campaigns', blank=True, null=True)
 
     def __unicode__(self):
         return self.name
-    
+
 
     def increment(self):
         """

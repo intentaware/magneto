@@ -15,6 +15,11 @@ class Company(TimeStamped, SluggedFromName):
 
     publisher_key = ShortUUIDField(blank=True, null=True)
 
+    # number of impressions xxx amount will buy you
+    # e.g campaign.budget * impression_mux = number of impression
+    impressions_per_dollar = models.IntegerField(
+        default=1000, help_text='No. of impressions generated against each USD')
+
     class Meta:
         verbose_name_plural = "companies"
 
