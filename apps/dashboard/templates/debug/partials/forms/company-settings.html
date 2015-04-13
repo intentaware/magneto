@@ -25,6 +25,14 @@
           </div>
         </md-input-container>
         </div>
+        <div layout layout-sm="column">
+          <md-checkbox ng-model="settingsForm.company.is_advertiser" ng-disabled="settingsForm.company.is_advertiser" flex>
+              Advertiser?
+          </md-checkbox>
+          <md-checkbox ng-model="settingsForm.company.is_publisher" ng-disbaled="settingsForm.company.is_publisher" flex>
+              Publisher?
+          </md-checkbox>
+        </div>
       </form>
     </div>
   </div>
