@@ -5,10 +5,18 @@ from jsonfield import JSONField
 
 from apps.common.models import *
 
+class Circle(TimeStamped):
+    name = models.CharField(max_length=128, unique=True)
+
+    class Meta:
+        ordering = ('name',)
+
+    def __unicode__(self):
+        return self.name
+
 
 class Company(TimeStamped, SluggedFromName):
     is_active = models.BooleanField(default=False)
-    users = models.ManyToManyField('users.User', through='companies.CompanyUser')
 
     is_advertiser = models.BooleanField(default=False)
     is_publisher = models.BooleanField(default=False)
@@ -20,12 +28,24 @@ class Company(TimeStamped, SluggedFromName):
     impressions_per_dollar = models.IntegerField(
         default=1000, help_text='No. of impressions generated against each USD')
 
+
+    users = models.ManyToManyField('users.User', through='companies.CompanyUser')
+    circles = models.ManyToManyField(Circle, through='companies.CompanyCircle')
+
     class Meta:
         verbose_name_plural = "companies"
 
     def get_target_campaigns(self, request):
         from apps.campaigns.models import Campaign
         return Campaign.objects.all().exclude(image=None).order_by('?')
+
+
+class CompanyCircle(TimeStamped):
+    company = models.ForeignKey(Company)
+    circle = models.ForeignKey(Circle)
+
+    class Meta:
+        unique_together = ('company', 'circle')
 
 
 class CompanyGroup(TimeStamped):
