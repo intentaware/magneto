@@ -64,7 +64,7 @@ class DashboardView(SetSessionData):
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['globals'] = {
             'user': user,
-            'company': company
+            'company': company,
         }
         return context
 
@@ -81,3 +81,7 @@ class AngularPartials(LoginRequiredMixin):
 
         template_name = base + self.kwargs['template_name']
         return [template_name]
+
+
+def redirect_to_dashboard(request):
+    return redirect('dashboard', permanent=True)

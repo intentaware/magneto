@@ -17,6 +17,7 @@
   <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="{{ STATIC_URL }}dash/bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}dash/bower_components/nvd3/src/nv.d3.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -46,12 +47,12 @@
           Use `flex` [below] to have the content area
           fill the available horizontal display area on the right side
       -->
-      {% endcomment %}
+    {% endcomment %}
   </div>
 
   {% block content %}
   {% endblock %}
-  
+
   {% block scripts_inline %}
   {% endblock %}
 

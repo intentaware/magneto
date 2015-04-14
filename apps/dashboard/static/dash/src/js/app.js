@@ -9,6 +9,7 @@ angular.module('adomattic', [
     'ngRoute',
     //'ngMessages',
     'ngMaterial',
+    'nvd3ChartDirectives',
     'adomattic.dashboard'
   ])
   .constant('urls', {

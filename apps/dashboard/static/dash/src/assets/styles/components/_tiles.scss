@@ -25,8 +25,12 @@
   @include size(auto 150px);
 }
 
-.bg-past {
-  @include background(#cc0000);
+.bg-adomattic-primary {
+  @include background(#bf2932);
+}
+
+.bg-adomattic-accent {
+  @include background(#297dbf);
 }
 
 .tile-linked {
