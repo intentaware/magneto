@@ -50,7 +50,7 @@ class Campaign(TimeStamped, ToCompany):
             remaining = self.budget * (1 - self.company.advertiser_rate)
             if self.coupon_value:
                 count = int(remaining / self.coupon_value)
-                Coupon.objects.generate(campaign, count)
+                Coupon.objects.generate(self, count)
         return campaign
 
 
