@@ -10,7 +10,8 @@ class CampaignViewSet(viewsets.ModelViewSet):
     queryset = Campaign.objects.all()
 
     def create(self, request):
-        # print request.data
+        data = request.data
+        data['company'] = request.session['company']
         s = CreateCampaignSerializer(data=request.data)
         if s.is_valid():
             c = s.save()
