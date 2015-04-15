@@ -20,35 +20,21 @@
               <div ng-message="required" ng-show="CreateAdForm.description.$error">Required</div>
             </div>
           </md-input-container>
-          <md-input-container>
-            <label>Call to Action</label>
-            <input text="text" name="c2a" ng-model="campaignForm.ad.c2a" required>
-
-            <div ng-messages="CreateAdForm.c2a.$error">
-              <div ng-message>URL for this advertisment when it is clicked</div>
-            </div>
-          </md-input-container>
           <div layout="row" layout-sm="column">
-            <md-input-container flex="33">
-              <label>Start On</label>
-              <input type="date" required name="starts_on" ng-model="campaignForm.ad.starts_on">
-                          <div ng-messages="CreateAdForm.starts_on.$error">
-                <div ng-message>Start date for serving ad</div>
-              </div>
-            </md-input-container>
-            <md-input-container flex="33">
-              <label>Ends On</label>
-              <input type="date" required name="ends_on" ng-model="campaignForm.ad.ends_on">
-                          <div ng-messages="CreateAdForm.c2a.$error">
-                <div ng-message>Cut of date</div>
-              </div>
-            </md-input-container>
-            <md-input-container flex="33">
+            <md-input-container flex>
               <label>Budget</label>
-              <input type="number" step=".01" name="budget" ng-model="campaignForm.ad.budget">
+              <input type="number" name="budget" ng-model="campaignForm.ad.budget" min="10">
 
-              <div ng-messages="CampaignAddForm.budget.$error" ng-show="!campaignForm.ad.is_coupon_ad && campaignForm.ad.budget">
-                <div ng-message="min">This will buy you <strong>{{ campaignForm.ad.budget * globals.company.impressions_per_dollar }}</strong> impressions</div>
+              <div ng-messages="CampaignForm.budget.$error">
+                <div ng-message="min">The budget for the campaign</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Coupon Value</label>
+              <input type="number" name="budget" ng-model="campaignForm.ad.coupon_value" min="2">
+
+              <div ng-messages="CampaignForm.coupon_value.$error">
+                <div ng-message="min"><strong>{{ campaignForm.ad.budget | currency }}</strong> will get <strong>{{ campaignForm.calculateImpressions() }}</strong> coupons of <strong>{{ campaignForm.ad.coupon_value | currency }}</strong> value.</div>
               </div>
             </md-input-container>
           </div>
@@ -60,11 +46,6 @@
             </md-input-container>
 
           </div>
-          <md-input-container>
-            <md-checkbox ng-model="campaignForm.ad.is_coupon_ad">
-              Is this a coupon ad?
-            </md-checkbox>
-          </md-input-container>
           <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving">
             <span ng-if="!campaignForm.$saving">Creating New Campaign</span>
             <span ng-if="campaignForm.$saving">Creating New Campaign</span>
