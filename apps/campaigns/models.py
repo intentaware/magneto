@@ -16,14 +16,14 @@ class Campaign(TimeStamped, ToCompany):
     # ends_on = models.DateTimeField(null=True, blank=True)
 
     # set if it is a coupon ad
-    is_coupon_ad = models.BooleanField(default=False)
+    # is_coupon_ad = models.BooleanField(default=False)
 
     # for ad serving purposes
     # counter = models.BigIntegerField(default=0)
     # serve_limit = models.BigIntegerField(default=100)
 
     budget = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
-    coupon_value = models.DecimalField(default=0.0, max_digits=20, decimal_places=4)
+    coupon_value = models.DecimalField(default=1, max_digits=20, decimal_places=4)
 
     # set the ad to inactive after the limit is served
     is_active = models.BooleanField(default=True)
@@ -31,19 +31,26 @@ class Campaign(TimeStamped, ToCompany):
     # an ad can be part of many industries, we will leverage django-taggit
 
     # call to action
-    c2a = models.URLField(verbose_name='Call to Action')
+    # c2a = models.URLField(verbose_name='Call to Action')
 
     # photologue
-    image = models.ForeignKey('photologue.Photo', related_name='campaigns', blank=True, null=True)
+    image = models.ForeignKey('photologue.Photo', related_name='campaigns',
+        blank=True, null=True)
 
     def __unicode__(self):
         return self.name
 
     def save(self, *args, **kwargs):
-        saved = False
+        saved_already = False
         if self.id:
-            saved = True
+            saved_already = True
         campaign = super(Campaign, self).save(*args, **kwargs)
+        if not saved_already:
+            # get the amount after taking out adomattic cut
+            remaining = self.budget * (1 - self.company.advertiser_rate)
+            if self.coupon_value:
+                count = int(remaining / self.coupon_value)
+                Coupon.objects.generate(campaign, count)
         return campaign
 
 

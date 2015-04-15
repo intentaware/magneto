@@ -23,8 +23,10 @@ class Company(TimeStamped, SluggedFromName):
 
     publisher_key = ShortUUIDField(blank=True, null=True)
 
-    advertiser_rate = models.FloatField(default=0.25)
-    publisher_rate = models.FloatField(default=0.05)
+    advertiser_rate = models.DecimalField(default=0.25,
+        max_digits=20, decimal_places=4)
+    publisher_rate = models.DecimalField(default=0.05,
+        max_digits=20, decimal_places=4)
 
     users = models.ManyToManyField('users.User', through='companies.CompanyUser')
     circles = models.ManyToManyField(Circle, through='companies.CompanyCircle')
