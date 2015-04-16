@@ -2,12 +2,32 @@
 <div layout-fill ng-controller="CampaignersLandingCtrl">
   <div layout layout-sm="column">
     <md-card class="md-whiteframe-z1" flex flex-sm="100">
-      <div class="tile tile-normal bg-adomattic-primary tile-linked" ng-click="gotoCampaignList()">
+      <div class="tile tile-normal bg-adomattic-accent tile-linked" ng-click="gotoCampaignList()">
         <span class="announcement">
-          {{ campaigns.length || 0 }}
+          {{ campaigns.length }}
         </span>
         <span class="title">
-          Campaigns
+          Active Campaigns
+        </span>
+      </div>
+    </md-card>
+    <md-card class="md-whiteframe-z1" flex flex-sm="100">
+      <div class="tile tile-normal bg-adomattic-primary tile-linked" ng-click="gotoCampaignList()">
+        <span class="announcement">
+          {{ globals.coupons.claimed / globals.coupons.total * 100 | number:0 }}%
+        </span>
+        <span class="title">
+          Return on Investment
+        </span>
+      </div>
+    </md-card>
+    <md-card class="md-whiteframe-z1" flex flex-sm="100">
+      <div class="tile tile-normal bg-adomattic-accent tile-linked" ng-click="gotoCampaignList()">
+        <span class="announcement">
+          {{ globals.coupons.remaining / globals.coupons.total * 100 | number:0 }}%
+        </span>
+        <span class="title">
+          Carry Over
         </span>
       </div>
     </md-card>

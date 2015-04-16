@@ -1,5 +1,13 @@
 from django.db.models import Manager, QuerySet
 
+
+class CouponQuerySet(QuerySet):
+    def claimed(self):
+        return self.filter(claimed_on__isnull=False)
+
+    def remaining(self):
+        return self.filter(claimed_on__isnull=True)
+
 class CouponManager(Manager):
     use_for_related_fields = True
 

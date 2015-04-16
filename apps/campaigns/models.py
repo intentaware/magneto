@@ -2,7 +2,7 @@ from django.db import models
 from django_extensions.db.fields import ShortUUIDField
 
 from apps.common.models import TimeStamped, ToCompany
-from .managers import CouponManager
+from .managers import CouponManager, CouponQuerySet
 
 
 class Campaign(TimeStamped, ToCompany):
@@ -61,13 +61,14 @@ class Coupon(TimeStamped, ToCompany):
     claimed_on = models.DateTimeField(null=True, blank=True)
     """
     What is the difference between claimed on and redeemed_on?
-    redeemed_on = when the coupon is assigned a user,
-    claimed_on = when the coupon is verified and discount is approved
+    claimed_on = when the coupon is assigned a user,
+    redeemed_on = when the coupon is verified by advertiser/desk clerk and
+    discount is approved
     """
     claimed_by = models.ForeignKey('users.User', blank=True, null=True)
 
-    # custom manager
-    objects = CouponManager()
+    # overriding custom manager
+    objects = CouponManager.from_queryset(CouponQuerySet)()
 
     def __unicode__(self):
         return 'Campaign: %s, Coupon: %s' %(self.campaign.name, self.code)
