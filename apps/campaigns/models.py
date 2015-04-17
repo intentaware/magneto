@@ -2,7 +2,8 @@ from django.db import models
 from django_extensions.db.fields import ShortUUIDField
 
 from apps.common.models import TimeStamped, ToCompany
-from .managers import CouponManager, CouponQuerySet
+from .managers import CouponManager, CouponQuerySet, \
+        CampaignManager, CampaignQuerySet
 
 
 class Campaign(TimeStamped, ToCompany):
@@ -36,6 +37,8 @@ class Campaign(TimeStamped, ToCompany):
     # photologue
     image = models.ForeignKey('photologue.Photo', related_name='campaigns',
         blank=True, null=True)
+
+    objects = CampaignManager.from_queryset(CampaignQuerySet)()
 
     def __unicode__(self):
         return self.name
