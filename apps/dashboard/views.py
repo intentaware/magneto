@@ -67,10 +67,11 @@ class DashboardView(SetSessionData):
             'user': user,
             'company': company,
             'coupons': {
-                'total': membership.company.coupons.all().count(),
-                'claimed': membership.company.coupons.claimed().count(),
-                'remaining': membership.company.coupons.remaining().count(),
-            }
+                    'total': membership.company.coupons.all().count(),
+                    'claimed': membership.company.coupons.claimed().count(),
+                    'remaining': membership.company.coupons.remaining().count(),
+                },
+            'budget': float(membership.company.campaigns.active().active_budget()),
         }
         return context
 

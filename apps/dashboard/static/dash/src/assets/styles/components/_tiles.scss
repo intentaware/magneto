@@ -13,16 +13,20 @@
 
   .announcement {
     position: absolute;
-    font-size: 300%;
+    font-size: 200%;
     font-weight: 700;
-    top: 20%;
-    right: 0;
-    @include transform(translate(-50%, -50%));
+    //top: 20%;
+    right: 10px;
+    //@include transform(translate(-50%, -50%));
   }
 }
 
 .tile-normal {
   @include size(auto 150px);
+}
+
+.tile-long {
+  @include size(auto 300px);
 }
 
 .bg-adomattic-primary {
