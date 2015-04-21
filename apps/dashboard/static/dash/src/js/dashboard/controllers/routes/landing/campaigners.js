@@ -2,7 +2,7 @@
 
 angular.module('adomattic.dashboard')
   .controller('CampaignersLandingCtrl', function($rootScope, $scope, $location, Campaign) {
-    console.log('The advertiser has landed');
+    console.log('Demo for awais');
     var getCampaigns = function() {
       Campaign.query().$promise.then(function(data) {
         $scope.campaigns = data;

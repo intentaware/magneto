@@ -17,7 +17,7 @@ class GetImpression(APIView):
     permission_classes = (PublisherAPIPermission,)
 
     def get(self, request):
-        campaigns = request.publisher.get_target_campaigns(request)
+        coupons = request.publisher.get_target_campaigns(request)
         impressions = list()
         visitor, created = ImpressionUser.objects.get_or_create(
             key=request.customer)
@@ -27,16 +27,19 @@ class GetImpression(APIView):
         meta.pop('wsgi.input', None)
         meta.pop('wsgi.version', None)
         meta = RequestEncoder().encode(meta)
-        print meta
-        for c in campaigns:
+        # print meta
+        for c in coupons:
             i = Impression.objects.create(
-                campaign=c, publisher=request.publisher,
+                coupon=c, campaign=c.campaign, publisher=request.publisher,
                 visitor=visitor, meta=meta
             )
-            i = render_to_string('impressions/basic.html', {
+            template = render_to_string('impressions/basic.html', {
                 'impression': i
             })
-            print i
-            impressions.append(i)
+            impression = {
+                'id': i.id,
+                'template': template
+            }
+            impressions.append(impression)
         return Response(impressions, status=200)
 

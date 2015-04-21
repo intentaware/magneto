@@ -15,6 +15,7 @@ class ImpressionUser(TimeStamped):
 
 class Impression(TimeStamped):
     campaign = models.ForeignKey('campaigns.Campaign', related_name='impressions')
+    coupon = models.ForeignKey('campaigns.Coupon', related_name='impressions')
     meta = JSONField(blank=True, null=True)
     visitor = models.ForeignKey(ImpressionUser, related_name='impressions')
     publisher = models.ForeignKey('companies.Company', related_name='impressions')

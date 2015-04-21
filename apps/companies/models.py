@@ -35,8 +35,8 @@ class Company(TimeStamped, SluggedFromName):
         verbose_name_plural = "companies"
 
     def get_target_campaigns(self, request):
-        from apps.campaigns.models import Campaign
-        return Campaign.objects.all().exclude(image=None).order_by('?')
+        from apps.campaigns.models import Coupon
+        return Coupon.objects.all().exclude(campaign__image=None).order_by('?')[:3]
 
 
 class CompanyCircle(TimeStamped):
