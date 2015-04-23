@@ -70,7 +70,7 @@ angular.module('adomattic', [
     $resourceProvider.defaults.stripTrailingSlashes = false;
   })
   .config(function($httpProvider) {
-    $httpProvider.defaults.useXDomain = true;
+    //$httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';

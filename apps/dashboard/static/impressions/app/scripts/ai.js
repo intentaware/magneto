@@ -9,7 +9,18 @@ var addUnits = function(data, p) {
   var unit = document.getElementsByClassName('adomattic-y')[p];
   unit.onclick = function () {
     var self = this;
-    console.log(self.id);
+    console.log(self);
+
+    var impression = self.querySelectorAll('div.impression')[0];
+    //a.className += ' hide';
+    //console.log(a.className);
+    impression.classList.add('hide');
+    console.log(impression.classList);
+
+    var loginForm = self.querySelectorAll('div.login-form')[0];
+    console.log(loginForm.classList);
+    loginForm.classList.remove('hide');
+    console.log(loginForm.classList);
   };
   unit.id = 'adomattic' + data.id;
   unit.appendChild(layer);

@@ -1,7 +1,19 @@
-<div class="title">
-  {{ impression.campaign.name }}
+<div class="impression">
+  <div class="title">
+    {{ impression.campaign.name }}
+  </div>
+  <img src="{{ impression.campaign.image.get_preview_url }}" />
+  <div class="description">
+    {{ impression.campaign.description }}
+  </div>
 </div>
-<img src="{{ impression.campaign.image.get_preview_url }}" />
-<div class="description">
-  {{ impression.campaign.description }}
+<div class="login-form hide">
+  <form>
+    <input type="text" id="email" class="adomattic-input" placeholder="Enter email to claim your coupon">
+    <input type="password" id="password" class="adomattic-input" placeholder="Enter your password">
+    <button type="submit">Claim your coupon now!</button>
+  </form>
+</div>
+<div class="powered-by">
+  ♥ from <img src="http://localhost:9050/static/dash/src/assets/images/lg.png"></div>
 </div>

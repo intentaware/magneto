@@ -37,4 +37,76 @@ $icon-font-path: '../fonts/';
     @include padding(null 10px 5px 10px);
     font-weight: 300;
   }
+
+  .powered-by {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: #a6a6a6;
+    @include padding(null 10px 5px 10px);
+    font-weight: 300;
+
+    img {
+      width: 10px;
+      height: 10px;
+      bottom: 0;
+      @include border-color(0 0 0 0);
+      @include border-width(0px);
+      @include padding(1px);
+    }
+  }
+
+  .login-form {
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"] {
+      /* remove default appearance from all input/textarea */
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      @include border-color(transparent transparent #f2f2f2 transparent);
+      @include margin(10px);
+      @include padding(2px);
+       width: 220px;
+       color: #a2a2a2;
+    }
+
+    button {
+      @include button('flat', #bf2932);
+      @include margin(10px);
+    }
+
+    .adomattic-input {
+      //flex: 1 1 auto;
+      display: block;
+
+      background: none;
+      line-height: 26px;
+      font-size: 14px;
+      font-weight: 300;
+      -ms-flex-preferred-size: 14px; //IE flex:   ;
+
+      &:focus {
+        outline: none;
+      }
+      &:invalid {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.hide {
+  display: none;
 }
