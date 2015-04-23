@@ -16,7 +16,7 @@ class RequestEncoder(JSONEncoder):
 class GetImpression(APIView):
     permission_classes = (PublisherAPIPermission,)
 
-    def get(self, request):
+    def get(self, request, pk=None):
         coupons = request.publisher.get_target_campaigns(request)
         impressions = list()
         visitor, created = ImpressionUser.objects.get_or_create(

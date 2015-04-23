@@ -1,5 +1,7 @@
 'use strict';
 
+var activeImpression;
+
 var addUnits = function(data, p) {
   console.log(data);
   console.log(p);
@@ -7,20 +9,48 @@ var addUnits = function(data, p) {
   layer.className = 'adomattic';
   layer.innerHTML = data.template;
   var unit = document.getElementsByClassName('adomattic-y')[p];
-  unit.onclick = function () {
+  unit.onclick = function() {
+    unit.onclick = false;
     var self = this;
-    console.log(self);
+    activeImpression = this.id.replace('adomattic', '');
+    console.log(activeImpression);
 
+    //defining adomattic layers on click
     var impression = self.querySelectorAll('div.impression')[0];
-    //a.className += ' hide';
-    //console.log(a.className);
-    impression.classList.add('hide');
-    console.log(impression.classList);
-
     var loginForm = self.querySelectorAll('div.login-form')[0];
-    console.log(loginForm.classList);
+    var result = self.querySelectorAll('div.result')[0];
+    console.log(result);
+
+    // hiding impression and showing loginform
+    impression.classList.add('hide');
     loginForm.classList.remove('hide');
-    console.log(loginForm.classList);
+
+    var f = loginForm.getElementsByTagName('form')[0];
+    f.elements['submit'].addEventListener('click', function(event) {
+      event.preventDefault();
+    });
+    f.elements['submit'].onclick = function() {
+      var email = f.elements['email'].value;
+      //console.log(email, password);
+      axios({
+        url: 'http://localhost:9050/api/users/register/user/',
+        method: 'POST',
+        headers: {
+          'PUBLISHER-KEY': document['adomattic']
+            //'Access-Control-Allow-Credentials' : true,
+            //'Access-Control-Allow-Origin': window.location.origin
+        },
+        data: {
+          email: email,
+          password1: '1',
+          password2: '1'
+        }
+      }).then(function() {
+        loginForm.classList.add('hide');
+        result.classList.remove('hide');
+      });
+    };
+
   };
   unit.id = 'adomattic' + data.id;
   unit.appendChild(layer);

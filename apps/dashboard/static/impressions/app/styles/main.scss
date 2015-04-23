@@ -75,10 +75,12 @@ $icon-font-path: '../fonts/';
       -moz-appearance: none;
       -webkit-appearance: none;
       @include border-color(transparent transparent #f2f2f2 transparent);
+      @include border-width(0 0 1px 0);
       @include margin(10px);
       @include padding(2px);
        width: 220px;
        color: #a2a2a2;
+       font-weight: 300;
     }
 
     button {
@@ -104,6 +106,12 @@ $icon-font-path: '../fonts/';
         box-shadow: none;
       }
     }
+  }
+
+  .result {
+    @include margin(10px);
+    font-weight: 300;
+    color: #a2a2a2;
   }
 }
 

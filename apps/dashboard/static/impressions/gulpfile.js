@@ -41,7 +41,8 @@ gulp.task('adomattic', function() {
       if_return: true,
       join_vars: true,
       //drop_console: true
-    }
+    },
+    outSourceMap: true
   };
 
   var sizeOptions = {
