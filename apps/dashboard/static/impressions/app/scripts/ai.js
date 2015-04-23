@@ -1,6 +1,17 @@
 'use strict';
 
 var activeImpression;
+var urls = {
+  base: 'http://localhost:9050/api/',
+  endPoints: {
+    impression: 'impressions/i/',
+    claim: function (id, email) {
+      return 'impressions/i/' + id + '/' + email +'/';
+    }
+  }
+};
+
+
 
 var addUnits = function(data, p) {
   console.log(data);
@@ -33,8 +44,8 @@ var addUnits = function(data, p) {
       var email = f.elements['email'].value;
       //console.log(email, password);
       axios({
-        url: 'http://localhost:9050/api/users/register/user/',
-        method: 'POST',
+        url: urls.base + urls.endPoints.claim(activeImpression, email),
+        method: 'GET',
         headers: {
           'PUBLISHER-KEY': document['adomattic']
             //'Access-Control-Allow-Credentials' : true,
@@ -63,7 +74,7 @@ styleSheet.rel = 'stylesheet';
 document.getElementsByTagName('head')[0].appendChild(styleSheet);
 
 axios({
-  url: 'http://localhost:8000/api/impressions/i/',
+  url: urls.base + urls.endPoints.impression,
   //url: 'http://app.adomattic.com/api/impressions/i/',
   method: 'GET',
   headers: {

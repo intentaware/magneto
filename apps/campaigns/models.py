@@ -75,3 +75,12 @@ class Coupon(TimeStamped, ToCompany):
 
     def __unicode__(self):
         return 'Campaign: %s, Coupon: %s' %(self.campaign.name, self.code)
+
+    def claim(self, user):
+        """
+        user claims a coupon
+        """
+        from django.utils import timezone
+        self.claimed_on = timezone.now()
+        self.claimed_by = user
+        self.save()
