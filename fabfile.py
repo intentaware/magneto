@@ -53,6 +53,7 @@ def stage():
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
     env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
+    env.impressions = '/srv/%(name)s/apps/dashboard/static/impression/' % env
 
 
 
@@ -161,6 +162,8 @@ def bower():
 def gulp():
     with cd(env.dashboard):
         env.run('gulp inject')
+    with cd(env.impressions):
+        env.run('gulp adomattic:final')
 
 
 def deploy():
