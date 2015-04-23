@@ -68,7 +68,7 @@ var addUnits = function(data, p) {
 };
 
 var styleSheet = document.createElement('link');
-styleSheet.href = 'styles/main.css';
+(urls.base === 'http://localhost:9050/api/') ? styleSheet.href = 'styles/main.css': styleSheet.href = 'http://app.adomattic.com/static/impressions/dist/styles/main.css';
 styleSheet.type = 'text/css';
 styleSheet.rel = 'stylesheet';
 document.getElementsByTagName('head')[0].appendChild(styleSheet);

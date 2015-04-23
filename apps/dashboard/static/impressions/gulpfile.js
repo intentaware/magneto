@@ -27,6 +27,28 @@ gulp.task('styles', function() {
     }));
 });
 
+gulp.task('styles:adomattic', function() {
+  return gulp.src('app/styles/main.scss')
+    .pipe($.sourcemaps.init())
+    .pipe($.sass({
+      outputStyle: 'nested', // libsass doesn't support expanded yet
+      precision: 10,
+      includePaths: ['.'],
+      onError: console.error.bind(console, 'Sass error:')
+    }))
+    .pipe($.postcss([
+      require('autoprefixer-core')({
+        browsers: ['last 1 version']
+      })
+    ]))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(reload({
+      stream: true
+    }));
+});
+
+
 gulp.task('adomattic', function() {
   var uglifyOptions = {
     mangle: {
@@ -56,7 +78,7 @@ gulp.task('adomattic', function() {
     .pipe($.size(sizeOptions));
 });
 
-gulp.task('adomattic:final', function() {
+gulp.task('adomattic:final', ['styles:adomattic'], function() {
   var uglifyOptions = {
     mangle: {
       toplevel: true,
@@ -80,6 +102,7 @@ gulp.task('adomattic:final', function() {
 
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
     .pipe($.concat('all.js'))
+    .pipe($.replace('http://localhost:9050/api/', 'http://app.adomattic.com/api/'))
     .pipe($.uglify(uglifyOptions))
     .pipe(gulp.dest('dist/'))
     .pipe($.size(sizeOptions));
