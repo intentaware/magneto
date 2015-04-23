@@ -53,7 +53,7 @@ def stage():
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
     env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
-    env.impressions = '/srv/%(name)s/apps/dashboard/static/impression/' % env
+    env.impressions = '/srv/%(name)s/apps/dashboard/static/impressions/' % env
 
 
 
