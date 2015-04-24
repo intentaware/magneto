@@ -5,7 +5,7 @@ from fabric.api import local as lrun
 from fabric.contrib.console import confirm
 
 from fabric.network import ssh
-ssh.util.log_to_file("paramiko.log", 10)
+# ssh.util.log_to_file("paramiko.log", 10)
 
 IMPORT_ERROR = 'Please add the location of \n DEPLOY_KEY, \n STAGE_KEY, \n LOCAL_PROJECT_PATH, \n LOCAL_ENVIRONMENT_PATH in adomatic.conf.fabric.variables'
 
