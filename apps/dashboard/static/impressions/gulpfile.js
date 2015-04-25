@@ -102,7 +102,7 @@ gulp.task('adomattic:final', ['styles:adomattic'], function() {
 
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
     .pipe($.concat('all.js'))
-    .pipe($.replace('http://localhost:9050/api/', 'http://app.adomattic.com/api/'))
+    .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://app.adomattic.com/api/'"))
     .pipe($.uglify(uglifyOptions))
     .pipe(gulp.dest('dist/'))
     .pipe($.size(sizeOptions));
