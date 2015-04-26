@@ -103,6 +103,7 @@ gulp.task('adomattic:final', ['styles:adomattic'], function() {
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
     .pipe($.concat('all.js'))
     .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://app.adomattic.com/api/'"))
+    .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "There was an error!"))
     .pipe($.uglify(uglifyOptions))
     .pipe(gulp.dest('dist/'))
     .pipe($.size(sizeOptions));
