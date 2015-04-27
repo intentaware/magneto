@@ -12,3 +12,14 @@ INTERNAL_IPS = (
 
 STATIC_URL = '/static/'
 MEDIA_URL = 'http://localhost:9050/media/'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'vader',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
