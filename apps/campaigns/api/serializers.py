@@ -23,7 +23,6 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Campaign
-        exclude = ('company',)
 
     def create(self, validated_data):
         image = validated_data.get('image')

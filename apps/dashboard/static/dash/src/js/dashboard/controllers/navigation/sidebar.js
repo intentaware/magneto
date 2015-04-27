@@ -13,4 +13,8 @@ angular.module('adomattic.dashboard')
     $scope.goToCampaignCreate = function () {
       $location.path('/campaigns/create/');
     };
+
+    $scope.goToSettings = function () {
+      $location.path('/settings/');
+    };
   });

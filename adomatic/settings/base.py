@@ -41,6 +41,9 @@ DEFAULT_APPS = (
 )
 
 THIRD_PARTY_APPS = (
+    # import export
+    'import_export',
+
     'registration',
     'taggit',
     'widget_tweaks',

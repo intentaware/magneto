@@ -9,6 +9,7 @@ angular.module('adomattic', [
     'ngRoute',
     //'ngMessages',
     'ngMaterial',
+    'nvd3',
     'adomattic.dashboard'
   ])
   .constant('urls', {
@@ -46,9 +47,10 @@ angular.module('adomattic', [
       });
   })
   .config(function($routeProvider, urls) {
-    $routeProvider.when('/', {
-        templateUrl: urls.partials.routes + 'home.html',
-        controller: 'HomeCtrl'
+    $routeProvider
+      .when('/', {
+        templateUrl: urls.partials.routes + 'landing/__base.html',
+        //controller: 'HomeCtrl'
       })
       .when('/campaigns/', {
         templateUrl: urls.partials.routes + 'campaigns/list.html',
@@ -58,13 +60,17 @@ angular.module('adomattic', [
         templateUrl: urls.partials.routes + 'campaigns/create.html',
         controller: 'CampaignCreateCtrl',
         controllerAs: 'campaignCreateRoute'
-      });
+      })
+      .when('/settings/', {
+        templateUrl: urls.partials.routes + 'settings/__base.html',
+      })
+      .otherwise('/');
   })
   .config(function($resourceProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;
   })
   .config(function($httpProvider) {
-    $httpProvider.defaults.useXDomain = true;
+    //$httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';

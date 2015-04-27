@@ -157,14 +157,12 @@ crashlytics.properties
 crashlytics-build.properties
 
 
-
 ### SQLITE ###
 *.sqlite3
 
 
 ### FABRIC ###
 adomatic/conf/fabric/
-
 
 
 ### LOCAL_SETTINGS ###
@@ -180,3 +178,7 @@ bin
 /local/
 /share/
 /uwsgi/
+
+
+### AUTOENV IGNORE ###
+.env

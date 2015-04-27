@@ -1,8 +1,11 @@
+import json
+
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
+
+from .serializers import *
 
 
 class LoginRequiredMixin(TemplateView):
@@ -49,6 +52,29 @@ class DashboardView(SetSessionData):
             template = 'dist/__base.html'
         return [template]
 
+    def get_context_data(self, **kwargs):
+        """
+        sets the context data and global defaults for angular
+        """
+        request = self.request
+        membership = request.user.memberships.get(is_default=True)
+        user = DashboardUserSerializer(request.user).data
+        company = DashboardCompanySerializer(
+                membership.company
+            ).data
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        context['globals'] = {
+            'user': user,
+            'company': company,
+            'coupons': {
+                    'total': membership.company.coupons.all().count(),
+                    'claimed': membership.company.coupons.claimed().count(),
+                    'remaining': membership.company.coupons.remaining().count(),
+                },
+            'budget': float(membership.company.campaigns.active().active_budget()),
+        }
+        return context
+
 
 class AngularPartials(LoginRequiredMixin):
 
@@ -62,3 +88,7 @@ class AngularPartials(LoginRequiredMixin):
 
         template_name = base + self.kwargs['template_name']
         return [template_name]
+
+
+def redirect_to_dashboard(request):
+    return redirect('dashboard', permanent=True)

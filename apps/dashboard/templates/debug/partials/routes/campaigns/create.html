@@ -5,7 +5,7 @@
         <form name="CreateAdForm" ng-controller="CampaignFormCtrl as campaignForm" ng-submit="campaignForm.saveAd()" ng-disabled="campaignForm.$saving" flex>
           <md-input-container>
             <label>Name</label>
-            <input type="text" name="name" ng-model="campaignForm.ad.name" required>  
+            <input type="text" name="name" ng-model="campaignForm.ad.name" required>
 
             <div ng-messages="CreateAdForm.name.$error">
               <div ng-message="required">This is required, It will help you identify each ad from the other</div>
@@ -14,57 +14,38 @@
           <md-input-container>
             <label>Description</label>
             <textarea name="description" ng-model="campaignForm.ad.description" md-maxlength="256"
-                      required>{{ campaignForm.ad.description }}</textarea>  
+                      required>{{ campaignForm.ad.description }}</textarea>
 
             <div ng-messages="CreateAdForm.description.$error">
               <div ng-message="required" ng-show="CreateAdForm.description.$error">Required</div>
             </div>
           </md-input-container>
-          <md-input-container>
-            <label>Call to Action</label>
-            <input text="text" name="c2a" ng-model="campaignForm.ad.c2a" required> 
-
-            <div ng-messages="CreateAdForm.c2a.$error">
-              <div ng-message>URL for this advertisment when it is clicked</div>
-            </div>
-          </md-input-container>
           <div layout="row" layout-sm="column">
-            <md-input-container flex="33">
-              <label>Start On</label>
-              <input type="date" required name="starts_on" ng-model="campaignForm.ad.starts_on">
-                          <div ng-messages="CreateAdForm.starts_on.$error">
-                <div ng-message>Start date for serving ad</div>
-              </div>
-            </md-input-container>
-            <md-input-container flex="33">
-              <label>Ends On</label>
-              <input type="date" required name="ends_on" ng-model="campaignForm.ad.ends_on">
-                          <div ng-messages="CreateAdForm.c2a.$error">
-                <div ng-message>Cut of date</div>
-              </div>
-            </md-input-container>
-            <md-input-container flex="33">
-              <label>Impressions</label>
-              <input type="number" min="10" name="serve_limit" ng-model="campaignForm.ad.serve_limit"> 
+            <md-input-container flex>
+              <label>Budget</label>
+              <input type="number" name="budget" ng-model="campaignForm.ad.budget" min="10">
 
-              <div ng-messages="CampaignAddForm.serve_limit.$error" ng-show="CreateAdForm.$dirty">
-                <div ng-message="min">This must be greater than 10</div>
+              <div ng-messages="CampaignForm.budget.$error">
+                <div ng-message="min">The budget for the campaign</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Offer Value</label>
+              <input type="number" name="budget" ng-model="campaignForm.ad.coupon_value" min="2">
+
+              <div ng-messages="CampaignForm.coupon_value.$error">
+                <div ng-message="min"><strong>{{ campaignForm.ad.budget | currency }}</strong> will get <strong>{{ campaignForm.calculateImpressions() }}</strong> coupons of <strong>{{ campaignForm.ad.coupon_value | currency }}</strong> value.</div>
               </div>
             </md-input-container>
           </div>
-          <div layout="row" layout-sm="column"> 
+          <div layout="row" layout-sm="column">
 
             <md-input-container>
               <label>Select Image</label>
               <input class="md-button" type="file" accept="image/*" read-file ng-model="campaignForm.ad.image" />
-            </md-input-container> 
+            </md-input-container>
 
           </div>
-          <md-input-container>
-            <md-checkbox ng-model="campaignForm.ad.is_coupon_ad">
-              Is this a coupon ad?
-            </md-checkbox>
-          </md-input-container>
           <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving">
             <span ng-if="!campaignForm.$saving">Creating New Campaign</span>
             <span ng-if="campaignForm.$saving">Creating New Campaign</span>

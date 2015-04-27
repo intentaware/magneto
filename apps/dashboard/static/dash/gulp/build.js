@@ -8,11 +8,11 @@ var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
 
-gulp.task('partials', function () {
+gulp.task('partials', function() {
   return gulp.src([
-    paths.src + '/{app,components}/**/*.html',
-    paths.compile + '/{app,components}/**/*.html'
-  ])
+      paths.src + '/{app,components}/**/*.html',
+      paths.compile + '/{app,components}/**/*.html'
+    ])
     .pipe($.minifyHtml({
       empty: true,
       spare: true,
@@ -24,64 +24,87 @@ gulp.task('partials', function () {
     .pipe(gulp.dest(paths.compile + '/partials/'));
 });
 
-gulp.task('html', ['inject', 'partials'], function () {
-  var partialsInjectFile = gulp.src(paths.compile + '/partials/templateCacheHtml.js', { read: false });
-  var partialsInjectOptions = {
-    starttag: '<!-- inject:partials -->',
-    ignorePath: paths.compile + '/partials',
-    addRootSlash: false
-  };
-
-  var htmlFilter = $.filter('*.html');
-  var jsFilter = $.filter('**/*.js');
-  var cssFilter = $.filter('**/*.css');
+gulp.task('html', function() {
   var assets;
+  var cssFilter = $.filter('**/*.css');
 
-  return gulp.src(paths.compile + '/serve/*.html')
-    .pipe($.inject(partialsInjectFile, partialsInjectOptions))
-    .pipe(assets = $.useref.assets())
-    .pipe($.rev())
-    .pipe(jsFilter)
-    .pipe($.ngAnnotate())
-    .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
-    .pipe(jsFilter.restore())
+  gulp.src(paths.django.common + '/__base.html')
+    .pipe($.debug())
+    .pipe($.replace('{{ STATIC_URL }}dash/', ''))
+    .pipe(assets = $.useref.assets({
+      searchPath: ['.']
+    }))
     .pipe(cssFilter)
     .pipe($.csso())
+    .pipe($.debug())
     .pipe(cssFilter.restore())
     .pipe(assets.restore())
     .pipe($.useref())
-    .pipe($.revReplace())
-    .pipe(htmlFilter)
-    .pipe($.minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true
-    }))
-    .pipe(htmlFilter.restore())
-    .pipe(gulp.dest(paths.dist + '/'))
-    .pipe($.size({ title: paths.dist + '/', showFiles: true }));
+    .pipe(gulp.dest('compile'));
 });
 
-gulp.task('images', function () {
-  return gulp.src(paths.src + '/assets/images/**/*')
-    .pipe(gulp.dest(paths.dist + '/assets/images/'));
-});
+// gulp.task('html', ['inject'], function () {
+//   /*var partialsInjectFile = gulp.src(paths.compile + '/partials/templateCacheHtml.js', { read: false });
+//   var partialsInjectOptions = {
+//     starttag: '<!-- inject:partials -->',
+//     ignorePath: paths.compile + '/partials',
+//     addRootSlash: false
+//   };
+//   */
 
-gulp.task('fonts', function () {
-  return gulp.src($.mainBowerFiles())
-    .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
-    .pipe($.flatten())
-    .pipe(gulp.dest(paths.dist + '/fonts/'));
-});
+//   var htmlFilter = $.filter('*.html');
+//   var jsFilter = $.filter('**/*.js');
+//   var cssFilter = $.filter('**/*.css');
+//   var assets;
 
-gulp.task('misc', function () {
-  return gulp.src(paths.src + '/**/*.ico')
-    .pipe(gulp.dest(paths.dist + '/'));
-});
+//   return gulp.src(paths.django.common + '/__base.html')
+//     //.pipe($.inject(partialsInjectFile, partialsInjectOptions))
+//     .pipe(assets = $.useref.assets())
+//     .pipe($.debug({title: 'inspect:'}))
+//     .pipe($.rev())
+//     .pipe(jsFilter)
+//     .pipe($.ngAnnotate())
+//     .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
+//     .pipe(jsFilter.restore())
+//     .pipe(cssFilter)
+//     .pipe($.csso())
+//     .pipe(cssFilter.restore())
+//     .pipe(assets.restore())
+//     .pipe($.useref())
+//     .pipe($.revReplace())
+//     .pipe(htmlFilter)
+//     .pipe($.minifyHtml({
+//       empty: true,
+//       spare: true,
+//       quotes: true
+//     }))
+//     .pipe(htmlFilter.restore())
+//     .pipe(gulp.dest(paths.django.dist + '/'))
+//     .pipe($.size({ title: paths.dist + '/', showFiles: true }));
+//   });
 
-gulp.task('clean', function (done) {
+// gulp.task('images', function () {
+//   return gulp.src(paths.src + '/assets/images/**/*')
+//   .pipe(gulp.dest(paths.dist + '/assets/images/'));
+// });
+
+// gulp.task('fonts', function () {
+//   return gulp.src($.mainBowerFiles())
+//   .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
+//   .pipe($.flatten())
+//   .pipe(gulp.dest(paths.dist + '/fonts/'));
+// });
+
+// gulp.task('misc', function () {
+//   return gulp.src(paths.src + '/**/*.ico')
+//   .pipe(gulp.dest(paths.dist + '/'));
+// });
+
+gulp.task('clean', function(done) {
   $.del([paths.dist + '/', paths.compile + '/'], done);
-  $.del([paths.djangocompile + '/'], {force: true});
+  $.del([paths.django.dist + '/'], {
+    force: true
+  });
 });
 
 gulp.task('build', ['html', 'images', 'fonts', 'misc']);

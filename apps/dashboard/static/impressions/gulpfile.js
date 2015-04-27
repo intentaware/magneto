@@ -27,6 +27,28 @@ gulp.task('styles', function() {
     }));
 });
 
+gulp.task('styles:adomattic', function() {
+  return gulp.src('app/styles/main.scss')
+    .pipe($.sourcemaps.init())
+    .pipe($.sass({
+      outputStyle: 'nested', // libsass doesn't support expanded yet
+      precision: 10,
+      includePaths: ['.'],
+      onError: console.error.bind(console, 'Sass error:')
+    }))
+    .pipe($.postcss([
+      require('autoprefixer-core')({
+        browsers: ['last 1 version']
+      })
+    ]))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(reload({
+      stream: true
+    }));
+});
+
+
 gulp.task('adomattic', function() {
   var uglifyOptions = {
     mangle: {
@@ -41,7 +63,8 @@ gulp.task('adomattic', function() {
       if_return: true,
       join_vars: true,
       //drop_console: true
-    }
+    },
+    outSourceMap: true
   };
 
   var sizeOptions = {
@@ -54,6 +77,38 @@ gulp.task('adomattic', function() {
     .pipe(gulp.dest('.tmp/scripts'))
     .pipe($.size(sizeOptions));
 });
+
+gulp.task('adomattic:final', ['styles:adomattic'], function() {
+  var uglifyOptions = {
+    mangle: {
+      toplevel: true,
+    },
+    compress: {
+      sequences: true,
+      dead_code: true,
+      conditionals: true,
+      booleans: true,
+      unused: true,
+      if_return: true,
+      join_vars: true,
+      drop_console: true
+    },
+    //outSourceMap: true
+  };
+
+  var sizeOptions = {
+    showFiles: true
+  };
+
+  gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
+    .pipe($.concat('all.js'))
+    .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://app.adomattic.com/api/'"))
+    .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "There was an error!"))
+    .pipe($.uglify(uglifyOptions))
+    .pipe(gulp.dest('dist/'))
+    .pipe($.size(sizeOptions));
+});
+
 
 gulp.task('jshint', function() {
   return gulp.src('app/scripts/**/*.js')

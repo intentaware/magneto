@@ -5,22 +5,46 @@ from jsonfield import JSONField
 
 from apps.common.models import *
 
+class Circle(TimeStamped):
+    name = models.CharField(max_length=128, unique=True)
+
+    class Meta:
+        ordering = ('name',)
+
+    def __unicode__(self):
+        return self.name
+
 
 class Company(TimeStamped, SluggedFromName):
     is_active = models.BooleanField(default=False)
-    users = models.ManyToManyField('users.User', through='companies.CompanyUser')
 
     is_advertiser = models.BooleanField(default=False)
     is_publisher = models.BooleanField(default=False)
 
     publisher_key = ShortUUIDField(blank=True, null=True)
 
+    advertiser_rate = models.DecimalField(default=0.25,
+        max_digits=20, decimal_places=4)
+    publisher_rate = models.DecimalField(default=0.05,
+        max_digits=20, decimal_places=4)
+
+    users = models.ManyToManyField('users.User', through='companies.CompanyUser')
+    circles = models.ManyToManyField(Circle, through='companies.CompanyCircle')
+
     class Meta:
         verbose_name_plural = "companies"
 
     def get_target_campaigns(self, request):
-        from apps.campaigns.models import Campaign
-        return Campaign.objects.all().exclude(image=None).order_by('?')
+        from apps.campaigns.models import Coupon
+        return Coupon.objects.all().exclude(campaign__image=None).order_by('?')[:3]
+
+
+class CompanyCircle(TimeStamped):
+    company = models.ForeignKey(Company)
+    circle = models.ForeignKey(Circle)
+
+    class Meta:
+        unique_together = ('company', 'circle')
 
 
 class CompanyGroup(TimeStamped):
@@ -51,11 +75,11 @@ class CompanyUser(TimeStamped):
         unique_together = ('user', 'group', 'company')
 
     def __unicode__(self):
-        return '%s: %s' %(self.company.name, self.user.name)
+        return '%s: %s' %(self.company.name, self.user)
 
     def set_default(self):
         if not self.is_active:
-            self.user.membership.all().update(is_active=False)
+            self.user.memberships.all().update(is_active=False)
             self.is_active = True
             self.save()
 

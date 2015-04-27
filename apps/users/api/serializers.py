@@ -8,8 +8,8 @@ class BaseRegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=128)
     password1 = serializers.CharField(max_length=128)
     password2 = serializers.CharField(max_length=128)
-    first_name = serializers.CharField(max_length=128)
-    last_name = serializers.CharField(max_length=128)
+    first_name = serializers.CharField(max_length=128, required=False)
+    last_name = serializers.CharField(max_length=128, required=False)
 
     def validate_email(self, value):
         print value
