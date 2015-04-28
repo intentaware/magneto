@@ -13,8 +13,8 @@ class Campaign(TimeStamped, ToCompany):
     name = models.CharField(max_length=256, default='')
     description = models.TextField(null=True, blank=True)
 
-    # starts_on = models.DateTimeField(null=True, blank=True)
-    # ends_on = models.DateTimeField(null=True, blank=True)
+    starts_on = models.DateTimeField(null=True, blank=True)
+    ends_on = models.DateTimeField(null=True, blank=True)
 
     # set if it is a coupon ad
     # is_coupon_ad = models.BooleanField(default=False)
@@ -62,6 +62,8 @@ class Coupon(TimeStamped, ToCompany):
     campaign = models.ForeignKey(Campaign, related_name='coupons')
     redeemed_on = models.DateTimeField(null=True, blank=True)
     claimed_on = models.DateTimeField(null=True, blank=True)
+
+    value = models.DecimalField(default=1, max_digits=20, decimal_places=4)
     """
     What is the difference between claimed on and redeemed_on?
     claimed_on = when the coupon is assigned a user,

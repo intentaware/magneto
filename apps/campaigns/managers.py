@@ -36,5 +36,6 @@ class CouponManager(Manager):
             self.create(
                     campaign = campaign,
                     company = campaign.company,
+                    value = campaign.coupon_value
                 )
             c += 1

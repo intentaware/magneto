@@ -15,6 +15,8 @@ angular.module('adomattic.dashboard')
       coupon_value: 2
     };
 
+    self.now = new Date();
+
     self.saveAd = function() {
       self.$saving = true;
       Campaign.save(self.ad).$promise.then(function(data) {
@@ -31,6 +33,7 @@ angular.module('adomattic.dashboard')
     };
 
     $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {
+      console.log(self.ad);
       $rootScope.$emit('campaginFormUpdated', self.ad);
     });
   });
