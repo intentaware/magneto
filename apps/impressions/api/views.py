@@ -46,8 +46,11 @@ class GetImpression(APIView):
             return Response(impressions, status=200)
         else:
             impression = Impression.objects.get(pk=pk)
+            # get or create auth user based on email
             user, created = User.objects.get_or_create(email=email)
+            # assign the user to impression object.
             impression.visitor.user = user
+            impression.visitor.save()
             impression.save()
             impression.coupon.claim(user)
             return Response('claimed succesfully', status=200)
