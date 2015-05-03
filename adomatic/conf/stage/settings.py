@@ -8,3 +8,14 @@ INSTALLED_APPS += (
 
 STATIC_URL = 'http://app.adomattic.com/static/'
 MEDIA_URL = 'http://app.adomattic.com/media/'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'vader',
+        'USER': 'django',
+        'PASSWORD': 'DZn#kF^zdMcAsmytQEVKe7!w',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
