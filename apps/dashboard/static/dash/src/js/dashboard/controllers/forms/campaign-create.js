@@ -4,18 +4,42 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, Campaign) {
+  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, Campaign, Circle) {
     var self = this;
+
+    self.circles = [];
+
+    Circle.query().$promise.then(function(data) {
+      self.circles = data.map(function(d) {
+        d._name = d.name.toLowerCase();
+        console.log(d);
+        return d;
+      });
+      console.log(self.circles);
+    });
 
     self.ad = {
       name: undefined,
       description: undefined,
       image: undefined,
       budget: 10,
-      coupon_value: 2
+      coupon_value: 2,
+      circles: []
     };
 
     self.now = new Date();
+
+    // autocomplete chips
+    self.selectedItem = null;
+    self.searchText = null;
+    self.circleLookup = function (query) {
+      console.log(query);
+      var result = _.filter(self.circles, function(key) {
+        return key._name.indexOf(query) > -1 ? true : false;
+      });
+      console.log(result);
+      return result;
+    };
 
     self.saveAd = function() {
       self.$saving = true;

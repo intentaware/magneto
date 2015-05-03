@@ -82,7 +82,3 @@ class CompanyUser(TimeStamped):
             self.user.memberships.all().update(is_active=False)
             self.is_active = True
             self.save()
-
-
-
-

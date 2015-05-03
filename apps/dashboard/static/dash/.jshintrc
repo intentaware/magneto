@@ -22,6 +22,7 @@
   "browser": true,
   "globals": {
     "angular": false,
+    "_": false,
     // Angular Mocks
     "inject": false,
     // JASMINE

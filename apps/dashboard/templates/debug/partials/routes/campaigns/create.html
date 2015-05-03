@@ -1,66 +1,7 @@
 {% verbatim %}
   <div layout="column">
     <div layout="row" class="md-padding">
-      <div flex="75">
-        <form name="CreateAdForm" ng-controller="CampaignFormCtrl as campaignForm" ng-submit="campaignForm.saveAd()" ng-disabled="campaignForm.$saving" flex>
-          <md-input-container>
-            <label>Name</label>
-            <input type="text" name="name" ng-model="campaignForm.ad.name" required>
-
-            <div ng-messages="CreateAdForm.name.$error">
-              <div ng-message="required">This is required, It will help you identify each ad from the other</div>
-            </div>
-          </md-input-container>
-          <md-input-container>
-            <label>Description</label>
-            <textarea name="description" ng-model="campaignForm.ad.description" md-maxlength="256"
-                      required>{{ campaignForm.ad.description }}</textarea>
-
-            <div ng-messages="CreateAdForm.description.$error">
-              <div ng-message="required" ng-show="CreateAdForm.description.$error">Required</div>
-            </div>
-          </md-input-container>
-          <div layout="row" layout-sm="column">
-            <md-input-container flex>
-              <label>Starts On</label>
-              <input type="date" required name="starts_on" ng-model="campaignForm.ad.starts_on" min="{{ campaignForm.now | date:'yyyy-MM-dd' }}">
-            </md-input-container>
-            <md-input-container flex>
-              <label>Ends On</label>
-              <input type="date" required name="ends_on" ng-model="campaignForm.ad.ends_on" min="{{ campaignForm.now | date:'yyyy-MM-dd' }}">
-            </md-input-container>
-          </div>
-          <div layout="row" layout-sm="column">
-            <md-input-container flex>
-              <label>Budget</label>
-              <input type="number" name="budget" ng-model="campaignForm.ad.budget" min="10">
-
-              <div ng-messages="CampaignForm.budget.$error">
-                <div ng-message="min">The budget for the campaign</div>
-              </div>
-            </md-input-container>
-            <md-input-container flex>
-              <label>Offer Value</label>
-              <input type="number" name="budget" ng-model="campaignForm.ad.coupon_value" min="2">
-
-              <div ng-messages="CampaignForm.coupon_value.$error">
-                <div ng-message="min"><strong>{{ campaignForm.ad.budget | currency }}</strong> will get <strong>{{ campaignForm.calculateImpressions() }}</strong> coupons of <strong>{{ campaignForm.ad.coupon_value | currency }}</strong> value.</div>
-              </div>
-            </md-input-container>
-          </div>
-          <div layout="row" layout-sm="column">
-
-            <md-input-container>
-              <label>Select Image</label>
-              <input class="md-button" type="file" accept="image/*" read-file ng-model="campaignForm.ad.image" />
-            </md-input-container>
-
-          </div>
-          <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving">
-            <span ng-if="!campaignForm.$saving">Creating New Campaign</span>
-            <span ng-if="campaignForm.$saving">Creating New Campaign</span>
-          </md-button>
-        </form>
+      <div flex="75" ng-include="'/dashboard/partials/forms/campaign-create.html'">
       </div>
       <div flex="25" class="md-padding">
         <md-card>

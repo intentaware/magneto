@@ -6,6 +6,7 @@ angular.module('adomattic.dashboard')
     var getCampaigns = function() {
       Campaign.query().$promise.then(function(data) {
         $scope.campaigns = data;
+        console.log(data);
       });
     };
 
