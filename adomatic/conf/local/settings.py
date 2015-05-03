@@ -4,6 +4,11 @@ SITE_ID = 1
 
 INSTALLED_APPS += (
     'rest_framework',
+    'devserver',
+)
+
+MIDDLEWARE_CLASSES += (
+    'devserver.middleware.DevServerMiddleware',
 )
 
 INTERNAL_IPS = (
@@ -23,3 +28,15 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+DEVSERVER_MODULES = (
+    'devserver.modules.sql.SQLRealTimeModule',
+    'devserver.modules.sql.SQLSummaryModule',
+    'devserver.modules.profile.ProfileSummaryModule',
+
+    # Modules not enabled by default
+    'devserver.modules.ajax.AjaxDumpModule',
+    'devserver.modules.profile.MemoryUseModule',
+    'devserver.modules.cache.CacheSummaryModule',
+    'devserver.modules.profile.LineProfilerModule',
+)

@@ -7,7 +7,11 @@ from .serializers import CampaignSerializer, CreateCampaignSerializer
 
 class CampaignViewSet(viewsets.ModelViewSet):
     serializer_class = CampaignSerializer
-    queryset = Campaign.objects.all()
+    #queryset = Campaign.objects.prefetch_related('image').all()
+
+    def get_queryset(self):
+        return Campaign.objects.prefetch_related('image').filter(
+            company_id=self.request.session['company'])
 
     def create(self, request):
         data = request.data
