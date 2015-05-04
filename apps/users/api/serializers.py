@@ -24,7 +24,11 @@ class BaseRegistrationSerializer(serializers.Serializer):
         if value != self.initial_data['password1']:
             raise serializers.ValidationError('Password Mismatch')
         else:
-            return value
+            if len(value) < 8:
+                raise serializers.ValidationError(
+                    'Password too weak, must be 8 characters long')
+            else:
+                return value
 
 
 class UserRegistrationSerializer(BaseRegistrationSerializer):
