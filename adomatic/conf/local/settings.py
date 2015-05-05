@@ -40,3 +40,5 @@ DEVSERVER_MODULES = (
     'devserver.modules.cache.CacheSummaryModule',
     'devserver.modules.profile.LineProfilerModule',
 )
+
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"

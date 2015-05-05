@@ -49,6 +49,9 @@ THIRD_PARTY_APPS = (
     'widget_tweaks',
     'corsheaders',
 
+    #mandrill
+    'djrill',
+
     # django photologue
     'photologue',
     'sortedm2m',
@@ -155,6 +158,11 @@ CORS_ALLOW_HEADERS = (
 # Impression Engine
 
 IMPRESSION_COOKIE_NAME = 'magneto'
+
+# Madrill
+MANDRILL_API_KEY = "_3SpFp-4JKwI-c5k7CqWwQ"
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+ADOMATTIC_FROM = "Adomattic <noreply@adomattic.com>"
 
 try:
     from local import *

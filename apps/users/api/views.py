@@ -10,7 +10,6 @@ class UserRegistrationView(APIView):
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid():
-            print serializer.data
             user = serializer.save()
             return Response({
                 "user": user.id

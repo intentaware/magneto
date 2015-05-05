@@ -40,7 +40,7 @@ class UserManager(BaseUserManager):
             user.set_unusable_password()
         user.save(using=self._db)
         return user
-        
+
 
     def create_superuser(self, email, password, **extra_fields):
         """
@@ -60,7 +60,7 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
     replacemnt for default auth.User model
     inheriting for AbstractBaseUser for default methods
     inherited fields are 'password', 'last_login'
-    inhertited methods are 'is_authenticated', 'is_anonymous', 
+    inhertited methods are 'is_authenticated', 'is_anonymous',
     'set_password', 'check_password'
     '''
 
@@ -86,7 +86,7 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
     # The good old django admin
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    
+
 
     def __unicode__(self):
         name = self.email
@@ -110,3 +110,27 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
 
     def get_short_name(self):
         return self.get_username()
+
+    def send_templated_email(self, template, context, **kwargs):
+        pass
+
+    def send_email(self, **kwargs):
+        """
+        Leverage django send_email function to sent email
+        "DO NOT send in the from parameter
+        """
+        from django.core.mail import send_mail
+        from django.conf import settings
+        send_mail(
+                recipient_list = ['%s <%s>' %(self.name, self.email),],
+                from_email=settings.ADOMATTIC_FROM,
+                **kwargs
+            )
+
+    def send_registration_email(self, **kwargs):
+        subject = 'Welcome to adomattic'
+        message = 'Your account has been created'
+        self.send_email(message=message, subject=subject)
+
+
+from signals import *
