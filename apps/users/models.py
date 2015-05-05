@@ -112,7 +112,23 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
         return self.get_username()
 
     def send_templated_email(self, template, context, **kwargs):
-        pass
+        """
+        Sends a rendered email and send the email as an html,
+        requires a template path and template context to be sent
+        """
+        from django.template.loader import render_to_string
+        from django.core.mail import EmailMessage
+        from django.conf import settings
+
+        message = render_to_string(template, context)
+        email = EmailMessage(
+                to=['%s <%s>' %(self.name, self.email),],
+                from_email=settings.ADOMATTIC_FROM,
+                body=message,
+                **kwargs
+            )
+        email.content_subtype = 'html'
+        email.send()
 
     def send_email(self, **kwargs):
         """
@@ -122,7 +138,7 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
         from django.core.mail import send_mail
         from django.conf import settings
         send_mail(
-                recipient_list = ['%s <%s>' %(self.name, self.email),],
+                recipient_list=['%s <%s>' %(self.name, self.email),],
                 from_email=settings.ADOMATTIC_FROM,
                 **kwargs
             )

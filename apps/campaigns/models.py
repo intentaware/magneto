@@ -88,13 +88,17 @@ class Coupon(TimeStamped, ToCompany):
         user claims a coupon
         """
         from django.utils import timezone
+        from django.conf import settings
         self.claimed_on = timezone.now()
         self.claimed_by = user
-        user.send_templated_email('', {})
         self.save()
+        self.generate_barcode()
+        user.send_templated_email('coupons/email.html', {
+                'coupon': self,
+                'STATIC_URL': settings.STATIC_URL,
+                'MEDIA_URL': settings.MEDIA_URL,
+            })
 
     def generate_barcode(self):
-        pass
-
-    def send(self):
-        pass
+        from apps.common.utils.barcodes import BarcodeFromString
+        BarcodeFromString(self.code)
