@@ -93,11 +93,16 @@ class Coupon(TimeStamped, ToCompany):
         self.claimed_by = user
         self.save()
         self.generate_barcode()
-        user.send_templated_email('coupons/email.html', {
+        subject = "[Adomattic] Your offer code for %s's campaign %s" %(self.company.name, self.campaign.name)
+        user.send_templated_email(
+            template='coupons/email.html',
+            context={
                 'coupon': self,
                 'STATIC_URL': settings.STATIC_URL,
                 'MEDIA_URL': settings.MEDIA_URL,
-            })
+                },
+            subject=subject
+            )
 
     def generate_barcode(self):
         from apps.common.utils.barcodes import BarcodeFromString

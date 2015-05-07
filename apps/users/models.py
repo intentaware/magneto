@@ -107,6 +107,12 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
             return self.name
         return self.email
 
+    @property
+    def email_from(self):
+        if self.name:
+            return '%s <%s>' %(self.name, self.email)
+        else:
+            return self.email
 
     def get_short_name(self):
         return self.get_username()
@@ -122,7 +128,7 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
 
         message = render_to_string(template, context)
         email = EmailMessage(
-                to=['%s <%s>' %(self.name, self.email),],
+                to=[self.email_from,],
                 from_email=settings.ADOMATTIC_FROM,
                 body=message,
                 **kwargs
@@ -138,7 +144,7 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
         from django.core.mail import send_mail
         from django.conf import settings
         send_mail(
-                recipient_list=['%s <%s>' %(self.name, self.email),],
+                recipient_list=[self.email_from,],
                 from_email=settings.ADOMATTIC_FROM,
                 **kwargs
             )
