@@ -26,7 +26,7 @@ $icon-font-path: '../fonts/';
   img {
     width: 230px;
     @include border-color(null null #F2F2F2 null);
-    @include border-style(null null solid null);
+    @include border-style(null null dashed null);
     @include padding(10px);
     //@include margin(null null 5px null);
   }
