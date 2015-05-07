@@ -7,7 +7,7 @@ $icon-font-path: '../fonts/';
 .adomattic {
   @include border-color(#F2F2F2);
   @include border-width(2px);
-  @include border-style(solid);
+  @include border-style(dashed);
   @include background(#FEFEFE);
   //@include padding(5px);
   //@include margin(5px);
