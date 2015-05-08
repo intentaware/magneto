@@ -1,20 +1,50 @@
 {% verbatim %}
-  <div layout="column" md-padding>
-      <md-toolbar>
+  <div layout="column">
+      <md-toolbar class="md-whiteframe-z1">
         <div class="md-toolbar-tools">
           <span>Current Campaigns</span>
         </div>
       </md-toolbar>
-      <md-content class="md-whiteframe-z1">
-        <div flex>
+      <md-content class="md-whiteframe-z1" md-padding>
+        <div class="md-padding" flex>
+          <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="4" md-row-height="3:4" md-gutter="16px" md-gutter-gt-sm="8px">
+            <md-grid-tile class="md-whiteframe-z1" ng-repeat="c in campaigns">
+              <md-grid-tile-header>
+                <h3>{{ c.name }}</h3>
+              </md-grid-tile-header>
+                <!--
+                <div class="adomattic">
+                  <div class="title">
+                    {{ c.name }}
+                  </div>
+                  <img ng-src="{{ c.preview_image_url }}" />
+                  <div class="description">
+                    {{ c.description }}
+                  </div>
+                </div>
+                -->
+                <img ng-src="{{ c.preview_image_url }}" width="100%" />
+              <md-grid-tile-footer>
+                <div layout="row" layout-fill>
+                  <div flex="90">
+                    <h4>{{ c.claimed_coupons_sum | currency }} claimed of {{ c.budget | currency }} budget</h4>
+                  </div>
+                  <div flex="10">
+                    <i class="mdi mdi-eye" ng-click="showPreview($event, c)"></i>
+                  </div>
+                </div>
+              </md-grid-tile-footer>
+            </md-grid-tile>
+          </md-grid-list>
+          <!--
           <md-list>
-            <md-item ng-repeat="c in campaigns">
+            <md-list-item ng-repeat="c in campaigns">
               <md-item-content>
                 <div class="md-tile-content">
                   <h4><strong>{{ c.name }}</strong></h4>
                   <p>{{ c.description }}</p>
                   <p>
-                    <strong>Starts On: </strong>{{ c.starts_on | date:'short' }} 
+                    <strong>Starts On: </strong>{{ c.starts_on | date:'short' }}
                     || <strong>Ends On: </strong> {{ c.ends_on | date:'short' }}
                     || <strong>Impressions: </strong> <strong>{{ c.impressions || 0 }}</strong> served of <strong>{{ c.serve_limit }}</strong> allowed.
                   </p>
@@ -24,7 +54,9 @@
                 </div>
               </md-item-content>
               <md-divider></md-divider>
-            </md-item>
+            </md-list-item>
+          </md-list>
+          -->
         </div>
       </md-content>
   </div>

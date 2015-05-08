@@ -39,6 +39,7 @@ gulp.task('styles', function () {
     .pipe($.sass(sassOptions))
     .pipe($.sourcemaps.write())
     .pipe($.autoprefixer())
+    .pipe($.size())
     .on('error', function handleError(err) {
       console.error(err.toString());
       this.emit('end');

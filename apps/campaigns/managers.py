@@ -26,6 +26,13 @@ class CouponQuerySet(QuerySet):
     def remaining(self):
         return self.filter(claimed_on__isnull=True)
 
+    def coupons_value_sum(self):
+        sum = self.aggregate(Sum('value'))['value__sum']
+        if sum:
+            return sum
+        else:
+            return 0
+
 
 class CouponManager(Manager):
     use_for_related_fields = True

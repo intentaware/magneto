@@ -7,6 +7,7 @@ from apps.api.fields import Base64ImageField
 
 class CampaignSerializer(serializers.ModelSerializer):
     preview_image_url = serializers.SerializerMethodField()
+    claimed_coupons_sum = serializers.SerializerMethodField()
 
     class Meta:
         model = Campaign
@@ -16,6 +17,9 @@ class CampaignSerializer(serializers.ModelSerializer):
             return obj.image.get_preview_url()
         else:
             return ''
+
+    def get_claimed_coupons_sum(self, obj):
+        return obj.coupons.claimed().coupons_value_sum()
 
 
 class CreateCampaignSerializer(serializers.ModelSerializer):
