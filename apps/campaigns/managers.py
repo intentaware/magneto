@@ -1,4 +1,5 @@
 from django.db.models import Manager, QuerySet, Sum
+import datetime
 
 
 class CampaignQuerySet(QuerySet):

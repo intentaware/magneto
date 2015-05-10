@@ -13,6 +13,9 @@ class BaseModel(models.Model):
         return self.__class__._default_manager.get(pk=self.pk)
 
     def has_foreign_key(self, name):
+        """
+        quickly check the 1to1 and FK rels where the model is not created.
+        """
         return hasattr(self, name) and getattr(self, name) is not None
 
     class Meta:
@@ -23,7 +26,7 @@ class TimeStamped(BaseModel):
     """
     Provides created and updated timestamps on models.
     This will be the model inherited site wide because for SAAS
-    added_on and updated_on are required to check the action on 
+    added_on and updated_on are required to check the action on
     a particular record
     """
 
