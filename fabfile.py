@@ -80,6 +80,7 @@ def prepare():
     env.run('sudo apt-get install nginx-full uwsgi uwsgi-plugin-python')
     env.run('sudo apt-get install python-pip')
     env.run('sudo apt-get install libreadline6 libreadline6-dev libncurses5-dev')
+    env.run('sudo apt-get install libffi-dev libssl-dev')
     env.run('sudo pip install virtualenv')
     env.run('sudo apt-get install nodejs-legacy')
     env.run('sudo npm i -g bower gulp yo')

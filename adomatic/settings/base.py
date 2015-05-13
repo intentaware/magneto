@@ -164,6 +164,9 @@ MANDRILL_API_KEY = "US9U8XiepMg6nUVDaq5UeQ"
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 ADOMATTIC_FROM = "Adomattic <noreply@adomattic.com>"
 
+# Stripe
+STRIPE_KEY = 'sk_test_4JvKFhzjrrbbmxorKHqwh3WO'
+
 try:
     from local import *
 except ImportError:

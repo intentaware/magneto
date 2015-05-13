@@ -42,3 +42,5 @@ DEVSERVER_MODULES = (
 )
 
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+
+STRIPE_KEY = 'sk_test_4JvKFhzjrrbbmxorKHqwh3WO'
