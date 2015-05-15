@@ -39,6 +39,7 @@ class Stripe(object):
 
     def post_charge(self, *args, **kwargs):
         """
-        to perform after the charge
+        to perform after the charge, normally used to set the invoice as paid,
+        or things like that.
         """
         pass
