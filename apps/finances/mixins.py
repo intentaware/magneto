@@ -1,12 +1,18 @@
 import stripe
 from django.conf import settings
+from apps.common.models import BaseModel
 
-class Stripe(object):
+
+class Stripe(BaseModel):
     """
-    class to instantiate stripe and provide methods for error handling
+    class to instantiate stripe and provide methods for charging and handling
     """
+
+    class Meta:
+        abstract = True
 
     def __init__(self, *args, **kwargs):
+        super(Stripe, self).__init__(*args, **kwargs)
         stripe.api_key = settings.STRIPE_KEY
         self._stripe = stripe
         # params is a dictionary used to set parameters during a charge life
@@ -33,7 +39,7 @@ class Stripe(object):
             )
             self.post_charge(*args, **kwargs)
             return True, self._params
-        except self._stripe.error.CardError, ce:
+        except (self._stripe.error.CardError, self._stripe.error.AuthenticationError) as ce:
             self._params = ce
             return False, self._params
 

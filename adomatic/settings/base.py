@@ -65,6 +65,7 @@ ADOMATIC_APPS = (
     'apps.campaigns',
     'apps.impressions',
     'apps.brands',
+    'apps.finances',
 
     # for front end
     'apps.dashboard',

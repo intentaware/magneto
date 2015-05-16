@@ -1,9 +1,10 @@
 from django.db import models
 
 from django_extensions.db.fields import *
-from jsonfield import JSONField
+from django_pgjson.fields import JsonField
 
 from apps.common.models import *
+from apps.finances.mixins import Stripe
 
 class Circle(TimeStamped):
     name = models.CharField(max_length=128, unique=True)
@@ -15,7 +16,7 @@ class Circle(TimeStamped):
         return self.name
 
 
-class Company(TimeStamped, SluggedFromName):
+class Company(TimeStamped, SluggedFromName, Stripe):
     is_active = models.BooleanField(default=False)
 
     is_advertiser = models.BooleanField(default=False)
@@ -23,10 +24,11 @@ class Company(TimeStamped, SluggedFromName):
 
     publisher_key = ShortUUIDField(blank=True, null=True)
 
-    advertiser_rate = models.DecimalField(default=0.25,
-        max_digits=4, decimal_places=4)
-    publisher_rate = models.DecimalField(default=0.05,
-        max_digits=4, decimal_places=4)
+    advertiser_rate = models.DecimalField(default=0.25, max_digits=4, decimal_places=4)
+    publisher_rate = models.DecimalField(default=0.05, max_digits=4, decimal_places=4)
+
+    # stripe
+    payment_data = JsonField(default={})
 
     users = models.ManyToManyField('users.User', through='companies.CompanyUser')
     circles = models.ManyToManyField(Circle, through='companies.CompanyCircle')
@@ -37,6 +39,32 @@ class Company(TimeStamped, SluggedFromName):
     def get_target_campaigns(self, request):
         from apps.campaigns.models import Coupon
         return Coupon.objects.all().exclude(campaign__image=None).order_by('?')[:3]
+
+    @property
+    def stripe_customer_id(self):
+        """
+        sets or gets the stripe customer id in stripe database
+        """
+        sid = self.payment_data.get('stripe_customer_id', None)
+        if not sid:
+            owner = self.memberships.filter(is_owner=True)[0].user
+            response = self._stripe.Customer.create(
+                    email=owner.email,
+                    description=self.name
+                )
+            sid = response.id
+            self.payment_data['stripe_customer_id'] = sid
+            self.save()
+        return sid
+
+    @property
+    def stripe_customer(self):
+        """
+        gets the stripe customer json object and python dictionary with all
+        the right methods
+        """
+        return self._stripe.Customer.retrieve(self.stripe_customer_id)
+
 
 
 class CompanyCircle(TimeStamped):
@@ -50,7 +78,7 @@ class CompanyCircle(TimeStamped):
 class CompanyGroup(TimeStamped):
     name = models.CharField(max_length=128)
     company = models.ForeignKey('companies.Company', related_name='groups')
-    permissions = JSONField(default="[]")
+    permissions = JsonField(default=[])
 
 
 class CompanyUser(TimeStamped):
