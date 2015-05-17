@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os, sys
+#from django.conf.directives import app
 CONF_DIR = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.join(CONF_DIR, os.pardir)
 
@@ -54,6 +55,7 @@ THIRD_PARTY_APPS = (
 
     # django photologue
     'photologue',
+    #app('photologue', 'photos', 'Photos, a port of django photologue'),
     'sortedm2m',
 )
 
