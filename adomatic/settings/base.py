@@ -166,7 +166,7 @@ EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 ADOMATTIC_FROM = "Adomattic <noreply@adomattic.com>"
 
 # Stripe
-STRIPE_KEY = 'sk_test_4JvKFhzjrrbbmxorKHqwh3WO'
+STRIPE_KEY = 'sk_live_ykBdrWZnCW4YddbDDxrwm0dm'
 
 try:
     from local import *

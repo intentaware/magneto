@@ -20,4 +20,4 @@ DATABASES = {
     }
 }
 
-STRIPE_KEY = 'sk_live_ssqxfOddcsNs3wOElV6Oxoit '
+STRIPE_KEY = 'sk_test_s0cxlb2a5kArqUwfSGeig5CI'
