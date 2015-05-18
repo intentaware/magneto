@@ -45,17 +45,11 @@ class Company(TimeStamped, SluggedFromName, Stripe):
         """
         sets or gets the stripe customer id in stripe database
         """
-        sid = self.payment_data.get('stripe_customer_id', None)
-        if not sid:
-            owner = self.memberships.filter(is_owner=True)[0].user
-            response = self._stripe.Customer.create(
-                    email=owner.email,
-                    description=self.name
-                )
-            sid = response.id
-            self.payment_data['stripe_customer_id'] = sid
-            self.save()
-        return sid
+        stripe_customer_id = self.payment_data.get('stripe_customer_id', None)
+        if not stripe_customer_id:
+            customer = self.set_stripe_customer()
+            stripe_customer_id = customer.id
+        return stripe_customer_id
 
     @property
     def stripe_customer(self):
@@ -63,7 +57,26 @@ class Company(TimeStamped, SluggedFromName, Stripe):
         gets the stripe customer json object and python dictionary with all
         the right methods
         """
-        return self._stripe.Customer.retrieve(self.stripe_customer_id)
+        customer_id = self.payment_data.get('stripe_customer_id', None)
+        if not customer_id:
+            customer = self.set_stripe_customer()
+        else:
+            try:
+                customer = self._stripe.Customer.retrieve(self.stripe_customer_id)
+            #except self._stripe.error.AuthenticationError as ce:
+            except:
+                customer = self.set_stripe_customer()
+        return customer
+
+    def set_stripe_customer(self):
+        owner = self.memberships.filter(is_owner=True)[0].user
+        response = self._stripe.Customer.create(
+                email=owner.email,
+                description=self.name
+            )
+        self.payment_data['stripe_customer_id'] = response.id
+        self.save()
+        return response
 
 
 

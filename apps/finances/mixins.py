@@ -18,6 +18,7 @@ class Stripe(BaseModel):
         # params is a dictionary used to set parameters during a charge life
         # cycle, mostly used in post_save and pre_save methods
         self._params = dict()
+        self._charge = dict()
 
     def pre_charge(self, *args, **kwargs):
         """
@@ -31,17 +32,17 @@ class Stripe(BaseModel):
         if not currency:
             currency = 'CAD'
         try:
-            self._params = self._stripe.Charge.create(
+            self._charge = self._stripe.Charge.create(
                 amount=amount_in_cents,
                 currency=currency,
                 description=description,
                 **self._params
             )
             self.post_charge(*args, **kwargs)
-            return True, self._params
+            return True, self._charge
         except (self._stripe.error.CardError, self._stripe.error.AuthenticationError) as ce:
-            self._params = ce
-            return False, self._params
+            self._charge = ce
+            return False, self._charge
 
     def post_charge(self, *args, **kwargs):
         """
