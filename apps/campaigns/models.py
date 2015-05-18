@@ -38,6 +38,10 @@ class Campaign(TimeStamped, ToCompany):
     image = models.ForeignKey('photologue.Photo', related_name='campaigns',
         blank=True, null=True)
 
+    # finances
+    invoice = models.ForeignKey('finances.Invoice', related_name='campaigns',
+        blank=True, null=True)
+
     objects = CampaignManager.from_queryset(CampaignQuerySet)()
 
     def __unicode__(self):
@@ -47,6 +51,8 @@ class Campaign(TimeStamped, ToCompany):
         saved_already = False
         if self.id:
             saved_already = True
+        else:
+            self.invoice = self.set_invoice()
         campaign = super(Campaign, self).save(*args, **kwargs)
         if not saved_already:
             # get the amount after taking out adomattic cut
@@ -54,7 +60,15 @@ class Campaign(TimeStamped, ToCompany):
             if self.coupon_value:
                 count = int(remaining / self.coupon_value)
                 Coupon.objects.generate(self, count)
-        return campaign
+            self.save()
+
+    def set_invoice(self):
+        from apps.finances.models import Invoice
+        return Invoice.objects.create(
+                amount = self.budget,
+                company = self.company
+            )
+
 
 
 class CampaignCircle(TimeStamped):

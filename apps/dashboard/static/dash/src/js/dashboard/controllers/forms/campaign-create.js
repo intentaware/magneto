@@ -4,7 +4,7 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, Campaign, Circle) {
+  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Circle) {
     var self = this;
 
     self.circles = [];
@@ -45,7 +45,8 @@ angular.module('adomattic.dashboard')
       self.$saving = true;
       Campaign.save(self.ad).$promise.then(function(data) {
         console.log(data);
-        $location.path('/campaigns/');
+        //$location.path('/campaigns/');
+        openStripePaymentDialog(data.invoice);
       }, function(data) {
         console.log(data);
         self.$saving = false;
@@ -60,4 +61,17 @@ angular.module('adomattic.dashboard')
       console.log(self.ad);
       $rootScope.$emit('campaginFormUpdated', self.ad);
     });
+
+    var openStripePaymentDialog = function (invoiceID) {
+      $mdDialog.show({
+        controller: 'StripeCreditCardDialogCtrl',
+        controllerAs: 'creditCard',
+        templateUrl: urls.partials.dialogs + 'payments/stripe-credit-card.html',
+        locals: {
+          invoiceID: invoiceID
+        },
+        //targetEvent: ev,
+        parent: angular.element(document.body)
+      });
+    };
   });
