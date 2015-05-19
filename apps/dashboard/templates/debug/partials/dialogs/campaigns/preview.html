@@ -2,16 +2,19 @@
 <md-dialog flex="20" aria-label="Previewing Campaign">
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <span>Previewing Campaign: <strong>{{ previewController.data.name }}</strong></span>
+      <span>{{ previewController.data.name }}</span>
     </div>
   </md-toolbar>
-  <md-content>
+  <md-dialog-content>
     <md-card>
     <img ng-if="previewController.data.preview_image_url" ng-src="{{ previewController.data.preview_image_url }}">
     <md-card-content>
      <small>{{ previewController.data.description }}</small>
     </md-card-content>
     </md-card>
-  </md-content>
+  </md-dialog-content>
+  <div class="md-actions">
+    <md-button class="md-primary md-raised" ng-click="previewController.hide()">Close</md-button>
+  </div>
 </md-dialog>
 {% endverbatim %}

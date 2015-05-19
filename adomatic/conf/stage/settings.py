@@ -19,3 +19,5 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+STRIPE_KEY = 'sk_test_s0cxlb2a5kArqUwfSGeig5CI'

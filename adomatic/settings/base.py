@@ -67,6 +67,7 @@ ADOMATIC_APPS = (
     'apps.campaigns',
     'apps.impressions',
     'apps.brands',
+    'apps.finances',
 
     # for front end
     'apps.dashboard',
@@ -165,6 +166,9 @@ IMPRESSION_COOKIE_NAME = 'magneto'
 MANDRILL_API_KEY = "US9U8XiepMg6nUVDaq5UeQ"
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 ADOMATTIC_FROM = "Adomattic <noreply@adomattic.com>"
+
+# Stripe
+STRIPE_KEY = 'sk_live_ykBdrWZnCW4YddbDDxrwm0dm'
 
 try:
     from local import *

@@ -3,7 +3,7 @@
 angular.module('adomattic.dashboard')
   .factory('Campaign', function($resource, urls) {
     return $resource(
-      urls.apiBaseUrl + 'campaigns/campaigns/:id:doc/:list/',
+      urls.apiBaseUrl + 'campaigns/campaigns/:id:list/:doc/',
       {
         id: '@id',
         doc: '@doc',
