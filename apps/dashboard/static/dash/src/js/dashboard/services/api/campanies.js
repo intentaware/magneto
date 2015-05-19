@@ -3,7 +3,7 @@
 angular.module('adomattic.dashboard')
   .factory('Company', function($resource, urls) {
     return $resource(
-      urls.apiBaseUrl + 'companies/companies/:id:doc/:list/',
+      urls.apiBaseUrl + 'companies/companies/:id:list/:doc/',
       {
         id: '@id',
         doc: '@doc',

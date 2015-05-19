@@ -46,7 +46,7 @@ angular.module('adomattic.dashboard')
       Campaign.save(self.ad).$promise.then(function(data) {
         console.log(data);
         //$location.path('/campaigns/');
-        openStripePaymentDialog(data.invoice);
+        openStripePaymentDialog(data.invoice, self.ad.budget);
       }, function(data) {
         console.log(data);
         self.$saving = false;
@@ -58,17 +58,18 @@ angular.module('adomattic.dashboard')
     };
 
     $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {
-      console.log(self.ad);
+      //console.log(self.ad);
       $rootScope.$emit('campaginFormUpdated', self.ad);
     });
 
-    var openStripePaymentDialog = function (invoiceID) {
+    var openStripePaymentDialog = function (invoiceID, amount) {
       $mdDialog.show({
         controller: 'StripeCreditCardDialogCtrl',
         controllerAs: 'creditCard',
         templateUrl: urls.partials.dialogs + 'payments/stripe-credit-card.html',
         locals: {
-          invoiceID: invoiceID
+          invoiceID: invoiceID,
+          amount: amount
         },
         //targetEvent: ev,
         parent: angular.element(document.body)

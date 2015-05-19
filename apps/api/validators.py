@@ -7,7 +7,8 @@ class StripeCardValidator(object):
         self.klass = klass
 
     def set_context(self, serializer):
-        self.klass = getattr(serializer, self.klass, None)
+        if type(self.klass) is str:
+            self.klass = getattr(serializer, self.klass, None)
 
     def __call__(self, attrs):
         amount = attrs.pop('amount', None)

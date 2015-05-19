@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .factory('Circle', function($resource, urls) {
+  .factory('Invoice', function($resource, urls) {
     return $resource(
-      urls.apiBaseUrl + 'companies/circles/:id:list/:doc/',
+      urls.apiBaseUrl + 'finances/invoices/:id:list/:doc/',
       {
         id: '@id',
         doc: '@doc',
@@ -12,6 +12,13 @@ angular.module('adomattic.dashboard')
         update: {
           method: 'PUT',
           isArray: false
+        },
+        charge: {
+          method: 'POST',
+          isArray: false,
+          params: {
+            doc: 'charge'
+          }
         }
       }
     );
