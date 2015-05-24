@@ -8,6 +8,7 @@ from apps.common.models import TimeStamped
 class ImpressionUser(TimeStamped):
     user = models.ForeignKey('users.User', blank=True, null=True)
     key = ShortUUIDField()
+    has_opted_out = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.key

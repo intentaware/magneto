@@ -10,8 +10,11 @@ class CampaignViewSet(viewsets.ModelViewSet):
     #queryset = Campaign.objects.prefetch_related('image').all()
 
     def get_queryset(self):
-        return Campaign.objects.prefetch_related('image').filter(
-            company_id=self.request.session['company'])
+        return Campaign.objects.prefetch_related(
+                'image', 'coupons'
+            ).filter(
+                company_id=self.request.session['company']
+            )
 
     def create(self, request):
         data = request.data
