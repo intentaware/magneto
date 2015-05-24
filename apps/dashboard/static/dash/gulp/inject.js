@@ -46,7 +46,7 @@ var wiredep = require('wiredep').stream;
   var injectOptions = {
     //ignorePath: [paths.src, paths.compile + '/serve'],
     addRootSlash: false,
-    addPrefix: "{{ STATIC_URL }}dash"
+    addPrefix: '{{ STATIC_URL }}dash'
     //relative: true
   };
 
