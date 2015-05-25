@@ -8,6 +8,11 @@ class BasePaymentModel(Stripe, TimeStamped):
     amount = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
     attempts = models.IntegerField(default=0)
 
+    #service charges
+    service_charges = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
+    tax = models.DecimalField(default=0.0, max_digits=20, decimal_places=4)
+    total_amount = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
+
     # extra timestamps
     attempted_on = models.DateTimeField(blank=True, null=True)
     charged_on = models.DateTimeField(blank=True, null=True)
