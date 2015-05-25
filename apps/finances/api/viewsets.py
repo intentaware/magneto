@@ -12,7 +12,7 @@ class InvoiceViewSet(viewsets.ModelViewSet):
     serializer_class = InvoiceSerializer
 
     def get_queryset(self):
-        return Invoice.objects.filter(
+        return Invoice.objects.prefetch_related('campaigns').filter(
             company_id=self.request.session['company'])
 
     @detail_route(methods=['post'], url_path='charge')

@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.utils.translation import ugettext_lazy as _
 
-from rest_framework.fields import ImageField
+from rest_framework.fields import ReadOnlyField, ImageField
 
 
 DEFAULT_CONTENT_TYPE = "application/octet-stream"
@@ -64,3 +64,25 @@ class Base64ImageField(ImageField):
         extension = imghdr.what(filename, decoded_file)
         extension = "jpg" if extension == "jpeg" else extension
         return extension
+
+
+class ModelMethodField(ReadOnlyField):
+    """
+    A field that calls the method of the serialized object
+    """
+    def __init__(self, method_name=None, *args, **kwargs):
+        self._method_name = method_name
+        super(ModelMethodField, self).__init__(*args, **kwargs)
+
+    def field_to_native(self, obj, field_name):
+        return getattr(obj, self._method_name or field_name)()
+
+
+class ModelPropertyField(ReadOnlyField):
+    """
+    A field that retrieves a custom property of the serialized object
+
+    Useful for model functions using the @property decorator
+    """
+    def field_to_native(self, obj, field_name):
+        return getattr(obj, field_name)

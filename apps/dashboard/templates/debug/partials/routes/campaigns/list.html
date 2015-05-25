@@ -30,12 +30,11 @@
                     <h4>{{ c.claimed_coupons_sum | currency }} claimed of {{ c.budget | currency }} budget</h4>
                   </div>
                   <div flex="10">
-                    <!--<i class="mdi mdi-eye" ng-click="showPreview($event, c)">
+                    <div>
+                      <md-icon md-font-icon="mdi-eye" class="mdi" ng-click="showPreview($event, c)">
+                      </md-icon>
                       <md-tooltip>Preview</md-tooltip>
-                    </i>-->
-                    <md-icon md-font-icon="mdi-eye" class="mdi" ng-click="showPreview($event, c)">
-                      <md-tooltip>Preview</md-tooltip>
-                    </md-icon>
+                    </div>
                   </div>
                 </div>
               </md-grid-tile-footer>

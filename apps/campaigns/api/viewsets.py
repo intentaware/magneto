@@ -11,7 +11,7 @@ class CampaignViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Campaign.objects.prefetch_related(
-                'image', 'coupons'
+                'image', 'coupons', 'invoice',
             ).filter(
                 company_id=self.request.session['company']
             )

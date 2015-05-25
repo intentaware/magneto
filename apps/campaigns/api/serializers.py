@@ -2,12 +2,13 @@ from rest_framework import serializers
 from photologue.models import Photo
 
 from apps.campaigns.models import Campaign
-from apps.api.fields import Base64ImageField
+from apps.api.fields import Base64ImageField, ModelPropertyField
 
 
 class CampaignSerializer(serializers.ModelSerializer):
     preview_image_url = serializers.SerializerMethodField()
     claimed_coupons_sum = serializers.SerializerMethodField()
+    is_paid = ModelPropertyField()
 
     class Meta:
         model = Campaign

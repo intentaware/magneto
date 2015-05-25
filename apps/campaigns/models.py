@@ -69,6 +69,12 @@ class Campaign(TimeStamped, ToCompany):
                 company = self.company
             )
 
+    @property
+    def is_paid(self):
+        if self.invoice:
+            if self.invoice.is_paid:
+                return True
+        return False
 
 
 class CampaignCircle(TimeStamped):
