@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('adomattic', [
+    // angular core
     'ngAnimate',
     'ngCookies',
     'ngTouch',
@@ -9,7 +10,10 @@ angular.module('adomattic', [
     'ngRoute',
     //'ngMessages',
     'ngMaterial',
+    // 3rd party
+    'ngMask',
     'nvd3',
+    // adomattic
     'adomattic.dashboard'
   ])
   .constant('urls', {

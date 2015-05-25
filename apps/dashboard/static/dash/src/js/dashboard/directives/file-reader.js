@@ -7,12 +7,9 @@ angular.module('adomattic.dashboard')
       require: '?ngModel',
       link: function(scope, elm, atr, ngModel) {
 
-
         var bindElement = function() {
           ngModel.$render = function() {};
-
           elm.bind('change', function(e) {
-
             var el = e.target;
 
             if (!el.value) {
@@ -20,17 +17,14 @@ angular.module('adomattic.dashboard')
             }
 
             var read = function(f) {
-              console.log(f);
               var d = $q.defer();
               var r = new FileReader();
 
               r.onload = function(ev) {
-                console.log(ev);
                 d.resolve(ev.target.result);
               };
 
               r.onerror = function(ev) {
-                console.log(ev);
                 d.reject(ev);
               };
 

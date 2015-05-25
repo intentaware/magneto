@@ -36,8 +36,8 @@
       <md-input-container flex>
         <label>Offer Value</label>
         <input type="number" name="budget" ng-model="campaignForm.ad.coupon_value" min="2">
-        <div ng-messages="CampaignForm.coupon_value.$error">
-          <div ng-message="min"><strong>{{ campaignForm.ad.budget | currency }}</strong> will get <strong>{{ campaignForm.calculateImpressions() }}</strong> coupons of <strong>{{ campaignForm.ad.coupon_value | currency }}</strong> value.</div>
+        <div ng-messages>
+          <div ng-message><strong>{{ campaignForm.ad.budget | currency }}</strong> will get <strong>{{ campaignForm.calculateImpressions() }}</strong> coupons of <strong>{{ campaignForm.ad.coupon_value | currency }}</strong> value.</div>
         </div>
       </md-input-container>
     </div>
@@ -47,7 +47,7 @@
         <input class="md-button" type="file" accept="image/*" read-file ng-model="campaignForm.ad.image" />
       </md-input-container>
     </div>
-    <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving">
+    <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving" aria-label="Create Campain">
       <span ng-if="!campaignForm.$saving">Creating New Campaign</span>
       <span ng-if="campaignForm.$saving">Creating New Campaign</span>
     </md-button>

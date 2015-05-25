@@ -1,26 +1,33 @@
 {% verbatim %}
-<md-dialog flex="60" aria-label="Credit Card Details">
+<md-dialog flex="50" flex-sm="100" aria-label="Credit Card Details">
   <form name="creditCardForm" ng-submit="creditCard.chargeCard()">
     <md-dialog-content layout="column">
       <md-input-container>
-        <label>Number</label>
+        <label>Name on Card</label>
+        <input type="text" required="true" ng-model="creditCard.creditCard.name">
+      </md-input-container>
+      <md-input-container>
+        <label>Credit/Debit Card Number</label>
         <input type="text" required="true" ng-model="creditCard.creditCard.number">
       </md-input-container>
-      <md-input-container>
-        <label>Expiry Date (Month)</label>
-        <input type="text" required="true" ng-model="creditCard.creditCard.exp_month" maxlength="2">
-      </md-input-container>
-      <md-input-container>
-        <label>Expiry Date (Year)</label>
-        <input type="text" required="true" ng-model="creditCard.creditCard.exp_year" maxlength="2">
-      </md-input-container>
-      <md-input-container>
-        <label>Security Code (CVC)</label>
-        <input type="text" required="true" ng-model="creditCard.creditCard.cvc" maxlength="3">
-      </md-input-container>
+      <div layout="row" layout-sm="column">
+        <md-input-container flex="25">
+          <label>Expiry Date (Month)</label>
+          <input type="text" required="true" ng-model="creditCard.creditCard.exp_month" maxlength="2">
+        </md-input-container>
+        <md-input-container flex="25">
+          <label>Expiry Date (Year)</label>
+          <input type="text" required="true" ng-model="creditCard.creditCard.exp_year" maxlength="2">
+        </md-input-container>
+        <md-input-container flex="50">
+          <label>Security Code (CVC)</label>
+          <input type="text" required="true" ng-model="creditCard.creditCard.cvc" maxlength="3">
+        </md-input-container>
+      </div>
     </md-dialog-content>
     <div class="md-actions">
       <md-button type="submit" class="md-primary md-raised">Charge</md-button>
+      <md-button class="md-warn md-raised" ng-click="creditCard.chargeLater()">Charge Later</md-button>
     </div>
   </form>
 </md-dialog>
