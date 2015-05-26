@@ -17,4 +17,8 @@ angular.module('adomattic.dashboard')
     $scope.goToSettings = function () {
       $location.path('/settings/');
     };
+
+    $scope.goToInvoices = function () {
+      $location.path('/invoices/');
+    };
   });

@@ -54,7 +54,6 @@ angular.module('adomattic', [
     $routeProvider
       .when('/', {
         templateUrl: urls.partials.routes + 'landing/__base.html',
-        //controller: 'HomeCtrl'
       })
       .when('/campaigns/', {
         templateUrl: urls.partials.routes + 'campaigns/list.html',
@@ -67,6 +66,11 @@ angular.module('adomattic', [
       })
       .when('/settings/', {
         templateUrl: urls.partials.routes + 'settings/__base.html',
+      })
+      .when('/invoices/', {
+        templateUrl: urls.partials.routes + 'invoices/list.html',
+        controller: 'InvoiceListCtrl',
+        controllerAs: 'invoiceList'
       })
       .otherwise('/');
   })
