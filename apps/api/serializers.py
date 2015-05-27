@@ -21,18 +21,3 @@ class StripeCreditCardSerializer(StripeSerializer):
         del source['amount']
         del source['description']
         return source
-
-    def clean(self):
-        cleaned_data = super(StripeCreditCardSerializer, self).clean()
-        print cleaned_data
-        source = self.get_source(cleaned_data)
-        s = Stripe()
-        check, response = s.charge(cleaned_data['amount'], cleaned_data['description'], source=source)
-        if not check:
-            raise serializers.ValidationError(response)
-        else:
-            self.charge = response
-
-
-
-

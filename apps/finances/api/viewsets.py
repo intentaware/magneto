@@ -8,6 +8,7 @@ from apps.finances.models import Invoice
 
 from .serializers import InvoiceSerializer, InvoiceChargeSerializer
 
+
 class InvoiceViewSet(viewsets.ModelViewSet):
     serializer_class = InvoiceSerializer
 
@@ -22,9 +23,6 @@ class InvoiceViewSet(viewsets.ModelViewSet):
         srlzr.invoice = invoice
         srlzr.invoice.attempted_on = timezone.now()
         if srlzr.is_valid():
-            srlzr.invoice.charged_on = timezone.now()
-            srlzr.invoice.is_paid = True
-            srlzr.invoice.save()
             return Response(status=200)
         else:
             return Response(srlzr.errors, status=400)
