@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DEFAULT_APPS = (
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -158,8 +159,19 @@ CORS_ALLOW_HEADERS = (
         'access-control-allow-credentials'
     )
 
-# Impression Engine
+TEMPLATE_CONTEXT_PROCESSORS = (
+        "django.contrib.auth.context_processors.auth",
+        "django.core.context_processors.debug",
+        "django.core.context_processors.i18n",
+        "django.core.context_processors.media",
+        "django.core.context_processors.static",
+        "django.core.context_processors.tz",
+        "django.core.context_processors.request",
+        "django.contrib.messages.context_processors.messages"
+    )
 
+
+# Impression Engine
 IMPRESSION_COOKIE_NAME = 'magneto'
 
 # Madrill
@@ -169,6 +181,9 @@ ADOMATTIC_FROM = "Adomattic <noreply@adomattic.com>"
 
 # Stripe
 STRIPE_KEY = 'sk_live_ykBdrWZnCW4YddbDDxrwm0dm'
+
+# GRAPPELLI SETTINGS
+GRAPPELLI_ADMIN_TITLE = 'Adomattic Administration Console'
 
 try:
     from local import *

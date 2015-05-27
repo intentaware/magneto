@@ -8,6 +8,7 @@ urlpatterns = patterns(
     # Examples:
     # url(r'^$', 'adomatic.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     # adomattic urls
     url(r'^$', 'apps.dashboard.views.redirect_to_dashboard', name='landing'),
