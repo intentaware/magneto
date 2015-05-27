@@ -41,6 +41,8 @@ DEVSERVER_MODULES = (
     'devserver.modules.profile.LineProfilerModule',
 )
 
+DEVSERVER_TRUNCATE_SQL = False
+
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 
 STRIPE_KEY = 'sk_test_s0cxlb2a5kArqUwfSGeig5CI'
