@@ -41,7 +41,6 @@ best that we follow the `git flow` model. Branches and their roles are as follow
 - `develop` > major development branch, used for staging
 - `feature/name` > we branch out from developing before developing a feature so that come back and checkout master to do hot-fixes
 - `hot-fix/name` > for fixing stuff when things are live and we need to iron out minor kinks, this allows to leave our feature development on a seperate path
-- 
 
 ### The Git Flow with git flow plugin
 
