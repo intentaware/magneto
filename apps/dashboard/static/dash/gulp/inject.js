@@ -43,40 +43,40 @@ var wiredep = require('wiredep').stream;
 
 // });
 
-  var injectOptions = {
-    //ignorePath: [paths.src, paths.compile + '/serve'],
-    addRootSlash: false,
-    addPrefix: '{{ STATIC_URL }}dash'
+var injectOptions = {
+  //ignorePath: [paths.src, paths.compile + '/serve'],
+  addRootSlash: false,
+  addPrefix: '{{ STATIC_URL }}dash'
     //relative: true
-  };
+};
 
-  var wiredepScripts = {
-    directory: 'bower_components',
-    ignorePath: '../../static/',
-    exclude: ['.css'],
-    fileTypes: {
-      html: {
-        replace: {
-          js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>'
+var wiredepScripts = {
+  directory: 'bower_components',
+  ignorePath: '../../static/',
+  exclude: ['.css'],
+  fileTypes: {
+    html: {
+      replace: {
+        js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>'
           //css: '<link rel="stylesheet" href="{{ STATIC_URL }}{{filePath}}" />'
-        }
       }
     }
-  };
+  }
+};
 
 var wiredepStyles = {
-    directory: 'bower_components',
-    ignorePath: '../static/',
-    exclude: ['.js'],
-    fileTypes: {
-      html: {
-        replace: {
-          //js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>'
-          css: '<link rel="stylesheet" href="{{ STATIC_URL }}{{filePath}}" />'
-        }
+  directory: 'bower_components',
+  ignorePath: '../static/',
+  exclude: ['.js'],
+  fileTypes: {
+    html: {
+      replace: {
+        //js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>'
+        css: '<link rel="stylesheet" href="{{ STATIC_URL }}{{filePath}}" />'
       }
     }
-  };
+  }
+};
 
 // injection into common base
 gulp.task('inject:common', ['styles'], function() {
@@ -98,11 +98,12 @@ gulp.task('inject:common', ['styles'], function() {
 gulp.task('inject:dashboard', ['styles'], function() {
 
   var injectScripts = gulp.src([
-    paths.src + '/js/**/*.js',
-    '!' + paths.src + '/js/auth/**/*.js'
-    //'!' + paths.src + '/{app,components}/**/*.spec.js',
-    //'!' + paths.src + '/{app,components}/**/*.mock.js'
-  ]).pipe($.angularFilesort())
+      paths.src + '/js/**/*.js',
+      '!' + paths.src + '/js/auth/**/*.js'
+      //'!' + paths.src + '/{app,components}/**/*.spec.js',
+      //'!' + paths.src + '/{app,components}/**/*.mock.js'
+    ])
+    .pipe($.angularFilesort())
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'));
 

@@ -70,7 +70,7 @@
 {% endblock %}
 
 {% block scripts_src %}
-  <!-- build:js(src) scripts/vendor.js -->
+  <!-- build:js dashboard/scripts/vendor.js -->
   <!-- bower:js -->
   <script src="{{ STATIC_URL }}dash/bower_components/angular/angular.js"></script>
   <script src="{{ STATIC_URL }}dash/bower_components/angular-animate/angular-animate.js"></script>
@@ -91,15 +91,15 @@
   <!-- endbower -->
   <!-- endbuild -->
 
-  <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
+  <!-- build:js dashboard/scripts/app.js -->
   <!-- inject:js -->
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/dashboard.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/dialogs/payments/stripe-credit-card.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/landing/publishers.js"></script>
+  <script src="{{ STATIC_URL }}dash/src/js/dashboard/dashboard.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/landing/campaigners.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/invoices/list.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/campaigns/list.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/campaigns/create.js"></script>
+  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/dialogs/payments/stripe-credit-card.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/dialogs/campaigns/preview.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/api/invoices.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/api/circles.js"></script>

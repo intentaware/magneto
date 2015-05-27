@@ -24,7 +24,7 @@ gulp.task('partials', function() {
     .pipe(gulp.dest(paths.compile + '/partials/'));
 });
 
-gulp.task('html', function() {
+gulp.task('html:common', ['inject:common'], function() {
   var assets;
   var cssFilter = $.filter('**/*.css');
 
@@ -34,6 +34,7 @@ gulp.task('html', function() {
     .pipe(assets = $.useref.assets({
       searchPath: ['.']
     }))
+    .pipe($.rev())
     .pipe(cssFilter)
     .pipe($.csso())
     .pipe($.debug())
@@ -42,6 +43,45 @@ gulp.task('html', function() {
     .pipe($.useref())
     .pipe(gulp.dest('compile'));
 });
+
+gulp.task('html:dashboard', ['styles', 'inject:dashboard'], function() {
+  var assets;
+  var jsFilter = $.filter('**/*.js');
+
+  var uglifyOptions = {
+    mangle: {
+      toplevel: true,
+    },
+    compress: {
+      sequences: true,
+      dead_code: true,
+      conditionals: true,
+      booleans: true,
+      unused: true,
+      if_return: true,
+      join_vars: true,
+      //drop_console: true
+    },
+    outSourceMap: false
+  };
+
+  gulp.src(paths.django.debug + '/__base.html')
+    .pipe($.debug())
+    .pipe($.replace('{{ STATIC_URL }}dash/', ''))
+    .pipe(assets = $.useref.assets({
+     searchPath: ['.']
+    }))
+    .pipe($.debug())
+    .pipe(jsFilter)
+    .pipe($.ngAnnotate())
+    .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
+    .pipe(jsFilter.restore())
+    .pipe(assets.restore())
+    .pipe($.useref())
+    .pipe(gulp.dest('compile/build'));
+})
+
+gulp.task('html', ['html:common', 'html:dashboard']);
 
 // gulp.task('html', ['inject'], function () {
 //   /*var partialsInjectFile = gulp.src(paths.compile + '/partials/templateCacheHtml.js', { read: false });
