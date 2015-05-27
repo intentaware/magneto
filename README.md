@@ -78,7 +78,7 @@ with each function of ui having a seperate folder e.g
 2. emails > to generate email friendly templates
 3. impressions > standalone javascript files for serving impressions
 
-to watch the static files which working on dashboard, we would need gulp with browser-sync which proxies django local development server. Do this
+to watch the static files while working on dashboard, we would need gulp with browser-sync which proxies django local development server. Do this in a seperate terminal/console window
 
 ```bash
 cd apps/dashboard/static/dash/
