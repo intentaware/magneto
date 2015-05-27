@@ -3,6 +3,13 @@
 
 # Lets get the show on the road
 
+## Pre Requisites
+make sure you have these packages on your system
+
+1. node & npm
+2. postgres 9.4 (important, 9.4 is version is a must)
+3. gulp & bower (npm install -g gulp bower)
+
 ## Setting your development environment
 You know virtualenv, right? MAKE ONE and switch to it!
 
@@ -39,7 +46,21 @@ seriously, if you are not using git-flow plug uptil now, you MUST!
 
 ## UI/UX
 
-TODO
-Using Material design 
+everything frontend related is at the directory 'apps/dashboard/static/
 
-*Happy Coding :)*
+with each function of ui having a seperate folder e.g
+
+1. dash > everything related to dashboard
+2. emails > to generate email friendly templates
+3. impressions > standalone javascript files for serving impressions
+
+to watch the static files which working on dashboard, we would need gulp with browser-sync which proxies django local development server. Do this
+
+```bash
+cd apps/dashboard/static/dash/
+npm install
+bower install
+gulp serve
+```
+
+npm install read package.json, while bower install reads bower.json.
