@@ -1,4 +1,7 @@
 from django.db import models
+
+from django_pgjson.fields import JsonField
+
 from apps.common.models import *
 from .mixins import Stripe
 
@@ -17,6 +20,7 @@ class BasePaymentModel(Stripe, TimeStamped):
     attempted_on = models.DateTimeField(blank=True, null=True)
     charged_on = models.DateTimeField(blank=True, null=True)
 
+    gateway_response = JsonField(default={})
     is_paid = models.BooleanField(default=False)
 
     class Meta:
