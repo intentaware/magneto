@@ -42,7 +42,31 @@ best that we follow the `git flow` model. Branches and their roles are as follow
 - `feature/name` > we branch out from developing before developing a feature so that come back and checkout master to do hot-fixes
 - `hot-fix/name` > for fixing stuff when things are live and we need to iron out minor kinks, this allows to leave our feature development on a seperate path
 
-seriously, if you are not using git-flow plug uptil now, you MUST!
+### The Git Flow with git flow plugin
+
+seriously, if you are not using git-flow plug uptil now, you MUST! but the big question here is HOW? luckily, it has been made easy with git plugin. I don't know about *ix, but on OSX, we use the power of brew to get git-flow
+
+```bash
+brew install git-flow
+```
+
+to use git-flow plugin, lets say we are to start a new feature 'awesome', 
+
+```bash
+git flow feature start awesome
+```
+
+where 'awesome' is the name of the feature. One you are 100% done with 'awesome' feature, we first merge the develop back in the feature/awesome branch doing
+
+```bash
+git merge develop
+```
+
+this enables us to resolve merge conflict, get upto speed with the parallel development, test the code before finally closing the feature. To close this feature after testing, we release this command to shell
+
+```bash
+git flow feature finish awesome
+```
 
 ## UI/UX
 
