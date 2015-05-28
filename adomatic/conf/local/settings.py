@@ -5,6 +5,7 @@ SITE_ID = 1
 INSTALLED_APPS += (
     'rest_framework',
     'devserver',
+    'django.contrib.staticfiles',
 )
 
 MIDDLEWARE_CLASSES += (
