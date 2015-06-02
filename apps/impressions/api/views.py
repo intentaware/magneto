@@ -2,12 +2,14 @@ from json import JSONEncoder
 
 from django.template.loader import render_to_string
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 
 from apps.api.permissions import PublisherAPIPermission
 from apps.impressions.models import Impression, ImpressionUser
 from apps.users.models import User
 
+from .serializers import ImpressionSerializer
 
 class RequestEncoder(JSONEncoder):
     def default(self, o):
@@ -55,3 +57,9 @@ class GetImpression(APIView):
             impression.coupon.claim(user)
             return Response('claimed succesfully', status=200)
 
+
+class ImpressionViewSet(ModelViewSet):
+    serializer_class = ImpressionSerializer
+
+    def get_queryset(self):
+        return Impression.objects.all()
