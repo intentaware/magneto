@@ -42,10 +42,13 @@
       </md-input-container>
     </div>
     <div layout="row" layout-sm="column">
+      <!--
       <md-input-container>
         <label>Select Image</label>
         <input class="md-button" type="file" accept="image/*" read-file ng-model="campaignForm.ad.image" />
       </md-input-container>
+      -->
+      <read-file label="Choose Campaign Image" accept="image/*" flex></read-file>
     </div>
     <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving" aria-label="Create Campain">
       <span ng-if="!campaignForm.$saving">Creating New Campaign</span>

@@ -6,5 +6,5 @@ angular.module('adomattic.dashboard')
     Invoice.query(function(data) {
       console.log(data);
       self.invoices = data;
-    })
+    });
   });

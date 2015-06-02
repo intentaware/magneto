@@ -9,6 +9,7 @@ angular.module('adomattic.dashboard')
 
     self.circles = [];
 
+    /*
     Circle.query().$promise.then(function(data) {
       self.circles = data.map(function(d) {
         d._name = d.name.toLowerCase();
@@ -17,6 +18,7 @@ angular.module('adomattic.dashboard')
       });
       console.log(self.circles);
     });
+    */
 
     self.ad = {
       name: undefined,

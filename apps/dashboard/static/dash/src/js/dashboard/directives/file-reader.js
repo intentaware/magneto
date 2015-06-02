@@ -1,14 +1,36 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .directive('readFile', function($q) {
+  .directive('readFile', function($q, urls) {
     return {
-      restrict: 'A',
+      restrict: 'E',
+      scope: {
+        label: '@',
+        accept: '@',
+      },
+      templateUrl: urls.partials.directives + 'file-reader.html',
+      replace: true,
       require: '?ngModel',
       link: function(scope, elm, atr, ngModel) {
+        var $file = elm[0].querySelector('.overlay');
+        console.log($file);
 
+        $file.onchange = function (e) {
+          var el = e.target;
+          console.log(el.value);
+
+          if (!el.value) {
+            return
+          }
+
+          console.log(scope);
+          scope.fileName = el.value;
+          //scope.apply();
+        }
+        /*
         var bindElement = function() {
           ngModel.$render = function() {};
+
           elm.bind('change', function(e) {
             var el = e.target;
 
@@ -37,8 +59,6 @@ angular.module('adomattic.dashboard')
 
             console.log(e);
 
-            // jshint expr:true
-
             $q.all(Array.prototype.slice.call(el.files, 0).map(read))
               .then(function(values) {
                 (el.multiple) ? ngModel.$setViewValue(values): ngModel.$setViewValue(values.length ? values[0] : null);
@@ -48,6 +68,7 @@ angular.module('adomattic.dashboard')
         };
 
         return (ngModel) ? bindElement() : false;
+        */
       }
     };
   });

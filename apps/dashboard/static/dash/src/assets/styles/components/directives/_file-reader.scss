@@ -1,0 +1,12 @@
+.file-reader {
+  height: 78px;
+  .overlay {
+    @include size(auto 78px);
+    position: absolute;
+    opacity: 0;
+  }
+
+  .display {
+    position: absolute;
+  }
+}

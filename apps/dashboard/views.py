@@ -57,7 +57,8 @@ class DashboardView(SetSessionData):
         sets the context data and global defaults for angular
         """
         request = self.request
-        membership = request.user.memberships.get(is_default=True)
+        membership = request.user.memberships.select_related(
+            'company', 'company__coupons').get(is_default=True)
         user = DashboardUserSerializer(request.user).data
         company = DashboardCompanySerializer(
                 membership.company
