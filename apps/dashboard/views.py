@@ -77,12 +77,12 @@ class DashboardView(SetSessionData):
         }
         return context
 
-def UserOptOut(request):
-    context = {}
-    return render(request, 'debug/opt-out-child.html', context)
-    if(request.method == POST) and ("optOutButton" in request.POST):
-        ImpressionUser.set_opt_out_flag()    
-    
+def user_opt_out(request):
+    if (request.method == POST) and ("optOutButton" in request.POST) and request.customer:
+        impression_user = ImpressionUser.objects.get(key=request.customer)
+        impression_user.set_opt_out_flag()
+    return render(request, 'debug/opt-out-child.html', {})
+
 
 class AngularPartials(LoginRequiredMixin):
 
