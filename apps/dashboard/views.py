@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
+from django.shortcuts import render
 
 from .serializers import *
 
@@ -76,6 +77,12 @@ class DashboardView(SetSessionData):
         }
         return context
 
+def UserOptOut(request):
+    context = {}
+    return render(request, 'debug/opt-out-child.html', context)
+    if(request.method == POST) and ("optOutButton" in request.POST):
+        ImpressionUser.set_opt_out_flag()    
+    
 
 class AngularPartials(LoginRequiredMixin):
 
