@@ -77,6 +77,7 @@ class DashboardView(SetSessionData):
         }
         return context
 
+#This view is called when the user clicks on the 'Opt-Out' button. It fetches the ImpressionUser object for the current customer and sets the opt_out_flag to true.
 def user_opt_out(request):
     if (request.method == POST) and ("optOutButton" in request.POST) and request.customer:
         impression_user = ImpressionUser.objects.get(key=request.customer)
