@@ -4,6 +4,7 @@ SITE_ID = 1
 
 INSTALLED_APPS += (
     'rest_framework',
+    'django.contrib.staticfiles',
 )
 
 STATIC_URL = 'http://app.adomattic.com/static/'
