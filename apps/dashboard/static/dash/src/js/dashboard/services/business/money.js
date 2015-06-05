@@ -18,8 +18,10 @@ angular.module('adomattic.dashboard')
      * @return {json}                  json {impressions: int, charge: float, serviceCharges: float, taxes: float}
      */
     self.getImpressionCountAndChargeValue = function(budget, offer, advertiserRate, taxRate, inclusiveCharges) {
+      advertiserRate = parseFloat(advertiserRate);
+      taxRate = parseFloat(taxRate);
       var actualBudget = budget;
-      var muxFactor = 1 + advertiserRate;
+      var muxFactor = 1;
 
       /**
        * quickly calculates upto 2 decimal places
@@ -31,11 +33,12 @@ angular.module('adomattic.dashboard')
       };
 
       if (inclusiveCharges) {
-        muxFactor = toFixed(1/muxFactor);
+        muxFactor = (1/(1+advertiserRate)) * (1/(1+taxRate));
       }
 
+
       actualBudget = muxFactor * budget;
-      var impressions = Math.round(actualBudget / offer);
+      var impressions = parseInt(actualBudget / offer);
       var impressionsTotal = toFixed(impressions * offer);
       var serviceCharges = toFixed(impressionsTotal * advertiserRate);
       var taxes = toFixed((impressionsTotal + serviceCharges) * taxRate);
@@ -43,6 +46,7 @@ angular.module('adomattic.dashboard')
 
       return {
         impressions: impressions,
+        impressionsTotal: impressionsTotal,
         charge: charge,
         serviceCharges: serviceCharges,
         taxes: taxes

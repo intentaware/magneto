@@ -4,7 +4,7 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Circle) {
+  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Money) {
     var self = this;
 
     self.circles = [];
@@ -29,18 +29,14 @@ angular.module('adomattic.dashboard')
       circles: []
     };
 
+    console.log($rootScope);
+
     self.now = new Date();
 
-    // autocomplete chips
-    self.selectedItem = null;
-    self.searchText = null;
-    self.circleLookup = function (query) {
-      console.log(query);
-      var result = _.filter(self.circles, function(key) {
-        return key._name.indexOf(query) > -1 ? true : false;
-      });
-      console.log(result);
-      return result;
+    self.getImpressionCount = function() {
+      return Money.getImpressionCountAndChargeValue(
+          self.ad.budget, self.ad.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
+        );
     };
 
     self.saveAd = function() {
@@ -55,9 +51,11 @@ angular.module('adomattic.dashboard')
       });
     };
 
+    /*
     self.calculateImpressions = function () {
       return Math.round((self.ad.budget * (1 - $rootScope.globals.company.advertiser_rate))/self.ad.coupon_value) || 0;
     };
+    */
 
     $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {
       //console.log(self.ad);

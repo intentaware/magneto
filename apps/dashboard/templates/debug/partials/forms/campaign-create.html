@@ -30,16 +30,24 @@
         <label>Budget</label>
         <input type="number" name="budget" ng-model="campaignForm.ad.budget" min="10">
         <div ng-messages="CampaignForm.budget.$error">
-          <div ng-message="min">The budget for the campaign</div>
+          <div ng-message="min"><strong>You will be charged: </strong>{{ campaignForm.getImpressionCount().charge | number:2 | currency }}</div>
         </div>
       </md-input-container>
       <md-input-container flex>
         <label>Offer Value</label>
         <input type="number" name="budget" ng-model="campaignForm.ad.coupon_value" min="2">
-        <div ng-messages>
-          <div ng-message><strong>{{ campaignForm.ad.budget | currency }}</strong> will get <strong>{{ campaignForm.calculateImpressions() }}</strong> coupons of <strong>{{ campaignForm.ad.coupon_value | currency }}</strong> value.</div>
+        <div ng-messages="CampaignForm.coupon_value.$error">
+          <div ng-message="min"><strong>People Targetted: </strong>{{ campaignForm.getImpressionCount().impressions }}</div>
         </div>
       </md-input-container>
+      <div flex="40" flex-sm="100">
+        <div layout="column">
+        <span style="padding-bottom: 3px;"><small><strong>Offers Total: </strong>{{ campaignForm.ad.coupon_value | number:2 | currency }} &times; {{ campaignForm.getImpressionCount().impressions }} = {{ campaignForm.getImpressionCount().impressionsTotal | number:2 | currency }}</small></span>
+        <span style="padding-bottom: 3px;"><small><strong>Service Charges + Taxes: </strong>{{ campaignForm.getImpressionCount().serviceCharges | number:2 | currency }} + {{ campaignForm.getImpressionCount().taxes | number:2 | currency }} = {{ campaignForm.getImpressionCount().serviceCharges + campaignForm.getImpressionCount().taxes | number:2 | currency }}</small></span>
+        <md-divider></md-divider>
+        <span><small><strong>Total: </strong>{{ campaignForm.getImpressionCount().charge | number:2 | currency }}</small></span>
+        </div>
+      </div>
     </div>
     <div layout="row" layout-sm="column">
       <!--
