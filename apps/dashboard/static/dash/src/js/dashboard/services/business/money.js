@@ -4,7 +4,7 @@
  * Quick calculation of money
  */
 
-angular.module('adomattic.dashboard',)
+angular.module('adomattic.dashboard')
   .service('Money', function() {
     var self = this;
 
