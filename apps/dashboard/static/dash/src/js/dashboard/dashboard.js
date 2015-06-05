@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('adomattic.dashboard', [])
+angular.module('adomattic.dashboard', []);
   /*
   .config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('default')
