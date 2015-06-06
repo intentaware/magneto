@@ -28,9 +28,9 @@
     <div layout="row" layout-sm="column">
       <md-input-container flex>
         <label>Budget</label>
-        <input type="number" name="budget" ng-model="campaignForm.ad.budget" min="10">
-        <div ng-messages="CampaignForm.budget.$error">
-          <div ng-message="min"><strong>You will be charged: </strong>{{ campaignForm.getImpressionCount().charge | number:2 | currency }}</div>
+        <input type="number" name="input_budget" ng-model="campaignForm.ad.input_budget" min="10">
+        <div ng-messages="CampaignForm.input_budget.$error">
+          <div ng-message="min"><strong>You will be charged: </strong>{{ campaignForm.getImpressionCount().charge | currency }}</div>
         </div>
       </md-input-container>
       <md-input-container flex>
@@ -40,12 +40,12 @@
           <div ng-message="min"><strong>People Targetted: </strong>{{ campaignForm.getImpressionCount().impressions }}</div>
         </div>
       </md-input-container>
-      <div flex="40" flex-sm="100">
+      <div flex="45" flex-sm="100">
         <div layout="column">
-        <span style="padding-bottom: 3px;"><small><strong>Offers Total: </strong>{{ campaignForm.ad.coupon_value | number:2 | currency }} &times; {{ campaignForm.getImpressionCount().impressions }} = {{ campaignForm.getImpressionCount().impressionsTotal | number:2 | currency }}</small></span>
-        <span style="padding-bottom: 3px;"><small><strong>Service Charges + Taxes: </strong>{{ campaignForm.getImpressionCount().serviceCharges | number:2 | currency }} + {{ campaignForm.getImpressionCount().taxes | number:2 | currency }} = {{ campaignForm.getImpressionCount().serviceCharges + campaignForm.getImpressionCount().taxes | number:2 | currency }}</small></span>
+        <span style="padding-bottom: 3px;"><small><strong>Offers Total: </strong>{{ campaignForm.ad.coupon_value | currency }} &times; {{ campaignForm.getImpressionCount().impressions }} = {{ campaignForm.getImpressionCount().impressionsTotal | currency }}</small></span>
+        <span style="padding-bottom: 3px;"><small><strong>Service Charges + Taxes: </strong>{{ campaignForm.getImpressionCount().serviceCharges | currency }} + {{ campaignForm.getImpressionCount().taxes | currency }} = {{ campaignForm.getImpressionCount().serviceCharges + campaignForm.getImpressionCount().taxes | currency }}</small></span>
         <md-divider></md-divider>
-        <span><small><strong>Total: </strong>{{ campaignForm.getImpressionCount().charge | number:2 | currency }}</small></span>
+        <span><small><strong>Total: </strong>{{ campaignForm.getImpressionCount().charge | currency }}</small></span>
         </div>
       </div>
     </div>

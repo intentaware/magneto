@@ -45,7 +45,7 @@ angular.module('adomattic.dashboard')
       var charge = toFixed(impressionsTotal + serviceCharges + taxes);
 
       return {
-        impressions: impressions,
+        impressions: parseInt(actualBudget / offer),
         impressionsTotal: impressionsTotal,
         charge: charge,
         serviceCharges: serviceCharges,

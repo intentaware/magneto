@@ -10,6 +10,7 @@ urlpatterns = patterns(
     # url(r'^blog/', include('blog.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    #url(r'^photologue/', include('photologue.urls', namespace='photologue')),
     # adomattic urls
     url(r'^$', 'apps.dashboard.views.redirect_to_dashboard', name='landing'),
     url(r'^api/', include('apps.api.urls', namespace='api')),

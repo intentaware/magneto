@@ -25,6 +25,7 @@ class Campaign(TimeStamped, ToCompany):
 
     budget = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
     coupon_value = models.DecimalField(default=1, max_digits=20, decimal_places=4)
+    coupon_count = models.PositiveIntegerField(default=0)
 
     # set the ad to inactive after the limit is served
     is_active = models.BooleanField(default=True)
@@ -51,23 +52,19 @@ class Campaign(TimeStamped, ToCompany):
         saved_already = False
         if self.id:
             saved_already = True
-        else:
-            self.invoice = self.set_invoice()
         campaign = super(Campaign, self).save(*args, **kwargs)
         if not saved_already:
-            # get the amount after taking out adomattic cut
-            remaining = self.budget * (1 - self.company.advertiser_rate)
-            if self.coupon_value:
-                count = int(remaining / self.coupon_value)
-                Coupon.objects.generate(self, count)
-            self.save()
+            Coupon.objects.generate(self, self.coupon_count)
+        return campaign
 
-    def set_invoice(self):
+    def set_invoice(self, *args, **kwargs):
         from apps.finances.models import Invoice
-        return Invoice.objects.create(
-                amount = self.budget,
-                company = self.company
+        self.invoice = Invoice.objects.create(
+                company = self.company,
+                *args, **kwargs
             )
+        self.save()
+        return self.invoice
 
     @property
     def is_paid(self):

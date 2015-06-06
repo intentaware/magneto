@@ -24,7 +24,7 @@ angular.module('adomattic.dashboard')
       name: undefined,
       description: undefined,
       image: undefined,
-      budget: 10,
+      input_budget: 10,
       coupon_value: 2,
       circles: []
     };
@@ -34,17 +34,22 @@ angular.module('adomattic.dashboard')
     self.now = new Date();
 
     self.getImpressionCount = function() {
-      return Money.getImpressionCountAndChargeValue(
-          self.ad.budget, self.ad.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
+      self.money = Money.getImpressionCountAndChargeValue(
+          self.ad.input_budget, self.ad.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
         );
+      return self.money;
     };
 
     self.saveAd = function() {
       self.$saving = true;
+      self.ad.budget = self.money.charge;
+      self.ad.service_charges = self.money.serviceCharges;
+      self.ad.taxes = self.money.taxes;
+      self.ad.coupon_count = self.money.impressions;
       Campaign.save(self.ad).$promise.then(function(data) {
         console.log(data);
         //$location.path('/campaigns/');
-        openStripePaymentDialog(data.invoice, self.ad.budget);
+        openStripePaymentDialog(data.invoice);
       }, function(data) {
         console.log(data);
         self.$saving = false;
@@ -62,14 +67,13 @@ angular.module('adomattic.dashboard')
       $rootScope.$emit('campaginFormUpdated', self.ad);
     });
 
-    var openStripePaymentDialog = function (invoiceID, amount) {
+    var openStripePaymentDialog = function (invoiceID) {
       $mdDialog.show({
         controller: 'StripeCreditCardDialogCtrl',
         controllerAs: 'creditCard',
         templateUrl: urls.partials.dialogs + 'payments/stripe-credit-card.html',
         locals: {
-          invoiceID: invoiceID,
-          amount: amount
+          invoiceID: invoiceID
         },
         //targetEvent: ev,
         parent: angular.element(document.body)
