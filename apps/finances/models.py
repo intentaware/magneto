@@ -13,8 +13,8 @@ class BasePaymentModel(Stripe, TimeStamped):
 
     #service charges
     service_charges = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
-    tax = models.DecimalField(default=0.0, max_digits=20, decimal_places=4)
-    total_amount = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
+    taxes = models.DecimalField(default=0.0, max_digits=20, decimal_places=4)
+    #total_amount = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
 
     # extra timestamps
     attempted_on = models.DateTimeField(blank=True, null=True)
@@ -25,6 +25,11 @@ class BasePaymentModel(Stripe, TimeStamped):
 
     class Meta:
         abstract = True
+
+    @property
+    def line_items_total(self):
+        return self.amount - self.service_charges - self.taxes
+
 
 
 class Invoice(BasePaymentModel):

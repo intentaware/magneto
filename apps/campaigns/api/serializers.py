@@ -25,6 +25,8 @@ class CampaignSerializer(serializers.ModelSerializer):
 
 class CreateCampaignSerializer(serializers.ModelSerializer):
     image = Base64ImageField(required=False)
+    service_charges = serializers.DecimalField(max_digits=20, decimal_places=4, required=False)
+    taxes = serializers.DecimalField(max_digits=20, decimal_places=4, required=False)
 
     class Meta:
         model = Campaign
@@ -37,5 +39,14 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
                 slug=image.name,
             )
         i = validated_data
+        service_charges = i.pop('service_charges', None)
+        taxes = i.pop('taxes', None)
         i['image'] = image
-        return Campaign.objects.create(**i)
+        campaign = Campaign.objects.create(**i)
+        campaign.set_invoice(
+                amount=campaign.budget,
+                service_charges=service_charges,
+                taxes=taxes
+            )
+        return campaign
+

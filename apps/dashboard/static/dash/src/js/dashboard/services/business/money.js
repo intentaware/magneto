@@ -38,13 +38,11 @@ angular.module('adomattic.dashboard')
 
 
       actualBudget = muxFactor * budget;
-      console.log(actualBudget);
       var impressions = parseInt(actualBudget / offer);
       var impressionsTotal = toFixed(impressions * offer);
       var serviceCharges = toFixed(impressionsTotal * advertiserRate);
       var taxes = toFixed((impressionsTotal + serviceCharges) * taxRate);
       var charge = toFixed(impressionsTotal + serviceCharges + taxes);
-      console.log(charge);
 
       return {
         impressions: parseInt(actualBudget / offer),
