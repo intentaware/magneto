@@ -24,7 +24,7 @@ angular.module('adomattic.dashboard')
       name: undefined,
       description: undefined,
       image: undefined,
-      budget: 10,
+      input_budget: 10,
       coupon_value: 2,
       circles: []
     };
@@ -35,7 +35,7 @@ angular.module('adomattic.dashboard')
 
     self.getImpressionCount = function() {
       return Money.getImpressionCountAndChargeValue(
-          self.ad.budget, self.ad.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
+          self.ad.input_budget, self.ad.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
         );
     };
 
