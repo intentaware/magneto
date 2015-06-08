@@ -16,7 +16,7 @@ You know virtualenv, right? MAKE ONE and switch to it!
 ```bash
 git clone git@github.com:adomattic/Vader.git && cd Vader
 pip install -r requirements.txt
-touch adomatic/conf/fabric/variables.py
+touch adomattic/conf/fabric/variables.py
 ```
 
 the last command creates your fabric variables i.e. automate the crap out of this thing, edit this file in your favourite editor, and make your have the paths to these set accordingly
@@ -50,7 +50,7 @@ seriously, if you are not using git-flow plug uptil now, you MUST! but the big q
 brew install git-flow
 ```
 
-to use git-flow plugin, lets say we are to start a new feature 'awesome', 
+to use git-flow plugin, lets say we are to start a new feature 'awesome',
 
 ```bash
 git flow feature start awesome

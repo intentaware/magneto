@@ -1,5 +1,5 @@
 """
-WSGI config for adomatic project.
+WSGI config for adomattic project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

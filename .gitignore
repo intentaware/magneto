@@ -162,11 +162,11 @@ crashlytics-build.properties
 
 
 ### FABRIC ###
-adomatic/conf/fabric/
+adomattic/conf/fabric/
 
 
 ### LOCAL_SETTINGS ###
-adomatic/settings/local.py
+adomattic/settings/local.py
 
 
 ### DJANGO ENVIRONMENT IGNORE ###

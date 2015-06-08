@@ -50,7 +50,7 @@ STRIPE_KEY = 'sk_test_s0cxlb2a5kArqUwfSGeig5CI'
 
 # Celery
 # To run
-# celery -A adomatic worker -l info
+# celery -A adomattic worker -l info
 # you might want to change BROKER_URL and RESULT BACKEND as per you machine settings.
 BROKER_URL = 'amqp://yousuf:adomattic@localhost/adomattic'
 CELERY_RESULT_BACKEND = 'amqp://yousuf:adomattic@localhost/adomattic'
