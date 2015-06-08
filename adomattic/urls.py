@@ -6,7 +6,7 @@ admin.site.site_header = 'Adomattic Administration Console'
 urlpatterns = patterns(
     '',
     # Examples:
-    # url(r'^$', 'adomatic.views.home', name='home'),
+    # url(r'^$', 'adomattic.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),

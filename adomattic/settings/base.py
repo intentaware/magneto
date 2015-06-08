@@ -86,9 +86,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'adomatic.urls'
+ROOT_URLCONF = 'adomattic.urls'
 
-WSGI_APPLICATION = 'adomatic.wsgi.application'
+WSGI_APPLICATION = 'adomattic.wsgi.application'
 
 
 # Database

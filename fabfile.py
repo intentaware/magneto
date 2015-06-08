@@ -7,11 +7,11 @@ from fabric.contrib.console import confirm
 from fabric.network import ssh
 # ssh.util.log_to_file("paramiko.log", 10)
 
-IMPORT_ERROR = 'Please add the location of \n DEPLOY_KEY, \n STAGE_KEY, \n LOCAL_PROJECT_PATH, \n LOCAL_ENVIRONMENT_PATH in adomatic.conf.fabric.variables'
+IMPORT_ERROR = 'Please add the location of \n DEPLOY_KEY, \n STAGE_KEY, \n LOCAL_PROJECT_PATH, \n LOCAL_ENVIRONMENT_PATH in adomattic.conf.fabric.variables'
 
 #importing fabric specific variables
 try:
-    from adomatic.conf.fabric.variables import DEPLOY_KEY, STAGE_KEY, LOCAL_PROJECT_PATH, LOCAL_ENVIRONMENT_PATH
+    from adomattic.conf.fabric.variables import DEPLOY_KEY, STAGE_KEY, LOCAL_PROJECT_PATH, LOCAL_ENVIRONMENT_PATH
 except ImportError:
     sys.exit(IMPORT_ERROR)
 
@@ -64,7 +64,7 @@ def update_envs():
         fab local update_envs
     """
     with cd(env.project_root):
-        env.run('cp adomatic/conf/%(conf_path)s/settings.py adomatic/settings/local.py' % env)
+        env.run('cp adomattic/conf/%(conf_path)s/settings.py adomattic/settings/local.py' % env)
 
 
 def prepare():
@@ -142,7 +142,7 @@ def copy_nginx_conf():
     """
     update nginx settings for the site and make them available in sites-available
     """
-    env.run('sudo cp /srv/%(name)s/adomatic/conf/%(conf_path)s/nginx/%(conf_path)s.conf /etc/nginx/sites-available/%(conf_path)s.conf' % env)
+    env.run('sudo cp /srv/%(name)s/adomattic/conf/%(conf_path)s/nginx/%(conf_path)s.conf /etc/nginx/sites-available/%(conf_path)s.conf' % env)
 
 
 def restart_uwsgi():

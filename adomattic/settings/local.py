@@ -23,7 +23,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'vader',
-        'USER': 'root',
+        'USER': 'yousuf',
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
@@ -31,15 +31,15 @@ DATABASES = {
 }
 
 DEVSERVER_MODULES = (
-    'devserver.modules.sql.SQLRealTimeModule',
+    #'devserver.modules.sql.SQLRealTimeModule',
     'devserver.modules.sql.SQLSummaryModule',
-    'devserver.modules.profile.ProfileSummaryModule',
+    #'devserver.modules.profile.ProfileSummaryModule',
 
     # Modules not enabled by default
-    'devserver.modules.ajax.AjaxDumpModule',
-    'devserver.modules.profile.MemoryUseModule',
-    'devserver.modules.cache.CacheSummaryModule',
-    'devserver.modules.profile.LineProfilerModule',
+    #'devserver.modules.ajax.AjaxDumpModule',
+    #'devserver.modules.profile.MemoryUseModule',
+    #'devserver.modules.cache.CacheSummaryModule',
+    #'devserver.modules.profile.LineProfilerModule',
 )
 
 DEVSERVER_TRUNCATE_SQL = False
@@ -47,3 +47,13 @@ DEVSERVER_TRUNCATE_SQL = False
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 
 STRIPE_KEY = 'sk_test_s0cxlb2a5kArqUwfSGeig5CI'
+
+# Celery
+BROKER_URL = 'amqp://yousuf:adomattic@localhost/adomattic'
+CELERY_RESULT_BACKEND = 'amqp://yousuf:adomattic@localhost/adomattic'
+
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT=['json']
+CELERY_TIMEZONE = 'UTC'
+CELERY_ENABLE_UTC = True
