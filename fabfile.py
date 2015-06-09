@@ -166,6 +166,14 @@ def gulp():
     with cd(env.impressions):
         env.run('gulp adomattic:final')
 
+def get_ipdb():
+    """
+    gets the latest ipdb file from maxmind
+    """
+    with cd(env.project_root):
+        env.run('mkdir adomattic/ipdb')
+        env.run('wget -P adomattic/ipdb/ http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz')
+        env.run('gunzip adomattic/ipdb/GeoLite2-City.mmdb.gz')
 
 def deploy():
     """

@@ -25,12 +25,7 @@ class GetImpression(APIView):
             impressions = list()
             visitor, created = ImpressionUser.objects.get_or_create(
                 key=request.customer)
-            meta = request.META
-            meta.pop('wsgi.errors', None)
-            meta.pop('wsgi.file_wrapper', None)
-            meta.pop('wsgi.input', None)
-            meta.pop('wsgi.version', None)
-            meta = RequestEncoder().encode(meta)
+            meta = self.process_request(request)
             # print meta
             for c in coupons:
                 i = Impression.objects.create(
@@ -56,6 +51,16 @@ class GetImpression(APIView):
             impression.save()
             impression.coupon.claim(user)
             return Response('claimed succesfully', status=200)
+
+    def process_request(self, request):
+        from ipware.ip import get_real_ip
+        ip = get_real_ip(request)
+        user_agent = request.META.HTTP_USER_AGENT
+        return {
+            'ip': ip,
+            'user_agent': user_agent
+        }
+
 
 
 class ImpressionViewSet(ModelViewSet):

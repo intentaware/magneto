@@ -168,6 +168,9 @@ adomattic/conf/fabric/
 ### LOCAL_SETTINGS ###
 adomattic/settings/local.py
 
+### Ignore Maxmind GeoIP files ###
+adomattic/ipdb/
+
 
 ### DJANGO ENVIRONMENT IGNORE ###
 /lib/
