@@ -28,7 +28,7 @@ class Campaign(TimeStamped, ToCompany):
     coupon_count = models.PositiveIntegerField(default=0)
 
     # set the ad to inactive after the limit is served
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
 
     # an ad can be part of many industries, we will leverage django-taggit
 

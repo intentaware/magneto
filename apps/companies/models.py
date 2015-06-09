@@ -38,7 +38,7 @@ class Company(TimeStamped, SluggedFromName, Stripe):
 
     def get_target_campaigns(self, request):
         from apps.campaigns.models import Coupon
-        return Coupon.objects.all().exclude(campaign__image=None).order_by('?')[:3]
+        return Coupon.objects.active().exclude(campaign__image=None).order_by('?')[:1]
 
     @property
     def stripe_customer_id(self):

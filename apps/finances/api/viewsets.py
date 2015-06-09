@@ -23,6 +23,7 @@ class InvoiceViewSet(viewsets.ModelViewSet):
         srlzr.invoice = invoice
         srlzr.invoice.attempted_on = timezone.now()
         if srlzr.is_valid():
+            invoice.campaigns.update(is_active=True)
             return Response(status=200)
         else:
             return Response(srlzr.errors, status=400)
