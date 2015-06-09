@@ -186,7 +186,7 @@ GRAPPELLI_ADMIN_TITLE = 'Adomattic Administration Console'
 
 #MAX MIND GEO IP2 Database File Root
 MAXMIND_DB_ROOT = os.path.join(CONF_DIR, 'ipdb')
-MAXMIND_CITY_DB = MAXMIND_DB_ROOT + 'GeoLite2-City.mmdb'
+MAXMIND_CITY_DB = MAXMIND_DB_ROOT + '/GeoLite2-City.mmdb'
 
 try:
     from local import *

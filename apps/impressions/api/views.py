@@ -25,6 +25,9 @@ class GetImpression(APIView):
             impressions = list()
             visitor, created = ImpressionUser.objects.get_or_create(
                 key=request.customer)
+            if request.user.is_authenticated() and not visitor.user:
+                visitor.user = request.user
+                visitor.save()
             meta = self.process_request(request)
             # print meta
             for c in coupons:
@@ -54,11 +57,19 @@ class GetImpression(APIView):
 
     def process_request(self, request):
         from ipware.ip import get_real_ip
-        ip = get_real_ip(request)
-        user_agent = request.META.HTTP_USER_AGENT
+        ip = get_real_ip(request) or '182.186.15.243'
+        if ip:
+            import geoip2.database
+            from django.conf import settings
+            reader = geoip2.database.Reader(settings.MAXMIND_CITY_DB)
+            ip2geo = reader.city(ip).raw
+        else:
+            ip2geo = None
+        user_agent = request.META['HTTP_USER_AGENT']
         return {
             'ip': ip,
-            'user_agent': user_agent
+            'user_agent': user_agent,
+            'ip2geo': ip2geo,
         }
 
 
