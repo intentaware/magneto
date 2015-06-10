@@ -54,7 +54,9 @@ class Campaign(TimeStamped, ToCompany):
             saved_already = True
         campaign = super(Campaign, self).save(*args, **kwargs)
         if not saved_already:
-            Coupon.objects.generate(self, self.coupon_count)
+            #Coupon.objects.generate(self, self.coupon_count)
+            from .tasks import generate_coupons
+            generate_coupons.delay(self.id, self.coupon_count)
         return campaign
 
     def set_invoice(self, *args, **kwargs):
