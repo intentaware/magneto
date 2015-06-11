@@ -30,7 +30,7 @@ gulp.task('html:common', ['inject:common'], function() {
   var cssFilter = $.filter('**/*.css');
 
   return gulp.src(paths.django.common + '/__base.html')
-    .pipe($.debug())
+    ////.pipe($.debug())
     .pipe($.replace('{{ STATIC_URL }}dash/', ''))
     .pipe(assets = $.useref.assets({
       searchPath: ['.']
@@ -38,7 +38,7 @@ gulp.task('html:common', ['inject:common'], function() {
     .pipe($.rev())
     .pipe(cssFilter)
     .pipe($.csso())
-    .pipe($.debug())
+    //.pipe($.debug())
     .pipe(cssFilter.restore())
     .pipe(assets.restore())
     .pipe($.useref())
@@ -69,13 +69,13 @@ gulp.task('html:dashboard', ['styles', 'inject:dashboard'], function() {
   };
 
   return gulp.src(paths.django.debug + '/__base.html')
-    .pipe($.debug())
+    //.pipe($.debug())
     .pipe($.replace('{{ STATIC_URL }}dash/', ''))
     .pipe(assets = $.useref.assets({
      searchPath: ['.']
     }))
     .pipe($.rev())
-    .pipe($.debug())
+    //.pipe($.debug())
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
     .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
@@ -89,7 +89,7 @@ gulp.task('html:dashboard', ['styles', 'inject:dashboard'], function() {
 
 gulp.task('html:copy', ['html:dashboard', 'html:common'], function() {
   return gulp.src(paths.compile + '/dashboard/__base.html')
-    .pipe($.debug())
+    //.pipe($.debug())
     .pipe(gulp.dest(paths.django.compile));
 })
 
