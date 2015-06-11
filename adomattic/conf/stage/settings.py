@@ -4,6 +4,11 @@ SITE_ID = 1
 
 DEBUG = False
 
+ALLOWED_HOSTS = [
+    '.adomattic.com',  # Allow domain and subdomains
+    '.adomattic.com.',  # Also allow FQDN and subdomains
+]
+
 INSTALLED_APPS += (
     'rest_framework',
     'django.contrib.staticfiles',
