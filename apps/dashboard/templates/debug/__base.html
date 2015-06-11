@@ -70,7 +70,7 @@
 {% endblock %}
 
 {% block scripts_src %}
-  <!-- build:js dashboard/scripts/vendor.js -->
+  <!-- build:js scripts/vendor.min.js -->
   <!-- bower:js -->
   <script src="{{ STATIC_URL }}dash/bower_components/angular/angular.js"></script>
   <script src="{{ STATIC_URL }}dash/bower_components/angular-animate/angular-animate.js"></script>
@@ -91,7 +91,7 @@
   <!-- endbower -->
   <!-- endbuild -->
 
-  <!-- build:js dashboard/scripts/app.js -->
+  <!-- build:js scripts/app.min.js -->
   <!-- inject:js -->
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/landing/publishers.js"></script>
   <script src="{{ STATIC_URL }}dash/src/js/dashboard/dashboard.js"></script>

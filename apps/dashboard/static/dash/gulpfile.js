@@ -9,7 +9,7 @@ gulp.paths = {
   e2e: 'e2e',
   django: {
     debug: '../../templates/debug',
-    dist: '../../templates/dist',
+    compile: '../../templates/compile',
     common:'../../templates',
     auth: '../../templates/registration'
   }

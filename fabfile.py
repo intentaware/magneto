@@ -162,7 +162,7 @@ def bower():
 
 def gulp():
     with cd(env.dashboard):
-        env.run('gulp inject')
+        env.run('gulp html')
     with cd(env.impressions):
         env.run('gulp adomattic:final')
 

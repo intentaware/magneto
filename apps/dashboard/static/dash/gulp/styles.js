@@ -6,7 +6,7 @@ var paths = gulp.paths;
 
 var $ = require('gulp-load-plugins')();
 
-gulp.task('styles', ['clean'], function () {
+gulp.task('styles', function () {
 
   var sassOptions = {
     style: 'expanded'

@@ -2,6 +2,8 @@ from base import *
 
 SITE_ID = 1
 
+DEBUG = False
+
 INSTALLED_APPS += (
     'rest_framework',
     'django.contrib.staticfiles',

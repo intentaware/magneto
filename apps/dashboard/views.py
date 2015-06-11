@@ -50,7 +50,7 @@ class DashboardView(SetSessionData):
         if settings.DEBUG:
             template = 'debug/__base.html'
         else:
-            template = 'dist/__base.html'
+            template = 'compile/__base.html'
         return [template]
 
     def get_context_data(self, **kwargs):
