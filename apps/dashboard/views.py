@@ -93,7 +93,7 @@ class AngularPartials(LoginRequiredMixin):
         if settings.DEBUG:
             base = 'debug/partials/'
         else:
-            base = 'dist/partials/'
+            base = 'debug/partials/'
 
         template_name = base + self.kwargs['template_name']
         return [template_name]
