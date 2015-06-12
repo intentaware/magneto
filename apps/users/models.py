@@ -122,19 +122,8 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
         Sends a rendered email and send the email as an html,
         requires a template path and template context to be sent
         """
-        from django.template.loader import render_to_string
-        from django.core.mail import EmailMessage
-        from django.conf import settings
-
-        message = render_to_string(template, context)
-        email = EmailMessage(
-                to=[self.email_from,],
-                from_email=settings.ADOMATTIC_FROM,
-                body=message,
-                **kwargs
-            )
-        email.content_subtype = 'html'
-        email.send()
+        from .tasks import send_templated_email as templated_email
+        templated_email.delay(self.email_from, template, context, **kwargs)
 
     def send_email(self, **kwargs):
         """
