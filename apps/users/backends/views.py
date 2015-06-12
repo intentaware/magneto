@@ -22,9 +22,11 @@ class UserRegistrationView(BaseRegistrationView):
 
         new_user = authenticate(username=email, password=password)
         login(request, new_user)
-        signals.user_registered.send(sender=self.__class__,
-                                     user=new_user,
-                                     request=request)
+        signals.user_registered.send(
+            sender=self.__class__,
+            user=new_user,
+            request=request
+            )
         return new_user
 
     def get_success_url(self, request, user):

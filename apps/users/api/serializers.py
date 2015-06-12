@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from registration import signals
 
 from apps.users.models import User
 from apps.companies.models import Company, CompanyGroup, CompanyUser
@@ -62,6 +63,12 @@ class CompanyRegistrationSerializer(BaseRegistrationSerializer):
         user = User.objects.create_user(
             email=email, password=password, first_name=validated_data['first_name'],
             last_name=validated_data['last_name'])
+
+        signals.user_registered.send(
+            sender=self.__class__,
+            user=user,
+            request=request
+            )
 
         company = Company.objects.create(
             name=name, is_advertiser=is_advertiser, is_publisher=is_publisher
