@@ -27,7 +27,10 @@
 
 
 Oh! you found the pathway to the dark side of the source, my young aprentice.
-Let this be your first lesson on to your journey to the dark side,
+Remember, The dark side of the source is a pathway to many abilities some
+consider to be ..... unnatural.
+
+Embrace it with your first lesson,
 
     "Without strife, your victory has no meaning.
      Without strife, you do not advance.
