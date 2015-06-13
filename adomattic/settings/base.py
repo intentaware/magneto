@@ -36,12 +36,10 @@ Embrace it with your first lesson,
      Without strife, you do not advance.
      Without strife, there is only stagnation."
 
-Now that you know the principle, lets get started
+Embrace these pearls of wisdom and get cracking ......
 
-For more information on this file, see
+
 https://docs.djangoproject.com/en/1.7/topics/settings/
-
-For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
