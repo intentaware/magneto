@@ -3,9 +3,9 @@
                                ```````....`````
                           ```..-/+oosyddddso+/:..```
                         ``-/sdmNMMMMNNMMMMNNMMNNds/-``
-                     ``./ymMMMMMMMMM...MMMNNMMMMMMMmy:``
-                    ``/hNMMMMMMMMMM:::::::NNMMMMMMMMMNy-``
-                   `.sNMMMMMMMMMMMMM::::::NNMMMMMMMMMMMmo.`
+                     ``./ymMMMMMMMMM.+.MMMNNMMMMMMMmy:``
+                    ``/hNMMMMMMMMMM::++:::NNMMMMMMMMMNy-``
+                   `.sNMMMMMMMMMMMMM::++::NNMMMMMMMMMMMmo.`
                   `.smmMMMMMMMMMMMMMNN``MNNMMMMMMMMMMNNNo.`
                  `.odsNMMMM adomattic NMMMNNMMMMMMMMMMdsmN+``
                 ``:my-ooydNMMMMMMMMMMNNMMMNNMMMMNmmmmNd-sNm-``
@@ -98,7 +98,6 @@ THIRD_PARTY_APPS = (
 
     # django photologue
     'photologue',
-    #app('photologue', 'photos', 'Photos, a port of django photologue'),
     'sortedm2m',
 )
 
