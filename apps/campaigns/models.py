@@ -104,7 +104,17 @@ class Coupon(TimeStamped, ToCompany):
 
     def claim(self, user):
         """
-        user claims a coupon
+        sets the coupon to claimed, by setting the 'claimed_on' and
+        'claimed_by' properties. Sends the email after with coupon code to the
+        end user
+
+        Todo:
+            the input parameter 'user' should be replaced with email, also,
+            request must be part of this to get the desired customer.
+
+        Params:
+            user - must confine to apps.models.User object
+
         """
         from django.utils import timezone
         from django.conf import settings
@@ -124,5 +134,8 @@ class Coupon(TimeStamped, ToCompany):
             )
 
     def generate_barcode(self):
+        """
+        Generates the barcode image for the coupon
+        """
         from apps.common.utils.barcodes import BarcodeFromString
         BarcodeFromString(self.code)
