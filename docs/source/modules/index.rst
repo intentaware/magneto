@@ -1,2 +1,3 @@
-.. automodule:: apps.campaigns.models
+.. title:: Code Overview
+.. automodule:: apps.common.models
    :members:

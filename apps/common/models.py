@@ -5,6 +5,10 @@ from django_extensions.db.fields import *
 
 
 class BaseModel(models.Model):
+    """
+    Defines the basic model. The 'BaseModel' is the base model and is inherited
+    everywhere.
+    """
 
     def reload(self):
         """
@@ -15,6 +19,15 @@ class BaseModel(models.Model):
     def has_foreign_key(self, name):
         """
         quickly check the 1to1 and FK rels where the model is not created.
+
+        Args:
+            name (str): represent the relationship name.
+
+        Returns:
+            (bool) or (object): either False or the desired object.
+
+        Example:
+            user = campaign.has_foreign_key('user')
         """
         return hasattr(self, name) and getattr(self, name) is not None
 
