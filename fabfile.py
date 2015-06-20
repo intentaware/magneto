@@ -46,6 +46,29 @@ def stage():
     env.project_root = '/srv/%(name)s/' % env
     env.hosts = ['app.adomattic.com']
     env.user = 'root'
+    env.key_filename = STAGE_KEY
+    # env.no_keys = True
+    # env.use_ssh_config = False
+    env.branch = 'develop'
+    env.venv_root = '/srv/%(name)s/' % env
+    env.venv = 'source /srv/%(name)s/bin/activate && ' % env
+    env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
+    env.impressions = '/srv/%(name)s/apps/dashboard/static/impressions/' % env
+
+
+def live():
+    """
+    Environment Settings for Staging Server
+
+    Usage:
+        fab live <task>
+    """
+    env.run = run
+    env.name = 'adomattic-live'
+    env.conf_path = 'live'
+    env.project_root = '/srv/%(name)s/' % env
+    env.hosts = ['ec2-52-11-62-128.us-west-2.compute.amazonaws.com']
+    env.user = 'ec2-user'
     env.key_filename = DEPLOY_KEY
     # env.no_keys = True
     # env.use_ssh_config = False
