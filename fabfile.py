@@ -72,7 +72,7 @@ def live():
     env.key_filename = DEPLOY_KEY
     # env.no_keys = True
     # env.use_ssh_config = False
-    env.branch = 'develop'
+    env.branch = 'master'
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
     env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
