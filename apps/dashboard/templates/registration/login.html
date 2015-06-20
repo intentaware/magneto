@@ -1,15 +1,28 @@
-{% extends "__base.html" %}
-{% load i18n %}
+{% extends "registration/__base.html" %}
+{% load i18n widget_tweaks %}
 
-{% block content %}
-<form method="post" action=".">
-  {% csrf_token %} 
-  {{ form.as_p }}
+{% block auth_content %}
+<div flex="50" flex-sm="100" layout-align="center center">
+<md-content class="md-padding" layout="column">
+  <form name="loginForm" method="post" action="." ng-controller="FormCtrl" ng-init="reg.email='{{ form.data.email }}';">
+    {% csrf_token %}
+    <md-input-container>
+      <label>{{ form.username.label }}</label>
+      {% render_field form.username placeholder=form.username.label ng-model="reg.email" %}
+    </md-input-container>
+    <md-input-container>
+      <label>{{ form.password.label }}</label>
+      {% render_field form.password placeholder=form.password.label ng-model="reg.password" %}
+    </md-input-container>
+    <md-input-container>
+      <md-button class="md-primary md-raised" type="submit">Login</md-button>
+    </md-input-container>
+  </form>
 
-  <input type="submit" value="{% trans 'Log in' %}" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</form>
+  <p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
+  <p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
 
-<p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
-<p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+</md-content>
+</div>
+
 {% endblock %}

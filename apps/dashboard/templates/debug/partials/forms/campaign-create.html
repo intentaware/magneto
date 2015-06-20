@@ -1,0 +1,67 @@
+{% verbatim %}
+  <form name="CreateAdForm" ng-controller="CampaignFormCtrl as campaignForm" ng-submit="campaignForm.saveAd()" ng-disabled="campaignForm.$saving" flex>
+    <md-input-container>
+      <label>Name</label>
+      <input type="text" name="name" ng-model="campaignForm.ad.name" required>
+      <div ng-messages="CreateAdForm.name.$error">
+        <div ng-message="required">This is required, It will help you identify each ad from the other</div>
+      </div>
+    </md-input-container>
+    <md-input-container>
+      <label>Description</label>
+      <textarea name="description" ng-model="campaignForm.ad.description" md-maxlength="256"
+                required>{{ campaignForm.ad.description }}</textarea>
+      <div ng-messages="CreateAdForm.description.$error">
+        <div ng-message="required" ng-show="CreateAdForm.description.$error">Required</div>
+      </div>
+    </md-input-container>
+    <div layout="row" layout-sm="column">
+      <md-input-container flex>
+        <label>Starts On</label>
+        <input type="date" required name="starts_on" ng-model="campaignForm.ad.starts_on" min="{{ campaignForm.now | date:'yyyy-MM-dd' }}">
+      </md-input-container>
+      <md-input-container flex>
+        <label>Ends On</label>
+        <input type="date" required name="ends_on" ng-model="campaignForm.ad.ends_on" min="{{ campaignForm.ad.starts_on | date:'yyyy-MM-dd' }}">
+      </md-input-container>
+    </div>
+    <div layout="row" layout-sm="column">
+      <md-input-container flex>
+        <label>Budget</label>
+        <input type="number" name="input_budget" ng-model="campaignForm.ad.input_budget" min="10">
+        <div ng-messages="CampaignForm.input_budget.$error">
+          <div ng-message="min"><strong>You will be charged: </strong>{{ campaignForm.getImpressionCount().charge | currency }}</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Offer Value</label>
+        <input type="number" name="budget" ng-model="campaignForm.ad.coupon_value" min="2">
+        <div ng-messages="CampaignForm.coupon_value.$error">
+          <div ng-message="min"><strong>People Targetted: </strong>{{ campaignForm.getImpressionCount().impressions }}</div>
+        </div>
+      </md-input-container>
+      <div flex="45" flex-sm="100">
+        <div layout="column">
+        <span style="padding-bottom: 3px;"><small><strong>Offers Total: </strong>{{ campaignForm.ad.coupon_value | currency }} &times; {{ campaignForm.getImpressionCount().impressions }} = {{ campaignForm.getImpressionCount().impressionsTotal | currency }}</small></span>
+        <span style="padding-bottom: 3px;"><small><strong>Service Charges + Taxes: </strong>{{ campaignForm.getImpressionCount().serviceCharges | currency }} + {{ campaignForm.getImpressionCount().taxes | currency }} = {{ campaignForm.getImpressionCount().serviceCharges + campaignForm.getImpressionCount().taxes | currency }}</small></span>
+        <md-divider></md-divider>
+        <span><small><strong>Total: </strong>{{ campaignForm.getImpressionCount().charge | currency }}</small></span>
+        </div>
+      </div>
+    </div>
+    <div layout="row" layout-sm="column">
+      <!--
+      <md-input-container>
+        <label>Select Image</label>
+        <input class="md-button" type="file" accept="image/*" read-file ng-model="campaignForm.ad.image" />
+      </md-input-container>
+      -->
+      <read-file label="Choose Campaign Image" accept="image/*" ng-model="campaignForm.ad.image" flex></read-file>
+    </div>
+    <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving" aria-label="Create Campain">
+      <span ng-if="!campaignForm.$saving">Create New Campaign</span>
+      <span ng-if="campaignForm.$saving">Creating New Campaign</span>
+    </md-button>
+  </form>
+{% endverbatim %}
+

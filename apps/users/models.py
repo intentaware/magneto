@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
+    PermissionsMixin
+from django_extensions.db.fields import ShortUUIDField
 
 from apps.common.models import *
 
@@ -24,16 +26,15 @@ class UserManager(BaseUserManager):
             email = '@'.join([email_name.lower(), domain_part.lower()])
         return email
 
+
     def create_user(self, email=None, password=None, **extra_fields):
         """
         Creates and saves a User with the given email and password.
         """
-        now = _tz.now()
         email = self.normalize_email(email)
         user = self.model(
-            email=email, is_active=True, last_login=now, date_joined=now,
-            **extra_fields
-        )
+                email=email, is_active=True, **extra_fields
+            )
 
         if password:
             user.set_password(password)
@@ -43,13 +44,25 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, TimeStamped):
+    def create_superuser(self, email, password, **extra_fields):
+        """
+        Creates and saves a SuperUser with the given email and password.
+        """
+        u = self.create_user(email, password, **extra_fields)
+        u.is_staff = True
+        u.is_active = True
+        u.is_superuser = True
+        u.save(using=self._db)
+        return u
+
+
+class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
 
     '''
     replacemnt for default auth.User model
     inheriting for AbstractBaseUser for default methods
     inherited fields are 'password', 'last_login'
-    inhertited methods are 'is_authenticated', 'is_anonymous', 
+    inhertited methods are 'is_authenticated', 'is_anonymous',
     'set_password', 'check_password'
     '''
 
@@ -72,11 +85,17 @@ class User(AbstractBaseUser, TimeStamped):
     # requirements for django.auth
     USERNAME_FIELD = 'email'
 
+    # The good old django admin
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+
+
     def __unicode__(self):
         name = self.email
         if self.first_name or self.last_name:
             name = u'%s %s' % (self.first_name, self.last_name)
         return name
+
 
     @property
     def name(self):
@@ -84,7 +103,66 @@ class User(AbstractBaseUser, TimeStamped):
             return u'%s %s' % (self.first_name, self.last_name)
         return None
 
+
     def get_username(self):
         if self.name:
             return self.name
         return self.email
+
+    @property
+    def email_from(self):
+        if self.name:
+            return '%s <%s>' %(self.name, self.email)
+        else:
+            return self.email
+
+    def get_short_name(self):
+        return self.get_username()
+
+    def send_templated_email(self, template, context, **kwargs):
+        """
+        Sends a rendered email and send the email as an html,
+        requires a template path and template context to be sent
+        """
+        #from .tasks import send_templated_email as templated_email
+        #templated_email.delay(self.email_from, template, context, **kwargs)
+        from django.template.loader import render_to_string
+        from django.core.mail import EmailMessage
+        from django.conf import settings
+
+        message = render_to_string(template, context)
+        email = EmailMessage(
+                to=[self.email_from,],
+                from_email=settings.ADOMATTIC_FROM,
+                body=message,
+                **kwargs
+            )
+        email.content_subtype = 'html'
+        email.send()
+
+    def send_email(self, **kwargs):
+        """
+        Leverage django send_email function to sent email
+        "DO NOT send in the from parameter
+        """
+        from django.core.mail import send_mail
+        from django.conf import settings
+        send_mail(
+                recipient_list=[self.email_from,],
+                from_email=settings.ADOMATTIC_FROM,
+                **kwargs
+            )
+
+    def send_registration_email(self, **kwargs):
+        subject = 'Welcome to Adomattic'
+        template = 'registration/welcome-email.html'
+        self.send_templated_email(
+            template=template,
+            context={
+                'user': self
+            },
+            subject=subject
+        )
+
+
+from signals import *
