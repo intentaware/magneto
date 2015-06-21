@@ -151,7 +151,7 @@ def migrate():
 
 def collect_static():
     with cd(env.project_root):
-        env.run('%(venv)s python manage.py collectstatic --noinput -i node_modules' % env)
+        env.run('%(venv)s python manage.py collectstatic --noinput -i node_modules -i bower_components' % env)
 
 
 def uwsgi_install():
@@ -188,6 +188,11 @@ def gulp():
         env.run('gulp html')
     with cd(env.impressions):
         env.run('gulp adomattic:final')
+
+
+def clean_pyc():
+    with cd(env.project_root):
+        env.run('find . -name "*.pyc" -exec rm -rf {} \;')
 
 def get_ipdb():
     """
