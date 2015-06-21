@@ -119,13 +119,13 @@
   <!-- endinject -->
   <!-- endbuild -->
 
-  <!--
+  {% comment %}
   var html = 'src="dash/bower_components/angular/angular.js" src="dash/bower_components/angular/angular-material.js"';
   var r = /(src=)("[^"]*"|^[^"]*$)/g;
   var f = html.replace(r, '$1{% static $2 %}');
   console.log(f);
   odinson73:110388
-   -->
+  {% endcomment %}
 {% endblock %}
 
 {% block extras %}
