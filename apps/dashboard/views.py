@@ -47,8 +47,6 @@ class DashboardView(SetSessionData):
     def get_template_names(self):
         from django.conf import settings
 
-        print settings.DEBUG
-
         if settings.DEBUG:
             template = 'debug/__base.html'
         else:
