@@ -30,8 +30,8 @@ AWS_SECRET_ACCESS_KEY = 'HAxJNdN51hYh6gpg1GjVP8AqIONBXZTJrjby/XFX'
 # We also use it in the next setting.
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-STATICFILES_STORAGE = 'apps.common.utils.storages.StaticStorage'
-DEFAULT_FILE_STORAGE = 'apps.common.utils.storages.MediaStorage'
+STATICFILES_STORAGE = 'apps.common.utils.storage.StaticStorage'
+DEFAULT_FILE_STORAGE = 'apps.common.utils.storage.MediaStorage'
 
 STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
