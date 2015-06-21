@@ -11,7 +11,6 @@ ALLOWED_HOSTS = [
 ]
 
 INSTALLED_APPS += (
-    'rest_framework',
     'django.contrib.staticfiles',
     'storages'
 )

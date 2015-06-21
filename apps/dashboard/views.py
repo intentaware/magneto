@@ -47,6 +47,8 @@ class DashboardView(SetSessionData):
     def get_template_names(self):
         from django.conf import settings
 
+        print settings.DEBUG
+
         if settings.DEBUG:
             template = 'debug/__base.html'
         else:
@@ -77,13 +79,6 @@ class DashboardView(SetSessionData):
         }
         return context
 
-#This view is called when the user clicks on the 'Opt-Out' button. It fetches the ImpressionUser object for the current customer and sets the opt_out_flag to true.
-def user_opt_out(request):
-    if (request.method == POST) and ("optOutButton" in request.POST) and request.customer:
-        impression_user = ImpressionUser.objects.get(key=request.customer)
-        impression_user.set_opt_out_flag()
-    return render(request, 'debug/opt-out-child.html', {})
-
 
 class AngularPartials(LoginRequiredMixin):
 
@@ -101,3 +96,17 @@ class AngularPartials(LoginRequiredMixin):
 
 def redirect_to_dashboard(request):
     return redirect('dashboard', permanent=True)
+
+
+#
+def user_opt_out(request):
+    """
+    This doesn't belong here!!
+    This view is called when the user clicks on the 'Opt-Out' button.
+    It fetches the ImpressionUser object for the current customer and
+    sets the opt_out_flag to true.
+    """
+    if (request.method == POST) and ("optOutButton" in request.POST) and request.customer:
+        impression_user = ImpressionUser.objects.get(key=request.customer)
+        impression_user.set_opt_out_flag()
+    return render(request, 'debug/opt-out-child.html', {})
