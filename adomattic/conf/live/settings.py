@@ -7,6 +7,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '.adomattic.com',  # Allow domain and subdomains
     '.adomattic.com.',  # Also allow FQDN and subdomains
+    'ec2-52-11-62-128.us-west-2.compute.amazonaws.com', # Temporary
 ]
 
 INSTALLED_APPS += (
