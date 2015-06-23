@@ -2,7 +2,7 @@ from base import *
 
 SITE_ID = 1
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '.adomattic.com',  # Allow domain and subdomains
@@ -74,19 +74,19 @@ LOGGING = {
         # Again, default Django configuration to email unhandled exceptions
         'django.request': {
             'handlers': ['logfile'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': True,
         },
         # Might as well log any errors anywhere else in Django
         'django': {
             'handlers': ['logfile'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': False,
         },
-        # Your own app - this assumes all your logger names start with "myapp."
+        # Your own apps - this assumes all your logger names start with "myapp."
         'apps': {
             'handlers': ['logfile'],
-            'level': 'WARNING', # Or maybe INFO or DEBUG
+            'level': 'DEBUG', # Or maybe INFO or DEBUG
             'propagate': False
         },
     },
