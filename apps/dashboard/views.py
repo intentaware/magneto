@@ -57,6 +57,7 @@ class DashboardView(SetSessionData):
         """
         sets the context data and global defaults for angular
         """
+        from django.conf import settings
         request = self.request
         membership = request.user.memberships.select_related(
             'company', 'company__coupons').get(is_default=True)
@@ -74,6 +75,10 @@ class DashboardView(SetSessionData):
                     'remaining': membership.company.coupons.remaining().count(),
                 },
             'budget': membership.company.campaigns.active().active_budget(),
+            'cxt': {
+                'staticUrl': settings.STATIC_URL,
+                'mediaUrl': settings.MEDIA_URL,
+            }
         }
         return context
 
@@ -96,7 +101,6 @@ def redirect_to_dashboard(request):
     return redirect('dashboard', permanent=True)
 
 
-#
 def user_opt_out(request):
     """
     This doesn't belong here!!

@@ -17,7 +17,7 @@
   var ai = document.createElement('script');
   ai.type = 'text/javascript';
   ai.async = true;
-  ai.src = 'http://app.adomattic.com/static/impressions/dist/all.js';
+  ai.src = '{{ globals.cxt.staticUrl }}impressions/dist/all.js';
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(ai, s);
 })();
