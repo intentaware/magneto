@@ -55,16 +55,6 @@ STRIPE_KEY = 'sk_live_ykBdrWZnCW4YddbDDxrwm0dm'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
-    'formatters': {
-        'simple': {
-                'format': '[%(asctime)s] %(levelname)s: %(message)s',
-                'datefmt': '%Y-%m-%d %H:%M:%S',
-            },
-        'verbose': {
-                'format': '[%(asctime)s] %(levelname)s: [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
-                'datefmt': '%Y-%m-%d %H:%M:%S',
-            }
-    },
     'handlers': {
         # Include the default Django email handler for errors
         # This is what you'd get without configuring logging at all.
@@ -78,7 +68,6 @@ LOGGING = {
         'logfile': {
             'class': 'logging.handlers.WatchedFileHandler',
             'filename': '/srv/adomattic-live/logs/error-django.log',
-            'formatter': 'verbose',
         },
     },
     'loggers': {
