@@ -20,8 +20,8 @@ RAVEN_CONFIG = {
     'dsn': 'https://b1b9cb8df048483295724db97fadd76c:7f95b0b35c154327a0cd24d6638eb1d8@app.getsentry.com/45852',
 }
 
-STATIC_URL = 'http://app.adomattic.com/static/'
-MEDIA_URL = 'http://app.adomattic.com/media/'
+STATIC_URL = 'http://stage.adomattic.com/static/'
+MEDIA_URL = 'http://stage.adomattic.com/media/'
 
 DATABASES = {
     'default': {
