@@ -90,6 +90,11 @@ gulp.task('html:dashboard', ['styles', 'inject:dashboard'], function() {
 gulp.task('html:copy', ['html:dashboard', 'html:common'], function() {
   return gulp.src(paths.compile + '/dashboard/__base.html')
     //.pipe($.debug())
+    .pipe($.minifyHtml({
+      empty: true,
+      spare: true,
+      quotes: true
+    }))
     .pipe(gulp.dest(paths.django.compile));
 })
 

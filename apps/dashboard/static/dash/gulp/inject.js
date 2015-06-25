@@ -67,7 +67,7 @@ var wiredepScripts = {
 var wiredepStyles = {
   directory: 'bower_components',
   ignorePath: '../static/',
-  exclude: ['.js'],
+  exclude: ['.js', 'materialdesignicons.css'],
   fileTypes: {
     html: {
       replace: {

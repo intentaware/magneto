@@ -83,7 +83,7 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
-        # Your own apps - this assumes all your logger names start with "myapp."
+        # All the apps
         'apps': {
             'handlers': ['logfile'],
             'level': 'DEBUG', # Or maybe INFO or DEBUG
