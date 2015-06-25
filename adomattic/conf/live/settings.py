@@ -55,6 +55,12 @@ STRIPE_KEY = 'sk_live_ykBdrWZnCW4YddbDDxrwm0dm'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        }
+    },
     'handlers': {
         # Include the default Django email handler for errors
         # This is what you'd get without configuring logging at all.
@@ -68,26 +74,33 @@ LOGGING = {
         'logfile': {
             'class': 'logging.handlers.WatchedFileHandler',
             'filename': '/srv/adomattic-live/logs/error-django.log',
+            'formatter': 'verbose',
         },
     },
     'loggers': {
+        # All the time, anywhere
+        ' ': {
+            'handlers': ['logfile'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
         # Again, default Django configuration to email unhandled exceptions
         'django.request': {
             'handlers': ['logfile'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': True,
         },
         # Might as well log any errors anywhere else in Django
         'django': {
             'handlers': ['logfile'],
-            'level': 'ERROR',
-            'propagate': False,
+            'level': 'DEBUG',
+            'propagate': True,
         },
         # All the apps
         'apps': {
             'handlers': ['logfile'],
-            'level': 'ERROR', # Or maybe INFO or DEBUG
-            'propagate': False
+            'level': 'DEBUG', # Or maybe INFO or DEBUG
+            'propagate': True
         },
     },
 }
