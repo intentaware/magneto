@@ -22,7 +22,7 @@ class PasswordValidationForm(forms.Form):
 
 class UserCreationForm(PasswordValidationForm):
     # create user
-    email = forms.CharField(required=True, max_length=128,
+    email = forms.EmailField(required=True, max_length=128,
         label='Email Address')
 
     def clean_email(self):
@@ -31,8 +31,23 @@ class UserCreationForm(PasswordValidationForm):
             user = User.objects.get(email=email)
             raise forms.ValidationError('User with this email already exists')
         except User.DoesNotExist:
-            return email
+            return email.lower()
 
 
 class CompanyCreationForm(UserCreationForm):
     name = forms.CharField(required=True, max_length=128, label='Company Name')
+
+
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField(required=True, max_length=128,
+        label='Email Address')
+
+    def clean_email(self):
+        email = self.cleaned_data('email').lower()
+
+        try:
+            user = User.ojects.get(email=email)
+            self.user = user
+            return email
+        except:
+            raise forms.ValidationError('User with this email does not exist')

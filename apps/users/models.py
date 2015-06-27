@@ -89,6 +89,9 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
+    # activation/reset link
+    key = ShortUUIDField(blank=True, null=True)
+
 
     def __unicode__(self):
         name = self.email
@@ -163,6 +166,11 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
             },
             subject=subject
         )
+
+    def update_key(self):
+        import shortuuid
+        self.key = shortuuid.uuid()
+        self.save()
 
 
 from signals import *
