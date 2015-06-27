@@ -33,9 +33,9 @@ angular.module('adomattic.dashboard')
 
     $scope.data = [{
       key: 'Return on Investment',
-      y: $rootScope.globals.coupons.claimed
+      y: $rootScope.globals.coupons.claimed || 0
     }, {
       key: 'Carry Over',
-      y: $rootScope.globals.coupons.remaining
+      y: $rootScope.globals.coupons.remaining || 0
     }];
   });

@@ -119,6 +119,10 @@ class CompanyUser(TimeStamped):
         return '%s: %s' %(self.company.name, self.user)
 
     def set_default(self):
+        """
+        sets the default membership out of all memberships for the current
+        user.
+        """
         if not self.is_active:
             self.user.memberships.all().update(is_active=False)
             self.is_active = True
