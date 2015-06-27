@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.views.generic.edit import FormView
 
@@ -6,7 +6,7 @@ from registration.backends.simple.views import \
     RegistrationView as BaseRegistrationView
 from registration import signals
 
-from .forms import UserCreationForm, CompanyCreationForm
+from .forms import UserCreationForm, CompanyCreationForm, PasswordResetForm
 
 from apps.users.models import User
 from apps.companies.models import *
@@ -42,18 +42,17 @@ class CompanyRegistrationView(BaseRegistrationView):
             cleaned_data['password1'], cleaned_data['name']
 
         User.objects.create_user(email, password)
-        print password
 
         # login the new user
         new_user = authenticate(username=email, password=password)
         login(request, new_user)
         signals.user_registered.send(sender=self.__class__,
-                                     user=new_user,
-                                     request=request)
+            user=new_user, request=request)
 
         # create the institute and associate it with the newly created user
         company = Company.objects.create(name=name)
-        group = CompanyGroup.objects.create(name='Administrators', company=company)
+        group = CompanyGroup.objects.create(
+            name='Administrators', company=company)
         CompanyUser.objects.create(
             user=new_user, company=company, group=group,
             is_owner=True, is_superuser=True, is_default=True)
@@ -62,3 +61,23 @@ class CompanyRegistrationView(BaseRegistrationView):
 
     def get_success_url(self, request, user):
         return '/dashboard/'
+
+
+class PasswordResetView(FormView):
+    template_name = 'registration/password_reset_form.html'
+    form_class = PasswordResetForm
+    success_url = 'registration_password_reset_confirm'
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class(request)
+        form = self.get_form(form_class)
+        if form.is_valid():
+            # Pass request to form_valid.
+            return self.form_valid(request, form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, request, form):
+        user = self.user
+        user.update_key()
+        return redirect(self.success_url)

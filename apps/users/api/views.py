@@ -1,8 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from apps.api.permissions import UserRegistrationAPIPermission, PublisherAPIPermission
-from .serializers import UserRegistrationSerializer, CompanyRegistrationSerializer
+from apps.api.permissions import UserRegistrationAPIPermission, \
+    PublisherAPIPermission
+from .serializers import UserRegistrationSerializer, \
+    CompanyRegistrationSerializer
 
 class UserRegistrationView(APIView):
     permission_classes = (PublisherAPIPermission, )
