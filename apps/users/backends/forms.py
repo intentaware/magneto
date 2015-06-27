@@ -43,7 +43,7 @@ class PasswordResetForm(forms.Form):
         label='Email Address')
 
     def clean_email(self):
-        email = self.cleaned_data('email').lower()
+        email = self.cleaned_data.get('email').lower()
 
         try:
             user = User.ojects.get(email=email)
