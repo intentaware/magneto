@@ -64,13 +64,18 @@ class CompanyRegistrationView(BaseRegistrationView):
 
 
 class PasswordResetView(FormView):
-    template_name = 'registration/password_reset_form.html'
+    template_name = 'registration/password_reset_frm.html'
     form_class = PasswordResetForm
     success_url = 'registration_password_reset_confirm'
 
+    def get(self, request, *args, **kwargs):
+        # Pass request to get_form_class and get_form for per-request
+        # form control.
+        form = self.get_form(self.form_class)
+        return self.render_to_response(self.get_context_data(form=form))
+
     def post(self, request, *args, **kwargs):
-        form_class = self.get_form_class(request)
-        form = self.get_form(form_class)
+        form = self.get_form(self.form_class)
         if form.is_valid():
             # Pass request to form_valid.
             return self.form_valid(request, form)
