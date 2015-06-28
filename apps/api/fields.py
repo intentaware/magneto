@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.utils.translation import ugettext_lazy as _
 
-from rest_framework.fields import ReadOnlyField, ImageField
+from rest_framework.fields import ReadOnlyField, ImageField, CharField
 
 
 DEFAULT_CONTENT_TYPE = "application/octet-stream"
@@ -57,7 +57,6 @@ class Base64ImageField(ImageField):
         raise ValidationError(_('This is not an base64 string'))
 
     def to_representation(self, value):
-        # Return url including domain name.
         return value.name
 
     def get_file_extension(self, filename, decoded_file):
