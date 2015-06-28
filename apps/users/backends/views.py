@@ -83,6 +83,6 @@ class PasswordResetView(FormView):
             return self.form_invalid(form)
 
     def form_valid(self, request, form):
-        user = self.user
+        user = User.objects.get(email=form.cleaned_data.get('email'))
         user.update_key()
         return redirect(self.success_url)

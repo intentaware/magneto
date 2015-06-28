@@ -119,8 +119,26 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
         else:
             return self.email
 
+    def update_key(self):
+        import shortuuid
+        self.key = shortuuid.uuid()
+        self.save()
+
     def get_short_name(self):
         return self.get_username()
+
+    def send_email(self, **kwargs):
+        """
+        Leverage django send_email function to sent email
+        "DO NOT send in the from parameter
+        """
+        from django.core.mail import send_mail
+        from django.conf import settings
+        send_mail(
+                recipient_list=[self.email_from,],
+                from_email=settings.ADOMATTIC_FROM,
+                **kwargs
+            )
 
     def send_templated_email(self, template, context, **kwargs):
         """
@@ -143,19 +161,6 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
         email.content_subtype = 'html'
         email.send()
 
-    def send_email(self, **kwargs):
-        """
-        Leverage django send_email function to sent email
-        "DO NOT send in the from parameter
-        """
-        from django.core.mail import send_mail
-        from django.conf import settings
-        send_mail(
-                recipient_list=[self.email_from,],
-                from_email=settings.ADOMATTIC_FROM,
-                **kwargs
-            )
-
     def send_registration_email(self, **kwargs):
         subject = 'Welcome to Adomattic'
         template = 'registration/welcome-email.html'
@@ -164,13 +169,20 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
             context={
                 'user': self
             },
-            subject=subject
+            subject=subject,
+            **kwargs
         )
 
-    def update_key(self):
-        import shortuuid
-        self.key = shortuuid.uuid()
-        self.save()
+    def send_password_reset_email(self, **kwargs):
+        subject = '[Adomattic] Reset your password'
+        template = 'emails/password-reset.html'
+        self.send_templated_email(
+            template=template,
+            context={
+                'user': self
+            },
+            subject=subject,
+            **kwargs)
 
 
 from signals import *

@@ -68,7 +68,7 @@ var addUnits = function(data, p) {
 };
 
 var styleSheet = document.createElement('link');
-styleSheet.href = (urls.base === 'http://localhost:9050/api/') ? 'styles/main.css': 'http://app.adomattic.com/static/impressions/dist/styles/main.css';
+styleSheet.href = (urls.base === 'http://localhost:9050/api/') ? 'styles/main.css': 'http://app.adomattic.com/magneto/styles/main.css';
 styleSheet.type = 'text/css';
 styleSheet.rel = 'stylesheet';
 document.getElementsByTagName('head')[0].appendChild(styleSheet);
