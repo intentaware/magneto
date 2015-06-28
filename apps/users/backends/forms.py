@@ -43,11 +43,12 @@ class PasswordResetForm(forms.Form):
         label='Email Address')
 
     def clean_email(self):
-        email = self.cleaned_data.get('email').lower()
+        email = self.cleaned_data.get('email')
 
         try:
-            user = User.ojects.get(email=email)
-            self.user = user
-            return email
-        except:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
             raise forms.ValidationError('User with this email does not exist')
+
+        self.user = user
+        return email

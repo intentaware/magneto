@@ -124,7 +124,7 @@ class Coupon(TimeStamped, ToCompany):
         self.generate_barcode()
         subject = "[Adomattic] Your offer code for %s's campaign %s" %(self.company.name, self.campaign.name)
         user.send_templated_email(
-            template='coupons/email.html',
+            template='emails/coupon-code.html',
             context={
                 'coupon': self,
                 'STATIC_URL': settings.STATIC_URL,
