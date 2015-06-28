@@ -14,6 +14,11 @@ class UserRegistrationView(APIView):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
+            signals.user_registered.send(
+                sender=self.__class__,
+                user=user,
+                request=request
+            )
             return Response({
                 "user": user.id
             }, status=201)
