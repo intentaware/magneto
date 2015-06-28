@@ -78,7 +78,7 @@ gulp.task('adomattic', function() {
     .pipe($.size(sizeOptions));
 });
 
-gulp.task('adomattic:final', ['styles:adomattic'], function() {
+gulp.task('adomattic:live', ['styles:adomattic'], function() {
   var uglifyOptions = {
     mangle: {
       toplevel: true,
@@ -103,6 +103,37 @@ gulp.task('adomattic:final', ['styles:adomattic'], function() {
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
     .pipe($.concat('all.js'))
     .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://app.adomattic.com/api/'"))
+    .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "There was an error!"))
+    .pipe($.uglify(uglifyOptions))
+    .pipe(gulp.dest('dist/'))
+    .pipe($.size(sizeOptions));
+});
+
+gulp.task('adomattic:stage', ['styles:adomattic'], function() {
+  var uglifyOptions = {
+    mangle: {
+      toplevel: true,
+    },
+    compress: {
+      sequences: true,
+      dead_code: true,
+      conditionals: true,
+      booleans: true,
+      unused: true,
+      if_return: true,
+      join_vars: true,
+      drop_console: true
+    },
+    //outSourceMap: true
+  };
+
+  var sizeOptions = {
+    showFiles: true
+  };
+
+  gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
+    .pipe($.concat('all.js'))
+    .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://stage.adomattic.com/api/'"))
     .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "There was an error!"))
     .pipe($.uglify(uglifyOptions))
     .pipe(gulp.dest('dist/'))

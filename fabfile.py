@@ -187,7 +187,7 @@ def gulp():
     with cd(env.dashboard):
         env.run('gulp html')
     with cd(env.impressions):
-        env.run('gulp adomattic:final')
+        env.run('gulp adomattic:%(conf_path)s' % env)
 
 
 def clean_pyc():
