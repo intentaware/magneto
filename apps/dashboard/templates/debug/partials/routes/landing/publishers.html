@@ -1,5 +1,5 @@
 {% verbatim %}
-<div layout-fill>
+<div layout-fill ng-controller="PublisherLandingCtrl">
   <div layout layout-sm="column">
     <md-card class="md-whiteframe-z1" flex flex-sm="100">
       <md-toolbar>
@@ -17,7 +17,7 @@
   var ai = document.createElement('script');
   ai.type = 'text/javascript';
   ai.async = true;
-  ai.src = 'http://app.adomattic.com/magneto/all.js';
+  ai.src = '{{ assetRoot }}all.js';
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(ai, s);
 })();
