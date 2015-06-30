@@ -38,7 +38,7 @@ angular.module('adomattic.dashboard')
               ngModelCtrl.$setViewValue(vals.length ? vals[0] : null);
             }, function() {
               scope.fileName = 'Unable to load file, please try again';
-              scope.$apply();
+              //scope.$apply();
             });
         };
 
