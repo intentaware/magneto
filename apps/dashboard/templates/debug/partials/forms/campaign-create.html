@@ -56,7 +56,7 @@
         <input class="md-button" type="file" accept="image/*" read-file ng-model="campaignForm.ad.image" />
       </md-input-container>
       -->
-      <read-file label="Choose Campaign Image" accept="image/*" ng-model="campaignForm.ad.image" flex></read-file>
+      <read-file label="Choose Campaign Image (maximum 500kb)" accept="image/*" max-size="524288" ng-model="campaignForm.ad.image" flex></read-file>
     </div>
     <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving" aria-label="Create Campain">
       <span ng-if="!campaignForm.$saving">Create New Campaign</span>

@@ -7,6 +7,7 @@ angular.module('adomattic.dashboard')
       scope: {
         label: '@',
         accept: '@',
+        maxSize: '@',
         ngModel: '=',
       },
       templateUrl: urls.partials.directives + 'file-reader.html',
@@ -19,7 +20,7 @@ angular.module('adomattic.dashboard')
         console.log($file);
 
         // watch for a new file in input
-        $file.onchange = function (e) {
+        $file.onchange = function(e) {
           var el = e.target;
           console.log(el.value);
 
@@ -27,15 +28,13 @@ angular.module('adomattic.dashboard')
             return;
           }
 
-          console.log(scope);
-          console.log(el.files);
           //scope.apply();
-          //
           var name = el.files[0].name;
 
           $q.all(Array.prototype.slice.call(el.files, 0).map(read))
             .then(function(vals) {
               scope.fileName = name;
+              // ng-model contains the binary value, file the file name is the view value
               ngModelCtrl.$setViewValue(vals.length ? vals[0] : null);
             }, function() {
               scope.fileName = 'Unable to load file, please try again';
@@ -44,20 +43,28 @@ angular.module('adomattic.dashboard')
         };
 
         // return the file contents in base64 format
-        var read = function (f) {
-          console.log(f);
+        var read = function(f) {
           var d = $q.defer();
-          var r = new FileReader();
+          var size = parseInt(scope.maxSize);
+          console.log(size);
+          console.log(f.size);
 
-          r.onload = function(ev) {
-            d.resolve(ev.target.result);
-          };
+          if (parseInt(scope.maxSize) <= f.size) {
+            d.reject();
+          } else {
 
-          r.onerror = function(ev) {
-            d.reject(ev);
-          };
+            var r = new FileReader();
 
-          r.readAsDataURL(f);
+            r.onload = function(ev) {
+              d.resolve(ev.target.result);
+            };
+
+            r.onerror = function(ev) {
+              d.reject(ev);
+            };
+
+            r.readAsDataURL(f);
+          }
 
           return d.promise;
         };
