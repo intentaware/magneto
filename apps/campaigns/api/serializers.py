@@ -12,6 +12,7 @@ class CampaignSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Campaign
+        exclude = ['image']
 
     def get_preview_image_url(self, obj):
         if obj.image:
@@ -32,7 +33,7 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
         model = Campaign
 
     def create(self, validated_data):
-        image = validated_data.get('image')
+        image = validated_data.get('image', None)
         if image:
             image = Photo.objects.create(
                 image=image, title=image.name,
