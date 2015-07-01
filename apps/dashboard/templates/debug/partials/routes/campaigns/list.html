@@ -17,7 +17,7 @@
             {{ c.claimed_coupons_sum | currency }} claimed of {{ c.budget | currency }} budget
           </p>
         </div>
-        <md-fab-speed-dial md-open="false" md-direction="left" ng-class="md-fling">
+        <md-fab-speed-dial md-direction="left" ng-class="{ 'md-fling': true }">
           <md-fab-trigger>
             <md-button class="md-fab md-primary">
               <md-icon class="material-icons">settings</md-icon>
