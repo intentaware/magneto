@@ -56,12 +56,6 @@ angular.module('adomattic.dashboard')
       });
     };
 
-    /*
-    self.calculateImpressions = function () {
-      return Math.round((self.ad.budget * (1 - $rootScope.globals.company.advertiser_rate))/self.ad.coupon_value) || 0;
-    };
-    */
-
     $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {
       //console.log(self.ad);
       $rootScope.$emit('campaginFormUpdated', self.ad);

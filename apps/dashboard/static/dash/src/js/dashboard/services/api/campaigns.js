@@ -12,6 +12,10 @@ angular.module('adomattic.dashboard')
         update: {
           method: 'PUT',
           isArray: false
+        },
+        patch: {
+          method: 'PATCH',
+          isArray: false
         }
       }
     );

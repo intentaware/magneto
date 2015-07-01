@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('StripeCreditCardDialogCtrl', function($mdDialog, Invoice, invoiceID) {
+  .controller('StripeCreditCardDialogCtrl', function($mdDialog, $mdToast, Invoice, invoiceID) {
     var self = this;
     self.invoice = {};
 
@@ -20,6 +20,12 @@ angular.module('adomattic.dashboard')
     self.chargeCard = function() {
       self.creditCard.amount = self.invoice.amount;
       Invoice.charge(self.creditCard).$promise.then(function() {
+        $mdToast.show(
+          $mdToast.simple()
+          .content('Campaign Activated')
+          .position('top right')
+          .hideDelay(3000)
+        );
         $mdDialog.hide();
       });
     };

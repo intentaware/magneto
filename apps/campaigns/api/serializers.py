@@ -51,3 +51,6 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
             )
         return campaign
 
+    def update(self, instance, validated_data):
+        raise NotImplementedError('`update()` must be implemented.')
+

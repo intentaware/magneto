@@ -28,7 +28,7 @@
               <md-tooltip>Preview</md-tooltip>
               <md-icon class="material-icons">visibility</md-icon>
             </md-button>
-            <md-button class="md-fab md-warn md-mini">
+            <md-button class="md-fab md-warn md-mini" ng-click="openStripePaymentDialog(c.invoice)" ng-hide="c.is_active">
               <md-tooltip>Activate</md-tooltip>
               <md-icon class="material-icons">public</md-icon>
             </md-button>
