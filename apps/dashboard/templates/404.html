@@ -1,0 +1,11 @@
+{% extends "registration/__base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block auth_content %}
+<div flex="50" flex-sm="100" layout-align="center center">
+  <md-content class="md-padding" layout="column">
+    <p>The page you are looking for is not found. Probably you meant to go to our <a href="{% url 'dashboard' %}"></a></p>
+  </md-content>
+</div>
+
+{% endblock %}
