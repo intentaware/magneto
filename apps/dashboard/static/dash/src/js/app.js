@@ -55,18 +55,25 @@ angular.module('adomattic', [
       .when('/', {
         templateUrl: urls.partials.routes + 'landing/__base.html',
       })
+      // campaigns
       .when('/campaigns/', {
         templateUrl: urls.partials.routes + 'campaigns/list.html',
-        controller: 'CampaignListCtrl'
+        controller: 'CampaignListCtrl',
+        controllerAs: 'campaignsList'
       })
       .when('/campaigns/create/', {
         templateUrl: urls.partials.routes + 'campaigns/create.html',
         controller: 'CampaignCreateCtrl',
         controllerAs: 'campaignCreateRoute'
       })
+      .when('campaigns/:id/edit/', {
+        templateUrl: urls.partials.routes + 'campaigns/edit.html'
+      })
+      // settings
       .when('/settings/', {
         templateUrl: urls.partials.routes + 'settings/__base.html',
       })
+      // invoices
       .when('/invoices/', {
         templateUrl: urls.partials.routes + 'invoices/list.html',
         controller: 'InvoiceListCtrl',
