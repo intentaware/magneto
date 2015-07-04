@@ -1,5 +1,4 @@
 from django.db.models import Manager, QuerySet, Sum
-import datetime
 
 
 class CampaignQuerySet(QuerySet):
@@ -7,7 +6,8 @@ class CampaignQuerySet(QuerySet):
     custom manager for 'Campaign' model
     """
     def active(self):
-        return self.filter(is_active=True)
+        from django.utils import timezone as _tz
+        return self.filter(is_active=True, ends_on__gte=_tz.now())
 
     def active_budget(self):
         return self.aggregate(Sum('budget'))['budget__sum']
