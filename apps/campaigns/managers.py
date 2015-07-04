@@ -19,12 +19,21 @@ class CampaignManager(Manager):
 
 class CouponQuerySet(QuerySet):
     def active(self):
+        """
+        only get coupons from active campaigns
+        """
         return self.filter(campaign__is_active=True)
 
     def claimed(self):
+        """
+        get claimed coupons
+        """
         return self.filter(claimed_on__isnull=False)
 
     def remaining(self):
+        """
+        get coupons that are not claimed
+        """
         return self.filter(claimed_on__isnull=True)
 
     def coupons_value_sum(self):

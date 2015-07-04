@@ -7,15 +7,15 @@
         <md-card>
           <md-toolbar class="live-preview">
             <div class="md-toolbar-tools">
-              <span>{{ campaignCreateRoute.ad.name || "Live Preview" }}</span>
+              <span>{{ campaignCreate.ad.name || "Live Preview" }}</span>
             </div>
           </md-toolbar>
-          <img ng-src="{{ campaignCreateRoute.ad.image }}">
+          <img ng-src="{{ campaignCreate.ad.image }}">
           <md-card-content>
-            <small>{{ campaignCreateRoute.ad.description }}</small>
+            <small>{{ campaignCreate.ad.description }}</small>
             {% endverbatim %}
             <br>
-            <span flex ng-if="campaignCreateRoute.ad.description" style="text-align: right;"><img src="{{ STATIC_URL }}dash/src/assets/images/lg.png" height="15"></span>
+            <span flex ng-if="campaignCreate.ad.description" style="text-align: right;"><img src="{{ STATIC_URL }}dash/src/assets/images/lg.png" height="15"></span>
             {% verbatim %}
           </md-card-content>
         </md-card>

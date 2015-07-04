@@ -64,10 +64,12 @@ angular.module('adomattic', [
       .when('/campaigns/create/', {
         templateUrl: urls.partials.routes + 'campaigns/create.html',
         controller: 'CampaignCreateCtrl',
-        controllerAs: 'campaignCreateRoute'
+        controllerAs: 'campaignCreate'
       })
-      .when('campaigns/:id/edit/', {
-        templateUrl: urls.partials.routes + 'campaigns/edit.html'
+      .when('/campaigns/:campaignID/edit/', {
+        templateUrl: urls.partials.routes + 'campaigns/edit.html',
+        controller: 'CampaignEditCtrl',
+        controllerAs: 'editCampaign'
       })
       // settings
       .when('/settings/', {

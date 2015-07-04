@@ -34,7 +34,9 @@ angular.module('adomattic.dashboard')
       });
     };
 
-    self.editCampaign = function (id) {
-      console.log(id);
+    self.editCampaign = function (campaignID) {
+      var p = '/campaigns/' + campaignID + '/edit/';
+      console.log(p);
+      $location.path(p);
     };
   });
