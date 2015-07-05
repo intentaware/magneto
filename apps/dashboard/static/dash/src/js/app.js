@@ -69,7 +69,7 @@ angular.module('adomattic', [
       .when('/campaigns/:campaignID/edit/', {
         templateUrl: urls.partials.routes + 'campaigns/edit.html',
         controller: 'CampaignEditCtrl',
-        controllerAs: 'editCampaign'
+        controllerAs: 'campaignEdit'
       })
       // settings
       .when('/settings/', {
