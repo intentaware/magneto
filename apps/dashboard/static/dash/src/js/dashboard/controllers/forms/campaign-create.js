@@ -20,22 +20,27 @@ angular.module('adomattic.dashboard')
     });
     */
 
-   // initializing the main controller
+    // initializing the main controller
     $scope.$watch('baseCampaignFormCtrl.campaign', function(n) {
       self.campaign = n;
     });
 
-    console.log(self);
-    console.log($scope);
-
     self.now = new Date();
 
     self.getImpressionCount = function() {
-      self.money = Money.getImpressionCountAndChargeValue(
-        self.campaign.input_budget, self.campaign.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
-      );
+      if (self.campaign) {
+        self.money = Money.getImpressionCountAndChargeValue(
+          self.campaign.input_budget, self.campaign.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
+        );
+      } else {
+        self.money = 0;
+      }
       return self.money;
     };
+
+    self.isDisabled = function() {
+      return (self.campaign && self.campaign.id) ? true : false;
+    }
 
     self.saveAd = function() {
       self.$saving = true;
@@ -43,14 +48,22 @@ angular.module('adomattic.dashboard')
       self.campaign.service_charges = self.money.serviceCharges;
       self.campaign.taxes = self.money.taxes;
       self.campaign.coupon_count = self.money.impressions;
-      Campaign.save(self.campaign).$promise.then(function(data) {
-        console.log(data);
-        //$location.path('/campaigns/');
-        openStripePaymentDialog(data.invoice);
-      }, function(data) {
-        console.log(data);
-        self.$saving = false;
-      });
+      if (!self.campaign.id) {
+        Campaign.save(self.campaign).$promise.then(function(data) {
+          console.log(data);
+          //$location.path('/campaigns/');
+          openStripePaymentDialog(data.invoice);
+        }, function(data) {
+          console.log(data);
+          self.$saving = false;
+        });
+      } else {
+        Campaign.update(self.campaign).$promise.then(function() {
+          $location.path('/campaigns/');
+        }, function(data) {
+          self.$saving = false;
+        });
+      }
     };
 
     $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {

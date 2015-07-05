@@ -27,10 +27,14 @@ class CampaignViewSet(viewsets.ModelViewSet):
             return Response(s.errors, status=400)
 
 
-    def partial_update(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs):
         data = request.data
         instance = self.get_object()
+        print instance
         s = CreateCampaignSerializer(instance, data=data, partial=True)
-        s.is_valid(raise_exception=True)
-        self.perform_update(s)
-        return Response(s.data)
+        print s
+        if s.is_valid():
+            self.perform_update(s)
+            return Response()
+        else:
+            return Response(s.errors, 400)

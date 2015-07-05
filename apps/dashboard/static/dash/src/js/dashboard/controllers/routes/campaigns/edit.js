@@ -11,6 +11,10 @@ angular.module('adomattic.dashboard')
       Campaign.get({
         id: $routeParams.campaignID
       }).$promise.then(function(response) {
+        response.starts_on = new Date(response.starts_on);
+        response.ends_on = new Date(response.ends_on);
+        response.coupon_value = parseFloat(response.coupon_value);
+        response.input_budget = parseFloat(response.budget);
         self.campaign = response;
       });
     }
