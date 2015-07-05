@@ -7,7 +7,7 @@ angular.module('adomattic.dashboard')
   .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Money) {
     var self = this;
 
-    self.circles = [];
+    //self.circles = [];
 
     /*
     Circle.query().$promise.then(function(data) {
@@ -20,48 +20,58 @@ angular.module('adomattic.dashboard')
     });
     */
 
-    self.ad = {
-      name: undefined,
-      description: undefined,
-      image: undefined,
-      input_budget: 10,
-      coupon_value: 2,
-      circles: []
-    };
-
-    console.log($rootScope);
+    // initializing the main controller
+    $scope.$watch('baseCampaignFormCtrl.campaign', function(n) {
+      self.campaign = n;
+    });
 
     self.now = new Date();
 
     self.getImpressionCount = function() {
-      self.money = Money.getImpressionCountAndChargeValue(
-          self.ad.input_budget, self.ad.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
+      if (self.campaign) {
+        self.money = Money.getImpressionCountAndChargeValue(
+          self.campaign.input_budget, self.campaign.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
         );
+      } else {
+        self.money = 0;
+      }
       return self.money;
     };
 
+    self.isDisabled = function() {
+      return (self.campaign && self.campaign.id) ? true : false;
+    }
+
     self.saveAd = function() {
       self.$saving = true;
-      self.ad.budget = self.money.charge;
-      self.ad.service_charges = self.money.serviceCharges;
-      self.ad.taxes = self.money.taxes;
-      self.ad.coupon_count = self.money.impressions;
-      Campaign.save(self.ad).$promise.then(function(data) {
-        console.log(data);
-        //$location.path('/campaigns/');
-        openStripePaymentDialog(data.invoice);
-      }, function(data) {
-        console.log(data);
-        self.$saving = false;
-      });
+      self.campaign.budget = self.money.charge;
+      self.campaign.service_charges = self.money.serviceCharges;
+      self.campaign.taxes = self.money.taxes;
+      self.campaign.coupon_count = self.money.impressions;
+      if (!self.campaign.id) {
+        Campaign.save(self.campaign).$promise.then(function(data) {
+          console.log(data);
+          //$location.path('/campaigns/');
+          openStripePaymentDialog(data.invoice);
+        }, function(data) {
+          console.log(data);
+          self.$saving = false;
+        });
+      } else {
+        Campaign.update(self.campaign).$promise.then(function() {
+          $location.path('/campaigns/');
+        }, function(data) {
+          self.$saving = false;
+        });
+      }
     };
 
     $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {
-      //console.log(self.ad);
-      $rootScope.$emit('campaginFormUpdated', self.ad);
+      //console.log(self.campaign);
+      $rootScope.$emit('campaginFormUpdated', self.campaign);
     });
 
-    var openStripePaymentDialog = function (invoiceID) {
+    var openStripePaymentDialog = function(invoiceID) {
       $mdDialog.show({
         controller: 'StripeCreditCardDialogCtrl',
         controllerAs: 'creditCard',

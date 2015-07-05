@@ -1,21 +1,21 @@
 {% verbatim %}
   <div layout="column">
-    <div layout="row" layout-sm="column" layout-margin>
+    <div layout="row" layout-sm="column">
       <div flex="75" flex-sm="100" ng-include="'/dashboard/partials/forms/campaign-create.html'">
       </div>
       <div flex="25" flex-sm="100">
         <md-card>
           <md-toolbar class="live-preview">
             <div class="md-toolbar-tools">
-              <span>{{ campaignCreateRoute.ad.name || "Live Preview" }}</span>
+              <span>{{ baseCampaignFormCtrl.campaign.name || "Live Preview" }}</span>
             </div>
           </md-toolbar>
-          <img ng-src="{{ campaignCreateRoute.ad.image }}">
+          <img ng-src="{{ baseCampaignFormCtrl.campaign.image }}">
           <md-card-content>
-            <small>{{ campaignCreateRoute.ad.description }}</small>
+            <small>{{ baseCampaignFormCtrl.campaign.description }}</small>
             {% endverbatim %}
             <br>
-            <span flex ng-if="campaignCreateRoute.ad.description" style="text-align: right;"><img src="{{ STATIC_URL }}dash/src/assets/images/lg.png" height="15"></span>
+            <span flex ng-if="baseCampaignFormCtrl.campaign.description" style="text-align: right;"><img src="{{ STATIC_URL }}dash/src/assets/images/lg.png" height="15"></span>
             {% verbatim %}
           </md-card-content>
         </md-card>

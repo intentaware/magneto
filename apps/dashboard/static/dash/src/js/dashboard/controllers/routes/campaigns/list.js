@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignListCtrl', function($scope, $mdDialog, urls, Campaign) {
-    $scope.campaigns = Campaign.query();
+  .controller('CampaignListCtrl', function($mdDialog, $location, urls, Campaign) {
+    var self = this;
 
-    $scope.showPreview = function(ev, data) {
+    self.campaigns = Campaign.query();
+
+    self.showPreview = function(ev, data) {
       $mdDialog.show({
         controller: 'CampaignPreviewDialogCtrl',
         controllerAs: 'previewController',
@@ -17,7 +19,7 @@ angular.module('adomattic.dashboard')
       });
     };
 
-    $scope.openStripePaymentDialog = function(invoiceID) {
+    self.openStripePaymentDialog = function(invoiceID) {
       $mdDialog.show({
         controller: 'StripeCreditCardDialogCtrl',
         controllerAs: 'creditCard',
@@ -28,7 +30,13 @@ angular.module('adomattic.dashboard')
         //targetEvent: ev,
         parent: angular.element(document.body)
       }).then(function() {
-        $scope.campaigns = Campaign.query();
+        self.campaigns = Campaign.query();
       });
+    };
+
+    self.editCampaign = function (campaignID) {
+      var p = '/campaigns/' + campaignID + '/edit/';
+      console.log(p);
+      $location.path(p);
     };
   });

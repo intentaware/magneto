@@ -52,5 +52,18 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
         return campaign
 
     def update(self, instance, validated_data):
-        raise NotImplementedError('`update()` must be implemented.')
+        image = validated_data.get('image', None)
+        if image:
+            image = Photo.objects.create(
+                image=image, title=image.name,
+                slug=image.name,
+            )
+        i = validated_data
+        service_charges = i.pop('service_charges', None)
+        taxes = i.pop('taxes', None)
+        i['image'] = image
+        for attr, value in i.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
 
