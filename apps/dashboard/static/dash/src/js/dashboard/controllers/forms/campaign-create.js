@@ -7,7 +7,7 @@ angular.module('adomattic.dashboard')
   .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Money) {
     var self = this;
 
-    self.circles = [];
+    //self.circles = [];
 
     /*
     Circle.query().$promise.then(function(data) {
@@ -20,23 +20,20 @@ angular.module('adomattic.dashboard')
     });
     */
 
-    self.campaign = {
-      name: undefined,
-      description: undefined,
-      image: undefined,
-      input_budget: 10,
-      coupon_value: 2,
-      circles: []
-    };
+   // initializing the main controller
+    $scope.$watch('baseCampaignFormCtrl.campaign', function(n) {
+      self.campaign = n;
+    });
 
-    console.log($rootScope);
+    console.log(self);
+    console.log($scope);
 
     self.now = new Date();
 
     self.getImpressionCount = function() {
       self.money = Money.getImpressionCountAndChargeValue(
-          self.campaign.input_budget, self.campaign.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
-        );
+        self.campaign.input_budget, self.campaign.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
+      );
       return self.money;
     };
 
@@ -61,7 +58,7 @@ angular.module('adomattic.dashboard')
       $rootScope.$emit('campaginFormUpdated', self.campaign);
     });
 
-    var openStripePaymentDialog = function (invoiceID) {
+    var openStripePaymentDialog = function(invoiceID) {
       $mdDialog.show({
         controller: 'StripeCreditCardDialogCtrl',
         controllerAs: 'creditCard',
