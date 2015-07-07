@@ -131,7 +131,7 @@ def git_pull():
     """
     with cd(env.project_root):
         env.run('git fetch;' % env)
-        env.run('git checkout %(branch)s; git pull origin %(branch)s;' % env)
+        env.run('git checkout %(branch)s; git reset --hard origin/%(branch)s' % env)
 
 def install_requirements():
     """
