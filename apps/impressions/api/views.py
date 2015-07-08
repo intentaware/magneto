@@ -22,44 +22,48 @@ class GetImpression(APIView):
     def get(self, request, pk=None, b64_string=None):
         if not pk:
             coupons = request.publisher.get_target_campaigns(request)
-            impressions = list()
-            visitor, created = ImpressionUser.objects.get_or_create(
-                key=request.customer)
-            if request.user.is_authenticated() and not visitor.user:
-                visitor.user = request.user
-                visitor.save()
-            meta = self.process_request(request)
-            # print meta
-            for c in coupons:
-                i = Impression.objects.create(
-                    coupon=c, campaign=c.campaign, publisher=request.publisher,
-                    visitor=visitor, meta=meta
-                )
-                template = render_to_string('impressions/basic.html', {
-                    'impression': i
-                })
-                impression = {
-                    'id': i.id,
-                    'template': template
-                }
-                impressions.append(impression)
+            impressions = self.get_impression_markup(request, coupons)
             return Response(impressions, status=200)
-        elif pk is not 0:
-            impression = Impression.objects.get(pk=pk)
-            # get or create auth user based on email
-            if b64_string:
-                key, val = self.process_base64(b64_string)
-                if key == 'email':
-                    self.claim_coupon(impression, val)
-                    return Response('claimed succesfully', status=200)
-
         else:
-            if b64_string:
-                key, val = self.process_base64(b64_string)
-                if key == "campaign":
-                    self.get_campaign_impression(request, campaign_key)
-                    return Response(campaign_key, status=200)
+            try:
+                impression = Impression.objects.get(pk=pk)
+                # get or create auth user based on email
+                if b64_string:
+                    key, val = self.process_base64(b64_string)
+                    if key == 'email':
+                        self.claim_coupon(impression, val)
+                        return Response('claimed succesfully', status=200)
+            except Impression.DoesNotExist:
+                if b64_string:
+                    key, val = self.process_base64(b64_string)
+                    if key == "campaign":
+                        coupons = request.publisher.get_target_campaigns(request, campaign_id=val)
+                        impressions = self.get_impression_markup(request, coupons)
+                        return Response(impressions, status=200)
 
+    def get_impression_markup(self, request, coupons):
+        impressions = list()
+        visitor, created = ImpressionUser.objects.get_or_create(
+            key=request.customer)
+        if request.user.is_authenticated() and not visitor.user:
+            visitor.user = request.user
+            visitor.save()
+        meta = self.process_request(request)
+        # print meta
+        for c in coupons:
+            i = Impression.objects.create(
+                coupon=c, campaign=c.campaign, publisher=request.publisher,
+                visitor=visitor, meta=meta
+            )
+            template = render_to_string('impressions/basic.html', {
+                'impression': i
+            })
+            impression = {
+                'id': i.id,
+                'template': template
+            }
+            impressions.append(impression)
+        return impressions
 
     def process_base64(self, b64_string):
         import base64
@@ -74,9 +78,6 @@ class GetImpression(APIView):
         impression.visitor.save()
         impression.save()
         impression.coupon.claim(user)
-
-    def get_campaign_impression(self, request, campaign_key):
-        pass
 
     def process_request(self, request):
         from ipware.ip import get_real_ip

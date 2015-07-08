@@ -36,9 +36,18 @@ class Company(TimeStamped, SluggedFromName, Stripe):
     class Meta:
         verbose_name_plural = "companies"
 
-    def get_target_campaigns(self, request):
+    def get_target_campaigns(self, request, campaign_id=None):
         from apps.campaigns.models import Coupon
-        return Coupon.objects.active().exclude(campaign__image=None).order_by('?')[:1]
+        if not campaign_id:
+            return Coupon.objects.active().exclude(
+                    campaign__image=None
+                ).order_by('?')[:1]
+        else:
+            return Coupon.objects.filter(
+                    campaign_id=campaign_id
+                ).exclude(
+                    campaign__image=None
+                ).active().order_by('?')[:1]
 
     @property
     def stripe_customer_id(self):

@@ -4,7 +4,9 @@ var activeImpression;
 var urls = {
   base: 'http://localhost:9050/api/',
   endPoints: {
-    impression: 'impressions/i/',
+    impression: function() {
+      return (document['campaignID']) ? 'impressions/i/0/' + btoa('campaign:' + document['campaignID']) + '/' : 'impressions/i/';
+    },
     claim: function (id, email) {
       var b64 = btoa('email:' + email);
       return 'impressions/i/' + id + '/' + b64 +'/';
@@ -75,7 +77,7 @@ styleSheet.rel = 'stylesheet';
 document.getElementsByTagName('head')[0].appendChild(styleSheet);
 
 axios({
-  url: urls.base + urls.endPoints.impression,
+  url: urls.base + urls.endPoints.impression(),
   //url: 'http://app.adomattic.com/api/impressions/i/',
   method: 'GET',
   headers: {
