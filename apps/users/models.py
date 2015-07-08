@@ -151,13 +151,18 @@ class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
         from django.core.mail import EmailMessage
         from django.conf import settings
 
+        print template
+        print context
+        print kwargs
         message = render_to_string(template, context)
+        print message
         email = EmailMessage(
                 to=[self.email_from,],
                 from_email=settings.ADOMATTIC_FROM,
                 body=message,
                 **kwargs
             )
+        print email
         email.content_subtype = 'html'
         email.send()
 

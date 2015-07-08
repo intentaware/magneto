@@ -19,7 +19,7 @@ class RequestEncoder(JSONEncoder):
 class GetImpression(APIView):
     permission_classes = (PublisherAPIPermission,)
 
-    def get(self, request, pk=None, email=None):
+    def get(self, request, pk=None, b64_string=None):
         if not pk:
             coupons = request.publisher.get_target_campaigns(request)
             impressions = list()
@@ -44,16 +44,39 @@ class GetImpression(APIView):
                 }
                 impressions.append(impression)
             return Response(impressions, status=200)
-        else:
+        elif pk is not 0:
             impression = Impression.objects.get(pk=pk)
             # get or create auth user based on email
-            user, created = User.objects.get_or_create(email=email)
-            # assign the user to impression object.
-            impression.visitor.user = user
-            impression.visitor.save()
-            impression.save()
-            impression.coupon.claim(user)
-            return Response('claimed succesfully', status=200)
+            if b64_string:
+                key, val = self.process_base64(b64_string)
+                if key == 'email':
+                    self.claim_coupon(impression, val)
+                    return Response('claimed succesfully', status=200)
+
+        else:
+            if b64_string:
+                key, val = self.process_base64(b64_string)
+                if key == "campaign":
+                    self.get_campaign_impression(request, campaign_key)
+                    return Response(campaign_key, status=200)
+
+
+    def process_base64(self, b64_string):
+        import base64
+        [key, val] = base64.b64decode(b64_string).split(':')
+        return key, val
+
+
+    def claim_coupon(self, impression, email):
+        user, created = User.objects.get_or_create(email=email)
+        # assign the user to impression object.
+        impression.visitor.user = user
+        impression.visitor.save()
+        impression.save()
+        impression.coupon.claim(user)
+
+    def get_campaign_impression(self, request, campaign_key):
+        pass
 
     def process_request(self, request):
         from ipware.ip import get_real_ip

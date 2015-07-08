@@ -6,7 +6,8 @@ var urls = {
   endPoints: {
     impression: 'impressions/i/',
     claim: function (id, email) {
-      return 'impressions/i/' + id + '/' + email +'/';
+      var b64 = btoa('email:' + email);
+      return 'impressions/i/' + id + '/' + b64 +'/';
     }
   }
 };
