@@ -151,7 +151,7 @@ def migrate():
 
 def collect_static():
     with cd(env.project_root):
-        env.run('%(venv)s python manage.py collectstatic --noinput -i node_modules -i bower_components' % env)
+        env.run('%(venv)s python manage.py collectstatic --noinput -i node_modules' % env)
 
 
 def uwsgi_install():
