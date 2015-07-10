@@ -8,7 +8,7 @@ angular.module('adomattic', [
     'ngSanitize',
     'ngResource',
     'ngRoute',
-    //'ngMessages',
+    'ngMessages',
     'ngMaterial',
     // 3rd party
     'ngMask',

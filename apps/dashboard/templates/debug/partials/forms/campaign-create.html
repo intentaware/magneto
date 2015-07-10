@@ -2,17 +2,20 @@
   <form name="CreateAdForm" ng-controller="CampaignFormCtrl as campaignForm" ng-submit="campaignForm.saveAd()" ng-disabled="campaignForm.$saving" flex>
     <md-input-container>
       <label>Name</label>
-      <input type="text" name="name" ng-model="campaignForm.campaign.name" required>
+      <input type="text" name="name" ng-model="campaignForm.campaign.name" md-maxlength="24" ng-trim="true" required>
       <div ng-messages="CreateAdForm.name.$error">
         <div ng-message="required">This is required, It will help you identify each ad from the other</div>
+        <div ng-message="md-maxlength">That is too long! Max is 24 characters</div>
       </div>
     </md-input-container>
     <md-input-container>
       <label>Description</label>
-      <textarea name="description" ng-model="campaignForm.campaign.description" md-maxlength="256"
-                required>{{ campaignForm.campaign.description }}</textarea>
+      <textarea name="description" ng-model="campaignForm.campaign.description" md-maxlength="200" ng-trim="true" required>
+        {{ campaignForm.campaign.description }}
+      </textarea>
       <div ng-messages="CreateAdForm.description.$error">
         <div ng-message="required" ng-show="CreateAdForm.description.$error">Required</div>
+        <div ng-message="md-maxlength">That is too long!!</div>
       </div>
     </md-input-container>
     <div layout="row" layout-sm="column">
@@ -29,15 +32,15 @@
       <md-input-container flex>
         <label>Budget</label>
         <input type="number" name="input_budget" ng-model="campaignForm.campaign.input_budget" min="10" ng-disabled="campaignForm.isDisabled()">
-        <div ng-messages="CampaignForm.input_budget.$error">
-          <div ng-message="min"><strong>You will be charged: </strong>{{ campaignForm.getImpressionCount().charge | currency }}</div>
+        <div class="describe-input md-primary">
+          <span><small><strong>You will be charged: </strong>{{ campaignForm.getImpressionCount().charge | currency }}</small></span>
         </div>
       </md-input-container>
       <md-input-container flex>
         <label>Offer Value</label>
         <input type="number" name="budget" ng-model="campaignForm.campaign.coupon_value" min="2" ng-disabled="campaignForm.isDisabled()">
-        <div ng-messages="CampaignForm.coupon_value.$error">
-          <div ng-message="min"><strong>People Targetted: </strong>{{ campaignForm.getImpressionCount().impressions }}</div>
+        <div class="describe-input">
+          <span><small><strong>People Targetted: </strong>{{ campaignForm.getImpressionCount().impressions }}</small></span>
         </div>
       </md-input-container>
       <div flex="45" flex-sm="100">
