@@ -12,12 +12,12 @@
 <script type="text/javascript">
 (function(){
   'use strict';
-  document.adomattic = '{{ globals.company.publisher_key }}';
+  document.adomattic = '{{ offerCode.globals.company.publisher_key }}';
   document.campaignID = '{{ offerCode.campaignID }}'
   var ai = document.createElement('script');
   ai.type = 'text/javascript';
   ai.async = true;
-  ai.src = '{{ assetRoot }}all.js';
+  ai.src = '{{ offerCode.assetRoot }}all.js';
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(ai, s);
 })();
