@@ -2,7 +2,7 @@
 {% load i18n widget_tweaks %}
 
 {% block auth_content %}
-<div flex="50" flex-sm="100" layout-align="center center">
+<div flex="50" flex-sm="100" class="auth-content" layout-align="center center">
 <md-content class="md-padding" layout="column">
   <p style="text-align: center;">You have logged out successfully</p>
   <md-button class="md-primary md-raised" href="{% url 'auth_login' %}">Log Back In</md-button>
