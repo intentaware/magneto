@@ -3,7 +3,7 @@
 
 {% block auth_content %}
 <div flex="50" flex-sm="100" layout-align="center center">
-  <md-content class="md-padding" layout="column">
+  <md-content class="md-padding auth-content" layout="column">
     <form name="loginForm" method="post" action="." ng-controller="FormCtrl" ng-init="reg.email='{{ form.data.email }}';">
       {% csrf_token %}
       <md-input-container>
