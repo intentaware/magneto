@@ -1,9 +1,14 @@
 {% extends "registration/__base.html" %}
 {% load i18n widget_tweaks %}
 
+
+{% block title %}
+  <title>Adomattic | Login</title>
+{% endblock %}
+
 {% block auth_content %}
 <div flex="50" flex-sm="100" layout-align="center center">
-  <md-content class="md-padding auth-content" layout="column">
+  <md-content class="md-padding auth-content md-whiteframe-z2" layout="column">
     <form name="loginForm" method="post" action="." ng-controller="FormCtrl" ng-init="reg.email='{{ form.data.email }}';">
       {% csrf_token %}
       <md-input-container>
