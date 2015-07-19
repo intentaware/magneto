@@ -7,9 +7,9 @@ var urls = {
     impression: function() {
       return (document['campaignID']) ? 'impressions/i/0/' + btoa('campaign:' + document['campaignID']) + '/' : 'impressions/i/';
     },
-    claim: function (id, email) {
+    claim: function(id, email) {
       var b64 = btoa('email:' + email);
-      return 'impressions/i/' + id + '/' + b64 +'/';
+      return 'impressions/i/' + id + '/' + b64 + '/';
     }
   }
 };
@@ -31,38 +31,42 @@ var addUnits = function(data, p) {
 
     //defining adomattic layers on click
     var impression = self.querySelectorAll('div.impression')[0];
-    var loginForm = self.querySelectorAll('div.login-form')[0];
+    var info = self.querySelectorAll('div.info')[0];
     var result = self.querySelectorAll('div.result')[0];
     console.log(result);
 
-    // hiding impression and showing loginform
+    // hiding impression and showing info
     impression.classList.add('hide');
-    loginForm.classList.remove('hide');
+    info.classList.remove('hide');
 
-    var f = loginForm.getElementsByTagName('form')[0];
+    var f = info.getElementsByTagName('form')[0];
     f.elements['submit'].addEventListener('click', function(event) {
       event.preventDefault();
     });
     f.elements['submit'].onclick = function() {
       var email = f.elements['email'].value;
+      var tos = f.elements['tos'];
+      if (tos.checked) {
+        axios({
+          url: urls.base + urls.endPoints.claim(activeImpression, email),
+          method: 'GET',
+          headers: {
+            'PUBLISHER-KEY': document['adomattic']
+              //'Access-Control-Allow-Credentials' : true,
+              //'Access-Control-Allow-Origin': window.location.origin
+          },
+          data: {
+            email: email,
+          }
+        }).then(function() {
+          info.classList.add('hide');
+          result.classList.remove('hide');
+        });
+      } else {
+        var tosContainer = self.querySelectorAll('div.tos-container')[0];
+        tosContainer.classList.add('red');
+      }
       //console.log(email, password);
-      axios({
-        url: urls.base + urls.endPoints.claim(activeImpression, email),
-        method: 'GET',
-        headers: {
-          'PUBLISHER-KEY': document['adomattic']
-            //'Access-Control-Allow-Credentials' : true,
-            //'Access-Control-Allow-Origin': window.location.origin
-        },
-        data: {
-          email: email,
-          password1: '1',
-          password2: '1'
-        }
-      }).then(function() {
-        loginForm.classList.add('hide');
-        result.classList.remove('hide');
-      });
     };
 
   };
@@ -71,7 +75,7 @@ var addUnits = function(data, p) {
 };
 
 var styleSheet = document.createElement('link');
-styleSheet.href = (urls.base === 'http://localhost:9050/api/') ? 'styles/main.css': 'http://app.adomattic.com/magneto/styles/main.css';
+styleSheet.href = (urls.base === 'http://localhost:9050/api/') ? 'styles/main.css' : 'http://app.adomattic.com/magneto/styles/main.css';
 styleSheet.type = 'text/css';
 styleSheet.rel = 'stylesheet';
 document.getElementsByTagName('head')[0].appendChild(styleSheet);

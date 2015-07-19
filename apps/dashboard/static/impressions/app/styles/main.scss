@@ -56,7 +56,7 @@ $icon-font-path: '../fonts/';
     }
   }
 
-  .login-form {
+  .info {
     textarea,
     input[type="text"],
     input[type="password"],
@@ -79,14 +79,40 @@ $icon-font-path: '../fonts/';
       @include border-width(0 0 1px 0);
       @include margin(10px);
       @include padding(2px);
-       width: 220px;
-       color: #a2a2a2;
-       font-weight: 300;
+      width: 220px;
+      color: #a2a2a2;
+      font-weight: 300;
+      font-family: $helvetica;
+      letter-spacing: 1px;
     }
 
     button {
       @include button('flat', #bf2932);
       @include margin(10px);
+    }
+
+    .tos-container {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      @include border-color(transparent transparent #f2f2f2 transparent);
+      @include border-width(0 0 1px 0);
+      @include margin(10px);
+      @include padding(2px);
+      width: 220px;
+      color: #a2a2a2;
+      font-size: 10px;
+      font-weight: 300;
+      font-family: $helvetica;
+      letter-spacing: 0.5px;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+
+    .red {
+      color: #bf2932;
+      font-weight: 700;
     }
 
     .adomattic-input {
