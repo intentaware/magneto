@@ -10,44 +10,46 @@
 <body itemscope itemtype="http://schema.org/EmailMessage">
 
 <table class="body-wrap">
-	<tr>
-		<td></td>
-		<td class="container" width="600">
-			<div class="content">
-				<table class="main" width="100%" cellpadding="0" cellspacing="0" itemprop="action" itemscope itemtype="http://schema.org/ConfirmAction">
-					<tr>
-						<td class="content-wrap">
-							<meta itemprop="name" content="Confirm Email"/>
-							<table width="100%" cellpadding="0" cellspacing="0">
-								<tr class="content-block">
-									<td>
-										<p>Print this offer and present it any {{ coupon.company.name }} outlet. For online promotions your offer code is <strong>{{ coupon.code }}</strong></p>
-									</td>
-								</tr>
-								<tr class="content-block">
+  <tr>
+    <td></td>
+    <td class="container" width="600">
+      <div class="content">
+        <table class="main" width="100%" cellpadding="0" cellspacing="0" itemprop="action" itemscope itemtype="http://schema.org/ConfirmAction">
+          <tr>
+            <td class="content-wrap">
+              <meta itemprop="name" content="Confirm Email"/>
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr class="content-block">
+                  <td>
+                    <p>Your one time coupon code can be seen at <a href="http://app.adomattic.com/{% url 'redeem_coupon' coupon.code %}">{% url 'redeem_coupon' coupon.code %}</a>. Please not that, this is a one time link, and will expire after you open it. Use your mobile phone to open the page and present the coupon at any of {{ coupon.company.name }} outlet. For online promotions your offer code is <strong>{{ coupon.code }}</strong></p>
+                  </td>
+                </tr>
+                <!--
+                <tr class="content-block">
                   <td>
                     <img src="{{ MEDIA_URL }}coupons/{{ coupon.code }}.png">
                   </td>
-								</tr>
-								<tr>
-									<td class="content-block">
-										&mdash; team @ adomattic
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-				<div class="footer">
-					<table width="100%">
-						<tr>
-							<td class="aligncenter content-block">Powered by <a href="http://www.adomattic.com">Adomattic</a>.</td>
-						</tr>
-					</table>
-				</div></div>
-		</td>
-		<td></td>
-	</tr>
+                </tr>
+                -->
+                <tr>
+                  <td class="content-block">
+                    &mdash; team @ adomattic
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <div class="footer">
+          <table width="100%">
+            <tr>
+              <td class="aligncenter content-block">Powered by <a href="http://www.adomattic.com">Adomattic</a>.</td>
+            </tr>
+          </table>
+        </div></div>
+    </td>
+    <td></td>
+  </tr>
 </table>
 
 </body>

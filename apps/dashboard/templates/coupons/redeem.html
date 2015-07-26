@@ -1,1 +1,27 @@
-{{ coupon.code }}
+{% extends "registration/__base.html" %}
+{% load i18n widget_tweaks %}
+
+
+{% block title %}
+  <title>Adomattic | Redeem your code</title>
+{% endblock %}
+
+{% block auth_content %}
+<div flex="50" flex-sm="100" layout-align="center center">
+  <md-content class="md-padding auth-content md-whiteframe-z2" layout="column">
+
+  {% if coupon %}
+    <p>Show this page at any of {{ coupon.company.name }} outlet to claim your offer now!</p>
+    <h3>{{ coupon.code }}</h3>
+
+    <p><img src="{{ MEDIA_URL }}coupons/{{ coupon.code }}.png"></p>
+  {% else %}
+    <p>Sorry, your offer has expired!</p>
+  {% endif %}
+
+  <p>Thankyou for using <strong>Adomattic</strong></p>
+
+  </md-content>
+</div>
+
+{% endblock %}
