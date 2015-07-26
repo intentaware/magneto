@@ -44,7 +44,8 @@ class Company(TimeStamped, SluggedFromName, Stripe):
                 ).order_by('?')[:1]
         else:
             return Coupon.objects.filter(
-                    campaign_id=campaign_id
+                    campaign_id=campaign_id,
+                    redeemed_on__is_null=True,
                 ).exclude(
                     campaign__image=None
                 ).active().order_by('?')[:1]

@@ -137,7 +137,8 @@ class Coupon(TimeStamped, ToCompany):
         from django.utils import timezone as _tz
         now = _tz.now()
         delta = _tz.timedelta(hours=5)
-        if now - self.claimed_on < delta:
+        print now -self.claimed_on
+        if (now - self.claimed_on) < delta:
             self.redeemed_on = now
             self.save()
             return self

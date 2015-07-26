@@ -116,7 +116,7 @@ def user_opt_out(request):
 def redeem_coupon(request, code):
     from apps.campaigns.models import Coupon
     try:
-        coupon = Coupon.objects.get(code=code, redeemed_on=None)
+        coupon = Coupon.objects.get(code=code)
         coupon = coupon.redeem()
     except Coupon.DoesNotExist:
         coupon = False
