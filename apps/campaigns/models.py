@@ -135,6 +135,7 @@ class Coupon(TimeStamped, ToCompany):
 
     def redeem(self):
         from django.utils import timezone as _tz
+        """
         now = _tz.now()
         delta = _tz.timedelta(hours=5)
         print now -self.claimed_on
@@ -144,6 +145,10 @@ class Coupon(TimeStamped, ToCompany):
             return self
         else:
             return self
+        """
+        now = _tz.now()
+        self.redeemed_on = now
+        self.save()
 
     def generate_barcode(self):
         """

@@ -10,13 +10,23 @@
 <div flex="50" flex-sm="100" layout-align="center center">
   <md-content class="md-padding auth-content md-whiteframe-z2" layout="column">
 
-  {% if coupon %}
+  {% if not coupon.redeemed_on %}
     <p>Show this page at any of {{ coupon.company.name }} outlet to claim your discount of ${{ coupon.campaign.coupon_value }} now!</p>
-    <h3>{{ coupon.code }}</h3>
+    <p>Your coupon code is</p>
+    <h4>{{ coupon.code }}</h4>
+
+    <p>The bardcode for easy scan</p>
+    <img src="{{ MEDIA_URL }}coupons/{{ coupon.code }}.png" width="200">
+
+    <br>
+    {% if coupon %}
+    <md-button class="md-primary md-raised" href="{% url 'redeem_coupon' coupon.code %}">Redeem Now</md-button>
+    {% endif %}
+  {% elif redeemed %}
+  <p>Your offer is redeemed now</p>
   {% else %}
     <p>Sorry, your offer has already been redeemed!</p>
   {% endif %}
-
   <p>Thankyou for using <strong>Adomattic</strong></p>
 
   </md-content>

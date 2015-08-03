@@ -113,11 +113,22 @@ def user_opt_out(request):
         impression_user.set_opt_out_flag()
     return render(request, 'debug/opt-out-child.html', {})
 
+
+def display_coupon(request, code):
+    from apps.campaigns.models import Coupon
+    try:
+        coupon = Coupon.objects.get(code=code)
+        #coupon = coupon.redeem()
+    except Coupon.DoesNotExist:
+        coupon = False
+    return render(request, 'coupons/redeem.html', { 'coupon': coupon })
+
 def redeem_coupon(request, code):
     from apps.campaigns.models import Coupon
     try:
         coupon = Coupon.objects.get(code=code)
-        coupon = coupon.redeem()
+        coupon.redeem()
     except Coupon.DoesNotExist:
         coupon = False
-    return render(request, 'coupons/redeem.html', { 'coupon': coupon })
+    print coupon
+    return render(request, 'coupons/redeem.html', { 'coupon': coupon, 'redeemed': True })
