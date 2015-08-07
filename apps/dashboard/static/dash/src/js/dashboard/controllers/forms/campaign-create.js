@@ -40,7 +40,7 @@ angular.module('adomattic.dashboard')
 
     self.isDisabled = function() {
       return (self.campaign && self.campaign.id) ? true : false;
-    }
+    };
 
     self.saveAd = function() {
       self.$saving = true;
@@ -60,7 +60,7 @@ angular.module('adomattic.dashboard')
       } else {
         Campaign.update(self.campaign).$promise.then(function() {
           $location.path('/campaigns/');
-        }, function(data) {
+        }, function() {
           self.$saving = false;
         });
       }
