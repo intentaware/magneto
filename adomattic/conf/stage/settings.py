@@ -9,6 +9,8 @@ ALLOWED_HOSTS = [
     '.adomattic.com.',  # Also allow FQDN and subdomains
 ]
 
+BASE_URL = "http://stage.adomattic.com"
+
 INSTALLED_APPS += (
     'rest_framework',
     'raven.contrib.django.raven_compat',

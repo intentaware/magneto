@@ -9,6 +9,8 @@
 
 <body itemscope="" itemtype="http://schema.org/EmailMessage" style="-webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; background-color: #f6f6f6; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; height: 100%; line-height: 1.6; margin: 0; width: 100%;">
 
+{% load base_url %}
+
 <table class="body-wrap" style="background-color: #f6f6f6; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; width: 100%;">
 	<tr style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0;">
 		<td style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; vertical-align: top;"></td>
@@ -28,7 +30,7 @@
 									<td class="content-block" style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; padding: 0 0 20px; vertical-align: top;">
 										We are excited to have you here and cannot wait to provide you the best digital advertising experience on web.
                     <br style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0;">
-                    <a href="{% url 'dashboard' %}" style="box-sizing: border-box; color: #348eda; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; text-decoration: underline;">Login</a> to our dashboard now at <a href="{% url 'dashboard' %}" style="box-sizing: border-box; color: #348eda; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; text-decoration: underline;">Dashboard</a> to get started now.
+                    <a href="{% load base_url %}{% url 'dashboard' %}" style="box-sizing: border-box; color: #348eda; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; text-decoration: underline;">Login</a> to our dashboard now at <a href="{% url 'dashboard' %}" style="box-sizing: border-box; color: #348eda; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; text-decoration: underline;">Dashboard</a> to get started now.
 									</td>
 								</tr>
                                 <tr style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0;">

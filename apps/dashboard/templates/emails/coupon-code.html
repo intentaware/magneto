@@ -9,6 +9,8 @@
 
 <body itemscope="" itemtype="http://schema.org/EmailMessage" style="-webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; background-color: #f6f6f6; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; height: 100%; line-height: 1.6; margin: 0; width: 100%;">
 
+{% load base_url %}
+
 <table class="body-wrap" style="background-color: #f6f6f6; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; width: 100%;">
   <tr style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0;">
     <td style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; vertical-align: top;"></td>
@@ -21,7 +23,7 @@
               <table width="100%" cellpadding="0" cellspacing="0" style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0;">
                 <tr class="content-block" style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; padding: 0 0 20px;">
                   <td style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; vertical-align: top;">
-                    <p style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 10px;">Your one time coupon code can be seen at <a href="http://app.adomattic.com/{% url 'display_coupon' coupon.code %}" style="box-sizing: border-box; color: #348eda; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; text-decoration: underline;">{% url 'redeem_coupon' coupon.code %}</a>. Please not that, this is a one time link, and will expire after you open it. Use your mobile phone to open the page and present the coupon at any of {{ coupon.company.name }} outlet. For online promotions your offer code is <strong style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0;">{{ coupon.code }}</strong></p>
+                    <p style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 10px;">Your one time coupon code can be seen at <a href="{% base_url %}{% url 'display_coupon' coupon.code %}" style="box-sizing: border-box; color: #348eda; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0; text-decoration: underline;">{% base_url %}{% url 'display_coupon' coupon.code %}</a>. Please note that, this is a one time link, and will expire after you open it. Use your mobile phone to open the page and present the coupon at any of {{ coupon.company.name }} outlet. For online promotions your offer code is <strong style="box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0;">{{ coupon.code }}</strong></p>
                   </td>
                 </tr>
                 <!--

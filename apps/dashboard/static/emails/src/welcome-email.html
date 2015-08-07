@@ -9,6 +9,8 @@
 
 <body itemscope itemtype="http://schema.org/EmailMessage">
 
+{% load base_url %}
+
 <table class="body-wrap">
 	<tr>
 		<td></td>
@@ -28,7 +30,7 @@
 									<td class="content-block">
 										We are excited to have you here and cannot wait to provide you the best digital advertising experience on web.
                     <br>
-                    <a href="{% url 'dashboard' %}">Login</a> to our dashboard now at <a href="{% url 'dashboard' %}">Dashboard</a> to get started now.
+                    <a href="{% load base_url %}{% url 'dashboard' %}">Login</a> to our dashboard now at <a href="{% url 'dashboard' %}">Dashboard</a> to get started now.
 									</td>
 								</tr>
                                 <tr>

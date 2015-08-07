@@ -9,6 +9,8 @@
 
 <body itemscope itemtype="http://schema.org/EmailMessage">
 
+{% load base_url %}
+
 <table class="body-wrap">
   <tr>
     <td></td>
@@ -21,7 +23,7 @@
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr class="content-block">
                   <td>
-                    <p>Your one time coupon code can be seen at <a href="http://app.adomattic.com/{% url 'redeem_coupon' coupon.code %}">{% url 'redeem_coupon' coupon.code %}</a>. Please note that, this is a one time link, and will expire after you open it. Use your mobile phone to open the page and present the coupon at any of {{ coupon.company.name }} outlet. For online promotions your offer code is <strong>{{ coupon.code }}</strong></p>
+                    <p>Your one time coupon code can be seen at <a href="{% base_url %}{% url 'display_coupon' coupon.code %}">{% base_url %}{% url 'display_coupon' coupon.code %}</a>. Please note that, this is a one time link, and will expire after you open it. Use your mobile phone to open the page and present the coupon at any of {{ coupon.company.name }} outlet. For online promotions your offer code is <strong>{{ coupon.code }}</strong></p>
                   </td>
                 </tr>
                 <!--
