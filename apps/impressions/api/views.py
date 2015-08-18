@@ -68,7 +68,9 @@ class GetImpression(APIView):
     def process_base64(self, b64_string):
         import base64
         [key, val] = base64.b64decode(b64_string).split(':')
-        return key, val
+        # val should be email, and if it is upper case, return it in lowercase
+        # for normalization
+        return key, val.lower()
 
 
     def claim_coupon(self, impression, email):
