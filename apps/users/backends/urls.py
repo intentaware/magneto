@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 #from django.views.generic.base import TemplateView
-from .views import UserRegistrationView, CompanyRegistrationView, PasswordResetView
+from .views import UserRegistrationView, CompanyRegistrationView, \
+    PasswordResetEmailView, PasswordResetEmailSentDone
 
 
 urlpatterns = patterns(
@@ -14,8 +15,12 @@ urlpatterns = patterns(
     ),
     url(
         r'^password/reset/$',
-        PasswordResetView.as_view(),
+        PasswordResetEmailView.as_view(),
         name='registration_password_reset',
+    ),
+    url(r'^password/reset/email/sent/$',
+        PasswordResetEmailSentDone.as_view(),
+        name='registration_password_reset_done'
     ),
     url(r'', include('registration.auth_urls')),
     )

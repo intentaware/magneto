@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.views.generic.edit import FormView
+from django.views.generic import TemplateView
 
 from registration.backends.simple.views import \
     RegistrationView as BaseRegistrationView
@@ -63,10 +64,10 @@ class CompanyRegistrationView(BaseRegistrationView):
         return '/dashboard/'
 
 
-class PasswordResetView(FormView):
+class PasswordResetEmailView(FormView):
     template_name = 'registration/password_reset_frm.html'
     form_class = PasswordResetForm
-    success_url = 'registration_password_reset_confirm'
+    success_url = 'registration_password_reset_done'
 
     def get(self, request, *args, **kwargs):
         # Pass request to get_form_class and get_form for per-request
@@ -86,3 +87,7 @@ class PasswordResetView(FormView):
         user = User.objects.get(email=form.cleaned_data.get('email'))
         user.update_key()
         return redirect(self.success_url)
+
+
+class PasswordResetEmailSentDone(TemplateView):
+    template_name = 'registration/password_reset_email_sent.html'
