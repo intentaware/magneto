@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.decorators import detail_route, list_route
 
 from apps.campaigns.models import Campaign
 from .serializers import CampaignSerializer, CreateCampaignSerializer
@@ -14,7 +15,7 @@ class CampaignViewSet(viewsets.ModelViewSet):
                 'image', 'coupons', 'invoice', 'coupons__impressions',
             ).filter(
                 company_id=self.request.session['company']
-            )
+            ).active()
 
     def create(self, request):
         data = request.data
@@ -38,3 +39,9 @@ class CampaignViewSet(viewsets.ModelViewSet):
             return Response()
         else:
             return Response(s.errors, 400)
+
+    @list_route(methods=['get',])
+    def past(self, request, *args, **kwargs):
+        return Response(
+                CampaignSerializer(Campaign.objects.inactive(), many=True).data, 200
+            )

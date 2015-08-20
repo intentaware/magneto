@@ -1,6 +1,6 @@
 {% verbatim %}
   <div layout="column">
-    <div class="md-headline">Current Campaigns</div>
+    <div class="md-headline">{{ campaignsList.title }} Campaigns</div>
     <md-list>
       <md-list-item class="md-3-line" ng-repeat="c in campaignsList.campaigns">
         <img ng-src="{{ c.preview_image_url }}" class="md-avatar" alt="{{ c.name }}" />

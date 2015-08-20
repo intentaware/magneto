@@ -1,4 +1,5 @@
 from django.db.models import Manager, QuerySet, Sum
+from django.utils import timezone as _tz
 
 
 class CampaignQuerySet(QuerySet):
@@ -6,15 +7,22 @@ class CampaignQuerySet(QuerySet):
     custom manager for 'Campaign' model
     """
     def active(self):
-        from django.utils import timezone as _tz
         return self.filter(is_active=True, ends_on__gte=_tz.now())
 
     def active_budget(self):
         return self.aggregate(Sum('budget'))['budget__sum']
 
+    def inactive(self):
+        return self.filter(is_active=False, ends_on__lte=_tz.now())
+
 
 class CampaignManager(Manager):
     use_for_related_fields = True
+
+    def expire(self):
+        return self.filter(
+            is_active=True, ends_on__lt=_tz.now()
+            ).update(is_active=False)
 
 
 class CouponQuerySet(QuerySet):

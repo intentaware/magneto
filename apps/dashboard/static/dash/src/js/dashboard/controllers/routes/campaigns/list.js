@@ -4,7 +4,16 @@ angular.module('adomattic.dashboard')
   .controller('CampaignListCtrl', function($mdDialog, $location, urls, Campaign) {
     var self = this;
 
-    self.campaigns = Campaign.query();
+    var path = $location.path()
+
+    if (path.indexOf('path' > -1)) {
+      self.campaigns = Campaign.past();
+      self.title = 'Past';
+    } else {
+      self.campaigns = Campaign.query();
+      self.title = 'Current';
+    }
+
 
     self.showPreview = function(ev, data) {
       $mdDialog.show({

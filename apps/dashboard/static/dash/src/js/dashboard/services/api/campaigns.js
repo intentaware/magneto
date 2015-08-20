@@ -16,6 +16,13 @@ angular.module('adomattic.dashboard')
         patch: {
           method: 'PATCH',
           isArray: false
+        },
+        past: {
+          method: 'GET',
+          isArray: true,
+          params: {
+            list: 'past'
+          }
         }
       }
     );

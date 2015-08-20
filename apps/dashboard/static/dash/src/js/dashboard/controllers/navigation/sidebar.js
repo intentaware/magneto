@@ -6,8 +6,8 @@ angular.module('adomattic.dashboard')
       $location.path('/');
     };
 
-    $scope.gotoCampaignList = function () {
-      $location.path('/campaigns/');
+    $scope.gotoCampaignList = function (level) {
+      level ? $location.path('/campaigns/' + level + '/') : $location.path('/campaigns/');
     };
 
     $scope.goToCampaignCreate = function () {

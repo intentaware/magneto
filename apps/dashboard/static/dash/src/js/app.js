@@ -61,6 +61,11 @@ angular.module('adomattic', [
         controller: 'CampaignListCtrl',
         controllerAs: 'campaignsList'
       })
+      .when('/campaigns/past/', {
+        templateUrl: urls.partials.routes + 'campaigns/list.html',
+        controller: 'CampaignListCtrl',
+        controllerAs: 'campaignsList'
+      })
       .when('/campaigns/create/', {
         templateUrl: urls.partials.routes + 'campaigns/create.html',
         controller: 'CampaignCreateCtrl',
