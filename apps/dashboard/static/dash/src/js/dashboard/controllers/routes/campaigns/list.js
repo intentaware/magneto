@@ -4,7 +4,7 @@ angular.module('adomattic.dashboard')
   .controller('CampaignListCtrl', function($mdDialog, $location, urls, Campaign) {
     var self = this;
 
-    var path = $location.path()
+    var path = $location.path();
 
     if (path.indexOf('path' > -1)) {
       self.campaigns = Campaign.past();
