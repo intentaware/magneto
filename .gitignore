@@ -188,3 +188,6 @@ bin
 
 ### code intel ###
 .codeintel/
+
+### celery ###
+celerybeat-schedule
