@@ -26,14 +26,14 @@
       {% include 'debug/partials/includes/header.html' %}
     {% endif %}
 
-    <div layout="row" flex>
+    <div layout="row">
       {% if debug %}
         {% include 'debug/partials/includes/sidebar.html' %}
       {% else %}
         {% include 'debug/partials/includes/sidebar.html' %}
       {% endif %}
-      <div layout="column" flex>
-        <md-content class="md-padding" ng-view></md-content>
+      <div layout="column" layout-fill>
+        <div class="md-padding" ng-view></div>
       </div>
     </div>
 

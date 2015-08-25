@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignListCtrl', function($mdDialog, $location, urls, Campaign) {
+  .controller('CampaignListCtrl', function($mdDialog, $location, $routeParams, urls, Campaign) {
     var self = this;
 
-    var path = $location.path();
+    var path = window.location.href;
 
-    if (path.indexOf('path' > -1)) {
+
+    if (path.indexOf('path') > -1) {
+      console.log(path.indexOf('path'));
       self.campaigns = Campaign.past();
       self.title = 'Past';
     } else {

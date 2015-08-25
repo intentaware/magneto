@@ -1,29 +1,30 @@
 {% verbatim %}
 <div layout="row">
-    <md-subheader>
+    <md-subheader flex>
       Dashboard for <strong>{{ globals.company.name }}</strong>
     </md-subheader>
 </div>
 <div layout="row">
-  <div layout-fill>
-    <div layout layout-sm="column">
-      <md-card class="md-whiteframe-z1" flex flex-sm="100">
-        <div class="tile tile-normal bg-adomattic-accent tile-linked">
-          <span class="announcement">
-            {{ globals.company.circles.length }}
-          </span>
-          <span class="title">
-            Publisher's Circles
-          </span>
-        </div>
-      </md-card>
+  <md-card class="md-whiteframe-z1" flex>
+    <div class="tile tile-normal bg-adomattic-accent tile-linked">
+      <span class="announcement">
+        {{ globals.company.circles.length }}
+      </span>
+      <span class="title">
+        Publisher's Circles
+      </span>
     </div>
-  </div>
+  </md-card>
 </div>
 <md-divider></md-divider>
-<div layout="row" ng-if="globals.company.is_advertiser" ng-include="'/dashboard/partials/routes/landing/campaigners.html'">
-</div>
-<md-divider ng-if="globals.company.is_advertiser"></md-divider>
-<div layout="row" ng-if="globals.company.is_publisher" ng-include="'/dashboard/partials/routes/landing/publishers.html'">
-</div>
 {% endverbatim %}
+
+{% include 'debug/partials/routes/landing/campaigners.html' %}
+
+{% comment %}
+
+<md-divider ng-if="globals.company.is_advertiser"></md-divider>
+
+{% include 'debug/partials/routes/landing/publishers.html' %}
+
+{% endcomment %}
