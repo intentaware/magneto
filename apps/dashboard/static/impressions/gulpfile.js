@@ -102,7 +102,7 @@ gulp.task('adomattic:live', ['styles:adomattic'], function() {
 
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
     .pipe($.concat('all.js'))
-    .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://app.adomattic.com/api/'"))
+    .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://app.intentaware.com/api/'"))
     .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "There was an error!"))
     .pipe($.uglify(uglifyOptions))
     .pipe(gulp.dest('dist/'))
@@ -133,7 +133,7 @@ gulp.task('adomattic:stage', ['styles:adomattic'], function() {
 
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
     .pipe($.concat('all.js'))
-    .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://stage.adomattic.com/api/'"))
+    .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://stage.intentaware.com/api/'"))
     .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "There was an error!"))
     .pipe($.uglify(uglifyOptions))
     .pipe(gulp.dest('dist/'))
