@@ -44,7 +44,7 @@ def stage():
     env.name = 'adomattic-stage'
     env.conf_path = 'stage'
     env.project_root = '/srv/%(name)s/' % env
-    env.hosts = ['stage.adomattic.com']
+    env.hosts = ['stage.intentaware.com']
     env.user = 'root'
     env.key_filename = STAGE_KEY
     # env.no_keys = True

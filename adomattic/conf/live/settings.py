@@ -5,12 +5,12 @@ SITE_ID = 1
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '.adomattic.com',  # Allow domain and subdomains
-    '.adomattic.com.',  # Also allow FQDN and subdomains
+    '.intentaware.com',  # Allow domain and subdomains
+    '.intentaware.com.',  # Also allow FQDN and subdomains
     'ec2-52-11-62-128.us-west-2.compute.amazonaws.com', # Temporary
 ]
 
-BASE_URL = "http://app.adomattic.com"
+BASE_URL = "http://app.intentaware.com"
 
 INSTALLED_APPS += (
     'django.contrib.staticfiles',
