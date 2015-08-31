@@ -38,13 +38,13 @@ Oh! you found the pathway to the dark side of the source, my young aprentice.
 Remember, The dark side of the source is a pathway to many abilities some
 consider to be ..... unnatural.
 
-Embrace it with your first lesson,
+The first holocron towards your journey towards being a master ... here ..
 
     "Without strife, your victory has no meaning.
      Without strife, you do not advance.
      Without strife, there is only stagnation."
 
-Embrace these pearls of wisdom and get cracking ......
+Embrace the wisdom and your journey will be complete!
 
 
 https://docs.djangoproject.com/en/1.7/topics/settings/
