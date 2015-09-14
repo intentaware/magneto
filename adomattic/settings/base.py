@@ -103,6 +103,7 @@ THIRD_PARTY_APPS = (
 
 ADOMATIC_APPS = (
     'apps.common',
+    'apps.circles',
     'apps.users',
     'apps.companies',
 
