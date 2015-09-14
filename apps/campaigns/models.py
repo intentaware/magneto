@@ -76,11 +76,6 @@ class Campaign(TimeStamped, ToCompany):
         return False
 
 
-class CampaignCircle(TimeStamped):
-    campaign = models.ForeignKey('campaigns.Campaign')
-    circle = models.ForeignKey('companies.Circle')
-
-
 class Coupon(TimeStamped, ToCompany):
     code = ShortUUIDField()
     campaign = models.ForeignKey(Campaign, related_name='coupons')

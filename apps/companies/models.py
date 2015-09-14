@@ -6,15 +6,6 @@ from django_pgjson.fields import JsonField
 from apps.common.models import *
 from apps.finances.mixins import Stripe
 
-class Circle(TimeStamped):
-    name = models.CharField(max_length=128, unique=True)
-
-    class Meta:
-        ordering = ('name',)
-
-    def __unicode__(self):
-        return self.name
-
 
 class Company(TimeStamped, SluggedFromName, Stripe):
     is_active = models.BooleanField(default=False)
@@ -31,7 +22,6 @@ class Company(TimeStamped, SluggedFromName, Stripe):
     payment_data = JsonField(default={})
 
     users = models.ManyToManyField('users.User', through='companies.CompanyUser')
-    circles = models.ManyToManyField(Circle, through='companies.CompanyCircle')
 
     class Meta:
         verbose_name_plural = "companies"
@@ -87,15 +77,6 @@ class Company(TimeStamped, SluggedFromName, Stripe):
         self.payment_data['stripe_customer_id'] = response.id
         self.save()
         return response
-
-
-
-class CompanyCircle(TimeStamped):
-    company = models.ForeignKey(Company)
-    circle = models.ForeignKey(Circle)
-
-    class Meta:
-        unique_together = ('company', 'circle')
 
 
 class CompanyGroup(TimeStamped):
