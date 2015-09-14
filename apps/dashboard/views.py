@@ -59,8 +59,9 @@ class DashboardView(SetSessionData):
         """
         from django.conf import settings
         request = self.request
-        membership = request.user.memberships.select_related(
-            'company', 'company__coupons').get(is_default=True)
+        membership = request.user.memberships.prefetch_related(
+            'company__coupons').select_related(
+            'company').get(is_default=True)
         user = DashboardUserSerializer(request.user).data
         company = DashboardCompanySerializer(
                 membership.company

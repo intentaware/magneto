@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
 from apps.companies.models import Company
-from .serializers import CompanySerializer, CircleSerializer
+from .serializers import CompanySerializer
 
 
 class CompanyViewSet(viewsets.ModelViewSet):

@@ -74,6 +74,10 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+BASE_APPS = (
+    'apps.common',
+)
+
 DEFAULT_APPS = (
     'grappelli',
     'django.contrib.admin',
@@ -102,9 +106,8 @@ THIRD_PARTY_APPS = (
 )
 
 ADOMATIC_APPS = (
-    'apps.common',
-    'apps.circles',
     'apps.users',
+    'apps.circles',
     'apps.companies',
 
     'apps.campaigns',
@@ -116,7 +119,7 @@ ADOMATIC_APPS = (
     'apps.dashboard',
 )
 
-INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + ADOMATIC_APPS
+INSTALLED_APPS = BASE_APPS + DEFAULT_APPS + THIRD_PARTY_APPS + ADOMATIC_APPS
 
 MIDDLEWARE_CLASSES = (
     'apps.impressions.middleware.ImpressionMiddleware',
