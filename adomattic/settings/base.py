@@ -93,7 +93,6 @@ THIRD_PARTY_APPS = (
     'import_export',
 
     'registration',
-    'taggit',
     'widget_tweaks',
     'corsheaders',
 
@@ -107,12 +106,12 @@ THIRD_PARTY_APPS = (
 
 ADOMATIC_APPS = (
     'apps.users',
-    'apps.circles',
     'apps.companies',
 
     'apps.campaigns',
     'apps.impressions',
-    'apps.brands',
+
+    'apps.circles',
     'apps.finances',
 
     # for front end
