@@ -19,11 +19,10 @@ class Migration(migrations.Migration):
                 ('added_on', django_extensions.db.fields.CreationDateTimeField(default=django.utils.timezone.now, editable=False, blank=True)),
                 ('updated_on', django_extensions.db.fields.ModificationDateTimeField(default=django.utils.timezone.now, editable=False, blank=True)),
                 ('name', models.CharField(max_length=64)),
-                ('parent', models.ForeignKey(related_name='children', to='circles.Circle')),
+                ('parent', models.ForeignKey(related_name='children', to='metas.Circle')),
             ],
             options={
                 'abstract': False,
             },
-            bases=(models.Model,),
         ),
     ]

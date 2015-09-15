@@ -111,7 +111,7 @@ ADOMATIC_APPS = (
     'apps.campaigns',
     'apps.impressions',
 
-    'apps.circles',
+    'apps.metas',
     'apps.finances',
 
     # for front end
