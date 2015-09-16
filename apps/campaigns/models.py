@@ -43,6 +43,8 @@ class Campaign(TimeStamped, ToCompany):
     invoice = models.ForeignKey('finances.Invoice', related_name='campaigns',
         blank=True, null=True)
 
+    circles = models.ManyToManyField('metas.Circle', through='metas.CampaignCircle')
+
     objects = CampaignManager.from_queryset(CampaignQuerySet)()
 
     def __unicode__(self):

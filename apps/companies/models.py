@@ -22,6 +22,7 @@ class Company(TimeStamped, SluggedFromName, Stripe):
     payment_data = JsonField(default={})
 
     users = models.ManyToManyField('users.User', through='companies.CompanyUser')
+    circles = models.ManyToManyField('metas.Circle', through='metas.PublisherCircle')
 
     class Meta:
         verbose_name_plural = "companies"

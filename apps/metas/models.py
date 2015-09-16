@@ -7,3 +7,18 @@ class Circle(TimeStamped):
 
     def __unicode__(self):
         return self.name
+
+class PublisherCircle(TimeStamped):
+    publisher = models.ForeignKey('companies.Company')
+    circle = models.ForeignKey('metas.Circle')
+
+    class Meta:
+        unique_together=['publisher', 'circle']
+
+
+class CampaignCircle(TimeStamped):
+    campaign = models.ForeignKey('campaigns.Campaign')
+    circle = models.ForeignKey('metas.Circle')
+
+    class Meta:
+        unique_together = ['campaign', 'circle']
