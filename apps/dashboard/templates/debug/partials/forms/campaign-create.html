@@ -20,12 +20,10 @@
     </md-input-container>
     <div layout="row" layout-sm="column">
       <md-input-container flex>
-        <label>Starts On</label>
-        <input type="date" required name="starts_on" ng-model="campaignForm.campaign.starts_on" min="{{ campaignForm.now | date:'yyyy-MM-dd' }}">
-      </md-input-container>
+        <md-datepicker required name="starts_on" md-placeholder="Starts On" ng-model="campaignForm.campaign.starts_on" md-min-date="campaignForm.now"></md-datepicker>
+        </md-input-container>
       <md-input-container flex>
-        <label>Ends On</label>
-        <input type="date" required name="ends_on" ng-model="campaignForm.campaign.ends_on" min="{{ campaignForm.campaign.starts_on | date:'yyyy-MM-dd' }}">
+        <md-datepicker requred name="ends_on" md-placeholder="Ends On" ng-model="campaignForm.campaign.ends_on" md-min="campaignForm.campaign.starts_on"></md-datepicker>
       </md-input-container>
     </div>
     <div layout="row" layout-sm="column">
