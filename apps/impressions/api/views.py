@@ -11,6 +11,7 @@ from apps.users.models import User
 
 from .serializers import ImpressionSerializer
 
+
 class RequestEncoder(JSONEncoder):
     def default(self, o):
         return o.__dict__
@@ -32,7 +33,7 @@ class GetImpression(APIView):
                     key, val = self.process_base64(b64_string)
                     if key == 'email':
                         self.claim_coupon(impression, val)
-                        return Response('claimed succesfully', status=200)
+                        return Response('claimed successfully', status=200)
             except Impression.DoesNotExist:
                 if b64_string:
                     key, val = self.process_base64(b64_string)
@@ -72,7 +73,6 @@ class GetImpression(APIView):
         # for normalization
         return key, val.lower()
 
-
     def claim_coupon(self, impression, email):
         user, created = User.objects.get_or_create(email=email)
         # assign the user to impression object.
@@ -97,7 +97,6 @@ class GetImpression(APIView):
             'user_agent': user_agent,
             'ip2geo': ip2geo,
         }
-
 
 
 class ImpressionViewSet(ModelViewSet):

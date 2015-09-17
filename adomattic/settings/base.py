@@ -221,7 +221,7 @@ IMPRESSION_COOKIE_NAME = 'magneto'
 # Madrill
 MANDRILL_API_KEY = "US9U8XiepMg6nUVDaq5UeQ"
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
-ADOMATTIC_FROM = "Adomattic <noreply@adomattic.com>"
+ADOMATTIC_FROM = "IntentAware <noreply@intentaware.com>"
 
 # Stripe
 STRIPE_KEY = 'sk_live_ykBdrWZnCW4YddbDDxrwm0dm'
