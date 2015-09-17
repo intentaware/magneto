@@ -57,12 +57,24 @@ class Base64ImageField(ImageField):
         raise ValidationError(_('This is not an base64 string'))
 
     def to_representation(self, value):
+        print value
         return value.name
 
     def get_file_extension(self, filename, decoded_file):
         extension = imghdr.what(filename, decoded_file)
         extension = "jpg" if extension == "jpeg" else extension
         return extension
+
+
+
+class JsonField(ReadOnlyField):
+    """
+    a field that calls turns the Python Dictionary to Json object
+    """
+
+    def field_to_native(self, value):
+        import json
+        return json.dumps(value)
 
 
 class ModelMethodField(ReadOnlyField):
