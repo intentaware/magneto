@@ -4,21 +4,42 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Money) {
+  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Circle, Money) {
     var self = this;
 
-    //self.circles = [];
+    self.circles = [];
 
-    /*
+
     Circle.query().$promise.then(function(data) {
+      // self.circles = data.map(function(d) {
+      //   d._name = d.name.toLowerCase();
+      //   console.log(d);
+      //   return d;
+      // });
+      // console.log(self.circles);
       self.circles = data.map(function(d) {
+        d._id = String(d.id);
         d._name = d.name.toLowerCase();
-        console.log(d);
         return d;
-      });
+      })
       console.log(self.circles);
     });
-    */
+
+    // md-autocomplete settings
+    self.getMatches = function (query) {
+      var results = query ? self.circles.filter(createFilterFor(query)) : [];
+      console.log(results);
+      return results;
+    }
+
+    var createFilterFor = function (query) {
+      var _q = isNaN(parseInt(query)) ? query.toLowerCase() : parseInt(query);
+      console.log(_q);
+      return function(circle) {
+        console.log(circle.id);
+        return (circle._name.indexOf(_q) === 0) || (circle.id === _q);
+      };
+    }
 
     // initializing the main controller
     $scope.$watch('baseCampaignFormCtrl.campaign', function(n) {

@@ -18,12 +18,25 @@
         <div ng-message="md-maxlength">That is too long!!</div>
       </div>
     </md-input-container>
+    <md-chips ng-model="campaignForm.campaign.circles" md-autocomplete-snap md-require-match="true">
+      <<md-autocomplete
+        md-selected-item="selectedItem"
+        md-search-text="searchText"
+        md-items="item in campaignForm.getMatches(searchText)"
+        placeholder="Select Circle To Target"
+        md-item-text="item.name">
+        <span md-highlight-text="searchText">{{ item.name }}</span>
+      </md-autocomplete>
+      <md-chip-template>
+        <span>{{ $chip.name }}</span>
+      </md-chip-template>
+    </md-chips>
     <div layout="row" layout-sm="column">
       <md-input-container flex>
-        <md-datepicker required name="starts_on" md-placeholder="Starts On" ng-model="campaignForm.campaign.starts_on" md-min-date="campaignForm.now"></md-datepicker>
-        </md-input-container>
+        <md-datepicker required name="starts_on" md-placeholder="Starts On" ng-model="campaignForm.campaign.starts_on" md-min-date="campaignForm.now" flex></md-datepicker>
+      </md-input-container>
       <md-input-container flex>
-        <md-datepicker requred name="ends_on" md-placeholder="Ends On" ng-model="campaignForm.campaign.ends_on" md-min="campaignForm.campaign.starts_on"></md-datepicker>
+        <md-datepicker requred name="ends_on" md-placeholder="Ends On" ng-model="campaignForm.campaign.ends_on" md-min="campaignForm.campaign.starts_on" flex></md-datepicker>
       </md-input-container>
     </div>
     <div layout="row" layout-sm="column">
