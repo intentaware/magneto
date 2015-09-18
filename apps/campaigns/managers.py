@@ -7,7 +7,7 @@ class CampaignQuerySet(QuerySet):
     custom manager for 'Campaign' model
     """
     def active(self):
-        return self.filter(is_active=True, ends_on__gte=_tz.now())
+        return self.filter(ends_on__gte=_tz.now())
 
     def active_budget(self):
         return self.aggregate(Sum('budget'))['budget__sum']
