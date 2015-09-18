@@ -8,4 +8,5 @@ urlpatterns = patterns(
     url(r'^impressions/', include('apps.impressions.api.urls')),
     url(r'^companies/', include('apps.companies.api.urls')),
     url(r'^finances/', include('apps.finances.api.urls')),
+    url(r'^metas/', include('apps.metas.api.urls')),
 )
