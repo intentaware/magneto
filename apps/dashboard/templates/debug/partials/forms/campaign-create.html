@@ -20,12 +20,12 @@
     </md-input-container>
     <md-chips ng-model="campaignForm.campaign.circles" md-autocomplete-snap md-require-match="true">
       <<md-autocomplete
-        md-selected-item="selectedItem"
+        md-selected-item="campaignForm.selectedItem"
         md-search-text="searchText"
         md-items="item in campaignForm.getMatches(searchText)"
         placeholder="Select Circle To Target"
         md-item-text="item.name">
-        <span md-highlight-text="searchText">{{ item.name }}</span>
+        <span md-highlight-text="campaignForm.searchText">{{ item.name }}</span>
       </md-autocomplete>
       <md-chip-template>
         <span>{{ $chip.name }}</span>
