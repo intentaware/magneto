@@ -1,10 +1,10 @@
-from rest_framework import viewsets
-
 from apps.companies.models import Company
+from apps.api.viewsets import BaseModelViewSet
+
 from .serializers import CompanySerializer
 
 
-class CompanyViewSet(viewsets.ModelViewSet):
+class CompanyViewSet(BaseModelViewSet):
     serializer_class = CompanySerializer
 
     def get_queryset(self):

@@ -4,7 +4,7 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Circle, Money) {
+  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Circle, Money, Helper) {
     var self = this;
 
     // md-autocomplete settings
@@ -47,11 +47,7 @@ angular.module('adomattic.dashboard')
       self.campaign.service_charges = self.money.serviceCharges;
       self.campaign.taxes = self.money.taxes;
       self.campaign.coupon_count = self.money.impressions;
-      self.campaign.circles = self.campaign.circles.map(function(c) {
-        console.log(c);
-        c = c.id;
-        return c;
-      });
+      self.campaign.circles = Helper.toIDs(self.campaign.circles);
       console.log(self.campaign);
       if (!self.campaign.id) {
         Campaign.save(self.campaign).$promise.then(function(data) {

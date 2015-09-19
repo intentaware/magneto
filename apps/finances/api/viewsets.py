@@ -1,15 +1,15 @@
 from django.utils import timezone
 
-from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
 
+from apps.api.viewsets import BaseModelViewSet
 from apps.finances.models import Invoice
 
 from .serializers import InvoiceSerializer, InvoiceChargeSerializer
 
 
-class InvoiceViewSet(viewsets.ModelViewSet):
+class InvoiceViewSet(BaseModelViewSet):
     serializer_class = InvoiceSerializer
 
     def get_queryset(self):
