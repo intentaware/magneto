@@ -31,9 +31,9 @@ class CampaignViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         data = request.data
         instance = self.get_object()
-        print instance
+        # print instance
         s = CreateCampaignSerializer(instance, data=data, partial=True)
-        print s
+        # print s
         if s.is_valid():
             self.perform_update(s)
             return Response()

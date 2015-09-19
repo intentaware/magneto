@@ -2,6 +2,7 @@ from rest_framework import serializers
 from photologue.models import Photo
 
 from apps.campaigns.models import Campaign
+from apps.metas.models import CampaignCircle
 from apps.api.fields import Base64ImageField, ModelPropertyField
 
 
@@ -28,6 +29,7 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
     image = Base64ImageField(required=False)
     service_charges = serializers.DecimalField(max_digits=20, decimal_places=4, required=False)
     taxes = serializers.DecimalField(max_digits=20, decimal_places=4, required=False)
+    circles = serializers.ListField(child=serializers.IntegerField(), required=False)
 
     class Meta:
         model = Campaign
@@ -42,6 +44,7 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
         i = validated_data
         service_charges = i.pop('service_charges', None)
         taxes = i.pop('taxes', None)
+        circles = i.pop('circles', None)
         i['image'] = image
         campaign = Campaign.objects.create(**i)
         campaign.set_invoice(
@@ -49,6 +52,10 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
                 service_charges=service_charges,
                 taxes=taxes
             )
+        if circles and len(circles):
+            for c in circles:
+                print c
+                CampaignCircle.objects.create(campaign=campaign, circle_id=c)
         return campaign
 
     def update(self, instance, validated_data):
@@ -62,6 +69,14 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
             i['image'] = image
         service_charges = i.pop('service_charges', None)
         taxes = i.pop('taxes', None)
+        circles = set(i.pop('circles', None))
+        # updating the circles
+        if len(circles):
+            for c in circles:
+                CampaignCircle.objects.get_or_create(
+                    campaign=instance,
+                    circle_id=c
+                )
         for attr, value in i.items():
             setattr(instance, attr, value)
         instance.save()
