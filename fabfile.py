@@ -108,12 +108,30 @@ def prepare():
     env.run('sudo apt-get install nodejs-legacy')
     env.run('sudo npm i -g bower gulp yo')
 
+def yum():
+    env.run('sudo yum -y update')
+    env.run('sudo yum -y groupinstall "Development tools"')
+    env.run('sudo yum -y install zlib-devel')
+    env.run('sudo yum -y install python27-devel python27-tools')
+    env.run('sudo yum -y install python27-pip')
+    env.run('sudo yum -y install ibxml2-devel libxslt-devel')
+    env.run('sudo yum install -y gcc openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel')
+    # Adding extra packages
+    env.run('sudo yum-config-manager --enable epel')
+    env.run('sudo yum -y install postgresql94-libs postgresql94-devel')
+    env.run('sudo yum -y install nginx nodejs npm')
+    #env.run('sudo yum -y install uwsgi uwsgi-plugin-python')
+    env.run('sudo npm i -g bower gulp yo')
+
 
 def virtualenv_setup():
     """
     The third step
     """
     env.run("virtualenv %(venv_root)s" % env)
+    with cd(env.project_root):
+        env.run("mkdir logs")
+        env.run("touch logs/error-django.log")
 
 
 def clone():
@@ -175,6 +193,8 @@ def restart_uwsgi():
 
 def npm():
     with cd(env.dashboard):
+        env.run('npm install')
+    with cd(env.impressions):
         env.run('npm install')
 
 
