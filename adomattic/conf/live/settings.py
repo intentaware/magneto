@@ -14,7 +14,7 @@ BASE_URL = "http://app.intentaware.com"
 
 INSTALLED_APPS += (
     #'django.contrib.staticfiles',
-    'storages'
+    'storages',
 )
 
 # Set your DSN value
