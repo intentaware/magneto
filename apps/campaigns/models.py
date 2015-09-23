@@ -119,7 +119,7 @@ class Coupon(TimeStamped, ToCompany):
         self.claimed_by = user
         self.save()
         self.generate_barcode()
-        subject = "[Adomattic] Your offer code for %s's campaign %s" %(self.company.name, self.campaign.name)
+        subject = "[IntentAware] Your offer code for %s's campaign %s" %(self.company.name, self.campaign.name)
         user.send_templated_email(
             template='emails/coupon-code.html',
             context={
