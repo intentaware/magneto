@@ -11,8 +11,10 @@ class BarcodeFromString(Drawing):
         Drawing.__init__(
             self, barcode.width,barcode.height,*args,**kwargs)
         self.add(barcode, text)
+        from django.core.files.storage import default_storage
+        outDir = default_storage.path('coupons')
         self.save(
                 formats = ['png',],
-                outDir = '%s/%s/' %(settings.MEDIA_ROOT, 'coupons'),
+                outDir = outDir,
                 fnRoot=text,
             )
