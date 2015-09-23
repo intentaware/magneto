@@ -17,7 +17,7 @@ class BarcodeFromString(Drawing):
             default_storage.path('coupons')
         except NotImplementedError:
             default_storage.location(
-                '%s/%s', %(settings.MEDIAFILES_LOCATION, 'coupons'))
+                '%s/%s' %(settings.MEDIAFILES_LOCATION, 'coupons'))
         self.save(
                 formats = ['png',],
                 outDir = outDir,
