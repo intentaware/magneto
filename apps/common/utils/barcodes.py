@@ -13,6 +13,11 @@ class BarcodeFromString(Drawing):
         self.add(barcode, text)
         from django.core.files.storage import default_storage
         outDir = default_storage.path('coupons')
+        try:
+            default_storage.path('coupons')
+        except NotImplementedError:
+            default_storage.location(
+                '%s/%s', %(settings.MEDIAFILES_LOCATION, 'coupons'))
         self.save(
                 formats = ['png',],
                 outDir = outDir,
