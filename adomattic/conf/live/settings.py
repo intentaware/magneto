@@ -13,7 +13,7 @@ ALLOWED_HOSTS = [
 BASE_URL = "http://app.intentaware.com"
 
 INSTALLED_APPS += (
-    #'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
     'storages',
 )
 
