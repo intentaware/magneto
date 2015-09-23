@@ -11,14 +11,9 @@ class BarcodeFromString(Drawing):
         Drawing.__init__(
             self, barcode.width,barcode.height,*args,**kwargs)
         self.add(barcode, text)
-        from django.core.files.storage import default_storage
-        try:
-            outDir = default_storage.path('coupons')
-        except NotImplementedError:
-            outDir = default_storage.location(
-                '%s/%s' %(settings.MEDIAFILES_LOCATION, 'coupons'))
-        self.save(
-                formats = ['png',],
-                outDir = outDir,
-                fnRoot=text,
-            )
+        from django.core.files.storage import default_storage as storage
+        from django.core.files.base import ContentFile
+        barcode_png = ContentFile(self.asString('png'))
+        name = '%s/%s.png' %('coupons', text)
+        storage.save(name, barcode_png)
+
