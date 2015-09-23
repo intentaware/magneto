@@ -11,7 +11,7 @@
   <md-content class="md-padding auth-content md-whiteframe-z2" layout="column">
 
   {% if not coupon.redeemed_on %}
-    <p>Show this page at any of {{ coupon.company.name }} outlet to claim your offer now</p>
+    <p>Show this page at any of <strong>{{ coupon.company.name }}</strong> outlet to claim your offer now</p>
     <p>Your coupon code is</p>
     <h4>{{ coupon.code }}</h4>
 
