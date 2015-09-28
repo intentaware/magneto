@@ -3,7 +3,17 @@ from django.utils import timezone
 
 
 class StripeCardValidator(object):
+    '''
+    A stripe credit card validator
+    '''
     def __init__(self, klass, *args, **kwargs):
+        '''
+        the initializing requires a serializer upon which the validator
+        is being set
+
+        Params:
+            klass - defines the serializer upon which the class
+        '''
         self.message = None
         self.klass = klass
 
@@ -15,11 +25,14 @@ class StripeCardValidator(object):
         amount = attrs.pop('amount', None)
         import math
         cents, dollars = math.modf(amount)
+        # why am i multiplying cents by 100, need to check
+        # with what am i sending from frontend?
         cents = (int(dollars) * 100) + int(cents * 100)
         print cents
         self.klass._params = {
             "source": attrs,
         }
+        # why is the currency hard coded here?
         charge, response = self.klass.charge(amount_in_cents=cents,
             description='Invoice #%s' %(self.klass.id), currency='CAD')
         if charge:

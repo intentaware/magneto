@@ -22,6 +22,7 @@ class InvoiceViewSet(BaseModelViewSet):
         srlzr = InvoiceChargeSerializer(data=request.data)
         srlzr.invoice = invoice
         srlzr.invoice.attempted_on = timezone.now()
+        # the actual charging takes place on the validator
         if srlzr.is_valid():
             invoice.campaigns.update(is_active=True)
             return Response(status=200)
