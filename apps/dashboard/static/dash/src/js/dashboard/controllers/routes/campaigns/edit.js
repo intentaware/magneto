@@ -27,7 +27,7 @@ angular.module('adomattic.dashboard')
           response.circles = response.circles.map(function(d) {
             var index = _.findIndex(self.circles, function(c) {
               return parseInt(c.id) === parseInt(d);
-            })
+            });
             console.log(index);
             d = self.circles[index];
             return d;
