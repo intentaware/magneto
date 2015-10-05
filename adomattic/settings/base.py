@@ -102,6 +102,7 @@ THIRD_PARTY_APPS = (
     # django photologue
     'photologue',
     'sortedm2m',
+    'cities',
 )
 
 ADOMATIC_APPS = (
