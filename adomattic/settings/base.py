@@ -102,7 +102,10 @@ THIRD_PARTY_APPS = (
     # django photologue
     'photologue',
     'sortedm2m',
-    'cities',
+)
+
+PLUGIN_APPS = (
+    'plugins.cities',
 )
 
 ADOMATIC_APPS = (
@@ -119,7 +122,7 @@ ADOMATIC_APPS = (
     'apps.dashboard',
 )
 
-INSTALLED_APPS = BASE_APPS + DEFAULT_APPS + THIRD_PARTY_APPS + ADOMATIC_APPS
+INSTALLED_APPS = BASE_APPS + DEFAULT_APPS + THIRD_PARTY_APPS + PLUGIN_APPS + ADOMATIC_APPS
 
 MIDDLEWARE_CLASSES = (
     'apps.impressions.middleware.ImpressionMiddleware',
@@ -234,13 +237,9 @@ GRAPPELLI_ADMIN_TITLE = 'Adomattic Administration Console'
 MAXMIND_DB_ROOT = os.path.join(CONF_DIR, 'ipdb')
 MAXMIND_CITY_DB = MAXMIND_DB_ROOT + '/GeoLite2-City.mmdb'
 
-# Django Cities
+# Plugin Cities
 CITIES_POSTAL_CODES = ['ALL']
 CITIES_LOCALES = ['en', 'ALL']
-
-CITIES_PLUGINS = [
-    'cities.plugin.postal_code_ca.Plugin',  # Canada postal codes need region codes remapped to match geonames
-]
 
 try:
     from local import *
