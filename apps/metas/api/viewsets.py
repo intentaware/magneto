@@ -14,4 +14,4 @@ class CampaignCircleViewSet(BaseModelViewSet):
     serializer_class = CampaignCircleSerializer
 
     def get_queryset(self):
-        return CampaignCircle.objects.all()
+        return CampaignCircle.objects.filter(is_active=True)

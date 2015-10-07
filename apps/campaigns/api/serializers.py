@@ -70,13 +70,15 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
         service_charges = i.pop('service_charges', None)
         taxes = i.pop('taxes', None)
         circles = set(i.pop('circles', None))
-        # updating the circles
+        # disabling the circles that are not part of 'circles'
+        campaign_circles = CampaignCircle.objects.filter(campaign=instance) \
+            .exclude(circle_id__in=circles).update(is_active=False)
         if len(circles):
             for c in circles:
                 CampaignCircle.objects.get_or_create(
                     campaign=instance,
                     circle_id=c
-                )
+                ).update(is_active=True)
         for attr, value in i.items():
             setattr(instance, attr, value)
         instance.save()
