@@ -96,8 +96,11 @@ THIRD_PARTY_APPS = (
     'widget_tweaks',
     'corsheaders',
 
-    #mandrill
+    # mandrill
     'djrill',
+
+    # haystack
+    'haystack',
 
     # django photologue
     'photologue',

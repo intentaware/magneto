@@ -16,6 +16,7 @@ urlpatterns = patterns(
     url(r'^api/', include('apps.api.urls', namespace='api')),
     url(r'^users/', include('apps.users.urls')),
     url(r'^dashboard/', include('apps.dashboard.urls')),
+    url(r'^search/', include('haystack.urls')),
 )
 
 from django.conf import settings
