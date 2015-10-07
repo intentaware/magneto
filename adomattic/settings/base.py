@@ -47,8 +47,8 @@ The first holocron towards your journey towards being a master ... here ..
 Embrace the wisdom and your journey will be complete!
 
 
-https://docs.djangoproject.com/en/1.7/topics/settings/
-https://docs.djangoproject.com/en/1.7/ref/settings/
+https://docs.djangoproject.com/en/1.8/topics/settings/
+https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
