@@ -56,7 +56,7 @@ class UserManager(BaseUserManager):
         return u
 
 
-class User(AbstractBaseUser, TimeStamped, PermissionsMixin):
+class User(TimeStamped, AbstractBaseUser, PermissionsMixin):
 
     '''
     replacemnt for default auth.User model

@@ -47,8 +47,8 @@ The first holocron towards your journey towards being a master ... here ..
 Embrace the wisdom and your journey will be complete!
 
 
-https://docs.djangoproject.com/en/1.7/topics/settings/
-https://docs.djangoproject.com/en/1.7/ref/settings/
+https://docs.djangoproject.com/en/1.8/topics/settings/
+https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -96,12 +96,19 @@ THIRD_PARTY_APPS = (
     'widget_tweaks',
     'corsheaders',
 
-    #mandrill
+    # mandrill
     'djrill',
+
+    # haystack
+    'haystack',
 
     # django photologue
     'photologue',
     'sortedm2m',
+)
+
+PLUGIN_APPS = (
+    'plugins.cities',
 )
 
 ADOMATIC_APPS = (
@@ -118,7 +125,7 @@ ADOMATIC_APPS = (
     'apps.dashboard',
 )
 
-INSTALLED_APPS = BASE_APPS + DEFAULT_APPS + THIRD_PARTY_APPS + ADOMATIC_APPS
+INSTALLED_APPS = BASE_APPS + DEFAULT_APPS + THIRD_PARTY_APPS + PLUGIN_APPS + ADOMATIC_APPS
 
 MIDDLEWARE_CLASSES = (
     'apps.impressions.middleware.ImpressionMiddleware',
@@ -229,9 +236,13 @@ STRIPE_KEY = 'sk_live_ykBdrWZnCW4YddbDDxrwm0dm'
 # GRAPPELLI SETTINGS
 GRAPPELLI_ADMIN_TITLE = 'Adomattic Administration Console'
 
-#MAX MIND GEO IP2 Database File Root
+# MAX MIND GEO IP2 Database File Root
 MAXMIND_DB_ROOT = os.path.join(CONF_DIR, 'ipdb')
 MAXMIND_CITY_DB = MAXMIND_DB_ROOT + '/GeoLite2-City.mmdb'
+
+# Plugin Cities
+CITIES_POSTAL_CODES = ['ALL']
+CITIES_LOCALES = ['en', 'ALL']
 
 try:
     from local import *
