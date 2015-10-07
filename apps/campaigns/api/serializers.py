@@ -9,6 +9,7 @@ from apps.api.fields import Base64ImageField, ModelPropertyField
 class CampaignSerializer(serializers.ModelSerializer):
     preview_image_url = serializers.SerializerMethodField()
     claimed_coupons_sum = serializers.SerializerMethodField()
+    circles = serializers.SerializerMethodField()
     is_paid = ModelPropertyField()
 
     class Meta:
@@ -23,6 +24,13 @@ class CampaignSerializer(serializers.ModelSerializer):
 
     def get_claimed_coupons_sum(self, obj):
         return obj.coupons.claimed().coupons_value_sum()
+
+    def get_circles(self, obj):
+        return obj.campaigncircle_set.filter(
+                is_active=True
+            ).order_by(
+                'circle_id'
+            ).values_list('circle_id', flat=True)
 
 
 class CreateCampaignSerializer(serializers.ModelSerializer):
@@ -75,10 +83,13 @@ class CreateCampaignSerializer(serializers.ModelSerializer):
             .exclude(circle_id__in=circles).update(is_active=False)
         if len(circles):
             for c in circles:
-                CampaignCircle.objects.get_or_create(
+                circle, created = CampaignCircle.objects.get_or_create(
                     campaign=instance,
                     circle_id=c
-                ).update(is_active=True)
+                )
+                if not circle.is_active:
+                    circle.is_active = True
+                    circle.save()
         for attr, value in i.items():
             setattr(instance, attr, value)
         instance.save()
