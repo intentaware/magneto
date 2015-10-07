@@ -11,6 +11,7 @@ class Circle(TimeStamped):
 class PublisherCircle(TimeStamped):
     publisher = models.ForeignKey('companies.Company')
     circle = models.ForeignKey('metas.Circle')
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         unique_together=['publisher', 'circle']
@@ -19,6 +20,7 @@ class PublisherCircle(TimeStamped):
 class CampaignCircle(TimeStamped):
     campaign = models.ForeignKey('campaigns.Campaign')
     circle = models.ForeignKey('metas.Circle')
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         unique_together = ['campaign', 'circle']
