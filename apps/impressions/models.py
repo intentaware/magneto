@@ -33,3 +33,14 @@ class Impression(TimeStamped):
 
     def __unicode__(self):
         return '%s: %s' %(self.campaign, self.id)
+
+    def hydrate_meta(self):
+        meta = self.meta
+        self.meta['impression'] = self.id
+        ip2geo = meta.pop('ip2geo')
+        self.meta['city'] = ip2geo['city']['names']['en']
+        self.meta['country'] = ip2geo['country']['names']['en']
+        self.meta['postal_code'] = ip2geo['postal']['code']
+        self.meta['latitude'] = ip2geo['location']['latitude']
+        self.meta['longitude'] = ip2geo['location']['longitude']
+
