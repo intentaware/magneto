@@ -1,12 +1,13 @@
 from py2neo import Graph, Node, Relationship
 from django.core.management import BaseCommand
+from django.conf import settings
 import json
 
 class Command(BaseCommand):
     help = 'imports impression data'
 
     def handle(self, *args, **kwargs):
-        graph = Graph('http://neo4j:multiscan81@localhost:7474/db/data/')
+        graph = Graph(settings.GRAPH_URL)
         from apps.campaigns.models import Campaign
         from apps.impressions.models import Impression, ImpressionUser
         from apps.users.models import User

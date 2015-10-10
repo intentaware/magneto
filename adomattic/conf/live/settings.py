@@ -54,6 +54,8 @@ DATABASES = {
 
 STRIPE_KEY = 'sk_live_ykBdrWZnCW4YddbDDxrwm0dm'
 
+GRAPH_URL = 'neo4j:plotograph@172.31.16.221:7474/db/data/'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
