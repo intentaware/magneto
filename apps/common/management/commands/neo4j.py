@@ -3,6 +3,7 @@ from django.core.management import BaseCommand
 from django.conf import settings
 import json
 
+
 class Command(BaseCommand):
     help = 'imports impression data'
 
