@@ -10,6 +10,7 @@ class ImpressionResource(resources.ModelResource):
 class ImpressionAdmin(ie_admin.ExportActionModelAdmin):
     list_display = [f.name for f in Impression._meta.fields]
     resource_class = ImpressionResource
+    pass
 
 
 admin.site.register(Impression, ImpressionAdmin)

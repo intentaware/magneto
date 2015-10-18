@@ -15,11 +15,13 @@ class CouponResource(resources.ModelResource):
 class CampaignAdmin(ie_admin.ExportActionModelAdmin):
     resource_class = CampaignResource
     list_display = [f.name for f in Campaign._meta.fields]
+    pass
 
 
 class CouponAdmin(ie_admin.ExportActionModelAdmin):
     list_display = [f.name for f in Coupon._meta.fields]
     resource_class = CouponResource
+    pass
 
 
 admin.site.register(Campaign, CampaignAdmin)
