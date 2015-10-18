@@ -27,7 +27,7 @@ MEDIA_URL = 'http://stage.intentaware.com/media/'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'vader',
         'USER': 'django',
         'PASSWORD': 'DZn#kF^zdMcAsmytQEVKe7!w',
