@@ -100,7 +100,7 @@ THIRD_PARTY_APPS = (
     'djrill',
 
     # haystack
-    'haystack',
+    #'haystack',
 
     # django photologue
     'photologue',
