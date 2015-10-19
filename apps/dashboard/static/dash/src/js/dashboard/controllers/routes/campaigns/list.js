@@ -30,7 +30,7 @@ angular.module('adomattic.dashboard')
       });
     };
 
-    self.openStripePaymentDialog = function (invoiceID) {
+    self.openStripePaymentDialog = function(invoiceID) {
       $mdDialog.show({
         controller: 'StripeCreditCardDialogCtrl',
         controllerAs: 'creditCard',
@@ -45,7 +45,7 @@ angular.module('adomattic.dashboard')
       });
     };
 
-    self.openIndivdualCampaignCodeDialog = function (campaignID) {
+    self.openIndivdualCampaignCodeDialog = function(campaignID) {
       $mdDialog.show({
         controller: 'CampaignIndividualIncludeCodeDialogCtrl',
         controllerAs: 'offerCode',
@@ -59,7 +59,7 @@ angular.module('adomattic.dashboard')
       });
     };
 
-    self.editCampaign = function (campaignID) {
+    self.editCampaign = function(campaignID) {
       var p = '/campaigns/' + campaignID + '/edit/';
       console.log(p);
       $location.path(p);

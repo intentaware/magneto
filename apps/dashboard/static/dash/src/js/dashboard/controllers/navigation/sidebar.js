@@ -1,24 +1,24 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('SidebarNavigationCtrl', function ($scope, $location) {
-    $scope.gotoHome = function () {
+  .controller('SidebarNavigationCtrl', function($scope, $location) {
+    $scope.gotoHome = function() {
       $location.path('/');
     };
 
-    $scope.gotoCampaignList = function (level) {
+    $scope.gotoCampaignList = function(level) {
       level ? $location.path('/campaigns/' + level + '/') : $location.path('/campaigns/');
     };
 
-    $scope.goToCampaignCreate = function () {
+    $scope.goToCampaignCreate = function() {
       $location.path('/campaigns/create/');
     };
 
-    $scope.goToSettings = function () {
+    $scope.goToSettings = function() {
       $location.path('/settings/');
     };
 
-    $scope.goToInvoices = function () {
+    $scope.goToInvoices = function() {
       $location.path('/invoices/');
     };
   });

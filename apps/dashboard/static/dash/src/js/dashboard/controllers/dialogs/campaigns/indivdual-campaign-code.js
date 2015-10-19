@@ -4,11 +4,11 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignIndividualIncludeCodeDialogCtrl', function ($mdDialog, $rootScope, campaignID) {
+  .controller('CampaignIndividualIncludeCodeDialogCtrl', function($mdDialog, $rootScope, campaignID) {
     var self = this;
     self.campaignID = campaignID;
 
-    self.hide = function () {
+    self.hide = function() {
       $mdDialog.hide();
     };
 
