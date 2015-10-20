@@ -32,10 +32,13 @@
         <span md-highlight-text="campaignForm.searchText">{{ item.name }}</span>
       </md-autocomplete>
       <md-chip-template>
-        <span>{{ $chip.name }}</span>
+        <span>{{ $chip.name || $chip }}</span>
       </md-chip-template>
     </md-chips>
     <!-- End Target Circle -->
+
+    <!-- Target Cities -->
+    <!-- End Target -->
 
     <!-- Dates -->
     <div layout="row" layout-sm="column">
