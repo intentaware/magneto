@@ -8,8 +8,8 @@ angular.module('adomattic.dashboard')
     var self = this;
 
     // md-autocomplete settings
-    self.getMatches = function (query) {
-      var results = query ? self.circles.filter(createFilterFor(query)) : [];
+    self.getMatches = function (query, lookup) {
+      var results = query ? lookup.filter(createFilterFor(query)) : [];
       //console.log(results);
       console.log(self.campaign);
       return results;
@@ -18,9 +18,9 @@ angular.module('adomattic.dashboard')
     var createFilterFor = function (query) {
       var _q = isNaN(parseInt(query)) ? query.toLowerCase() : parseInt(query);
       //console.log(_q);
-      return function(circle) {
-        //console.log(circle.id);
-        return (circle._name.indexOf(_q) === 0) || (circle.id === _q);
+      return function(index) {
+        //console.log(index.id);
+        return (index._name.indexOf(_q) === 0) || (index.id === _q);
       };
     };
 

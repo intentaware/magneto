@@ -26,7 +26,7 @@
       <md-autocomplete
         md-selected-item="campaignForm.selectedItem"
         md-search-text="searchText"
-        md-items="item in campaignForm.getMatches(searchText)"
+        md-items="item in campaignForm.getMatches(searchText, campaignForm.circles)"
         placeholder="Select Circle To Target"
         md-item-text="item.name">
         <span md-highlight-text="campaignForm.searchText">{{ item.name }}</span>
