@@ -26,8 +26,6 @@ angular.module('adomattic.dashboard')
               }));
             }
           } else if (self.pending) {
-            console.log(ls);
-            console.log(self.lookupString);
             setTimeout(function() {
               performSearch(ls);
             }, 2000);
