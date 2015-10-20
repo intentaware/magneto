@@ -1,5 +1,6 @@
 {% verbatim %}
   <form name="CreateAdForm" ng-controller="CampaignFormCtrl as campaignForm" ng-submit="campaignForm.saveAd()" ng-disabled="campaignForm.$saving" flex>
+    <!-- Basic Settings -->
     <md-input-container>
       <label>Name</label>
       <input type="text" name="name" ng-model="campaignForm.campaign.name" md-maxlength="24" ng-trim="true" required>
@@ -18,8 +19,11 @@
         <div ng-message="md-maxlength">That is too long!!</div>
       </div>
     </md-input-container>
+    <!-- End Basic Settings -->
+
+    <!-- Target Circle -->
     <md-chips ng-model="campaignForm.campaign.circles" md-autocomplete-snap md-require-match="true">
-      <<md-autocomplete
+      <md-autocomplete
         md-selected-item="campaignForm.selectedItem"
         md-search-text="searchText"
         md-items="item in campaignForm.getMatches(searchText)"
@@ -31,14 +35,16 @@
         <span>{{ $chip.name }}</span>
       </md-chip-template>
     </md-chips>
+    <!-- End Target Circle -->
+
+    <!-- Dates -->
     <div layout="row" layout-sm="column">
-      <md-input-container flex>
-        <md-datepicker required name="starts_on" md-placeholder="Starts On" ng-model="campaignForm.campaign.starts_on" md-min-date="campaignForm.now" flex></md-datepicker>
-      </md-input-container>
-      <md-input-container flex>
-        <md-datepicker requred name="ends_on" md-placeholder="Ends On" ng-model="campaignForm.campaign.ends_on" md-min="campaignForm.campaign.starts_on" flex></md-datepicker>
-      </md-input-container>
+      <md-datepicker required name="starts_on" md-placeholder="Starts On" ng-model="campaignForm.campaign.starts_on" md-min-date="campaignForm.now" flex></md-datepicker>
+      <md-datepicker requred name="ends_on" md-placeholder="Ends On" ng-model="campaignForm.campaign.ends_on" md-min="campaignForm.campaign.starts_on" flex></md-datepicker>
     </div>
+    <!-- End Dates -->
+
+    <!-- Budget -->
     <div layout="row" layout-sm="column">
       <md-input-container flex>
         <label>Budget</label>
@@ -63,14 +69,9 @@
         </div>
       </div>
     </div>
+    <!-- End Budget -->
     <div layout="row" layout-sm="column">
-      <!--
-      <md-input-container>
-        <label>Select Image</label>
-        <input class="md-button" type="file" accept="image/*" read-file ng-model="campaignForm.campaign.image" />
-      </md-input-container>
-      -->
-      <read-file label="Choose Campaign Image (maximum 500kb)" accept="image/*" max-size="524288" ng-model="campaignForm.campaign.image" flex></read-file>
+      <read-file label="Choose Campaign Image (maximum 1MB)" accept="image/*" max-size="1024000" ng-model="campaignForm.campaign.image" flex></read-file>
     </div>
     <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving" aria-label="Create Campain">
       <span ng-if="!campaignForm.$saving && campaignForm.campaign.id">Update Campaign</span>
