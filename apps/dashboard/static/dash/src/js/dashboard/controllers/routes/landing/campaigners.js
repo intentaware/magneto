@@ -12,23 +12,6 @@ angular.module('adomattic.dashboard')
       $location.path('/campaigns/');
     };
 
-    City.search('mul').then(function(data) {
-      console.log('Initial Query');
-      console.log(data);
-    }, function(error) {
-      console.log(error);
-    });
-
-    City.search('mult').then(function(data) {
-      console.log('Secondary Query');
-      console.log(data);
-    });
-
-    City.search('new').then(function(data) {
-      console.log('this is the third query and should cancel the 2nd one');
-      console.log(data);
-    });
-
     getCampaigns();
 
     $scope.options = {
