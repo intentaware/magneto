@@ -14,7 +14,11 @@ class UnicodeWriter(object):
         self.encoder = codecs.getincrementalencoder(encoding)()
 
     def writerow(self, D):
-        self.writer.writerow({k:str(v).encode("utf-8") for k,v in D.items()})
+        try:
+            self.writer.writerow({k:str(v).encode("utf-8") for k,v in D.items()})
+        except UnicodeEncodeError:
+            print "Unicode Error on"
+            print D
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
         data = data.decode("utf-8")
@@ -41,7 +45,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         campaign_id = kwargs['campaign_id']
-        self.stdout.write(campaign_id)
+        #self.stdout.write(campaign_id)
         from apps.impressions.models import Impression
         from apps.impressions.api.serializers import ImpressionCSVSerializer
         queryset = Impression.objects.filter(campaign_id=campaign_id)
@@ -56,8 +60,8 @@ class Command(BaseCommand):
                 q.hydrate_meta()
                 meta = dict(q.meta)
                 q = dict(ImpressionCSVSerializer(q).data)
-                print meta
-                print q
+                #print meta
+                #print q
                 meta.update(q)
-                print meta
+                #print meta
                 writer.writerow(meta)
