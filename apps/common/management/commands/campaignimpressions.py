@@ -16,7 +16,7 @@ class Command(BaseCommand):
         fieldnames = ['id', 'added_on', 'updated_on', 'visitor',
             'ip', 'city', 'postal_code', 'longitude', 'latitude', 'country',
             'user_agent', 'campaign', 'impression', 'coupon', 'publisher']
-        with open('impressions.csv', 'w') as csvfile:
+        with open('impressions.csv', 'w', encoding='utf8') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             for q in queryset:
