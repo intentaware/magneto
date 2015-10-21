@@ -45,7 +45,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         campaign_id = kwargs['campaign_id']
-        #self.stdout.write(campaign_id)
         from apps.impressions.models import Impression
         from apps.impressions.api.serializers import ImpressionCSVSerializer
         queryset = Impression.objects.filter(campaign_id=campaign_id)
@@ -60,8 +59,5 @@ class Command(BaseCommand):
                 q.hydrate_meta()
                 meta = dict(q.meta)
                 q = dict(ImpressionCSVSerializer(q).data)
-                #print meta
-                #print q
                 meta.update(q)
-                #print meta
                 writer.writerow(meta)
