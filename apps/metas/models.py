@@ -24,3 +24,12 @@ class CampaignCircle(TimeStamped):
 
     class Meta:
         unique_together = ['campaign', 'circle']
+
+
+class CampaignCity(TimeStamped):
+    campaign = models.ForeignKey('campaigns.Campaign')
+    circle = models.ForeignKey('cities.City')
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        unique_together = ['campaign', 'circle']

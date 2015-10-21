@@ -67,6 +67,7 @@ angular.module('adomattic.dashboard')
       }
     };
 
+    //this watches changes on the main controller
     $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {
       //console.log(self.campaign);
       $rootScope.$emit('campaginFormUpdated', self.campaign);
