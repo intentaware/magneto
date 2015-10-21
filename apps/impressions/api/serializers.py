@@ -11,6 +11,13 @@ class ImpressionSerializer(serializers.ModelSerializer):
         exclude = ('meta', )
 
 
+class ImpressionCSVSerializer(ImpressionSerializer):
+    visitor = serializers.SerializerMethodField()
+
+    def get_visitor(self, obj):
+        return obj.visitor.key
+
+
 class ImpressionUserSerializer(serializers.ModelSerializer):
     #meta = JsonField()
 

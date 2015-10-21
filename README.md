@@ -88,3 +88,10 @@ gulp serve
 ```
 
 npm install read package.json, while bower install reads bower.json.
+
+Some helper commands
+
+```bash
+psql --host=vader.c3udwfzrnadp.us-west-2.rds.amazonaws.com --port=5432 --username=vader --password --dbname=vader
+psql --host=vader.c3udwfzrnadp.us-west-2.rds.amazonaws.com --port=5432 --username=vader --password --dbname=vader \copy (Select * From impressions_impression) To '~/test.csv' With CSV
+```
