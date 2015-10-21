@@ -5,6 +5,7 @@ from .models import Impression
 
 class ImpressionResource(resources.ModelResource):
     model = Impression
+    exclude = ['meta']
 
 
 class ImpressionAdmin(ie_admin.ExportActionModelAdmin):
