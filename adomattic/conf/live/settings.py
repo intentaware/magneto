@@ -43,7 +43,7 @@ MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'vader',
         'USER': 'vader',
         'PASSWORD': 'axBPx97Xx2pNDnphPvf6kWwXmqNbP3SNjSKVs32D',
