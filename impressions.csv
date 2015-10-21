@@ -1,4 +1,4 @@
-id,added_on,updated_on,visitor,ip,city,postal_code,longitude,latitude,country,user_agent,campaign,impression,coupon,publisher
+﻿id,added_on,updated_on,visitor,ip,city,postal_code,longitude,latitude,country,user_agent,campaign,impression,coupon,publisher
 16,2015-07-08T22:05:59.233239Z,2015-07-08T22:05:59.233759Z,pu6nh65WLzx4Ho3Z9FaZhD,182.186.15.243,Islamabad,21061,73.0551,33.69,Pakistan,"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.132 Safari/537.36",45,16,680,1
 17,2015-07-08T22:06:20.022343Z,2015-07-08T22:06:20.022856Z,3Qy7jvpQZ2jmAFcT3B8JbQ,182.186.15.243,Islamabad,21061,73.0551,33.69,Pakistan,"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.132 Safari/537.36",45,17,681,1
 19,2015-07-08T22:10:06.141061Z,2015-07-08T22:10:06.141499Z,3Qy7jvpQZ2jmAFcT3B8JbQ,182.186.15.243,Islamabad,21061,73.0551,33.69,Pakistan,"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.132 Safari/537.36",45,19,679,1
