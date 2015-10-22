@@ -114,7 +114,7 @@ def yum():
     env.run('sudo yum -y install zlib-devel')
     env.run('sudo yum -y install python27-devel python27-tools')
     env.run('sudo yum -y install python27-pip')
-    env.run('sudo yum -y install ibxml2-devel libxslt-devel')
+    env.run('sudo yum -y install ibxml2-devel libxslt-devel geos')
     env.run('sudo yum install -y gcc openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel')
     # Adding extra packages
     env.run('sudo yum-config-manager --enable epel')
