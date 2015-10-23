@@ -85,7 +85,7 @@ gulp.task('html:dashboard', ['styles', 'inject:dashboard'], function() {
     .pipe($.revReplace())
     .pipe($.replace('src="scripts/', 'src="{{ STATIC_URL }}dash/compile/dashboard/scripts/'))
     .pipe(gulp.dest('compile/dashboard'));
-})
+});
 
 gulp.task('html:copy', ['html:dashboard', 'html:common'], function() {
   return gulp.src(paths.compile + '/dashboard/__base.html')
@@ -96,7 +96,7 @@ gulp.task('html:copy', ['html:dashboard', 'html:common'], function() {
       quotes: true
     }))
     .pipe(gulp.dest(paths.django.compile));
-})
+});
 
 gulp.task('html', ['html:copy']);
 
