@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "compile html to emails",
   "private": true,
-  "author": "Yousuf Jawwad <yousuf@adomattic.com",
+  "author": "Yousuf Jawwad <yousuf@intentaware.com",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.7.1",
