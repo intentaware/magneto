@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 
 from .serializers import *
+from apps.companies.api.serializers import CompanySerializer
 
 
 class LoginRequiredMixin(TemplateView):
@@ -63,7 +64,7 @@ class DashboardView(SetSessionData):
             'company__coupons').select_related(
             'company').get(is_default=True)
         user = DashboardUserSerializer(request.user).data
-        company = DashboardCompanySerializer(
+        company = CompanySerializer(
                 membership.company
             ).data
         context = super(DashboardView, self).get_context_data(**kwargs)
