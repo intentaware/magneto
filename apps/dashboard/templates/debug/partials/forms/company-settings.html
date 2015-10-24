@@ -2,6 +2,7 @@
   <div layout-fill>
     <div layout layout-sm="column" layout-padding>
       <form name="SettingsForm" ng-controller="SettingsFormCtrl as settingsForm" ng-submit="settingsForm.updateSettings()" flex>
+        <!-- Company Information -->
         <div layout layout-sm="column">
           <md-input-container flex>
             <label>Name</label>
@@ -18,6 +19,8 @@
             </div>
           </md-input-container>
         </div>
+        <!-- End Company Information -->
+        <!-- Financials -->
         <div layout layout-sm="column">
           <md-input-container flex ng-if="globals.company.is_advertiser">
             <label>Advertiser's Rate</label>
@@ -34,6 +37,8 @@
             </div>
           </md-input-container>
         </div>
+        <!-- End Financials -->
+        <!-- Company Roles -->
         <div layout layout-sm="column">
           <md-checkbox ng-model="settingsForm.company.is_advertiser" ng-disabled="settingsForm.company.is_advertiser" flex>
               Advertiser?
@@ -42,6 +47,24 @@
               Publisher?
           </md-checkbox>
         </div>
+        <!-- End Company Roles -->
+        <md-chips ng-model="settingsForm.company.circles" md-autocomplete-snap md-require-match="true">
+          <md-autocomplete
+            md-selected-item="selectedItem"
+            md-search-text="searchText"
+            md-items="item in settingsForm.getMatches(searchText, settingsForm.circles)"
+            md-item-text="item.name">
+            <md-item-template>
+              <span md-highlight-text="searchText">{{ item.name }}</span>
+            </md-item-template>
+            <md-not-found>
+              No Matches Found.
+            </md-not-found>
+          </md-autocomplete>
+          <md-chip-template>
+            {{ $chip.name }}
+          </md-chip-template>
+        </md-chips>
         <div layout layout-sm="column">
           <md-button type="submit" class="md-raised md-primary">Update Settings</md-button>
         </div>

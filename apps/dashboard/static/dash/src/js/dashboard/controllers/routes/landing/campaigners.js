@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignersLandingCtrl', function($rootScope, $scope, $location, Campaign, City) {
+  .controller('CampaignersLandingCtrl', function($rootScope, $scope, $location, Campaign) {
     var getCampaigns = function() {
       Campaign.query().$promise.then(function(data) {
         $scope.campaigns = data;

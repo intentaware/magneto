@@ -36,7 +36,7 @@ class CampaignViewSet(BaseModelViewSet):
         # print s
         if s.is_valid():
             self.perform_update(s)
-            return Response()
+            return Response(status=201)
         else:
             return Response(s.errors, 400)
 

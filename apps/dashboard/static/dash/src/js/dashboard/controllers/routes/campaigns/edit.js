@@ -5,7 +5,7 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignEditCtrl', function($routeParams, Campaign, Circle) {
+  .controller('CampaignEditCtrl', function($routeParams, Campaign, Circle, Helper) {
     var self = this;
     if ($routeParams.hasOwnProperty('campaignID')) {
       Circle.query().$promise.then(function(data) {
@@ -24,6 +24,9 @@ angular.module('adomattic.dashboard')
           response.coupon_value = parseFloat(response.coupon_value);
           response.input_budget = parseFloat(response.budget);
 
+          response.circles = Helper.toObjects(response.circles, self.circles);
+
+          /*
           response.circles = response.circles.map(function(d) {
             var index = _.findIndex(self.circles, function(c) {
               return parseInt(c.id) === parseInt(d);
@@ -32,8 +35,10 @@ angular.module('adomattic.dashboard')
             d = self.circles[index];
             return d;
           });
+          */
 
           self.campaign = response;
+          console.log(response);
         });
       });
     }

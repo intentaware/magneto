@@ -6,7 +6,3 @@ class DashboardUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ['password', 'groups', 'user_permissions']
-
-class DashboardCompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
