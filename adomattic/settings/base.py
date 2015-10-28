@@ -7,7 +7,7 @@
                     ``/hNMMMMMMMMMM::++:::NNMMMMMMMMMNy-``
                    `.sNMMMMMMMMMMMMM::++::NNMMMMMMMMMMMmo.`
                   `.smmMMMMMMMMMMMMMNN``MNNMMMMMMMMMMNNNo.`
-                 `.odsNMMMM adomattic NMMMNNMMMMMMMMMMdsmN+``
+                 `.odsNMMMM intentaware NMNNMMMMMMMMMMdsmN+``
                 ``:my-ooydNMMMMMMMMMMNNMMMNNMMMMNmmmmNd-sNm-``
                 `.ym/ ```./shdmmNNMMMNNMMMNNMNho+/::::+./mMs.`
                ``-md. ``.:shmNNNNNNNNNNMMMNmdhhdmmmmy::-.yMm-``
