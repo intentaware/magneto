@@ -30,7 +30,7 @@ gulp.task('styles', function () {
   var indexFilter = $.filter('main.scss');
 
   return gulp.src([
-    paths.src + '/assets/styles/main.scss'
+    paths.src + '/scss/main.scss'
   ])
     //.pipe(indexFilter)
     //.pipe($.inject(injectFiles, injectOptions))
