@@ -47,22 +47,29 @@ gulp.task('inject:common', ['styles', 'install:css'], function() {
     '!' + paths.compile + '/serve/vendor/**/*.css'
   ], {
     read: false
-  }).pipe($.debug());
+  });
+
 
   // i don't know why this works but this works !!
   // the funny thing, it automatically injects the files in the write places
-  gulp.src([
+  var vendorStyles = gulp.src([
     paths.compile + '/serve/vendor/**/*.css',
     //'!' + paths.compile + '/serve/**/*.css',
   ], {
     read: false
   }).pipe($.debug());
 
+  var vendorOptions = {
+    //ignorePath: [paths.src, paths.compile + '/serve'],
+    name: 'bower',
+    addRootSlash: false,
+    addPrefix: '{{ STATIC_URL }}dashboard'
+      //relative: true
+  };
 
   return gulp.src(paths.html.root + '/__base.html')
+    .pipe($.inject(vendorStyles, vendorOptions))
     .pipe($.inject(injectStyles, injectOptions))
-    //.pipe($.inject(vendorStyles))
-    //.pipe(wiredep.stream(wiredepStyles))
     .pipe(gulp.dest(paths.compile));
 });
 
