@@ -7,16 +7,20 @@ gulp.paths = {
   dist: 'dist',
   compile: 'compile',
   e2e: 'e2e',
+  html: {
+    root: 'src/html',
+    partials: 'src/html/partials'
+  },
   django: {
     debug: '../../templates/debug',
     compile: '../../templates/compile',
-    common:'../../templates',
+    common: '../../templates',
     auth: '../../templates/registration'
   }
 };
 
 require('require-dir')('./gulp');
 
-gulp.task('default', ['clean'], function () {
-    gulp.start('serve');
+gulp.task('default', ['clean'], function() {
+  gulp.start('serve');
 });

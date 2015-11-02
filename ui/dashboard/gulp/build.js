@@ -25,6 +25,28 @@ var $ = require('gulp-load-plugins')({
 //     .pipe(gulp.dest(paths.compile + '/partials/'));
 // });
 
+gulp.task('partials', function() {
+  return gulp.src([
+      'src/html/partials/**/*html'
+    ])
+  .pipe($.debug({title: 'unicorn:'}))
+  .pipe($.minifyHtml())
+  .pipe($.angularTemplatecache('templateCacheHtml.js', {
+    module: 'dashboard'
+  }))
+  .pipe($.debug({title: 'no love:'}))
+  .pipe(gulp.dest('build/partials/'));
+});
+
+gulp.task('swig', function() {
+  return gulp.src([
+      'src/html/partials/routes/landing/__base.html'
+    ])
+    .pipe($.swig())
+    .pipe($.debug())
+    .pipe(gulp.dest('build'));
+});
+
 gulp.task('html:common', ['inject:common'], function() {
   var assets;
   var cssFilter = $.filter('**/*.css');

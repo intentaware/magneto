@@ -81,13 +81,14 @@ var wiredepStyles = {
 // injection into common base
 gulp.task('inject:common', ['styles'], function() {
   var injectStyles = gulp.src([
-    paths.compile + '/serve/**/*.css',
-    //'!' + paths.compile + '/serve/app/vendor.css'
-  ], {
-    read: false
-  }).pipe($.print());
+      paths.compile + '/serve/**/*.css',
+      //'!' + paths.compile + '/serve/app/vendor.css'
+    ], {
+      read: false
+    })
+    .pipe($.debug());
 
-  return gulp.src(paths.django.common + '/__base.html')
+  return gulp.src(paths.html.main + '/__base.html')
     .pipe($.inject(injectStyles, injectOptions))
     .pipe(wiredep(wiredepStyles))
     .pipe(gulp.dest(paths.django.common));

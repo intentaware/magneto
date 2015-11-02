@@ -1,0 +1,75 @@
+{% verbatim %}
+  <div layout-fill>
+    <div layout layout-sm="column" layout-padding>
+      <form name="SettingsForm" ng-controller="SettingsFormCtrl as settingsForm" ng-submit="settingsForm.updateSettings()" flex>
+        <!-- Company Information -->
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label>Name</label>
+            <input type="text" name="name" ng-model="settingsForm.company.name" ng-disabled='true'>
+            <div ng-messages="settingsForm.company.name.$error">
+              <div ng-message="required" class="disabled">Name of your company</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex>
+            <label>API Key</label>
+            <input type="text" name="publisher_key" ng-model="settingsForm.company.publisher_key" ng-disabled='true'>
+            <div ng-messages="settingsForm.company.publisher_key.$error">
+              <div ng-message="required" class="disabled">API key for developer</div>
+            </div>
+          </md-input-container>
+        </div>
+        <!-- End Company Information -->
+        <!-- Financials -->
+        <div layout layout-sm="column">
+          <md-input-container flex ng-if="globals.company.is_advertiser">
+            <label>Advertiser's Rate</label>
+            <input type="text" name="advertiser_rate" ng-model="settingsForm.company.advertiser_rate" ng-disabled='true'>
+            <div ng-messages="settingsForm.company.advertiser_rate.$error">
+              <div ng-message="required" class="disabled">IntentAware's Processing Fees</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex ng-if="globals.company.is_publisher">
+            <label>Publisher's Rate</label>
+            <input type="text" name="publisher_rate" ng-model="settingsForm.company.publisher_rate" ng-disabled='true'>
+            <div ng-messages="settingsForm.company.publisher_rate.$error">
+              <div ng-message="required" class="disabled">IntentAware's Processing Fees</div>
+            </div>
+          </md-input-container>
+        </div>
+        <!-- End Financials -->
+        <!-- Company Roles -->
+        <div layout layout-sm="column">
+          <md-checkbox ng-model="settingsForm.company.is_advertiser" ng-disabled="settingsForm.company.is_advertiser" flex>
+              Advertiser?
+          </md-checkbox>
+          <md-checkbox ng-model="settingsForm.company.is_publisher" ng-disabled="settingsForm.company.is_publisher" flex>
+              Publisher?
+          </md-checkbox>
+        </div>
+        <!-- End Company Roles -->
+        <md-chips ng-model="settingsForm.company.circles" md-autocomplete-snap md-require-match="true">
+          <md-autocomplete
+            md-selected-item="selectedItem"
+            md-search-text="searchText"
+            md-items="item in settingsForm.getMatches(searchText, settingsForm.circles)"
+            md-item-text="item.name">
+            <md-item-template>
+              <span md-highlight-text="searchText">{{ item.name }}</span>
+            </md-item-template>
+            <md-not-found>
+              No Matches Found.
+            </md-not-found>
+          </md-autocomplete>
+          <md-chip-template>
+            {{ $chip.name }}
+          </md-chip-template>
+        </md-chips>
+        <div layout layout-sm="column">
+          <md-button type="submit" class="md-raised md-primary">Update Settings</md-button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endverbatim %}
+
