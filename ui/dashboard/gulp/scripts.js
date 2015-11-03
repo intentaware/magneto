@@ -15,7 +15,6 @@ gulp.task('ng', function() {
       //'!' + paths.src + '/{app,components}/**/*.spec.js',
       //'!' + paths.src + '/{app,components}/**/*.mock.js'
     ])
-    .pipe($.angularFilesort())
     .pipe($.ngAnnotate({
       single_quotes: true
     }))

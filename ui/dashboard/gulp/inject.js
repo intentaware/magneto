@@ -25,7 +25,11 @@ gulp.task('install:css', function() {
 });
 
 gulp.task('install:js', function() {
+
   return gulp.src(wiredep().js)
+    .pipe($.sourcemaps.init())
+      .pipe($.concat('vendor.js'))
+    .pipe($.sourcemaps.write())
     .pipe(gulp.dest(paths.compile + '/vendor/js'));
 });
 
@@ -67,21 +71,20 @@ gulp.task('inject:common', ['styles', 'install:css'], function() {
 gulp.task('inject:dashboard', ['ng', 'install:js'], function() {
 
   var injectScripts = gulp.src([
-    paths.compile + '/source/**/*.js',
-    '!' + paths.compile + '/source/**/auth/**/*.js'
-  ], {
-    read: false
-  });
+      paths.compile + '/source/**/*.js',
+      '!' + paths.compile + '/source/**/auth/**/*.js'
+    ])
+    .pipe($.angularFilesort());
 
   // style setup for vendor styles
   var vendorScripts = gulp.src([
-    paths.compile + '/vendor/**/*.js',
-    //'!' + paths.compile + '/serve/**/*.css',
-  ], {
-    read: false
-  }).pipe($.debug({
-    title: 'vendor scripts'
-  }));
+      paths.compile + '/vendor/**/*.js',
+      //'!' + paths.compile + '/serve/**/*.css',
+    ])
+    .pipe($.angularFilesort())
+    .pipe($.debug({
+      title: 'vendor scripts'
+    }));
 
   var vendorOptions = _.merge({
     name: 'bower'
