@@ -12,10 +12,9 @@ gulp.paths = {
     partials: 'src/html/partials'
   },
   django: {
-    debug: '../../templates/debug',
-    compile: '../../templates/compile',
-    common: '../../templates',
-    auth: '../../templates/registration'
+    templates: {
+      root: '../../apps/dashboard/templates'
+    }
   }
 };
 

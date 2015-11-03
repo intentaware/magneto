@@ -70,7 +70,7 @@ gulp.task('inject:common', ['styles', 'install:css'], function() {
   return gulp.src(paths.html.root + '/__base.html')
     .pipe($.inject(vendorStyles, vendorOptions))
     .pipe($.inject(injectStyles, injectOptions))
-    .pipe(gulp.dest(paths.compile));
+    .pipe(gulp.dest(paths.django.templates.root));
 });
 
 
