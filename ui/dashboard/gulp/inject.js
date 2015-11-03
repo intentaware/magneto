@@ -63,20 +63,34 @@ gulp.task('inject:common', ['styles', 'install:css'], function() {
 });
 
 
-// injecting into dashboard
-gulp.task('inject:dashboard', ['styles'], function() {
+// injecting scripts into dashboard
+gulp.task('inject:dashboard', ['ng', 'install:js'], function() {
 
   var injectScripts = gulp.src([
-      paths.src + 'js/**/*.js',
-      '!' + paths.src + '/js/auth/**/*.js'
-      //'!' + paths.src + '/{app,components}/**/*.spec.js',
-      //'!' + paths.src + '/{app,components}/**/*.mock.js'
-    ]);
+    paths.compile + '/source/**/*.js',
+    '!' + paths.compile + '/source/**/auth/**/*.js'
+  ], {
+    read: false
+  });
 
-  return gulp.src(paths.django.debug + '/__base.html')
+  // style setup for vendor styles
+  var vendorScripts = gulp.src([
+    paths.compile + '/vendor/**/*.js',
+    //'!' + paths.compile + '/serve/**/*.css',
+  ], {
+    read: false
+  }).pipe($.debug({
+    title: 'vendor scripts'
+  }));
+
+  var vendorOptions = _.merge({
+    name: 'bower'
+  }, injectOptions);
+
+  return gulp.src(paths.html.root + '/__dashboard.html')
     .pipe($.inject(injectScripts, injectOptions))
-    .pipe(gulp.dest(paths.django.debug));
-
+    .pipe($.inject(vendorScripts, vendorOptions))
+    .pipe(gulp.dest(paths.django.templates.root));
 });
 
 // injecting into auth
@@ -95,4 +109,4 @@ gulp.task('inject:auth', ['styles'], function() {
 });
 
 
-gulp.task('inject', ['inject:common', 'inject:dashboard', 'inject:auth']);
+gulp.task('inject', ['inject:common', 'inject:dashboard']);

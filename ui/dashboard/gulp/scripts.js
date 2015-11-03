@@ -11,7 +11,7 @@ var paths = gulp.paths;
 gulp.task('ng', function() {
   return gulp.src([
       paths.src + '/js/**/*.js',
-      '!' + paths.src + '/js/**/auth/**/*.js',
+      //'!' + paths.src + '/js/**/auth/**/*.js',
       //'!' + paths.src + '/{app,components}/**/*.spec.js',
       //'!' + paths.src + '/{app,components}/**/*.mock.js'
     ])
@@ -19,7 +19,9 @@ gulp.task('ng', function() {
     .pipe($.ngAnnotate({
       single_quotes: true
     }))
-    .pipe($.debug())
+    .pipe($.debug({
+      title: 'angular source'
+    }))
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe(gulp.dest(paths.compile + '/source/js'));

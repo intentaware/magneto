@@ -49,9 +49,9 @@ class DashboardView(SetSessionData):
         from django.conf import settings
 
         if settings.DEBUG:
-            template = 'debug/__base.html'
+            template = '__dashboard.html'
         else:
-            template = 'compile/__base.html'
+            template = '__dashboard.html'
         return [template]
 
     def get_context_data(self, **kwargs):

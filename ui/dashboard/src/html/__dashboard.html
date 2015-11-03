@@ -72,50 +72,11 @@
 {% block scripts_src %}
   <!-- build:js scripts/vendor.min.js -->
   <!-- bower:js -->
-  <script src="{{ STATIC_URL }}dash/bower_components/angular/angular.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-animate/angular-animate.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-cookies/angular-cookies.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-touch/angular-touch.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-sanitize/angular-sanitize.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-resource/angular-resource.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-route/angular-route.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-aria/angular-aria.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-material/angular-material.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-messages/angular-messages.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/pace/pace.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/d3/d3.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/nvd3/nv.d3.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-nvd3/dist/angular-nvd3.min.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/lodash/lodash.js"></script>
-  <script src="{{ STATIC_URL }}dash/bower_components/angular-mask/dist/ngMask.js"></script>
-  <!-- endbower -->
+  <!-- endinject -->
   <!-- endbuild -->
 
   <!-- build:js scripts/app.min.js -->
   <!-- inject:js -->
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/dashboard.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/dialogs/campaigns/preview.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/dialogs/campaigns/indivdual-campaign-code.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/dialogs/payments/stripe-credit-card.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/campaigns/list.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/campaigns/edit.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/campaigns/create.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/invoices/list.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/landing/publishers.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/routes/landing/campaigners.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/api/invoices.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/api/cities.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/api/circles.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/api/campanies.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/api/campaigns.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/utils/money.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/services/utils/helper.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/forms/company-settings.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/forms/campaigns.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/navigation/sidebar.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/controllers/navigation/header.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/dashboard/directives/file-reader.js"></script>
-  <script src="{{ STATIC_URL }}dash/src/js/app.js"></script>
   <!-- endinject -->
 
   <!-- inject:partials -->
@@ -128,7 +89,6 @@
   var r = /(src=)("[^"]*"|^[^"]*$)/g;
   var f = html.replace(r, '$1{% static $2 %}');
   console.log(f);
-  odinson73:110388
   {% endcomment %}
 {% endblock %}
 
