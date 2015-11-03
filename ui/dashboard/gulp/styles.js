@@ -12,22 +12,22 @@ gulp.task('styles', function () {
     style: 'expanded'
   };
 
-  var injectFiles = gulp.src([
-    paths.src + '/assets/styles/**/*.scss'
-  ], { read: false });
+  // var injectFiles = gulp.src([
+  //   paths.src + '/assets/styles/**/*.scss'
+  // ], { read: false });
 
-  var injectOptions = {
-    transform: function(filePath) {
-      filePath = filePath.replace(paths.src + '/app/', '');
-      filePath = filePath.replace(paths.src + '/components/', '../components/');
-      return '@import \'' + filePath + '\';';
-    },
-    starttag: '// injector',
-    endtag: '// endinjector',
-    addRootSlash: false
-  };
+  // var injectOptions = {
+  //   transform: function(filePath) {
+  //     filePath = filePath.replace(paths.src + '/app/', '');
+  //     filePath = filePath.replace(paths.src + '/components/', '../components/');
+  //     return '@import \'' + filePath + '\';';
+  //   },
+  //   starttag: '// injector',
+  //   endtag: '// endinjector',
+  //   addRootSlash: false
+  // };
 
-  var indexFilter = $.filter('main.scss');
+  // var indexFilter = $.filter('main.scss');
 
   return gulp.src([
     paths.src + '/scss/main.scss'
@@ -44,5 +44,5 @@ gulp.task('styles', function () {
       console.error(err.toString());
       this.emit('end');
     })
-    .pipe(gulp.dest(paths.compile + '/serve/styles'));
+    .pipe(gulp.dest(paths.compile + '/source/css'));
 });
