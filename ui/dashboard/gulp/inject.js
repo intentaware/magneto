@@ -15,20 +15,6 @@ var injectOptions = {
     //relative: true
 };
 
-var wiredepScripts = {
-  directory: 'bower_components',
-  //ignorePath: '../../static/',
-  exclude: ['.css'],
-  fileTypes: {
-    html: {
-      replace: {
-        js: '<script src="{{ STATIC_URL }}{{filePath}}"></script>'
-          //css: '<link rel="stylesheet" href="{{ STATIC_URL }}{{filePath}}" />'
-      }
-    }
-  }
-};
-
 gulp.task('install:css', function() {
   return gulp.src(wiredep().css)
     .pipe(gulp.dest(paths.compile + '/serve/vendor/css'));
@@ -89,7 +75,6 @@ gulp.task('inject:dashboard', ['styles'], function() {
 
   return gulp.src(paths.django.debug + '/__base.html')
     .pipe($.inject(injectScripts, injectOptions))
-    .pipe(wiredep(wiredepScripts))
     .pipe(gulp.dest(paths.django.debug));
 
 });
@@ -105,7 +90,6 @@ gulp.task('inject:auth', ['styles'], function() {
 
   return gulp.src(paths.django.auth + '/__base.html')
     .pipe($.inject(injectScripts, injectOptions))
-    .pipe(wiredep(wiredepScripts))
     .pipe(gulp.dest(paths.django.auth));
 
 });

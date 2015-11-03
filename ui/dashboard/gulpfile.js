@@ -14,6 +14,9 @@ gulp.paths = {
   django: {
     templates: {
       root: '../../apps/dashboard/templates'
+    },
+    assets: {
+      dashboard: '../../apps/dashboard/static/dashboard'
     }
   }
 };
