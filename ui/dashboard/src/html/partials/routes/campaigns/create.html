@@ -1,7 +1,7 @@
-{% verbatim %}
+{% raw %}
   <div layout="column">
     <div layout="row" layout-sm="column">
-      <div flex="75" flex-sm="100" ng-include="'/dashboard/partials/forms/campaign-create.html'">
+      <div flex="75" flex-sm="100" ng-include="'forms/campaign-create.html'">
       </div>
       <div flex="25" flex-sm="100">
         <md-card>
@@ -13,14 +13,14 @@
           <img ng-src="{{ baseCampaignFormCtrl.campaign.image }}">
           <md-card-content>
             <small>{{ baseCampaignFormCtrl.campaign.description }}</small>
-            {% endverbatim %}
+            {% endraw %}
             <br>
             <span flex ng-if="baseCampaignFormCtrl.campaign.description" style="text-align: right;"><img src="{{ STATIC_URL }}dash/src/assets/images/lg.png" height="15"></span>
-            {% verbatim %}
+            {% raw %}
           </md-card-content>
         </md-card>
       </div>
     </div>
   </div>
-{% endverbatim %}
+{% endraw %}
 

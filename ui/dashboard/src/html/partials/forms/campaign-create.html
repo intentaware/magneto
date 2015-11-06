@@ -1,4 +1,4 @@
-{% verbatim %}
+{% raw %}
   <form name="CreateAdForm" ng-controller="CampaignFormCtrl as campaignForm" ng-submit="campaignForm.saveAd()" ng-disabled="campaignForm.$saving" flex>
     <!-- Basic Settings -->
     <md-input-container>
@@ -82,5 +82,5 @@
       <span ng-if="campaignForm.$saving">Creating New Campaign</span>
     </md-button>
   </form>
-{% endverbatim %}
+{% endraw %}
 

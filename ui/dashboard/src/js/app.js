@@ -50,39 +50,39 @@ angular.module('adomattic', [
         'default': '200'
       });
   })
-  .config(function($routeProvider, urls) {
+  .config(function($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: urls.partials.routes + 'landing/__base.html',
+        templateUrl: 'routes/landing/main.html'
       })
       // campaigns
       .when('/campaigns/', {
-        templateUrl: urls.partials.routes + 'campaigns/list.html',
+        templateUrl: 'routes/campaigns/list.html',
         controller: 'CampaignListCtrl',
         controllerAs: 'campaignsList'
       })
       .when('/campaigns/past/', {
-        templateUrl: urls.partials.routes + 'campaigns/list.html',
+        templateUrl: 'routes/campaigns/list.html',
         controller: 'CampaignListCtrl',
         controllerAs: 'campaignsList'
       })
       .when('/campaigns/create/', {
-        templateUrl: urls.partials.routes + 'campaigns/create.html',
+        templateUrl: 'routes/campaigns/create.html',
         controller: 'CampaignCreateCtrl',
         controllerAs: 'baseCampaignFormCtrl'
       })
-      .when('/campaigns/:campaignID/edit/', {
-        templateUrl: urls.partials.routes + 'campaigns/edit.html',
+      .when('routes/campaigns/edit.html', {
+        templateUrl: 'routes/campaigns/edit.html',
         controller: 'CampaignEditCtrl',
         controllerAs: 'baseCampaignFormCtrl'
       })
       // settings
       .when('/settings/', {
-        templateUrl: urls.partials.routes + 'settings/__base.html',
+        templateUrl: 'routes/settings/main.html',
       })
       // invoices
       .when('/invoices/', {
-        templateUrl: urls.partials.routes + 'invoices/list.html',
+        templateUrl: 'routes/invoices/list.html',
         controller: 'InvoiceListCtrl',
         controllerAs: 'invoiceList'
       })

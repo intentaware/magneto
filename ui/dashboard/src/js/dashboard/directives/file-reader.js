@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .directive('readFile', function($q, urls) {
+  .directive('readFile', function($q) {
     return {
       restrict: 'E',
       scope: {
@@ -10,7 +10,7 @@ angular.module('adomattic.dashboard')
         maxSize: '@',
         ngModel: '=',
       },
-      templateUrl: urls.partials.directives + 'file-reader.html',
+      templateUrl: 'directives/file-reader.html',
       replace: true,
       require: '^ngModel',
       link: function(scope, elm, atr, ngModelCtrl) {

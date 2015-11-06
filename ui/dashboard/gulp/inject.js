@@ -19,6 +19,10 @@ var injectOptions = {
     //relative: true
 };
 
+var vendorOptions = _.merge({
+  name: 'bower'
+}, injectOptions);
+
 gulp.task('install:css', function() {
   return gulp.src(wiredep().css)
     .pipe(gulp.dest(paths.compile + '/vendor/css'));
@@ -54,10 +58,6 @@ gulp.task('inject:common', ['styles', 'install:css'], function() {
     title: 'vendor styles'
   }));
 
-  var vendorOptions = _.merge({
-    name: 'bower'
-  }, injectOptions);
-
   // the actual task
   return gulp.src(paths.html.root + '/__base.html')
     .pipe($.inject(vendorStyles, vendorOptions))
@@ -67,12 +67,13 @@ gulp.task('inject:common', ['styles', 'install:css'], function() {
 
 
 // injecting scripts into dashboard
-gulp.task('inject:dashboard', ['ng', 'install:js'], function() {
+gulp.task('inject:dashboard', ['ng', 'install:js', 'partials'], function() {
 
   var injectScripts = gulp.src([
-    paths.compile + '/source/**/*.js',
-    '!' + paths.compile + '/source/**/auth/**/*.js'
-  ])
+      paths.compile + '/source/**/*.js',
+      '!' + paths.compile + '/source/**/auth/**/*.js',
+      '!' + paths.compile + '/source/**/templates/*.js'
+    ])
     .pipe($.angularFilesort())
     .pipe($.debug({
       title: 'dashboard scripts'
@@ -88,13 +89,20 @@ gulp.task('inject:dashboard', ['ng', 'install:js'], function() {
     title: 'vendor scripts'
   }));
 
-  var vendorOptions = _.merge({
-    name: 'bower'
+  var templateCache = gulp.src([
+      paths.compile + '/source/**/templates/**/*.js'
+    ]).pipe($.debug({
+      title: 'dashboard partials'
+    }));
+
+  var cacheOptions = _.merge({
+    name: 'partials'
   }, injectOptions);
 
   return gulp.src(paths.html.root + '/__dashboard.html')
     .pipe($.inject(injectScripts, injectOptions))
     .pipe($.inject(vendorScripts, vendorOptions))
+    .pipe($.inject(templateCache, cacheOptions))
     .pipe(gulp.dest(paths.django.templates.root));
 });
 

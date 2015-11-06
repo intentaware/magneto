@@ -10,6 +10,7 @@ gulp.task('watch', ['copy'], function() {
     ], ['copy:css']);
 
   gulp.watch([
-    paths.src + '/**/*.js'
+    paths.src + '/**/*.js',
+    paths.src + '/**/*.html'
     ], ['copy:js']);
 });
