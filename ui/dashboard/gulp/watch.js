@@ -13,4 +13,14 @@ gulp.task('watch', function() {
     paths.src + '/**/*.js',
     paths.src + '/**/partials/*.html'
     ], ['copy:js']);
+
+  gulp.watch([
+      paths.html.root + '/**/*.html',
+      '!' + paths.html.root + '/**/__*.html',
+      '!' + paths.html.root + '/partials/**/*.html'
+    ], ['swig']);
+
+  gulp.watch([
+      paths.html.root + '/partials/**/*.html'
+    ], ['copy:js']);
 });

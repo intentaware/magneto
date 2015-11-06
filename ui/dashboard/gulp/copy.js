@@ -12,7 +12,7 @@ gulp.task('copy:css', ['inject:common'], function() {
     .pipe(gulp.dest(paths.django.assets.dashboard));
 });
 
-gulp.task('copy:js', ['inject:dashboard'], function() {
+gulp.task('copy:js', ['inject:dashboard', 'partials'], function() {
   return gulp.src([
       paths.compile + '/**/*.js'
     ])

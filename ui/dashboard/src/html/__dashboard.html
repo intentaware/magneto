@@ -21,16 +21,16 @@
   <div ng-app="adomattic" layout="column" flex layout-fill ng-init="globals = {{ globals | jsonify }};">
 
     {% if debug %}
-      {% include 'debug/partials/includes/header.html' %}
+      {% include 'includes/header.html' %}
     {% else %}
-      {% include 'debug/partials/includes/header.html' %}
+      {% include 'includes/header.html' %}
     {% endif %}
 
     <div layout="row">
       {% if debug %}
-        {% include 'debug/partials/includes/sidebar.html' %}
+        {% include 'includes/sidebar.html' %}
       {% else %}
-        {% include 'debug/partials/includes/sidebar.html' %}
+        {% include 'includes/sidebar.html' %}
       {% endif %}
       <div layout="column" layout-fill>
         <div class="md-padding" ng-view></div>
