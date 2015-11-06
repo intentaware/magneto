@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignListCtrl', function($mdDialog, $location, $routeParams, urls, Campaign) {
+  .controller('CampaignListCtrl', function($mdDialog, $location, $routeParams, Campaign) {
     var self = this;
 
     var path = window.location.href;
@@ -21,7 +21,7 @@ angular.module('adomattic.dashboard')
       $mdDialog.show({
         controller: 'CampaignPreviewDialogCtrl',
         controllerAs: 'previewController',
-        templateUrl: urls.partials.dialogs + 'campaigns/preview.html',
+        templateUrl: 'dialogs/campaigns/preview.html',
         locals: {
           data: data
         },
@@ -34,7 +34,7 @@ angular.module('adomattic.dashboard')
       $mdDialog.show({
         controller: 'StripeCreditCardDialogCtrl',
         controllerAs: 'creditCard',
-        templateUrl: urls.partials.dialogs + 'payments/stripe-credit-card.html',
+        templateUrl: 'dialogs/payments/stripe-credit-card.html',
         locals: {
           invoiceID: invoiceID
         },
@@ -49,7 +49,7 @@ angular.module('adomattic.dashboard')
       $mdDialog.show({
         controller: 'CampaignIndividualIncludeCodeDialogCtrl',
         controllerAs: 'offerCode',
-        templateUrl: urls.partials.dialogs + 'campaigns/indivdual-campaign-code.html',
+        templateUrl: 'dialogs/campaigns/indivdual-campaign-code.html',
         locals: {
           campaignID: campaignID
         },

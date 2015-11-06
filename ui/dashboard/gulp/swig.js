@@ -14,8 +14,9 @@ gulp.task('swig', function() {
       '!' + paths.html.root + '/**/__*.html',
       '!' + paths.html.root + '/partials/**/*.html'
     ])
+    .pipe($.changed(paths.compile + '/html'))
     .pipe($.swig())
-    .pipe(gulp.dest(paths.compile + '/html'));
+    .pipe(gulp.dest(paths.django.templates.root));
 });
 
 gulp.task('partials', function() {

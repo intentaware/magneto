@@ -1,0 +1,31 @@
+{% extends "__base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <div ng-app="auth" class="auth" layout="column" layout-fill>
+  <md-toolbar layout="row">
+    <div class="md-toolbar-tools" flex hide-sm style="text-align: center;">
+      <span flex><img src="{{ STATIC_URL }}dash/src/assets/images/lg.png" height="50"></span>
+    </div>
+  </md-toolbar>
+
+  <div ng-controller="AuthCtrl" layout="row" layout-align="center center" layout-fill flex>
+
+    {% block auth_content %}
+    {% endblock %}
+  </div>
+  </div>
+{% endblock %}
+
+{% block scripts_src %}
+  <!-- build:js scripts/vendor.auth.min.js -->
+  <!-- bower:js -->
+  <!-- endinject -->
+  <!-- endbuild -->
+
+  <!-- build:js scripts/app.auth.min.js -->
+  <!-- inject:js -->
+  <!-- endinject -->
+
+  <!-- endbuild -->
+{% endblock %}

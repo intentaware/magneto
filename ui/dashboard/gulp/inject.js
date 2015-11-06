@@ -31,7 +31,7 @@ gulp.task('install:css', function() {
 gulp.task('install:js', function() {
   return gulp.src(wiredep().js)
     .pipe($.sourcemaps.init())
-      .pipe($.concat('vendor.js'))
+    .pipe($.concat('vendor.js'))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(paths.compile + '/vendor/js'));
 });
@@ -44,9 +44,7 @@ gulp.task('inject:common', ['styles', 'install:css'], function() {
     //'!' + paths.compile + '/vendor/**/*.css'
   ], {
     read: false
-  }).pipe($.debug({
-    title: 'dashboard styles'
-  }));
+  });
 
   // style setup for vendor styles
   var vendorStyles = gulp.src([
@@ -54,9 +52,7 @@ gulp.task('inject:common', ['styles', 'install:css'], function() {
     //'!' + paths.compile + '/serve/**/*.css',
   ], {
     read: false
-  }).pipe($.debug({
-    title: 'vendor styles'
-  }));
+  });
 
   // the actual task
   return gulp.src(paths.html.root + '/__base.html')
@@ -74,26 +70,18 @@ gulp.task('inject:dashboard', ['ng', 'install:js', 'partials'], function() {
       '!' + paths.compile + '/source/**/auth/**/*.js',
       '!' + paths.compile + '/source/**/templates/*.js'
     ])
-    .pipe($.angularFilesort())
-    .pipe($.debug({
-      title: 'dashboard scripts'
-    }));
+    .pipe($.angularFilesort());
 
-  // style setup for vendor styles
+  // setup for vendor scripts
   var vendorScripts = gulp.src([
     paths.compile + '/vendor/**/*.js',
-    //'!' + paths.compile + '/serve/**/*.css',
   ], {
     read: false
-  }).pipe($.debug({
-    title: 'vendor scripts'
-  }));
+  });
 
   var templateCache = gulp.src([
-      paths.compile + '/source/**/templates/**/*.js'
-    ]).pipe($.debug({
-      title: 'dashboard partials'
-    }));
+    paths.compile + '/source/**/templates/**/*.js'
+  ]);
 
   var cacheOptions = _.merge({
     name: 'partials'
@@ -107,19 +95,25 @@ gulp.task('inject:dashboard', ['ng', 'install:js', 'partials'], function() {
 });
 
 // injecting into auth
-gulp.task('inject:auth', ['styles'], function() {
-
+gulp.task('inject:auth', ['ng', 'install:js'], function() {
   var injectScripts = gulp.src([
-    paths.src + '/js/auth/**/*.js'
-    //'!' + paths.src + '/auth/**/*.spec.js',
-    //'!' + paths.src + '/auth/**/*.mock.js'
-  ]).pipe($.angularFilesort());
+      paths.compile + '/source/**/auth/**/*.js',
+      '!' + paths.compile + '/source/**/dashboard/**/*.js',
+    ])
+    .pipe($.angularFilesort());
 
-  return gulp.src(paths.html.root + '/__dashboard.html')
+  // setup for vendor scripts
+  var vendorScripts = gulp.src([
+    paths.compile + '/vendor/**/*.js',
+  ], {
+    read: false
+  });
+
+  return gulp.src(paths.html.root + '/__auth.html')
     .pipe($.inject(injectScripts, injectOptions))
-    .pipe(gulp.dest(paths.django.auth));
-
+    .pipe($.inject(vendorScripts, vendorOptions))
+    .pipe(gulp.dest(paths.django.templates.root));
 });
 
 
-gulp.task('inject', ['inject:common', 'inject:dashboard']);
+gulp.task('inject', ['inject:common', 'inject:dashboard', 'inject:auth']);

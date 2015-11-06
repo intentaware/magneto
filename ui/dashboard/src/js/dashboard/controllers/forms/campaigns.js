@@ -87,7 +87,7 @@ angular.module('adomattic.dashboard')
       $mdDialog.show({
         controller: 'StripeCreditCardDialogCtrl',
         controllerAs: 'creditCard',
-        templateUrl: urls.partials.dialogs + 'payments/stripe-credit-card.html',
+        templateUrl: 'dialogs/payments/stripe-credit-card.html',
         locals: {
           invoiceID: invoiceID
         },

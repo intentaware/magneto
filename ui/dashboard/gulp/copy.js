@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
 
 var paths = gulp.paths;
 
@@ -15,6 +16,10 @@ gulp.task('copy:js', ['inject:dashboard'], function() {
   return gulp.src([
       paths.compile + '/**/*.js'
     ])
+    .pipe($.changed(paths.django.assets.dashboard))
+    .pipe($.debug({
+      title: 'copying changed files'
+    }))
     .pipe(gulp.dest(paths.django.assets.dashboard));
 });
 
