@@ -8,8 +8,13 @@ var $ = require('gulp-load-plugins')({
 var paths = gulp.paths;
 
 gulp.task('clean', function(done) {
+  // deleting temporary files before copying them to django static
   $.del([paths.dist + '/', paths.compile + '/'], done);
-  $.del([paths.django.dist + '/'], {
+  // deleting django files
+  $.del([
+    paths.django.assets.dashboard + '/',
+    paths.django.templates.root + '/'
+  ], {
     force: true
   });
 });

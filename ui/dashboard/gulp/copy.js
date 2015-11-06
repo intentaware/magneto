@@ -23,4 +23,4 @@ gulp.task('copy:js', ['inject:dashboard'], function() {
     .pipe(gulp.dest(paths.django.assets.dashboard));
 });
 
-gulp.task('copy', ['copy:css', 'copy:js']);
+gulp.task('copy', ['copy:css', 'copy:js', 'inject:auth', 'swig']);
