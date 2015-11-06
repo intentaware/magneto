@@ -72,50 +72,35 @@
 {% block scripts_src %}
   <!-- build:js scripts/vendor.min.js -->
   <!-- bower:js -->
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular-animate.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular-aria.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular-cookies.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular-material.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular-messages.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular-nvd3.min.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular-resource.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular-route.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular-sanitize.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular-touch.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/angular.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/d3.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/lodash.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/ngMask.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/nv.d3.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/vendor/js/pace.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/vendor/js/vendor.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
 
   <!-- build:js scripts/app.min.js -->
   <!-- inject:js -->
-  <script src="{{ STATIC_URL }}dashboard/source/js/app.js"></script>
   <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/dashboard.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/directives/file-reader.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/forms/campaigns.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/forms/company-settings.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/navigation/header.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/navigation/sidebar.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/api/campaigns.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/api/campanies.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/api/circles.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/api/cities.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/api/invoices.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/utils/helper.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/utils/money.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/dialogs/campaigns/indivdual-campaign-code.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/dialogs/campaigns/preview.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/dialogs/payments/stripe-credit-card.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/campaigns/create.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/campaigns/edit.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/campaigns/list.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/invoices/list.js"></script>
-  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/landing/campaigners.js"></script>
   <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/landing/publishers.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/landing/campaigners.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/invoices/list.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/campaigns/list.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/campaigns/edit.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/routes/campaigns/create.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/dialogs/payments/stripe-credit-card.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/dialogs/campaigns/preview.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/dialogs/campaigns/indivdual-campaign-code.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/utils/money.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/utils/helper.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/api/invoices.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/api/cities.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/api/circles.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/api/campanies.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/services/api/campaigns.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/navigation/sidebar.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/navigation/header.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/forms/company-settings.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/controllers/forms/campaigns.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/dashboard/directives/file-reader.js"></script>
+  <script src="{{ STATIC_URL }}dashboard/source/js/app.js"></script>
   <!-- endinject -->
 
   <!-- inject:partials -->

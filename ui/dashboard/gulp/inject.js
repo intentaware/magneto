@@ -26,6 +26,9 @@ gulp.task('install:css', function() {
 
 gulp.task('install:js', function() {
   return gulp.src(wiredep().js)
+    .pipe($.sourcemaps.init())
+      .pipe($.concat('vendor.js'))
+    .pipe($.sourcemaps.write())
     .pipe(gulp.dest(paths.compile + '/vendor/js'));
 });
 
@@ -69,9 +72,11 @@ gulp.task('inject:dashboard', ['ng', 'install:js'], function() {
   var injectScripts = gulp.src([
     paths.compile + '/source/**/*.js',
     '!' + paths.compile + '/source/**/auth/**/*.js'
-  ], {
-    read: false
-  });
+  ])
+    .pipe($.angularFilesort())
+    .pipe($.debug({
+      title: 'dashboard scripts'
+    }));
 
   // style setup for vendor styles
   var vendorScripts = gulp.src([

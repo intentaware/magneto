@@ -4,8 +4,12 @@ var gulp = require('gulp');
 
 var paths = gulp.paths;
 
-gulp.task('watch', function() {
+gulp.task('watch', ['copy'], function() {
   gulp.watch([
       paths.src + '/**/*.scss'
-    ], ['inject:common']);
+    ], ['copy:css']);
+
+  gulp.watch([
+    paths.src + '/**/*.js'
+    ], ['copy:js']);
 });

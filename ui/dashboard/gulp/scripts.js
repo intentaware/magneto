@@ -19,9 +19,6 @@ gulp.task('ng', function() {
     .pipe($.ngAnnotate({
       single_quotes: true
     }))
-    .pipe($.debug({
-      title: 'angular source'
-    }))
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe(gulp.dest(paths.compile + '/source/js'));

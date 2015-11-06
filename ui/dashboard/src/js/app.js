@@ -96,9 +96,6 @@ angular.module('adomattic', [
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-
-    var self = this;
-    self.rehman = 'mani chill';
   });
 
 // pace.js options
