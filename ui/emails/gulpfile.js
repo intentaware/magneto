@@ -8,7 +8,7 @@ var $ = require('gulp-load-plugins')({
 gulp.task('compile', function() {
     gulp.src('./src/*.html')
       .pipe($.inlineCss({}))
-      .pipe(gulp.dest('build/'));
+      .pipe(gulp.dest('../../apps/dashboard/templates/emails'));
   });
 
 gulp.task('default', ['compile'], function() {
