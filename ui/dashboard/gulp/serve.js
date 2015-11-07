@@ -28,6 +28,7 @@ gulp.task('serve', ['watch', 'copy'], function () {
   browserSyncInit([], [
     paths.django.assets.dashboard + '/**/*.css',
     paths.django.assets.dashboard + '/**/*.js',
+    '!' + paths.django.assets.dashboard + '/**/vendor.js',
     paths.django.templates.root + '/**/*.html'
     //paths.src + '/{app,components}/**/*.js',
     //paths.src + 'src/assets/images/**/*',
