@@ -1,0 +1,42 @@
+.tile {
+  @include size(100%);
+  @include padding(10px);
+  color: #fff;
+  position: relative;
+
+  .title {
+    font-size: 120%;
+    font-weight: 700;
+    bottom: 12px;
+    position: absolute;
+  }
+
+  .announcement {
+    position: absolute;
+    font-size: 200%;
+    font-weight: 700;
+    //top: 20%;
+    right: 10px;
+    //@include transform(translate(-50%, -50%));
+  }
+}
+
+.tile-normal {
+  @include size(auto 150px);
+}
+
+.tile-long {
+  @include size(auto 328px);
+}
+
+.bg-adomattic-primary {
+  @include background(#bf2932);
+}
+
+.bg-adomattic-accent {
+  @include background(#297dbf);
+}
+
+.tile-linked {
+  cursor: pointer;
+}

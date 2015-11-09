@@ -1,0 +1,44 @@
+{% raw %}
+  <div layout="column">
+    <div class="md-headline">{{ campaignsList.title }} Campaigns</div>
+    <md-list>
+      <md-list-item class="md-3-line" ng-repeat="c in campaignsList.campaigns">
+        <img ng-src="{{ c.preview_image_url }}" class="md-avatar" alt="{{ c.name }}" />
+        <div class="md-list-item-text">
+          <h3>{{ c.name }}</h3>
+          <h4>{{ c.description }}</h4>
+          <p>
+            <strong>Starts - Ends</strong>: {{ c.starts_on | date:'shortDate' }} - {{ c.ends_on | date:'shortDate' }}
+            <br>
+            {{ c.claimed_coupons_sum | currency }} claimed of {{ c.budget | currency }} budget
+          </p>
+        </div>
+        <md-fab-speed-dial md-direction="left" ng-class="{ 'md-scale': true }">
+          <md-fab-trigger>
+            <md-button class="md-fab md-primary">
+              <md-icon class="material-icons">settings</md-icon>
+            </md-button>
+          </md-fab-trigger>
+          <md-fab-actions>
+            <md-button class="md-fab md-primary md-mini" ng-click="campaignsList.showPreview($event, c)">
+              <!--<md-tooltip>Preview</md-tooltip>-->
+              <md-icon class="material-icons">visibility</md-icon>
+            </md-button>
+            <md-button class="md-fab md-warn md-mini" ng-click="campaignsList.openStripePaymentDialog(c.invoice)" ng-hide="c.is_active">
+              <!--<md-tooltip>Activate</md-tooltip>-->
+              <md-icon class="material-icons">whatshot</md-icon>
+            </md-button>
+            <md-button class="md-fab md-primary md-mini" ng-click="campaignsList.openIndivdualCampaignCodeDialog(c.id)">
+              <!--<md-tooltip>View Individual Offer code</md-tooltip>-->
+              <md-icon class="material-icons">code</md-icon>
+            </md-button>
+            <md-button class="md-fab md-primary md-mini" ng-click="campaignsList.editCampaign(c.id)">
+              <!--<md-tooltip>Edit</md-tooltip>-->
+              <md-icon class="material-icons">edit</md-icon>
+            </md-button>
+          </md-fab-actions>
+        </md-fab-speed-dial>
+      </md-list-item>
+    </md-list>
+  </div>
+{% endraw %}

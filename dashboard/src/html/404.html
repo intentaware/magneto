@@ -1,0 +1,15 @@
+{% raw %}
+{% extends "registration/__base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block auth_content %}
+<div flex="50" flex-sm="100" layout-align="center center">
+  <md-content class="md-padding" layout="column">
+    <p>Oops! Not found!!</p>
+    <br>
+    <md-button class="md-primary md-raised" href="{% url 'dashboard' %}">To the greener pastures.</md-button>
+  </md-content>
+</div>
+
+{% endblock %}
+{% endraw %}

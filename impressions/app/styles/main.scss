@@ -1,0 +1,147 @@
+$icon-font-path: '../fonts/';
+
+// bower:scss
+@import "bower_components/bourbon/app/assets/stylesheets/_bourbon.scss";
+// endbower
+
+.adomattic {
+  @include border-color(#F2F2F2);
+  @include border-width(2px);
+  @include border-style(dashed);
+  @include background(#FEFEFE);
+  //@include padding(5px);
+  //@include margin(5px);
+  //box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  width: 250px;
+  line-height: 1.4;
+  font-family: $helvetica;
+
+  .title {
+    @include padding(10px);
+    font-size: 14px;
+    font-weight: 500;
+    @include background(#f2f2f2);
+  }
+
+  img {
+    width: 230px;
+    @include border-color(null null #F2F2F2 null);
+    @include border-style(null null dashed null);
+    @include border-width(2px);
+    @include padding(10px);
+    //@include margin(null null 5px null);
+  }
+
+  .description {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    @include padding(null 10px 5px 10px);
+    font-weight: 300;
+  }
+
+  .powered-by {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: #a6a6a6;
+    @include padding(null 10px 5px 10px);
+    font-weight: 300;
+
+    img {
+      width: 10px;
+      height: 10px;
+      bottom: 0;
+      @include border-color(0 0 0 0);
+      @include border-width(0px);
+      @include padding(1px);
+    }
+  }
+
+  .info {
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"] {
+      /* remove default appearance from all input/textarea */
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      @include border-color(transparent transparent #f2f2f2 transparent);
+      @include border-width(0 0 1px 0);
+      @include margin(10px);
+      @include padding(2px);
+      width: 220px;
+      color: #a2a2a2;
+      font-weight: 300;
+      font-family: $helvetica;
+      letter-spacing: 1px;
+    }
+
+    button {
+      @include button('flat', #bf2932);
+      @include margin(10px);
+    }
+
+    .tos-container {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      @include border-color(transparent transparent #f2f2f2 transparent);
+      @include border-width(0 0 1px 0);
+      @include margin(10px);
+      @include padding(2px);
+      width: 220px;
+      color: #a2a2a2;
+      font-size: 10px;
+      font-weight: 300;
+      font-family: $helvetica;
+      letter-spacing: 0.5px;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+
+    .red {
+      color: #bf2932;
+      font-weight: 700;
+    }
+
+    .adomattic-input {
+      //flex: 1 1 auto;
+      display: block;
+
+      background: none;
+      line-height: 26px;
+      font-size: 14px;
+      font-weight: 300;
+      -ms-flex-preferred-size: 14px; //IE flex:   ;
+
+      &:focus {
+        outline: none;
+      }
+      &:invalid {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .result {
+    @include margin(10px);
+    font-weight: 300;
+    color: #a2a2a2;
+  }
+}
+
+.hide {
+  display: none;
+}

@@ -1,0 +1,33 @@
+{% raw %}
+<div ng-controller="CampaignersLandingCtrl" layout="row" layout-sm="column">
+  <div flex="50" flex-sm="100">
+    <md-card class="md-whiteframe-z1">
+      <div class="tile tile-normal bg-adomattic-accent tile-linked" ng-click="gotoCampaignList()">
+        <span class="announcement">
+          {{ campaigns.length }}
+        </span>
+        <span class="title">
+          Active Campaigns
+        </span>
+      </div>
+    </md-card>
+    <md-card class="md-whiteframe-z1">
+      <div class="tile tile-normal bg-adomattic-primary">
+        <span class="announcement">
+          <small>${{ globals.budget | number:2 }}</small>
+        </span>
+        <span class="title">
+          Budget
+        </span>
+      </div>
+    </md-card>
+  </div>
+  <div flex="50" flex-sm="100">
+    <md-card class="md-whiteframe-z1">
+      <md-card-content class="tile tile-long">
+        <nvd3 options="options" data="data"></nvd3>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+{% endraw %}

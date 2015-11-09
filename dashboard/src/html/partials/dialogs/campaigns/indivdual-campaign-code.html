@@ -1,0 +1,38 @@
+{% raw %}
+<md-dialog flex="80" aria-label="Campaign Include Code">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <span>HTML Include Code</span>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <p>Include this code anywhere in your html</p>
+    <md-divider></md-divider>
+          <xmp>
+<script type="text/javascript">
+(function(){
+  'use strict';
+  document.adomattic = '{{ offerCode.globals.company.publisher_key }}';
+  document.campaignID = '{{ offerCode.campaignID }}';
+  var ai = document.createElement('script');
+  ai.type = 'text/javascript';
+  ai.async = true;
+  ai.src = '{{ offerCode.assetRoot }}all.js';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(ai, s);
+})();
+</script>
+        </xmp>
+    <md-divider></md-divider>
+    <p>And the following div where you want to display your coupon widget</p>
+    <md-divider></md-divider>
+    <xmp>
+<div class="adomattic-y"></div>
+    </xmp>
+    <md-divider></md-divider>
+  </md-dialog-content>
+  <div class="md-actions">
+    <md-button class="md-primary md-raised" ng-click="offerCode.hide()">Close</md-button>
+  </div>
+</md-dialog>
+{% endraw %}

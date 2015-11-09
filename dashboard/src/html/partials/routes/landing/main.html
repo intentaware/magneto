@@ -1,0 +1,26 @@
+{% raw %}
+<div layout="row">
+    <md-subheader flex>
+      Dashboard for <strong>{{ globals.company.name }}</strong>
+    </md-subheader>
+</div>
+<div layout="row">
+  <md-card class="md-whiteframe-z1" flex>
+    <div class="tile tile-normal bg-adomattic-accent tile-linked">
+      <span class="announcement">
+        {{ globals.company.circles.length }}
+      </span>
+      <span class="title">
+        Publisher's Circles
+      </span>
+    </div>
+  </md-card>
+</div>
+<md-divider></md-divider>
+{% endraw %}
+
+{% include 'includes/__campaigners.html' %}
+
+<md-divider ng-if="globals.company.is_advertiser"></md-divider>
+
+{% include 'includes/__publishers.html' %}
