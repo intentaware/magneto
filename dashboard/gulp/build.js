@@ -28,7 +28,7 @@ gulp.task('minify:common', ['inject:common'], function() {
     .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.revReplace())
-    .pipe($.replace('styles', '{{ STATIC_URL }}dashboard/builds/styles'))
+    .pipe($.replace('href="styles', 'href="{{ STATIC_URL }}dashboard/builds/styles'))
     .pipe(gulp.dest('compile/builds'));
 });
 
@@ -54,7 +54,7 @@ gulp.task('minify:dashboard', ['inject:dashboard'], function() {
     .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.revReplace())
-    .pipe($.replace('scripts', '{{ STATIC_URL }}dashboard/builds/scripts'))
+    .pipe($.replace('src="scripts', 'src="{{ STATIC_URL }}dashboard/builds/scripts'))
     .pipe(gulp.dest('compile/builds'));
 });
 
@@ -80,7 +80,7 @@ gulp.task('minify:auth', ['inject:auth'], function() {
     .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.revReplace())
-    .pipe($.replace('scripts', '{{ STATIC_URL }}dashboard/builds/scripts'))
+    .pipe($.replace('src="scripts', 'src="{{ STATIC_URL }}dashboard/builds/scripts'))
     .pipe(gulp.dest('compile/builds'));
 });
 
