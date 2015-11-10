@@ -72,8 +72,10 @@ gulp.task('adomattic', function() {
   };
 
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
-    .pipe($.concat('all.js'))
-    .pipe($.uglify(uglifyOptions))
+    .pipe($.sourcemaps.init())
+      .pipe($.concat('all.js'))
+      .pipe($.uglify(uglifyOptions))
+    .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/scripts'))
     .pipe($.size(sizeOptions));
 });

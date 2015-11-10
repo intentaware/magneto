@@ -1,59 +1,95 @@
-'use strict';
+(function() {
+  'use strict';
+  // get the parent node
+  // TODO:
+  //    this does not work in IE / Edge
+  //    catch exception here and write a script for IE
+  var parent = document.currentScript.parentNode;
 
-var activeImpression;
-var urls = {
-  base: 'http://localhost:9050/api/',
-  endPoints: {
-    impression: function() {
-      return (document['campaignID']) ? 'impressions/i/0/' + btoa('campaign:' + document['campaignID']) + '/' : 'impressions/i/';
-    },
-    claim: function(id, email) {
-      var b64 = btoa('email:' + email);
-      return 'impressions/i/' + id + '/' + b64 + '/';
+  // defining the urls here
+  var urls = {
+    base: 'http://localhost:9050/api/',
+    endPoints: {
+      impression: function() {
+        return (document['campaignID']) ? 'impressions/i/0/' + btoa('campaign:' + document['campaignID']) + '/' : 'impressions/i/';
+      },
+      claim: function(id, email) {
+        var b64 = btoa('email:' + email);
+        return 'impressions/i/' + id + '/' + b64 + '/';
+      }
     }
-  }
-};
+  };
 
+  // insert intentaware styles
+  var insertStyles = function() {
+    var styleSheet = document.createElement('link');
+    styleSheet.href = (urls.base === 'http://localhost:9050/api/') ? 'styles/main.css' : 'http://app.intentaware.com/magneto/styles/main.css';
+    styleSheet.type = 'text/css';
+    styleSheet.rel = 'stylesheet';
+    document.getElementsByTagName('head')[0].appendChild(styleSheet);
+  };
 
+  // populate page
+  var populateCampaign = function(coupon) {
+    //console.log(coupon);
+    var child = document.createElement('div');
+    child.className = 'adomattic';
+    child.innerHTML = coupon.template;
+    child.id = 'intentaware-' + coupon.id;
 
-var addUnits = function(data, p) {
-  console.log(data);
-  console.log(p);
-  var layer = document.createElement('div');
-  layer.className = 'adomattic';
-  layer.innerHTML = data.template;
-  var unit = document.getElementsByClassName('adomattic-y')[p];
-  unit.onclick = function() {
-    unit.onclick = false;
-    var self = this;
-    activeImpression = this.id.replace('adomattic', '');
-    console.log(activeImpression);
+    parent.appendChild(child);
+    appendActions(child, coupon.id);
+  };
 
-    //defining adomattic layers on click
-    var impression = self.querySelectorAll('div.impression')[0];
-    var info = self.querySelectorAll('div.info')[0];
-    var result = self.querySelectorAll('div.result')[0];
-    console.log(result);
+  // get the impression
+  var getCampaign = function() {
+    axios({
+      url: urls.base + urls.endPoints.impression(),
+      method: 'GET',
+      headers: {
+        'PUBLISHER-KEY': document['adomattic']
+      },
+      //withCredentials: true
+    }).then(function(response) {
+      //console.log(response.data[0]);
+      populateCampaign(response.data[0]);
+    });
+  };
 
-    // hiding impression and showing info
-    impression.classList.add('hide');
-    info.classList.remove('hide');
+  // append interaction to the populated add unit
+  var appendActions = function(layer, impressionID) {
+    layer.onclick = function() {
+      // prevent furthur clicks on the layer in question
+      layer.onclick = false;
 
-    var f = info.getElementsByTagName('form')[0];
-    f.elements['submit'].addEventListener('click', function(event) {
+      //defining adomattic layers on click
+      var impressionLayer = layer.querySelectorAll('div.impression')[0];
+      var infoLayer = layer.querySelectorAll('div.info')[0];
+      var resultLayer = layer.querySelectorAll('div.result')[0];
+
+      impressionLayer.classList.add('hide');
+      infoLayer.classList.remove('hide');
+
+      // form clicks
+      var form = infoLayer.getElementsByTagName('form')[0];
+      submitForm(form, infoLayer, resultLayer, impressionID);
+    };
+  };
+
+  var submitForm = function(form, info, result, impressionID) {
+    form.elements['submit'].addEventListener('click', function(event) {
       event.preventDefault();
     });
-    f.elements['submit'].onclick = function() {
-      var email = f.elements['email'].value;
-      var tos = f.elements['tos'];
+
+    form.elements['submit'].onclick = function() {
+      var email = form.elements['email'].value;
+      var tos = form.elements['tos'];
       if (tos.checked) {
         axios({
-          url: urls.base + urls.endPoints.claim(activeImpression, email),
+          url: urls.base + urls.endPoints.claim(impressionID, email),
           method: 'GET',
           headers: {
             'PUBLISHER-KEY': document['adomattic']
-              //'Access-Control-Allow-Credentials' : true,
-              //'Access-Control-Allow-Origin': window.location.origin
           },
           data: {
             email: email,
@@ -63,38 +99,15 @@ var addUnits = function(data, p) {
           result.classList.remove('hide');
         });
       } else {
-        var tosContainer = self.querySelectorAll('div.tos-container')[0];
+        var tosContainer = info.querySelectorAll('div.tos-container')[0];
         tosContainer.classList.add('red');
       }
       //console.log(email, password);
     };
-
   };
-  unit.id = 'adomattic' + data.id;
-  unit.appendChild(layer);
-};
 
-var styleSheet = document.createElement('link');
-styleSheet.href = (urls.base === 'http://localhost:9050/api/') ? 'styles/main.css' : 'http://app.intentaware.com/magneto/styles/main.css';
-styleSheet.type = 'text/css';
-styleSheet.rel = 'stylesheet';
-document.getElementsByTagName('head')[0].appendChild(styleSheet);
 
-axios({
-  url: urls.base + urls.endPoints.impression(),
-  //url: 'http://app.intentaware.com/api/impressions/i/',
-  method: 'GET',
-  headers: {
-    'PUBLISHER-KEY': document['adomattic']
-      //'Access-Control-Allow-Credentials' : true,
-      //'Access-Control-Allow-Origin': window.location.origin
-  },
-  withCredentials: true
-}).then(function(response) {
-  console.log(response.data);
-  for (var i = 0; i < response.data.length; i++) {
-    addUnits(response.data[i], i);
-  }
-});
-
-//readCookie('customer');
+  // do the work
+  insertStyles();
+  getCampaign();
+})();
