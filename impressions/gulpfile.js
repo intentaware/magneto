@@ -42,7 +42,7 @@ gulp.task('styles:adomattic', function() {
       })
     ]))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('dist/styles'))
+    .pipe(gulp.dest('../../apps/dashboard/static/impressions/dist/'))
     .pipe(reload({
       stream: true
     }));
@@ -73,7 +73,7 @@ gulp.task('adomattic', function() {
 
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
     .pipe($.sourcemaps.init())
-      .pipe($.concat('all.js'))
+      .pipe($.concat('aware.js'))
       .pipe($.uglify(uglifyOptions))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/scripts'))
@@ -103,11 +103,11 @@ gulp.task('adomattic:live', ['styles:adomattic'], function() {
   };
 
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
-    .pipe($.concat('all.js'))
+    .pipe($.concat('aware.js'))
     .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://app.intentaware.com/api/'"))
     .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "There was an error!"))
     .pipe($.uglify(uglifyOptions))
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('../../apps/dashboard/static/impressions/dist/'))
     .pipe($.size(sizeOptions));
 });
 
@@ -134,11 +134,11 @@ gulp.task('adomattic:stage', ['styles:adomattic'], function() {
   };
 
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
-    .pipe($.concat('all.js'))
+    .pipe($.concat('aware.js'))
     .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://stage.intentaware.com/api/'"))
     .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "There was an error!"))
     .pipe($.uglify(uglifyOptions))
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('../../apps/dashboard/static/impressions/dist/'))
     .pipe($.size(sizeOptions));
 });
 
