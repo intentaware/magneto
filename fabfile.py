@@ -67,7 +67,30 @@ def live():
     env.name = 'adomattic-live'
     env.conf_path = 'live'
     env.project_root = '/srv/%(name)s/' % env
-    env.hosts = ['ec2-52-11-62-128.us-west-2.compute.amazonaws.com']
+    env.hosts = ['52.32.191.6']
+    env.user = 'ec2-user'
+    env.key_filename = DEPLOY_KEY
+    # env.no_keys = True
+    # env.use_ssh_config = False
+    env.branch = 'master'
+    env.venv_root = '/srv/%(name)s/' % env
+    env.venv = 'source /srv/%(name)s/bin/activate && ' % env
+    env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
+    env.impressions = '/srv/%(name)s/apps/dashboard/static/impressions/' % env
+
+
+def app():
+    """
+    Environment Settings for Staging Server
+
+    Usage:
+        fab live <task>
+    """
+    env.run = run
+    env.name = 'ia-live'
+    env.conf_path = 'live'
+    env.project_root = '/srv/%(name)s/' % env
+    env.hosts = ['52.32.191.6']
     env.user = 'ec2-user'
     env.key_filename = DEPLOY_KEY
     # env.no_keys = True
@@ -138,7 +161,9 @@ def clone():
     """
     This second step of server setup
     """
-    env.run("git clone git@github.com:adomattic/Vader.git %(project_root)s" % env)
+    env.run("sudo mkdir %(project_root)s" % env)
+    env.run("sudo chown -R ec2-user:ec2-user %(project_root)s" % env)
+    env.run("git clone --recursive git@github.com:adomattic/Vader.git %(project_root)s" % env)
 
 
 def git_pull():
