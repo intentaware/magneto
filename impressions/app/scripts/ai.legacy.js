@@ -44,9 +44,11 @@ var addUnits = function(data, p) {
     info.classList.remove('hide');
 
     var f = info.getElementsByTagName('form')[0];
+
     f.elements['submit'].addEventListener('click', function(event) {
       event.preventDefault();
     });
+
     f.elements['submit'].onclick = function() {
       var email = f.elements['email'].value;
       var tos = f.elements['tos'];

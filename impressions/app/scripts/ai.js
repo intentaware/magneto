@@ -14,7 +14,15 @@
         return (document['campaignID']) ? 'impressions/i/0/' + btoa('campaign:' + document['campaignID']) + '/' : 'impressions/i/';
       },
       claim: function(id, email) {
-        var b64 = btoa('email:' + email);
+        var b64 = btoa(JSON.stringify({
+          email: email
+        }));
+        return 'impressions/i/' + id + '/' + b64 + '/';
+      },
+      meta: function(id, data) {
+        var b64 = btoa(JSON.stringify({
+          meta: data
+        }));
         return 'impressions/i/' + id + '/' + b64 + '/';
       }
     }
@@ -53,6 +61,7 @@
     }).then(function(response) {
       //console.log(response.data[0]);
       populateCampaign(response.data[0]);
+      postMeta(response.data[0].id);
     });
   };
 
@@ -90,9 +99,6 @@
           method: 'GET',
           headers: {
             'PUBLISHER-KEY': document['adomattic']
-          },
-          data: {
-            email: email,
           }
         }).then(function() {
           info.classList.add('hide');
@@ -104,6 +110,56 @@
       }
       //console.log(email, password);
     };
+  };
+
+  var getMachineInfo = function() {
+    var nvgtr = {};
+    var scrn = {};
+    var unwantedKeys = [
+      'plugins', 'mimeTypes', 'geolocation', 'webkitTemporaryStorage',
+      'webkitPersistentStorage', 'serviceWorker', 'permissions'
+    ];
+
+    // get window.navigator property as a simple JSON object
+    for (var key in navigator) {
+      console.log(unwantedKeys.indexOf(key) == -1);
+      console.log(key);
+      //console.log(typeof(navigator[key]));
+      //console.log(navigator[key]);
+      if (
+        (typeof(navigator[key]) !== 'function') && (unwantedKeys.indexOf(key) == -1)
+      ) {
+        nvgtr[key] = navigator[key];
+      }
+    }
+
+    for (key in screen) {
+      if (key == 'orientation') {
+        scrn['orientation'] = screen.orientation.type;
+      } else {
+        scrn[key] = screen[key];
+      }
+    }
+
+
+    var out = {
+      navigator: nvgtr,
+      screen: scrn
+    };
+    return JSON.stringify(out);
+  };
+
+  var postMeta = function(impressionID) {
+    var meta = getMachineInfo();
+    axios({
+      url: urls.base + urls.endPoints.meta(impressionID, meta),
+      method: 'GET',
+      headers: {
+        'PUBLISHER-KEY': document['adomattic']
+      }
+    }).then(function(response) {
+      console.log(response);
+    });
   };
 
 
