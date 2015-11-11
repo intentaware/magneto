@@ -95,7 +95,7 @@ def app():
     env.key_filename = DEPLOY_KEY
     # env.no_keys = True
     # env.use_ssh_config = False
-    env.branch = 'master'
+    env.branch = 'release'
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
     env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
@@ -173,8 +173,10 @@ def git_pull():
         fab <env> git_pull
     """
     with cd(env.project_root):
-        env.run('git fetch;' % env)
-        env.run('git checkout %(branch)s; git reset --hard origin/%(branch)s' % env)
+        env.run('git fetch' % env)
+        env.run('git checkout %(branch)s; git pull' % env)
+        env.run('git submodule update --init --recursive' % env)
+        #env.run('git checkout %(branch)s; git reset --hard origin/%(branch)s' % env)
 
 def install_requirements():
     """
