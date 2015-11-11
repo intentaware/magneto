@@ -23,6 +23,7 @@ class GetImpression(APIView):
     def get(self, request, pk=None, b64_string=None):
         if not pk:
             coupons = request.publisher.get_target_campaigns(request)
+            # TODO: when we are done with legace, pinpoint a single coupon
             impressions = self.get_impression_markup(request, coupons)
             return Response(impressions, status=200)
         else:
@@ -30,10 +31,10 @@ class GetImpression(APIView):
                 impression = Impression.objects.get(pk=pk)
                 # get or create auth user based on email
                 if b64_string:
-                    key, val = self.process_base64(b64_string)
+                    key, val = self.process_base64(b64_string, impression)
                     if key == 'email':
                         self.claim_coupon(impression, val)
-                        return Response('claimed successfully', status=200)
+                    return Response('claimed successfully', status=200)
             except Impression.DoesNotExist:
                 if b64_string:
                     key, val = self.process_base64(b64_string)
@@ -66,12 +67,19 @@ class GetImpression(APIView):
             impressions.append(impression)
         return impressions
 
-    def process_base64(self, b64_string):
-        import base64
-        [key, val] = base64.b64decode(b64_string).split(':')
-        # val should be email, and if it is upper case, return it in lowercase
-        # for normalization
-        return key, val.lower()
+    def process_base64(self, b64_string, impression):
+        import base64, json
+        data = json.loads(base64.b64decode(b64_string))
+        email = data.get('email', None)
+        if email:
+            print email
+            return 'email', email
+        else:
+            for key, val in data.iteritems():
+                impression.meta[key] = val
+            impression.save()
+            print impression.meta
+            return 'key', 'val'
 
     def claim_coupon(self, impression, email):
         user, created = User.objects.get_or_create(email=email)
@@ -97,10 +105,3 @@ class GetImpression(APIView):
             'user_agent': user_agent,
             'ip2geo': ip2geo,
         }
-
-
-class ImpressionViewSet(ModelViewSet):
-    serializer_class = ImpressionSerializer
-
-    def get_queryset(self):
-        return Impression.objects.all()

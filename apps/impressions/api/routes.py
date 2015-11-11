@@ -1,6 +1,6 @@
 from rest_framework.routers import SimpleRouter
-from .views import ImpressionViewSet
+#from .views import ImpressionViewSet
 
 router = SimpleRouter()
 
-router.register('impressions', ImpressionViewSet, base_name="impressions")
+#router.register('impressions', ImpressionViewSet, base_name="impressions")
