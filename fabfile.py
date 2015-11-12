@@ -144,7 +144,8 @@ def yum():
     # Adding extra packages
     env.run('sudo yum-config-manager --enable epel')
     env.run('sudo yum -y install postgresql94-libs postgresql94-devel')
-    env.run('sudo yum -y install nginx nodejs npm')
+    env.run('sudo yum -y install nginx')
+    env.run('sudo -i; curl -sL https://rpm.nodesource.com/setup_5.x | bash -; yum install nodejs;')
     #env.run('sudo yum -y install uwsgi uwsgi-plugin-python')
     env.run('sudo npm i -g bower gulp yo')
 
