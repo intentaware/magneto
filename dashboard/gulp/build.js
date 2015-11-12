@@ -37,7 +37,7 @@ gulp.task('minify:dashboard', ['inject:dashboard'], function() {
     jsFilter = $.filter('**/*.js');
 
   return gulp.src(paths.django.templates.root + '/__dashboard.html')
-    .pipe($.replace('{{ STATIC_URL }}dashboard', 'compile'))
+    .pipe($.replace('script src="{{ STATIC_URL }}dashboard', 'script src="compile'))
     //.pipe($.debug())
     .pipe(assets = $.useref.assets({
       searchPath: ['.']
