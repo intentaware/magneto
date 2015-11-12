@@ -98,8 +98,9 @@ def app():
     env.branch = 'release'
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
-    env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
-    env.impressions = '/srv/%(name)s/apps/dashboard/static/impressions/' % env
+    env.dashboard = '/srv/%(name)s/magneto/dashboard/' % env
+    env.impressions = '/srv/%(name)s/magneto/impressions/' % env
+    env.impressions = '/srv/%(name)s/magneto/emails/' % env
 
 
 
@@ -138,6 +139,7 @@ def yum():
     env.run('sudo yum -y install python27-devel python27-tools')
     env.run('sudo yum -y install python27-pip')
     env.run('sudo yum -y install ibxml2-devel libxslt-devel geos')
+    env.run('sudo yum -y install freetype-devel freetype-demos libjpeg-turbo libjpeg-turbo-devel lcms2* libtiff* openjpeg* libwebp-devel tcl-devel tk-devel')
     env.run('sudo yum install -y gcc openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel')
     # Adding extra packages
     env.run('sudo yum-config-manager --enable epel')
@@ -151,7 +153,7 @@ def virtualenv_setup():
     """
     The third step
     """
-    env.run("virtualenv %(venv_root)s" % env)
+    env.run("/usr/bin/virtualenv --no-site-packages %(venv_root)s" % env)
     with cd(env.project_root):
         env.run("mkdir logs")
         env.run("touch logs/error-django.log")
@@ -222,6 +224,8 @@ def npm():
     with cd(env.dashboard):
         env.run('npm install')
     with cd(env.impressions):
+        env.run('npm install')
+    with cd(env.emails):
         env.run('npm install')
 
 
