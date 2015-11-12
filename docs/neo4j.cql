@@ -7,8 +7,8 @@ MATCH (campaign:Campaign), (impression:Impression), (meta:ImpressionMeta)
   create (campaign)-[:`gathered_data`]->(meta)
 
 match (impression:Impression) with impression match (meta:ImpressionMeta)
-  where HAS(impression.id) AND HAS(meta.impression) AND impression.id=meta.impression
-  create(impression)-[:`gathered_data`]->(meta)
+  where HAS(impression.id) AND HAS(meta.impression) AND HAS(meta.city) AND impression.id=meta.impression
+  create(impression)-[:`impression_gathered_data`]->(meta)
 
 match (impression:Impression), (visitor:ImpressionUser), (user:User)
   where HAS(impression.visitor) AND HAS(visitor.id) AND HAS(visitor.user) AND HAS(user.id) AND impression.visitor=visitor.id AND visitor.user=user.id
