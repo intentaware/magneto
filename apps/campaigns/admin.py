@@ -15,7 +15,9 @@ class CouponResource(resources.ModelResource):
 class CampaignAdmin(ie_admin.ExportActionModelAdmin):
     resource_class = CampaignResource
     #list_display = [f.name for f in Campaign._meta.fields]
-    list_display = ['id', 'name', 'starts_on', 'ends_on', 'company', 'budget', 'coupon_value' 'is_active']
+    list_display = [
+        'id', 'name', 'starts_on', 'ends_on', 'company', 'budget', 'coupon_value', 'is_active'
+        ]
     list_display_links = ['id', 'name']
     list_filter = ['is_active', 'company']
     pass
