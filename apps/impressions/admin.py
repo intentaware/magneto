@@ -10,7 +10,7 @@ class ImpressionResource(resources.ModelResource):
 
 class ImpressionAdmin(ie_admin.ExportActionModelAdmin):
     list_display = ['id', 'added_on', 'campaign', 'publisher', 'meta']
-    list_filter = ['campaign', 'publisher']
+    list_filter = ['campaign', 'campaign__is_active', 'publisher']
     resource_class = ImpressionResource
     pass
 
