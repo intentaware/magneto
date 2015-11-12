@@ -15,7 +15,7 @@ gulp.task('minify:common', ['inject:common'], function() {
 
   return gulp.src(paths.django.templates.root + '/__base.html')
     //.pipe($.debug())
-    .pipe($.replace('script src="{{ STATIC_URL }}dashboard', 'script src="compile'))
+    .pipe($.replace('href="{{ STATIC_URL }}dashboard', 'href="compile'))
     .pipe(assets = $.useref.assets({
       searchPath: ['.']
     }))
@@ -63,7 +63,7 @@ gulp.task('minify:auth', ['inject:auth'], function() {
     jsFilter = $.filter('**/*.js');
 
   return gulp.src(paths.django.templates.root + '/__auth.html')
-    .pipe($.replace('{{ STATIC_URL }}dashboard', 'compile'))
+    .pipe($.replace('script src="{{ STATIC_URL }}dashboard', 'script src="compile'))
     //.pipe($.debug())
     .pipe(assets = $.useref.assets({
       searchPath: ['.']
