@@ -77,7 +77,7 @@ LOGGING = {
         # Log to a text file that can be rotated by logrotate
         'logfile': {
             'class': 'logging.handlers.WatchedFileHandler',
-            'filename': '/srv/adomattic-live/logs/error-django.log',
+            'filename': '/srv/ia-live/logs/error-django.log',
             'formatter': 'verbose',
         },
     },
