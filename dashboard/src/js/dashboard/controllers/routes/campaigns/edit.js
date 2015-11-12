@@ -26,17 +26,6 @@ angular.module('adomattic.dashboard')
 
           response.circles = Helper.toObjects(response.circles, self.circles);
 
-          /*
-          response.circles = response.circles.map(function(d) {
-            var index = _.findIndex(self.circles, function(c) {
-              return parseInt(c.id) === parseInt(d);
-            });
-            console.log(index);
-            d = self.circles[index];
-            return d;
-          });
-          */
-
           self.campaign = response;
           console.log(response);
         });

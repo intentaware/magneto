@@ -1,5 +1,6 @@
 /**
- * Created by yousuf on 02/03/2015.
+ * @copyright IntentAware 2015
+ * @website https://live.intentaware.com
  */
 
 'use strict';
