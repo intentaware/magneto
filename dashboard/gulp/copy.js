@@ -12,9 +12,9 @@ gulp.task('copy:css', ['inject:common'], function() {
     .pipe(gulp.dest(paths.django.assets.dashboard));
 });
 
-gulp.task('copy:js', ['inject:dashboard', 'partials'], function() {
+gulp.task('copy:js', ['inject:dashboard'], function() {
   return gulp.src([
-      paths.compile + '/**/*.js'
+      paths.compile + '/**/*.js',
     ])
     .pipe($.changed(paths.django.assets.dashboard))
     .pipe($.debug({
@@ -23,4 +23,4 @@ gulp.task('copy:js', ['inject:dashboard', 'partials'], function() {
     .pipe(gulp.dest(paths.django.assets.dashboard));
 });
 
-gulp.task('copy', ['copy:css', 'copy:js', 'inject:auth', 'swig']);
+gulp.task('copy', ['copy:css', 'copy:js', 'inject:auth', 'swig', 'images']);

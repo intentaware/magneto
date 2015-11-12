@@ -8,7 +8,7 @@ var $ = require('gulp-load-plugins')({
 var paths = gulp.paths;
 
 
-gulp.task('ng', function() {
+gulp.task('ng', ['partials'], function() {
   return gulp.src([
       paths.src + '/js/**/*.js',
       //'!' + paths.src + '/js/**/auth/**/*.js',

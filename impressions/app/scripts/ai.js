@@ -31,7 +31,7 @@
   // insert intentaware styles
   var insertStyles = function() {
     var styleSheet = document.createElement('link');
-    styleSheet.href = (urls.base === 'http://localhost:9050/api/') ? 'styles/main.css' : 'http://app.intentaware.com/magneto/styles/main.css';
+    styleSheet.href = (urls.base === 'http://localhost:9050/api/') ? 'styles/main.css' : 'http://live.intentaware.com/magneto/styles/main.css';
     styleSheet.type = 'text/css';
     styleSheet.rel = 'stylesheet';
     document.getElementsByTagName('head')[0].appendChild(styleSheet);
@@ -55,7 +55,7 @@
       url: urls.base + urls.endPoints.impression(),
       method: 'GET',
       headers: {
-        'PUBLISHER-KEY': document['adomattic']
+        'PUBLISHER-KEY': document['intentaware']
       },
       //withCredentials: true
     }).then(function(response) {
@@ -98,7 +98,7 @@
           url: urls.base + urls.endPoints.claim(impressionID, email),
           method: 'GET',
           headers: {
-            'PUBLISHER-KEY': document['adomattic']
+            'PUBLISHER-KEY': document['intentaware']
           }
         }).then(function() {
           info.classList.add('hide');
@@ -122,8 +122,6 @@
 
     // get window.navigator property as a simple JSON object
     for (var key in navigator) {
-      console.log(unwantedKeys.indexOf(key) == -1);
-      console.log(key);
       //console.log(typeof(navigator[key]));
       //console.log(navigator[key]);
       if (
@@ -155,7 +153,7 @@
       url: urls.base + urls.endPoints.meta(impressionID, meta),
       method: 'GET',
       headers: {
-        'PUBLISHER-KEY': document['adomattic']
+        'PUBLISHER-KEY': document['intentaware']
       }
     }).then(function(response) {
       console.log(response);

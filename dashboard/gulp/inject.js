@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-var wiredep = require('wiredep');
 /* jshint ignore:start */
 var _ = require('lodash');
 /* jshint ignore:end */
@@ -23,21 +22,8 @@ var vendorOptions = _.merge({
   name: 'bower'
 }, injectOptions);
 
-gulp.task('install:css', function() {
-  return gulp.src(wiredep().css)
-    .pipe(gulp.dest(paths.compile + '/vendor/css'));
-});
-
-gulp.task('install:js', function() {
-  return gulp.src(wiredep().js)
-    .pipe($.sourcemaps.init())
-    .pipe($.concat('vendor.js'))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest(paths.compile + '/vendor/js'));
-});
-
 // injectionstyles common base
-gulp.task('inject:common', ['styles', 'install:css'], function() {
+gulp.task('inject:common', ['styles', 'deps:css'], function() {
   // style injection for application styles
   var injectStyles = gulp.src([
     paths.compile + '/source/**/*.css',
@@ -63,7 +49,7 @@ gulp.task('inject:common', ['styles', 'install:css'], function() {
 
 
 // injecting scripts into dashboard
-gulp.task('inject:dashboard', ['ng', 'install:js', 'partials'], function() {
+gulp.task('inject:dashboard', ['ng', 'deps:js'], function() {
 
   var injectScripts = gulp.src([
       paths.compile + '/source/**/*.js',
@@ -95,7 +81,7 @@ gulp.task('inject:dashboard', ['ng', 'install:js', 'partials'], function() {
 });
 
 // injecting into auth
-gulp.task('inject:auth', ['ng', 'install:js'], function() {
+gulp.task('inject:auth', ['ng', 'deps:js'], function() {
   var injectScripts = gulp.src([
       paths.compile + '/source/**/auth/**/*.js',
       '!' + paths.compile + '/source/**/dashboard/**/*.js',

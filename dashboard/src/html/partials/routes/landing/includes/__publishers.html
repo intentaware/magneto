@@ -8,23 +8,22 @@
         </div>
       </md-toolbar>
       <md-card-content>
-        <p>Include this anywhere in your html file</p>
+        <p>Place this where you want to have the ad unit.</p>
         <xmp>
 <script type="text/javascript">
-(function(){
-  'use strict';
-  document.adomattic = '{{ globals.company.publisher_key }}';
-  var ai = document.createElement('script');
-  ai.type = 'text/javascript';
-  ai.async = true;
-  ai.src = '{{ assetRoot }}all.js';
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(ai, s);
-})();
+  (function () {
+    'use strict';
+    document.intentaware = '{{ globals.company.publisher_key }}';
+    var parent = document.currentScript.parentNode;
+    var pixel = document.createElement('script');
+    pixel.type = 'text/javascript';
+    pixel.async = true;
+    pixel.src = '{{ assetRoot }}scripts/aware.js';
+    parent.appendChild(pixel);
+  })();
 </script>
         </xmp>
-        <p>and then to display your add, just put <xmp><div class="adomattic-y"></div></xmp> where you want to display your ad.</p>
-      </md-card-content>
+        </md-card-content>
     </md-card>
   </div>
 </div>

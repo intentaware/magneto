@@ -15,7 +15,7 @@ gulp.task('swig', function() {
       '!' + paths.html.root + '/partials/**/*.html'
     ])
     .pipe($.changed(paths.django.templates.root))
-    .pipe($.swig())
+    .pipe($.swig({defaults: { cache: false }}))
     .pipe(gulp.dest(paths.django.templates.root));
 });
 
@@ -24,10 +24,13 @@ gulp.task('partials', function() {
       paths.html.root + '/partials/**/*.html',
       '!' + paths.html.root + '/**/__*.html',
     ])
-  .pipe($.swig())
-  .pipe($.minifyHtml())
-  .pipe($.angularTemplatecache('template-cache.js', {
-    module: 'adomattic.dashboard'
-  }))
-  .pipe(gulp.dest(paths.compile + '/source/js/dashboard/templates'));
+    .pipe($.swig({defaults: { cache: false }}))
+    .pipe($.minifyHtml())
+    .pipe($.angularTemplatecache('template-cache.js', {
+      module: 'adomattic.dashboard'
+    }))
+    .pipe($.debug({
+      title: 'updating templating cache'
+    }))
+    .pipe(gulp.dest(paths.compile + '/source/js/dashboard/templates'));
 });
