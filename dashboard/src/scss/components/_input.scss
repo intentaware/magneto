@@ -2,3 +2,7 @@
   @include order(3);
   color: #888;
 }
+
+md-input-container [ng-message].help-text {
+  color: rgba(0, 0, 0, 0.54);
+}

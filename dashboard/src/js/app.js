@@ -13,6 +13,7 @@ angular.module('adomattic', [
     // 3rd party
     'ngMask',
     'nvd3',
+    'zeroclipboard',
     // adomattic
     'adomattic.dashboard'
   ])
@@ -96,6 +97,9 @@ angular.module('adomattic', [
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+  })
+  .config(function(uiZeroclipConfigProvider){
+    uiZeroclipConfigProvider.setOverrideConfig(false);
   });
 
-// pace.js options
+

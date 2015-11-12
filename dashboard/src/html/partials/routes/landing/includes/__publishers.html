@@ -7,23 +7,23 @@
           <span>Publisher's Include Code</span>
         </div>
       </md-toolbar>
-      <md-card-content>
-        <p>Place this where you want to have the ad unit.</p>
-        <xmp>
-<script type="text/javascript">
-  (function () {
-    'use strict';
-    document.intentaware = '{{ globals.company.publisher_key }}';
-    var parent = document.currentScript.parentNode;
-    var pixel = document.createElement('script');
-    pixel.type = 'text/javascript';
-    pixel.async = true;
-    pixel.src = '{{ assetRoot }}scripts/aware.js';
-    parent.appendChild(pixel);
-  })();
-</script>
-        </xmp>
-        </md-card-content>
+      <md-card-content id="publisher-card">
+        <md-input-container>
+          <label>Include Code</label>
+          <input type="text" ng-model="pixel" ng-disabled="true">
+          <div ng-messages="helpText">
+            <div ng-message="forPixel" class="help-text">
+              Click copy, and place this exactly where you want your offer to appear!
+            </div>
+          </div>
+        </md-input-container>
+        <md-button
+          class="md-primary md-raised"
+          ui-zeroclip zeroclip-model="pixel" zeroclip-copied="showCopied()"
+          aria-label="copy the include code">
+          Copy
+        </md-button>
+      </md-card-content>
     </md-card>
   </div>
 </div>
