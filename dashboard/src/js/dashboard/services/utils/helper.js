@@ -26,9 +26,9 @@ angular.module('adomattic.dashboard')
       var pixel;
 
       if (campaignID) {
-        pixel = '<script>(function(){document.intentaware="' + publisherKey + '";document.intentaware="' + campaignID + '";var b=document.currentScript.parentNode,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="' + assetRoot + 'scripts/aware.js";b.appendChild(a)})();<script>';
+        pixel = '<script>(function(){document.intentaware="' + publisherKey + '";document.intentaware="' + campaignID + '";var b=document.currentScript.parentNode,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="' + assetRoot + '/aware.js";b.appendChild(a)})();<script>';
       } else {
-        pixel = '<script>(function(){document.intentaware="' + publisherKey + '";var b=document.currentScript.parentNode,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="' + assetRoot + 'scripts/aware.js";b.appendChild(a)})();<script>';
+        pixel = '<script>(function(){document.intentaware="' + publisherKey + '";var b=document.currentScript.parentNode,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="' + assetRoot + '/aware.js";b.appendChild(a)})();<script>';
       }
 
       return pixel;
