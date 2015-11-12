@@ -1,4 +1,4 @@
 [submodule "magneto"]
 	path = magneto
 	url = git@github.com:intentaware/magneto.git
-  branch = "develop"
+  branch = develop
