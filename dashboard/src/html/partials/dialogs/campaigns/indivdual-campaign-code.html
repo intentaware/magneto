@@ -6,30 +6,21 @@
     </div>
   </md-toolbar>
   <md-dialog-content>
-    <p>Include this code anywhere in your html</p>
-    <md-divider></md-divider>
-          <xmp>
-<script type="text/javascript">
-(function(){
-  'use strict';
-  document.adomattic = '{{ offerCode.globals.company.publisher_key }}';
-  document.campaignID = '{{ offerCode.campaignID }}';
-  var ai = document.createElement('script');
-  ai.type = 'text/javascript';
-  ai.async = true;
-  ai.src = '{{ offerCode.assetRoot }}all.js';
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(ai, s);
-})();
-</script>
-        </xmp>
-    <md-divider></md-divider>
-    <p>And the following div where you want to display your coupon widget</p>
-    <md-divider></md-divider>
-    <xmp>
-<div class="adomattic-y"></div>
-    </xmp>
-    <md-divider></md-divider>
+    <md-input-container>
+      <label>Include Code</label>
+      <input type="text" ng-model="offerCode.pixel" ng-disabled="true">
+      <div ng-messages="offerCode.helpText">
+        <div ng-message="forPixel" class="help-text">
+          Click copy, and place this exactly where you want your offer to appear!
+        </div>
+      </div>
+    </md-input-container>
+    <md-button
+      class="md-primary md-raised"
+      ui-zeroclip zeroclip-model="offerCode.pixel" zeroclip-copied="offerCode.showCopied()"
+      aria-label="copy the include code">
+      Copy
+    </md-button>
   </md-dialog-content>
   <div class="md-actions">
     <md-button class="md-primary md-raised" ng-click="offerCode.hide()">Close</md-button>
