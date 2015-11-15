@@ -72,3 +72,56 @@ class CompanyRegistrationSerializer(BaseRegistrationSerializer):
             is_owner=True, is_superuser=True, is_default=True)
         cu.set_default()
         return cu
+
+class LeadRegistrationSerializer(serializers.Serializer):
+    company_name = serializers.CharField(max_length=128)
+    user_name = serializers.CharField(max_length=512)
+    email = serializers.EmailField(max_length=128)
+    phone = serializers.CharField(max_length=128)
+    role = serializers.CharField(max_length=128)
+
+    def validate_email(self, value):
+        email = value.lower()
+        try:
+            User.objects.get(email=email)
+            raise serializers.ValidationError('Email already exists')
+        except User.DoesNotExist:
+            return value
+
+    def create(self, validated_data):
+        # TODO: when app machine is decommisioned in favour of live
+        #       do migrations to accomodate phone number
+        print validated_data
+        user_name = validated_data['user_name']
+        company_name = validated_data['company_name']
+        email = validated_data['email']
+        phone = validated_data['phone']
+        role = validated_data['role']
+
+        name = user_name.split(' ')
+        first_name = name[0]
+
+        if len(user_name) > 1:
+            last_name = name[1]
+        else:
+            last_name = ''
+
+        user = User.objects.create_user(
+                email=email, password=None, first_name=first_name,
+                last_name=last_name
+            )
+
+        company = Company.objects.create(
+                name=company_name
+            )
+
+        group = CompanyGroup.objects.create(name='Administrators',
+                company=company)
+
+        company_user = CompanyUser.objects.create(
+                company=company, group=group, user=user
+            )
+
+        return company_user
+
+

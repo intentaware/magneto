@@ -163,7 +163,7 @@ class User(TimeStamped, AbstractBaseUser, PermissionsMixin):
 
     def send_registration_email(self, **kwargs):
         subject = 'Welcome to Adomattic'
-        template = 'registration/welcome-email.html'
+        template = 'emails/welcome-email.html'
         self.send_templated_email(
             template=template,
             context={

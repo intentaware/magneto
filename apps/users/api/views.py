@@ -5,7 +5,7 @@ from registration import signals
 from apps.api.permissions import UserRegistrationAPIPermission, \
     PublisherAPIPermission
 from .serializers import UserRegistrationSerializer, \
-    CompanyRegistrationSerializer
+    CompanyRegistrationSerializer, LeadRegistrationSerializer
 
 class UserRegistrationView(APIView):
     permission_classes = (PublisherAPIPermission, )
@@ -43,3 +43,22 @@ class CompanyRegistrationView(APIView):
             }, status=201)
         else:
             return Response(serializer.errors, status=400)
+
+class LeadRegistrationView(APIView):
+    permission_classes = (UserRegistrationAPIPermission, )
+
+    def post(self, request):
+        serializer = LeadRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            member = serializer.save()
+            signals.user_registered.send(
+                sender=self.__class__,
+                user=member.user,
+                request=request
+            )
+            return Response({
+                    'message': 'Thankyou'
+                })
+        else:
+            return Response(serializer.errors, status=400)
+
