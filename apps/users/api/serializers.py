@@ -4,10 +4,23 @@ from apps.users.models import User
 from apps.companies.models import Company, CompanyGroup, CompanyUser
 
 
-class BaseRegistrationSerializer(serializers.Serializer):
-    email = serializers.EmailField(max_length=128)
+class PasswordValidationSerializer(serializers.Serializer):
     password1 = serializers.CharField(max_length=128)
     password2 = serializers.CharField(max_length=128)
+
+    def validate_password2(self, value):
+        if value != self.initial_data['password1']:
+            raise serializers.ValidationError('Password Mismatch')
+        else:
+            if len(value) < 8:
+                raise serializers.ValidationError(
+                    'Password too weak, must be 8 characters long')
+            else:
+                return value
+
+
+class BaseRegistrationSerializer(PasswordValidationSerializer):
+    email = serializers.EmailField(max_length=128)
     first_name = serializers.CharField(max_length=128, required=False)
     last_name = serializers.CharField(max_length=128, required=False)
 
@@ -19,16 +32,6 @@ class BaseRegistrationSerializer(serializers.Serializer):
             raise serializers.ValidationError('Email already exists')
         except User.DoesNotExist:
             return value
-
-    def validate_password2(self, value):
-        if value != self.initial_data['password1']:
-            raise serializers.ValidationError('Password Mismatch')
-        else:
-            if len(value) < 8:
-                raise serializers.ValidationError(
-                    'Password too weak, must be 8 characters long')
-            else:
-                return value
 
 
 class UserRegistrationSerializer(BaseRegistrationSerializer):

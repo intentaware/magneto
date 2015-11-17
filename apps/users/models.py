@@ -162,7 +162,7 @@ class User(TimeStamped, AbstractBaseUser, PermissionsMixin):
         email.send()
 
     def send_registration_email(self, **kwargs):
-        subject = 'Welcome to Adomattic'
+        subject = 'Welcome to IntentAware'
         template = 'emails/welcome-email.html'
         self.send_templated_email(
             template=template,
@@ -174,7 +174,7 @@ class User(TimeStamped, AbstractBaseUser, PermissionsMixin):
         )
 
     def send_password_reset_email(self, **kwargs):
-        subject = '[Adomattic] Reset your password'
+        subject = '[IntentAware] Reset your password'
         template = 'emails/password-reset.html'
         self.send_templated_email(
             template=template,
