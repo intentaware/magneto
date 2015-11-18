@@ -72,7 +72,7 @@ angular.module('adomattic', [
         controller: 'CampaignCreateCtrl',
         controllerAs: 'baseCampaignFormCtrl'
       })
-      .when('routes/campaigns/edit.html', {
+      .when('/campaigns/:campaignID/edit/', {
         templateUrl: 'routes/campaigns/edit.html',
         controller: 'CampaignEditCtrl',
         controllerAs: 'baseCampaignFormCtrl'
