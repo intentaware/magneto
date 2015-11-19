@@ -71,15 +71,30 @@ class GetImpression(APIView):
         import base64, json
         data = json.loads(base64.b64decode(b64_string))
         email = data.get('email', None)
+        meta = data.get('meta', None)
         if email:
-            print email
+            #print email
             return 'email', email
-        else:
-            for key, val in data.iteritems():
-                impression.meta[key] = val
-            impression.save()
-            print impression.meta
+        elif meta:
+            meta = json.loads(meta)
+            self.update_meta(meta, impression)
             return 'key', 'val'
+
+    def update_meta(self, dictionary, impression):
+        """updated the impression meta data
+
+        Args:
+            dictionary (dict): dictionary of items
+            impression (object): impression model object on which the data needs
+            to be updated
+
+        Returns:
+            None: returns nothing
+        """
+        for key, val in dictionary.iteritems():
+            impression.meta[key] = val
+        impression.save()
+
 
     def claim_coupon(self, impression, email):
         user, created = User.objects.get_or_create(email=email)
