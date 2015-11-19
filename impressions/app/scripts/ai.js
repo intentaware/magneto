@@ -31,7 +31,7 @@
   // insert intentaware styles
   var insertStyles = function() {
     var styleSheet = document.createElement('link');
-    styleSheet.href = (urls.base === 'http://localhost:9050/api/') ? 'styles/main.css' : 'http://live.intentaware.com/magneto/styles/main.css';
+    styleSheet.href = (urls.base === 'http://localhost:9050/api/') ? 'styles/main.css' : 'https://live.intentaware.com/magneto/styles/main.css';
     styleSheet.type = 'text/css';
     styleSheet.rel = 'stylesheet';
     document.getElementsByTagName('head')[0].appendChild(styleSheet);
