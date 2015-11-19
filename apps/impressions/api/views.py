@@ -106,12 +106,16 @@ class GetImpression(APIView):
 
     def process_request(self, request):
         from ipware.ip import get_real_ip
-        ip = get_real_ip(request) or '182.186.15.243'
+        ip = get_real_ip(request) or '99.22.48.100'
         if ip:
-            import geoip2.database
+            import geoip2.webservice
             from django.conf import settings
-            reader = geoip2.database.Reader(settings.MAXMIND_CITY_DB)
-            ip2geo = reader.city(ip).raw
+            client = geoip2.webservice.Client(
+                settings.MAXMIND_CLIENTID, settings.MAXMIND_SECRET)
+            #reader = geoip2.database.Reader(settings.MAXMIND_CITY_DB)
+            ip2geo = client.insights(ip).raw
+            print ip2geo
+            #ip2geo = reader.city(ip).raw
         else:
             ip2geo = None
         user_agent = request.META['HTTP_USER_AGENT']

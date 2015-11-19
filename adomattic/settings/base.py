@@ -240,6 +240,8 @@ ADMIN_SITE_HEADER = 'IntentAware Administration Console'
 # MAX MIND GEO IP2 Database File Root
 MAXMIND_DB_ROOT = os.path.join(CONF_DIR, 'ipdb')
 MAXMIND_CITY_DB = MAXMIND_DB_ROOT + '/GeoLite2-City.mmdb'
+MAXMIND_CLIENTID = '106847'
+MAXMIND_SECRET = 'JfADx8je3tMo'
 
 # Plugin Cities
 CITIES_POSTAL_CODES = ['ALL']
