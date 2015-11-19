@@ -56,7 +56,7 @@ def stage():
     env.impressions = '/srv/%(name)s/apps/dashboard/static/impressions/' % env
 
 
-def app():
+def live():
     """
     Environment Settings for Staging Server
 
