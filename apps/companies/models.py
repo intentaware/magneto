@@ -27,6 +27,9 @@ class Company(TimeStamped, SluggedFromName, Stripe):
     class Meta:
         verbose_name_plural = "companies"
 
+    def __unicode__(self):
+        return self.name
+
     def get_target_campaigns(self, request, campaign_id=None):
         from apps.campaigns.models import Coupon
         if not campaign_id:

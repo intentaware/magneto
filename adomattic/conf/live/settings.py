@@ -38,8 +38,8 @@ DEFAULT_FILE_STORAGE = 'apps.common.utils.storage.MediaStorage'
 STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
 
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
-MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+STATIC_URL = "//%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+MEDIA_URL = "//%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
 DATABASES = {
     'default': {
@@ -77,7 +77,7 @@ LOGGING = {
         # Log to a text file that can be rotated by logrotate
         'logfile': {
             'class': 'logging.handlers.WatchedFileHandler',
-            'filename': '/srv/adomattic-live/logs/error-django.log',
+            'filename': '/srv/ia-live/logs/error-django.log',
             'formatter': 'verbose',
         },
     },

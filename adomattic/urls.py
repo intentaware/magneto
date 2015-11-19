@@ -1,14 +1,15 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from .settings import ADMIN_SITE_HEADER
 
-admin.site.site_header = 'Adomattic Administration Console'
+admin.site.site_header = ADMIN_SITE_HEADER
 
 urlpatterns = patterns(
     '',
     # Examples:
     # url(r'^$', 'adomattic.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^grappelli/', include('grappelli.urls')),
+    # url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^photologue/', include('photologue.urls', namespace='photologue')),
     # adomattic urls

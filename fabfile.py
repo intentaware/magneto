@@ -64,19 +64,20 @@ def live():
         fab live <task>
     """
     env.run = run
-    env.name = 'adomattic-live'
+    env.name = 'ia-live'
     env.conf_path = 'live'
     env.project_root = '/srv/%(name)s/' % env
-    env.hosts = ['ec2-52-11-62-128.us-west-2.compute.amazonaws.com']
+    env.hosts = ['52.11.62.128']
     env.user = 'ec2-user'
     env.key_filename = DEPLOY_KEY
     # env.no_keys = True
     # env.use_ssh_config = False
-    env.branch = 'master'
+    env.branch = 'release'
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
-    env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
-    env.impressions = '/srv/%(name)s/apps/dashboard/static/impressions/' % env
+    env.dashboard = '/srv/%(name)s/magneto/dashboard/' % env
+    env.impressions = '/srv/%(name)s/magneto/impressions/' % env
+    env.email = '/srv/%(name)s/magneto/emails/' % env
 
 
 
@@ -115,11 +116,13 @@ def yum():
     env.run('sudo yum -y install python27-devel python27-tools')
     env.run('sudo yum -y install python27-pip')
     env.run('sudo yum -y install ibxml2-devel libxslt-devel geos')
+    env.run('sudo yum -y install freetype-devel freetype-demos libjpeg* pngquant lcms2* libtiff* openjpeg* libwebp-devel tcl-devel tk-devel')
     env.run('sudo yum install -y gcc openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel')
     # Adding extra packages
     env.run('sudo yum-config-manager --enable epel')
     env.run('sudo yum -y install postgresql94-libs postgresql94-devel')
-    env.run('sudo yum -y install nginx nodejs npm')
+    env.run('sudo yum -y install nginx')
+    env.run('sudo -i; curl -sL https://rpm.nodesource.com/setup_5.x | bash -; yum install nodejs;')
     #env.run('sudo yum -y install uwsgi uwsgi-plugin-python')
     env.run('sudo npm i -g bower gulp yo')
 
@@ -128,7 +131,7 @@ def virtualenv_setup():
     """
     The third step
     """
-    env.run("virtualenv %(venv_root)s" % env)
+    env.run("/usr/bin/virtualenv --no-site-packages %(venv_root)s" % env)
     with cd(env.project_root):
         env.run("mkdir logs")
         env.run("touch logs/error-django.log")
@@ -138,7 +141,9 @@ def clone():
     """
     This second step of server setup
     """
-    env.run("git clone git@github.com:adomattic/Vader.git %(project_root)s" % env)
+    env.run("sudo mkdir %(project_root)s" % env)
+    env.run("sudo chown -R ec2-user:ec2-user %(project_root)s" % env)
+    env.run("git clone --recursive git@github.com:adomattic/Vader.git %(project_root)s" % env)
 
 
 def git_pull():
@@ -148,8 +153,10 @@ def git_pull():
         fab <env> git_pull
     """
     with cd(env.project_root):
-        env.run('git fetch;' % env)
-        env.run('git checkout %(branch)s; git reset --hard origin/%(branch)s' % env)
+        env.run('git fetch' % env)
+        env.run('git checkout %(branch)s; git pull' % env)
+        env.run('git submodule update --init --recursive' % env)
+        #env.run('git checkout %(branch)s; git reset --hard origin/%(branch)s' % env)
 
 def install_requirements():
     """
@@ -195,6 +202,8 @@ def npm():
     with cd(env.dashboard):
         env.run('npm install')
     with cd(env.impressions):
+        env.run('npm install')
+    with cd(env.emails):
         env.run('npm install')
 
 
