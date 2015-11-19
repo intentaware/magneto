@@ -37,9 +37,12 @@ class GetImpression(APIView):
                     return Response('claimed successfully', status=200)
             except Impression.DoesNotExist:
                 if b64_string:
+                    print b64_string
                     key, val = self.process_base64(b64_string)
                     if key == "campaign":
+                        print val
                         coupons = request.publisher.get_target_campaigns(request, campaign_id=val)
+                        print coupons
                         impressions = self.get_impression_markup(request, coupons)
                         return Response(impressions, status=200)
 
@@ -67,11 +70,13 @@ class GetImpression(APIView):
             impressions.append(impression)
         return impressions
 
-    def process_base64(self, b64_string, impression):
+    def process_base64(self, b64_string, impression=None):
         import base64, json
+        print base64.b64decode(b64_string)
         data = json.loads(base64.b64decode(b64_string))
         email = data.get('email', None)
         meta = data.get('meta', None)
+        campaign = data.get('campaign', None)
         if email:
             #print email
             return 'email', email
@@ -79,6 +84,8 @@ class GetImpression(APIView):
             meta = json.loads(meta)
             self.update_meta(meta, impression)
             return 'key', 'val'
+        elif campaign:
+            return 'campaign', campaign
 
     def update_meta(self, dictionary, impression):
         """updated the impression meta data

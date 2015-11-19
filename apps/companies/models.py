@@ -40,9 +40,7 @@ class Company(TimeStamped, SluggedFromName, Stripe):
             return Coupon.objects.filter(
                     campaign_id=campaign_id,
                     redeemed_on__isnull=True,
-                ).exclude(
-                    campaign__image=None
-                ).active().order_by('?')[:1]
+                ).order_by('?')[:1]
 
     @property
     def stripe_customer_id(self):
