@@ -56,29 +56,6 @@ def stage():
     env.impressions = '/srv/%(name)s/apps/dashboard/static/impressions/' % env
 
 
-def live():
-    """
-    Environment Settings for Staging Server
-
-    Usage:
-        fab live <task>
-    """
-    env.run = run
-    env.name = 'adomattic-live'
-    env.conf_path = 'live'
-    env.project_root = '/srv/%(name)s/' % env
-    env.hosts = ['52.32.191.6']
-    env.user = 'ec2-user'
-    env.key_filename = DEPLOY_KEY
-    # env.no_keys = True
-    # env.use_ssh_config = False
-    env.branch = 'master'
-    env.venv_root = '/srv/%(name)s/' % env
-    env.venv = 'source /srv/%(name)s/bin/activate && ' % env
-    env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
-    env.impressions = '/srv/%(name)s/apps/dashboard/static/impressions/' % env
-
-
 def app():
     """
     Environment Settings for Staging Server
@@ -90,7 +67,7 @@ def app():
     env.name = 'ia-live'
     env.conf_path = 'live'
     env.project_root = '/srv/%(name)s/' % env
-    env.hosts = ['52.32.191.6']
+    env.hosts = ['52.11.62.128']
     env.user = 'ec2-user'
     env.key_filename = DEPLOY_KEY
     # env.no_keys = True
@@ -100,7 +77,7 @@ def app():
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
     env.dashboard = '/srv/%(name)s/magneto/dashboard/' % env
     env.impressions = '/srv/%(name)s/magneto/impressions/' % env
-    env.impressions = '/srv/%(name)s/magneto/emails/' % env
+    env.email = '/srv/%(name)s/magneto/emails/' % env
 
 
 
