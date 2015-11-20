@@ -121,6 +121,8 @@ ADOMATIC_APPS = (
     'apps.metas',
     'apps.finances',
 
+    'apps.warehouse',
+
     # for front end
     'apps.dashboard',
 )
