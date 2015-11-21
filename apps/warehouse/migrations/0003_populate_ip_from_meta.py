@@ -19,11 +19,14 @@ def populate_data(apps, schemaeditor):
             print country_name
         except Country.DoesNotExist:
             country = None
-            print country_name
+            print 'country name not found in country store'
 
         try:
+            code = i.meta['ip2geo']['postal']['code'],
+            print code
+            print country
             postal_code = PostalCode.objects.filter(
-                code = i.meta['ip2geo']['postal']['code'],
+                code = code
                 country = country
             )
             if postal_code.count() > 0:
