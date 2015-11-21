@@ -80,6 +80,11 @@ LOGGING = {
             'filename': '/srv/ia-live/logs/error-django.log',
             'formatter': 'verbose',
         },
+        'log_to_stdout': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
     },
     'loggers': {
         # All the time, anywhere
