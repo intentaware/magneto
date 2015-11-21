@@ -38,6 +38,10 @@ def populate_data(apps, schemaeditor):
         except KeyError:
             print i.meta
 
+def flush(apps, schemaeditor):
+    print 'backwards'
+    IPStore = apps.get_model('warehouse', 'IPStore')
+    IPStore.objects.all().delete()
 
 class Migration(migrations.Migration):
 
@@ -46,5 +50,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(populate_data)
+        migrations.RunPython(populate_data, flush)
     ]
