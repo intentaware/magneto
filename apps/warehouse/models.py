@@ -20,6 +20,19 @@ class IPStore(TimeStamped):
     def country(self):
         return self.postal_code.country.name
 
+    @property
+    def long_postal_code(self):
+        pc = None
+        for s in self.geocode[0]['address_components']:
+            if s['types'][0] == 'postal_code':
+                pc = s['long_name']
+        return pc
+
+    @property
+    def nearest_address(self):
+        return self.geocode[0]['formatted_address']
+
+
 
 
 class PostalDemographics(TimeStamped):
