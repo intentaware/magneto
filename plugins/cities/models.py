@@ -136,11 +136,6 @@ class PostalCode(Place):
 
     objects = models.GeoManager()
 
-    # More Demographics
-    #
-    income_per_capita = models.PositiveIntegerField(blank=True, null=True)
-    income_household = models.PositiveIntegerField(blank=True, null=True)
-
 
 
     @property
