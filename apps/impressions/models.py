@@ -38,6 +38,10 @@ class Impression(TimeStamped):
         meta = self.meta
         self.meta['impression'] = self.id
         ip2geo = meta.pop('ip2geo')
+        meta.pop('meta', None)
+        meta.pop('navigator', None)
+        meta.pop('screen', None)
+        meta.pop('email', None)
         try:
             self.meta['city'] = ip2geo['city']['names']['en']
             self.meta['country'] = ip2geo['country']['names']['en']

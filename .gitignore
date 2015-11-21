@@ -192,3 +192,6 @@ bin
 
 ### celery ###
 celerybeat-schedule
+
+# Project Exports
+*.csv
