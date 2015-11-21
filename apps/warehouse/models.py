@@ -10,3 +10,8 @@ class IPStore(TimeStamped):
 
     def __unicode__(self):
         return self.ip
+
+class PostalDemographics(TimeStamped):
+    postal_code = models.ForeignKey('cities.PostalCode')
+    income_per_capita = models.PositiveIntegerField(blank=True, null=True)
+    income_household = models.PositiveIntegerField(blank=True, null=True)

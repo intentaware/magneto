@@ -4,6 +4,6 @@ from .models import IPStore
 # Register your models here.
 
 class IPStoreAdmin(admin.ModelAdmin):
-    list_display = [f.name for f in IPStore._meta.fields]
+    list_display = ['ip', 'postal_code', 'added_on', 'updated_on']
 
 admin.site.register(IPStore, IPStoreAdmin)
