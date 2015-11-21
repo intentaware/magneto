@@ -19,6 +19,7 @@ def populate_data(apps, schemaeditor):
             print country_name
         except Country.DoesNotExist:
             country = None
+            print country_name
 
         try:
             postal_code = PostalCode.objects.filter(
