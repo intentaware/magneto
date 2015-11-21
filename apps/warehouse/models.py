@@ -12,8 +12,9 @@ class IPStore(TimeStamped):
         return self.ip
 
     @property
-    def verbose_postal_code(self):
-        return '%s - %s' %(self.postal_code.code, self.postal_code.country.name)
+    def country(self):
+        return self.postal_code.country.name
+
 
 
 class PostalDemographics(TimeStamped):
