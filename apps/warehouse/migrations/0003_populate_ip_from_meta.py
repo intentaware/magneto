@@ -11,15 +11,13 @@ def populate_data(apps, schemaeditor):
 
     for i in Impression.objects.filter(meta__at_ip__isnull=False, meta__at_ip2geo__isnull=False):
         try:
-            country_name = name=i.meta['ip2geo']['country']['names']['en']
+            country_code = i.meta['ip2geo']['country']['iso_code']
+            try:
+                country = Country.objects.get(code=country_code)
+            except Country.DoesNotExist:
+                print 'code %s does not exist in country database' %(country_code)
         except KeyError:
-            country_name = None
-        try:
-            country = Country.objects.get(name=country_name)
-            print country_name
-        except Country.DoesNotExist:
             country = None
-            print 'country name not found in country store'
 
         try:
             code = i.meta['ip2geo']['postal']['code'],
