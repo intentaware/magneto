@@ -11,6 +11,11 @@ class IPStore(TimeStamped):
     def __unicode__(self):
         return self.ip
 
+    @property
+    def verbose_postal_code(self):
+        return '%s - %s' %(self.postal_code.code, self.postal_code.country.name)
+
+
 class PostalDemographics(TimeStamped):
     postal_code = models.ForeignKey('cities.PostalCode')
     income_per_capita = models.PositiveIntegerField(blank=True, null=True)
