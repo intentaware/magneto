@@ -253,6 +253,9 @@ CITIES_PLUGINS = [
     'plugins.cities.plugin.reset_queries.Plugin',  # plugin that helps to reduce memory usage when importing large datasets (e.g. "allCountries.zip")
 ]
 
+# Google Geocode API
+GOOGLE_GEOCODE_KEY = 'AIzaSyCAT8k8LnKNPPnQcsGzLWuO7OhAh5tgCFo'
+
 try:
     from local import *
 except ImportError:
