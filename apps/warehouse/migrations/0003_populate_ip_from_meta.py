@@ -26,7 +26,7 @@ def populate_data(apps, schemaeditor):
             print code
             print country
             postal_code = PostalCode.objects.filter(
-                code = code
+                code = code,
                 country = country
             )
             if postal_code.count() > 0:
