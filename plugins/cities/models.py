@@ -10,7 +10,7 @@ from .conf import settings
 
 __all__ = [
         'Point', 'Country', 'Region', 'Subregion',
-        'City', 'District', 'PostalCode', 'AlternativeName', 
+        'City', 'District', 'PostalCode', 'AlternativeName',
 ]
 
 @python_2_unicode_compatible
@@ -92,7 +92,7 @@ class City(Place):
     country = models.ForeignKey(Country)
     elevation = models.IntegerField(null=True)
     kind = models.CharField(max_length=10) # http://www.geonames.org/export/codes.html
-    timezone = models.CharField(max_length=40) 
+    timezone = models.CharField(max_length=40)
 
     class Meta:
         verbose_name_plural = "cities"
@@ -136,6 +136,13 @@ class PostalCode(Place):
 
     objects = models.GeoManager()
 
+    # More Demographics
+    #
+    income_per_capita = models.PositiveIntegerField(blank=True, null=True)
+    income_household = models.PositiveIntegerField(blank=True, null=True)
+
+
+
     @property
     def parent(self):
         return self.country
@@ -158,4 +165,4 @@ class PostalCode(Place):
 
     def __str__(self):
         return force_text(self.code)
-    
+
