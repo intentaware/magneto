@@ -11,8 +11,12 @@ def populate_data(apps, schemaeditor):
 
     for i in Impression.objects.filter(meta__at_ip__isnull=False, meta__at_ip2geo__isnull=False):
         country_name = name=i.meta['ip2geo']['country']['names']['en']
-        print country_name
-        country = Country.objects.get(name=country_name)
+        print ''
+        try:
+            country = Country.objects.get(name=country_name)
+        except:
+            print country_name
+            country = None
 
         postal_code = PostalCode.objects.filter(
                 code = i.meta['ip2geo']['postal']['code'],
