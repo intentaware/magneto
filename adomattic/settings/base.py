@@ -248,6 +248,10 @@ MAXMIND_SECRET = 'JfADx8je3tMo'
 # Plugin Cities
 CITIES_POSTAL_CODES = ['ALL']
 CITIES_LOCALES = ['en', 'ALL']
+CITIES_PLUGINS = [
+    #'cities.plugin.postal_code_ca.Plugin',  # Canada postal codes need region codes remapped to match geonames
+    'cities.plugin.reset_queries.Plugin',  # plugin that helps to reduce memory usage when importing large datasets (e.g. "allCountries.zip")
+]
 
 try:
     from local import *
