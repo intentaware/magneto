@@ -46,10 +46,11 @@ def flush(apps, schemaeditor):
     IPStore = apps.get_model('warehouse', 'IPStore')
     IPStore.objects.all().delete()
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('warehouse', '0002_ip_postalcode'),
+        ('warehouse', '0003_auto_20151121_0652'),
     ]
 
     operations = [
