@@ -20,7 +20,7 @@ def populate_data(apps, schemaeditor):
             country = None
 
         try:
-            code = i.meta['ip2geo']['postal']['code'],
+            code = i.meta['ip2geo']['postal']['code']
             print code
             print country
             postal_code = PostalCode.objects.filter(
