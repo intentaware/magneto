@@ -18,12 +18,16 @@ class ImpressionCSVSerializer(ImpressionSerializer):
     nearest_address = serializers.SerializerMethodField()
 
     def get_ipstore(self, obj):
+        from apps.warehouse.models import IPStore
         ip = self.get_ip(obj)
         if ip:
-            from apps.warehouse.models import IPStore
-            return IPStore.objects.get(ip=ip)
+            try:
+                store = IPStore.objects.get(ip=ip)
+            except IPStore.DoesNotExist:
+                store = None
         else:
-            return None
+            store = None
+        return store
 
 
     def get_visitor(self, obj):
