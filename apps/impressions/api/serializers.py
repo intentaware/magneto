@@ -48,8 +48,10 @@ class ImpressionCSVSerializer(ImpressionSerializer):
             lpc = store.long_postal_code
             if lpc:
                 return lpc
+            elif store.postal_code:
+                return store.postal_code.code
             else:
-                return store.postal_code.name
+                return None
         else:
             return None
 
