@@ -15,9 +15,9 @@ def populate_data(apps, schemaeditor):
         except KeyError:
             country_name = None
         try:
+            print country_name
             country = Country.objects.get(name=country_name)
         except Country.DoesNotExist:
-            print country_name
             country = None
 
         try:
