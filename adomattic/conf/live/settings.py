@@ -106,5 +106,10 @@ LOGGING = {
             'level': 'DEBUG', # Or maybe INFO or DEBUG
             'propagate': True
         },
+        'cities': {
+            'handlers': ['log_to_stdout'],
+            'level': 'INFO',
+            'propagate': True,
+        }
     },
 }
