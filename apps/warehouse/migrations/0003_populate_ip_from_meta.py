@@ -10,10 +10,13 @@ def populate_data(apps, schemaeditor):
     from plugins.cities.models import Country, PostalCode
 
     for i in Impression.objects.filter(meta__at_ip__isnull=False, meta__at_ip2geo__isnull=False):
-        country_name = name=i.meta['ip2geo']['country']['names']['en']
+        try:
+            country_name = name=i.meta['ip2geo']['country']['names']['en']
+        except KeyError:
+            country_name = None
         try:
             country = Country.objects.get(name=country_name)
-        except:
+        except Country.DoesNotExist:
             print country_name
             country = None
 
@@ -32,7 +35,7 @@ def populate_data(apps, schemaeditor):
             if postal_code_id:
                 ip.postal_code_id=postal_code_id
                 ip.save()
-        except:
+        except KeyError:
             print i.meta
 
 
