@@ -2,15 +2,20 @@
   <div layout="column">
     <div class="md-headline">{{ campaignsList.title }} Campaigns</div>
     <md-list>
-      <md-list-item class="md-3-line" ng-repeat="c in campaignsList.campaigns">
+      <md-list-item class="md-3-line" ng-repeat="c in campaignsList.campaigns" layout-wrap>
         <img ng-src="{{ c.preview_image_url }}" class="md-avatar" alt="{{ c.name }}" />
         <div class="md-list-item-text">
           <h3>{{ c.name }}</h3>
-          <h4>{{ c.description }}</h4>
+          <p>{{ c.description }}</p>
           <p>
-            <strong>Starts - Ends</strong>: {{ c.starts_on | date:'shortDate' }} - {{ c.ends_on | date:'shortDate' }}
-            <br>
-            {{ c.claimed_coupons_sum | currency }} claimed of {{ c.budget | currency }} budget
+            <small>
+              <span>
+                <strong>Starts - Ends</strong>: {{ c.starts_on | date:'shortDate' }} - {{ c.ends_on | date:'shortDate' }}
+              </span>
+              <span style="margin-left: 10px;">
+                <strong>Summary</strong>: {{ c.claimed_coupons_sum | currency }} claimed of {{ c.budget | currency }} budget
+              </span>
+            </small>
           </p>
         </div>
         <md-fab-speed-dial md-direction="left" ng-class="{ 'md-scale': true }">
