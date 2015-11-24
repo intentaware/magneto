@@ -7,7 +7,8 @@ from registration.backends.simple.views import \
     RegistrationView as BaseRegistrationView
 from registration import signals
 
-from .forms import UserCreationForm, CompanyCreationForm, PasswordResetForm
+from .forms import UserCreationForm, CompanyCreationForm, PasswordResetForm, \
+    PasswordValidationForm
 
 from apps.users.models import User
 from apps.companies.models import *
@@ -84,10 +85,38 @@ class PasswordResetEmailView(FormView):
             return self.form_invalid(form)
 
     def form_valid(self, request, form):
-        user = User.objects.get(email=form.cleaned_data.get('email'))
+        user = form.user
         user.update_key()
         return redirect(self.success_url)
 
 
 class PasswordResetEmailSentDone(TemplateView):
     template_name = 'registration/password_reset_email_sent.html'
+
+class UpdateLostPassword(FormView):
+    template_name = 'registration/password_change_frm.html'
+    form_class = PasswordValidationForm
+    success_url = 'dashboard'
+
+    def get(self, request, key, *args, **kwargs):
+        form = self.get_form(self.form_class)
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def post(self, request, key, *args, **kwargs):
+        form = self.get_form(self.form_class)
+        if form.is_valid():
+            return self.form_valid(request, key, form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, request, key, form):
+        password = form.cleaned_data['password1']
+        try:
+            user = User.objects.get(key__exact=key)
+            user.set_password(password)
+            user.save()
+            return redirect(self.success_url)
+        except:
+            return self.form_invalid(form)
+
+

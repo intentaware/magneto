@@ -47,6 +47,7 @@ class PasswordResetForm(forms.Form):
 
         try:
             user = User.objects.get(email=email)
+            self.user = user
         except User.DoesNotExist:
             raise forms.ValidationError('User with this email does not exist')
 

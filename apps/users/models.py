@@ -123,6 +123,7 @@ class User(TimeStamped, AbstractBaseUser, PermissionsMixin):
         import shortuuid
         self.key = shortuuid.uuid()
         self.save()
+        self.send_password_reset_email()
 
     def get_short_name(self):
         return self.get_username()

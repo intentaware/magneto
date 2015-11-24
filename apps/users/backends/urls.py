@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 #from django.views.generic.base import TemplateView
 from .views import UserRegistrationView, CompanyRegistrationView, \
-    PasswordResetEmailView, PasswordResetEmailSentDone
+    PasswordResetEmailView, PasswordResetEmailSentDone, UpdateLostPassword
 
 
 urlpatterns = patterns(
@@ -22,5 +22,8 @@ urlpatterns = patterns(
         PasswordResetEmailSentDone.as_view(),
         name='registration_password_reset_done'
     ),
+    url(r'^password/reset/(?P<key>\w+)/update/$',
+        UpdateLostPassword.as_view(),
+        name='update_lost_password'),
     url(r'', include('registration.auth_urls')),
     )
