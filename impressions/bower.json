@@ -2,7 +2,6 @@
   "name": "impressions",
   "private": true,
   "dependencies": {
-    "modernizr": "~2.8.1",
     "axios": "~0.5.2",
     "bourbon": "~4.2.2"
   }
