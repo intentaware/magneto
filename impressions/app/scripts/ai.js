@@ -1,3 +1,8 @@
+/**
+ * @copyright Intentaware 2015
+ * @version 15.11.26
+ */
+
 (function() {
   'use strict';
   // get the parent node
