@@ -13,14 +13,14 @@ class ImpressionMiddleware(object):
                 request.publisher = publisher
             except Company.DoesNotExist:
                 request.publisher = None
-            request.customer = request.get_signed_cookie('customer', None)
+            request.visitor = request.get_signed_cookie('visitor', None)
 
     def process_response(self, request, response):
         publisher = getattr(request, 'publisher', None)
         if publisher:
-            if request.customer:
-                customer = request.customer
+            if request.visitor:
+                visitor = request.visitor
             else:
-                customer = shortuuid.uuid()
-            response.set_signed_cookie('customer', customer)
+                visitor = shortuuid.uuid()
+            response.set_signed_cookie('visitor', visitor)
         return response

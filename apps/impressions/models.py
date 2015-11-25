@@ -28,7 +28,7 @@ class Impression(TimeStamped):
     def create_from_request(self, request, campaign):
         self.campaign = campaign
         self.meta = request._request.META
-        self.visitor, created = ImpressionUser.objects.get_or_create(key=request.customer)
+        self.visitor, created = ImpressionUser.objects.get_or_create(key=request.visitor)
         self.publisher = request.publisher
 
     def __unicode__(self):

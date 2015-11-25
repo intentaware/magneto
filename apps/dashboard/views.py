@@ -110,8 +110,8 @@ def user_opt_out(request):
     It fetches the ImpressionUser object for the current customer and
     sets the opt_out_flag to true.
     """
-    if (request.method == POST) and ("optOutButton" in request.POST) and request.customer:
-        impression_user = ImpressionUser.objects.get(key=request.customer)
+    if (request.method == POST) and ("optOutButton" in request.POST) and request.visitor:
+        impression_user = ImpressionUser.objects.get(key=request.visitor)
         impression_user.set_opt_out_flag()
     return render(request, 'debug/opt-out-child.html', {})
 

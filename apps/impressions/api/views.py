@@ -49,7 +49,7 @@ class GetImpression(APIView):
     def get_impression_markup(self, request, coupons):
         impressions = list()
         visitor, created = ImpressionUser.objects.get_or_create(
-            key=request.customer)
+            key=request.visitor)
         if request.user.is_authenticated() and not visitor.user:
             visitor.user = request.user
             visitor.save()
