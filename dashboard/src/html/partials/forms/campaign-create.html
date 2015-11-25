@@ -1,5 +1,6 @@
 {% raw %}
   <form name="CreateAdForm" ng-controller="CampaignFormCtrl as campaignForm" ng-submit="campaignForm.saveAd()" ng-disabled="campaignForm.$saving" flex>
+  <div class="md-padding" layout="column">
     <!-- Basic Settings -->
     <md-input-container>
       <label>Name</label>
@@ -22,7 +23,7 @@
     <!-- End Basic Settings -->
 
     <!-- Target Circle -->
-    <md-chips class="md-padding" ng-model="campaignForm.campaign.circles" md-autocomplete-snap md-require-match="true">
+    <md-chips ng-model="campaignForm.campaign.circles" md-autocomplete-snap md-require-match="true">
       <md-autocomplete
         md-selected-item="campaignForm.selectedItem"
         md-search-text="searchText"
@@ -36,6 +37,7 @@
       </md-chip-template>
     </md-chips>
     <!-- End Target Circle -->
+  </div>
 
     <!-- Target Cities -->
     <!-- End Target -->
@@ -48,7 +50,7 @@
     <!-- End Dates -->
 
     <!-- Budget -->
-    <div layout="row" layout-sm="column" style="margin-top:10px;">
+    <div layout="row" layout-sm="column" class="md-padding">
       <md-input-container flex>
         <label>Budget</label>
         <input type="number" name="input_budget" ng-model="campaignForm.campaign.input_budget" min="10" ng-disabled="campaignForm.isDisabled()">
@@ -65,15 +67,15 @@
       </md-input-container>
       <div flex="45" flex-sm="100">
         <div layout="column">
-        <span style="padding-bottom: 3px;"><small><strong>Offers Total: </strong>{{ campaignForm.campaign.coupon_value | currency }} &times; {{ campaignForm.getImpressionCount().impressions }} = {{ campaignForm.getImpressionCount().impressionsTotal | currency }}</small></span>
-        <span style="padding-bottom: 3px;"><small><strong>Service Charges + Taxes: </strong>{{ campaignForm.getImpressionCount().serviceCharges | currency }} + {{ campaignForm.getImpressionCount().taxes | currency }} = {{ campaignForm.getImpressionCount().serviceCharges + campaignForm.getImpressionCount().taxes | currency }}</small></span>
+        <span style="padding-bottom: 5px;"><small><strong>Offers Total: </strong>{{ campaignForm.campaign.coupon_value | currency }} &times; {{ campaignForm.getImpressionCount().impressions }} = {{ campaignForm.getImpressionCount().impressionsTotal | currency }}</small></span>
+        <span style="padding-bottom: 6px;"><small><strong>Service Charges + Taxes: </strong>{{ campaignForm.getImpressionCount().serviceCharges | currency }} + {{ campaignForm.getImpressionCount().taxes | currency }} = {{ campaignForm.getImpressionCount().serviceCharges + campaignForm.getImpressionCount().taxes | currency }}</small></span>
         <md-divider></md-divider>
         <span><small><strong>Total: </strong>{{ campaignForm.getImpressionCount().charge | currency }}</small></span>
         </div>
       </div>
     </div>
     <!-- End Budget -->
-    <div layout="row" layout-sm="column">
+    <div layout="row" layout-sm="column" class="md-padding">
       <read-file label="Choose Campaign Image (maximum 1MB)" accept="image/*" max-size="1024000" ng-model="campaignForm.campaign.image" flex></read-file>
     </div>
     <md-button type="submit" class="md-raised md-primary" ng-disabled="campaignForm.$saving" aria-label="Create Campain">

@@ -8,21 +8,23 @@
         </div>
       </md-toolbar>
       <md-card-content id="publisher-card">
-        <md-input-container>
-          <label>Include Code</label>
-          <input type="text" ng-model="pixel" ng-disabled="true">
-          <div ng-messages="helpText">
-            <div ng-message="forPixel" class="help-text">
-              Click copy, and place this exactly where you want your offer to appear!
+        <div layout="column">
+          <md-input-container>
+            <label>Include Code</label>
+            <input type="text" ng-model="pixel" ng-disabled="true">
+            <div ng-messages="helpText">
+              <div ng-message="forPixel" class="help-text">
+                Click copy, and place this exactly where you want your offer to appear!
+              </div>
             </div>
-          </div>
-        </md-input-container>
-        <md-button
-          class="md-primary md-raised"
-          ui-zeroclip zeroclip-model="pixel" zeroclip-copied="showCopied()"
-          aria-label="copy the include code">
-          Copy
-        </md-button>
+          </md-input-container>
+          <md-button
+            class="md-primary md-raised"
+            ui-zeroclip zeroclip-model="pixel" zeroclip-copied="showCopied()"
+            aria-label="copy the include code">
+            Copy
+          </md-button>
+        </div>
       </md-card-content>
     </md-card>
   </div>
