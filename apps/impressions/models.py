@@ -13,10 +13,11 @@ class Impression(TimeStamped):
     publisher = models.ForeignKey('companies.Company', related_name='impressions')
 
     def create_from_request(self, request, campaign):
-        # self.campaign = campaign
-        # self.meta = request._request.META
-        # self.visitor, created = ImpressionUser.objects.get_or_create(key=request.visitor)
-        # self.publisher = request.publisher
+        from apps.users.models import Visitor
+        self.campaign = campaign
+        self.meta = request._request.META
+        self.visitor, created = Visitor.objects.get_or_create(key=request.visitor)
+        self.publisher = request.publisher
         pass
 
     def __unicode__(self):
