@@ -185,5 +185,17 @@ class User(TimeStamped, AbstractBaseUser, PermissionsMixin):
             subject=subject,
             **kwargs)
 
+class Visitor(TimeStamped):
+    user = models.ForeignKey('users.User', blank=True, null=True)
+    key = ShortUUIDField()
+    has_opted_out = models.BooleanField(default=False)
+
+    def set_opt_out_flag(self):
+        self.has_opted_out = True
+        self.save()
+
+    def __unicode__(self):
+        return self.key
+
 
 from signals import *
