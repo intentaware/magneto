@@ -118,6 +118,8 @@ ADOMATIC_APPS = (
     'apps.campaigns',
     'apps.impressions',
 
+    'apps.guages',
+
     'apps.metas',
     'apps.finances',
 

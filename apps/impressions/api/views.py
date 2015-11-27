@@ -34,7 +34,7 @@ class GetImpression(APIView):
                     key, val = self.process_base64(b64_string, impression)
                     if key == 'email':
                         self.claim_coupon(impression, val)
-                    return Response('claimed successfully', status=200)
+                    return Response('Success', status=200)
             except Impression.DoesNotExist:
                 if b64_string:
                     # print b64_string
