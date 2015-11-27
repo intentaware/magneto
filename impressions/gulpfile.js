@@ -27,7 +27,7 @@ gulp.task('styles', function() {
     }));
 });
 
-gulp.task('styles:adomattic', function() {
+gulp.task('styles:aware', function() {
   return gulp.src('app/styles/main.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
@@ -49,7 +49,7 @@ gulp.task('styles:adomattic', function() {
 });
 
 
-gulp.task('adomattic', function() {
+gulp.task('aware', function() {
   var uglifyOptions = {
     mangle: {
       toplevel: true,
@@ -80,7 +80,38 @@ gulp.task('adomattic', function() {
     .pipe($.size(sizeOptions));
 });
 
-gulp.task('adomattic:live', ['styles:adomattic'], function() {
+gulp.task('guages', function() {
+  var uglifyOptions = {
+    mangle: {
+      toplevel: true,
+    },
+    compress: {
+      sequences: true,
+      dead_code: true,
+      conditionals: true,
+      booleans: true,
+      unused: true,
+      if_return: true,
+      join_vars: true,
+      //drop_console: true
+    },
+    outSourceMap: true
+  };
+
+  var sizeOptions = {
+    showFiles: true
+  };
+
+  gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/guages.js'])
+    .pipe($.sourcemaps.init())
+      .pipe($.concat('guages.js'))
+      .pipe($.uglify(uglifyOptions))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe($.size(sizeOptions));
+});
+
+gulp.task('aware:live', ['styles:aware'], function() {
   var uglifyOptions = {
     mangle: {
       toplevel: true,
@@ -111,7 +142,7 @@ gulp.task('adomattic:live', ['styles:adomattic'], function() {
     .pipe($.size(sizeOptions));
 });
 
-gulp.task('adomattic:stage', ['styles:adomattic'], function() {
+gulp.task('aware:stage', ['styles:aware'], function() {
   var uglifyOptions = {
     mangle: {
       toplevel: true,
@@ -205,7 +236,7 @@ gulp.task('extras', function() {
 
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['styles', 'fonts', 'adomattic'], function() {
+gulp.task('serve', ['styles', 'fonts', 'aware', 'guages'], function() {
   browserSync({
     notify: false,
     port: 9000,
@@ -226,7 +257,7 @@ gulp.task('serve', ['styles', 'fonts', 'adomattic'], function() {
   ]).on('change', reload);
 
   gulp.watch('app/styles/**/*.scss', ['styles']);
-  gulp.watch('app/scripts/ai.js', ['adomattic']);
+  gulp.watch('app/scripts/**/*.js', ['aware', 'guages']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
