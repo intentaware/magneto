@@ -12,6 +12,9 @@ class Asset(TimeStamped):
     key = ShortUUIDField()
     publisher = models.ForeignKey('companies.Company', related_name='assets')
 
+    def __unicode__(self):
+        return '%s - %s' %(self.url, self.publisher.name)
+
 
 class Matric(TimeStamped):
     asset = models.ForeignKey('guages.Asset', related_name='matrices')

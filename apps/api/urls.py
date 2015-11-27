@@ -10,4 +10,5 @@ urlpatterns = patterns(
     url(r'^finances/', include('apps.finances.api.urls')),
     url(r'^metas/', include('apps.metas.api.urls')),
     url(r'^cities/', include('plugins.cities.api.urls')),
+    url(r'^guages/', include('apps.guages.api.urls')),
 )
