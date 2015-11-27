@@ -12,6 +12,11 @@ class Company(TimeStamped, SluggedFromName, Stripe):
 
     is_advertiser = models.BooleanField(default=False)
     is_publisher = models.BooleanField(default=False)
+    """
+    TODO:
+        we need a better udnerstanding of our business case here. I don't think
+        boolena fields is the right strategy here.
+    """
 
     publisher_key = ShortUUIDField(blank=True, null=True)
 

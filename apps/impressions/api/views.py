@@ -6,8 +6,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 
 from apps.api.permissions import PublisherAPIPermission
-from apps.impressions.models import Impression, ImpressionUser
-from apps.users.models import User
+from apps.impressions.models import Impression
+from apps.users.models import User, Visitor
 
 from .serializers import ImpressionSerializer
 
@@ -34,21 +34,21 @@ class GetImpression(APIView):
                     key, val = self.process_base64(b64_string, impression)
                     if key == 'email':
                         self.claim_coupon(impression, val)
-                    return Response('claimed successfully', status=200)
+                    return Response('Success', status=200)
             except Impression.DoesNotExist:
                 if b64_string:
-                    print b64_string
+                    # print b64_string
                     key, val = self.process_base64(b64_string)
                     if key == "campaign":
-                        print val
+                        # print val
                         coupons = request.publisher.get_target_campaigns(request, campaign_id=val)
-                        print coupons
+                        # print coupons
                         impressions = self.get_impression_markup(request, coupons)
                         return Response(impressions, status=200)
 
     def get_impression_markup(self, request, coupons):
         impressions = list()
-        visitor, created = ImpressionUser.objects.get_or_create(
+        visitor, created = Visitor.objects.get_or_create(
             key=request.visitor)
         if request.user.is_authenticated() and not visitor.user:
             visitor.user = request.user
@@ -72,7 +72,7 @@ class GetImpression(APIView):
 
     def process_base64(self, b64_string, impression=None):
         import base64, json
-        print base64.b64decode(b64_string)
+        # print base64.b64decode(b64_string)
         data = json.loads(base64.b64decode(b64_string))
         email = data.get('email', None)
         meta = data.get('meta', None)
@@ -115,14 +115,14 @@ class GetImpression(APIView):
         from ipware.ip import get_real_ip
         ip = get_real_ip(request) or '99.22.48.100'
         if ip:
-            import geoip2.webservice
+            from geoip2 import database, webservice
             from django.conf import settings
-            client = geoip2.webservice.Client(
-                settings.MAXMIND_CLIENTID, settings.MAXMIND_SECRET)
-            #reader = geoip2.database.Reader(settings.MAXMIND_CITY_DB)
-            ip2geo = client.insights(ip).raw
-            print ip2geo
-            #ip2geo = reader.city(ip).raw
+            # client = webservice.Client(
+            #     settings.MAXMIND_CLIENTID, settings.MAXMIND_SECRET)
+            # ip2geo = client.insights(ip).raw
+            # print ip2geo
+            reader = database.Reader(settings.MAXMIND_CITY_DB)
+            ip2geo = reader.city(ip).raw
         else:
             ip2geo = None
         user_agent = request.META['HTTP_USER_AGENT']
