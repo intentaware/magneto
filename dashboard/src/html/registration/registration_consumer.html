@@ -6,7 +6,7 @@
 {% block auth_content %}
 <div class="layout-vertical" flex="50" flex-sm="100">
   <md-content class="md-padding" layout="column">
-    <form method="post" action=".">
+    <form method="post" action="." layout="column">
       {% csrf_token %}
       <md-input-container>
         <label>{{ form.email.label }}</label>
