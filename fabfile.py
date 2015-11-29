@@ -52,8 +52,9 @@ def stage():
     env.branch = 'develop'
     env.venv_root = '/srv/%(name)s/' % env
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
-    env.dashboard = '/srv/%(name)s/apps/dashboard/static/dash/' % env
-    env.impressions = '/srv/%(name)s/apps/dashboard/static/impressions/' % env
+    env.dashboard = '/srv/%(name)s/magneto/dashboard/' % env
+    env.impressions = '/srv/%(name)s/magneto/impressions/' % env
+    env.emails = 'srv/%(name)s/magneto/emails/' % env
 
 
 def live():
