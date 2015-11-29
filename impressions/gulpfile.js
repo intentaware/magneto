@@ -2,9 +2,39 @@
 'use strict';
 // generated on 2015-03-30 using generator-gulp-webapp 0.3.0
 var gulp = require('gulp');
+var args = require('yargs').argv;
 var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+
+var uglifyOptions = {
+  mangle: {
+    toplevel: true,
+  },
+  compress: {
+    sequences: true,
+    dead_code: true,
+    conditionals: true,
+    booleans: true,
+    unused: true,
+    if_return: true,
+    join_vars: true,
+    drop_console: false
+  },
+  outSourceMap: true
+};
+
+var sizeOptions = {
+  showFiles: true
+};
+
+var dest = '.tmp/scripts/';
+
+var apiString = {
+  dev: "base: 'http://localhost:9050/api/'",
+  stage: "base: 'http://stage.intentaware.com/api/'",
+  live: "base: 'https://app.intentaware.com/api/'"
+}
 
 gulp.task('styles', function() {
   return gulp.src('app/styles/main.scss')
@@ -50,129 +80,44 @@ gulp.task('styles:aware', function() {
 
 
 gulp.task('aware', function() {
-  var uglifyOptions = {
-    mangle: {
-      toplevel: true,
-    },
-    compress: {
-      sequences: true,
-      dead_code: true,
-      conditionals: true,
-      booleans: true,
-      unused: true,
-      if_return: true,
-      join_vars: true,
-      //drop_console: true
-    },
-    outSourceMap: true
-  };
 
-  var sizeOptions = {
-    showFiles: true
-  };
+  if (args.live || args.stage) {
+    uglifyOptions.outSourceMap = false;
+    uglifyOptions.compress.drop_console = true;
+    dest = '../../apps/dashboard/static/impressions/dist/'
+  }
 
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
-    .pipe($.sourcemaps.init())
-      .pipe($.concat('aware.js'))
-      .pipe($.uglify(uglifyOptions))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe($.if(!(args.live || args.stage), $.sourcemaps.init()))
+    .pipe($.concat('aware.js'))
+    .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "Error!"))
+    .pipe($.if(args.live, $.replace(apiString.dev, apiString.live)))
+    .pipe($.if(args.stage, $.replace(apiString.dev, apiString.stage)))
+    .pipe($.uglify(uglifyOptions))
+    .pipe($.if(!(args.live || args.stage), $.sourcemaps.write()))
+    .pipe(gulp.dest(dest))
     .pipe($.size(sizeOptions));
 });
 
 gulp.task('guages', function() {
-  var uglifyOptions = {
-    mangle: {
-      toplevel: true,
-    },
-    compress: {
-      sequences: true,
-      dead_code: true,
-      conditionals: true,
-      booleans: true,
-      unused: true,
-      if_return: true,
-      join_vars: true,
-      //drop_console: true
-    },
-    outSourceMap: true
-  };
 
-  var sizeOptions = {
-    showFiles: true
-  };
+  if (args.live || args.stage) {
+    uglifyOptions.outSourceMap = false;
+    uglifyOptions.compress.drop_console = true;
+    dest = '../../apps/dashboard/static/impressions/dist/'
+  }
 
   gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/guages.js'])
-    .pipe($.sourcemaps.init())
-      .pipe($.concat('guages.js'))
-      .pipe($.uglify(uglifyOptions))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/scripts'))
-    .pipe($.size(sizeOptions));
-});
-
-gulp.task('aware:live', ['styles:aware'], function() {
-  var uglifyOptions = {
-    mangle: {
-      toplevel: true,
-    },
-    compress: {
-      sequences: true,
-      dead_code: true,
-      conditionals: true,
-      booleans: true,
-      unused: true,
-      if_return: true,
-      join_vars: true,
-      drop_console: true
-    },
-    //outSourceMap: true
-  };
-
-  var sizeOptions = {
-    showFiles: true
-  };
-
-  gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
-    .pipe($.concat('aware.js'))
-    .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'https://app.intentaware.com/api/'"))
-    .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "There was an error!"))
+    .pipe($.if(!(args.live || args.stage), $.sourcemaps.init()))
+    .pipe($.concat('guages.js'))
+    .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "Error!"))
+    .pipe($.if(args.live, $.replace(apiString.dev, apiString.live)))
+    .pipe($.if(args.stage, $.replace(apiString.dev, apiString.stage)))
     .pipe($.uglify(uglifyOptions))
-    .pipe(gulp.dest('../../apps/dashboard/static/impressions/dist/'))
+    .pipe($.if(!(args.live || args.stage), $.sourcemaps.write()))
+    .pipe(gulp.dest(dest))
     .pipe($.size(sizeOptions));
 });
-
-gulp.task('aware:stage', ['styles:aware'], function() {
-  var uglifyOptions = {
-    mangle: {
-      toplevel: true,
-    },
-    compress: {
-      sequences: true,
-      dead_code: true,
-      conditionals: true,
-      booleans: true,
-      unused: true,
-      if_return: true,
-      join_vars: true,
-      drop_console: true
-    },
-    //outSourceMap: true
-  };
-
-  var sizeOptions = {
-    showFiles: true
-  };
-
-  gulp.src(['bower_components/axios/dist/axios.js', 'app/scripts/ai.js'])
-    .pipe($.concat('aware.js'))
-    .pipe($.replace("base: 'http://localhost:9050/api/'", "base: 'http://stage.intentaware.com/api/'"))
-    .pipe($.replace("https://github.com/mzabriskie/axios/blob/master/README.md#response-api", "There was an error!"))
-    .pipe($.uglify(uglifyOptions))
-    .pipe(gulp.dest('../../apps/dashboard/static/impressions/dist/'))
-    .pipe($.size(sizeOptions));
-});
-
 
 gulp.task('jshint', function() {
   return gulp.src('app/scripts/**/*.js')
@@ -280,13 +225,3 @@ gulp.task('wiredep', function() {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function() {
-  return gulp.src('dist/**/*').pipe($.size({
-    title: 'build',
-    gzip: true
-  }));
-});
-
-gulp.task('default', ['clean'], function() {
-  gulp.start('build');
-});
