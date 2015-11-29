@@ -54,7 +54,7 @@ def stage():
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
     env.dashboard = '/srv/%(name)s/magneto/dashboard/' % env
     env.impressions = '/srv/%(name)s/magneto/impressions/' % env
-    env.emails = 'srv/%(name)s/magneto/emails/' % env
+    env.emails = '/srv/%(name)s/magneto/emails/' % env
 
 
 def live():
@@ -210,6 +210,10 @@ def npm():
 
 def bower():
     with cd(env.dashboard):
+        env.run('bower install --allow-root')
+    with cd(env.impressions):
+        env.run('bower install --allow-root')
+    with cd(env.emails):
         env.run('bower install --allow-root')
 
 

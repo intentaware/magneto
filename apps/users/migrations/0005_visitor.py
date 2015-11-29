@@ -11,6 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('users', '0004_auto_20150914_2106'),
+        ('impressions', '0014_impression_user_to_visitor'),
     ]
 
     state_operations = [
