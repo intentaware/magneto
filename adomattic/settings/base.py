@@ -132,8 +132,8 @@ ADOMATIC_APPS = (
 INSTALLED_APPS = BASE_APPS + DEFAULT_APPS + THIRD_PARTY_APPS + PLUGIN_APPS + ADOMATIC_APPS
 
 MIDDLEWARE_CLASSES = (
-    'apps.common.middleware.ImpressionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'apps.common.middleware.ImpressionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
