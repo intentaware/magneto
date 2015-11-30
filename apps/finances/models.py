@@ -8,6 +8,19 @@ from .mixins import Stripe
 # Create your models here.
 
 class BasePaymentModel(Stripe, TimeStamped):
+    """Basic Payment Model, inherits Stripe model, will be used for multiple
+
+
+    Attributes:
+        amount (Decimal): total amount charged to customer
+        attempted_on (Time): time on which the charge was attempted
+        attempts (Int): Number of times we tried to charge
+        charged_on (Time): If charge was succesful, populate the field with current time
+        gateway_response (Json): Response from the server
+        is_paid (Bool): if charge was succesful
+        service_charges (Decimal): Service charges if any, amount is inclusive of service_charges
+        taxes (Decimal): Taxes if any, Note: amount is inclusive of taxes
+    """
     amount = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
     attempts = models.IntegerField(default=0)
 
@@ -34,4 +47,24 @@ class BasePaymentModel(Stripe, TimeStamped):
 
 class Invoice(BasePaymentModel):
     company = models.ForeignKey('companies.Company', related_name='invoices')
-    # FK relationships
+
+
+class Plan(TimeStamped):
+    [UNTIL_EXPIRY, MONTHLY, QUARTERLY, YEARLY] = range(4)
+    DURATION_CHOICES = [
+        (MONTHLY, 'Monthly'),
+        (QUARTERLY, 'Quarterly'),
+        (YEARLY, 'Yearly'),
+        (UNTIL_EXPIRY, 'Expires on Consumption')
+    ]
+    amount = models.DecimalField(default=0.00, max_digits=20, decimal_places=4)
+    name = models.CharField(max_length=128)
+    matric_name = models.CharField(max_length=128)
+    matric_unit = models.IntegerField(default=1)
+    duration = models.IntegerField(choices=DURATION_CHOICES, default=UNTIL_EXPIRY)
+
+    def __unicode__(self):
+        if self.duration == self.UNTIL_EXPIRY:
+            return '%d per %d %s' %(self.amount, self.matric_unit, self.matric_name)
+        else:
+            return '%d per %d %s per %s' %(self.amount, self.matric_unit, self.matric_name, self.duration)
