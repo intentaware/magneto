@@ -219,9 +219,10 @@ def bower():
 
 def gulp():
     with cd(env.dashboard):
-        env.run('gulp html')
+        env.run('gulp build')
     with cd(env.impressions):
-        env.run('gulp adomattic:%(conf_path)s' % env)
+        env.run('gulp aware --%(conf_path)s' % env)
+        env.run('gulp guages --%(conf_path)s' % env)
 
 
 def clean_pyc():
