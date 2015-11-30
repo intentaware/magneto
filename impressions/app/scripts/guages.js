@@ -57,6 +57,7 @@
       headers: {
         'PUBLISHER-KEY': document['intentaware']
       },
+      withCredentials: true,
       method: 'POST',
       data: meta
     });
