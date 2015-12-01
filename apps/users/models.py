@@ -99,18 +99,24 @@ class User(TimeStamped, AbstractBaseUser, PermissionsMixin):
             name = u'%s %s' % (self.first_name, self.last_name)
         return name
 
-
-    @property
-    def name(self):
+    def get_full_name(self):
         if self.first_name or self.last_name:
             return u'%s %s' % (self.first_name, self.last_name)
         return None
-
 
     def get_username(self):
         if self.name:
             return self.name
         return self.email
+
+    @property
+    def username(self):
+        return self.email
+
+
+    @property
+    def name(self):
+        return self.get_full_name()
 
     @property
     def email_from(self):
