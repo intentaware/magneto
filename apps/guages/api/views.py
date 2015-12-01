@@ -35,12 +35,12 @@ class PostMatric(APIView):
         if ip:
             from geoip2 import database, webservice
             from django.conf import settings
-            # client = webservice.Client(
-            #     settings.MAXMIND_CLIENTID, settings.MAXMIND_SECRET)
-            # ip2geo = client.insights(ip).raw
-            # print ip2geo
-            reader = database.Reader(settings.MAXMIND_CITY_DB)
-            ip2geo = reader.city(ip).raw
+            client = webservice.Client(
+                settings.MAXMIND_CLIENTID, settings.MAXMIND_SECRET)
+            ip2geo = client.insights(ip).raw
+            print ip2geo
+            #reader = database.Reader(settings.MAXMIND_CITY_DB)
+            #ip2geo = reader.city(ip).raw
         else:
             ip2geo = None
         user_agent = request.META['HTTP_USER_AGENT']
