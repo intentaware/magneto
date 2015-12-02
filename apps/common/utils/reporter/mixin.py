@@ -1,10 +1,18 @@
 from django.apps import apps
 
 class Reporter(object):
-    def __init__(self, app, model, serializer, update_ipstore=False):
+    def __init__(self, app, model, qs_filter, serializer, update_ipstore=False):
         self.model = apps.get_model(app, model)
         self.serializer = serializer
         self.update_ipstore = update_ipstore
+        self.filter = qs_filter
+        self.queryset = None
+
+    def get_queryset(self):
+        self.queryset = self.model.objects.filter(
+            meta__at_ip__isnull=False,
+            meta__at_ip2geo__isnull=False,
+            **self.filter)
 
     def perform_ipstore_update(self):
         """
@@ -15,11 +23,9 @@ class Reporter(object):
         Returns:
             TYPE: None
         """
-        queryset = self.model.objects.filter(
-            meta__at_ip__isnull=False, meta__at_ip2geo__isnull=False
-        )
-        self.update_warehouse_ipstore(queryset)
-        self.reverse_geocode_ipstore(queryset)
+        self.get_queryset()
+        self.update_warehouse_ipstore(self.queryset)
+        self.reverse_geocode_ipstore(self.queryset)
 
     def update_warehouse_ipstore(self, queryset):
         from apps.warehouse.models import IPStore

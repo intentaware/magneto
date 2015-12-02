@@ -1,5 +1,6 @@
 from django.db import models
 from django_extensions.db.fields import *
+from django_pgjson.fields import JsonBField
 
 # Create your models here.
 
@@ -87,3 +88,69 @@ class ToCompany(BaseModel):
 
     class Meta:
         abstract = True
+
+
+class IP2GeoModel(BaseModel):
+    meta = JsonBField(blank=True, null=True)
+    visitor = models.ForeignKey('users.visitor', related_name='%(class)ss')
+
+    class Meta:
+        abstract = True
+
+    @property
+    def hydrate_meta(self):
+        from django.apps import apps
+        out = dict()
+        out['id'] = self.id
+        out['visitor'] = self.visitor.key
+
+        # clean garbage
+        meta = self.meta
+        meta.pop('meta', None)
+        meta.pop('email', None)
+
+        # flattening cascaded json
+        ip2geo = meta.pop('ip2geo', None)
+        nav = meta.pop('navigator', None)
+        screen = meta.pop('screen', None)
+
+        if nav:
+            for k,v in nav.iteritems():
+                key = 'navigator_%s' %(k)
+                out[key] = v
+
+        if screen:
+            for k,v in screen.iteritems():
+                key = 'screen_%s' %(k)
+                out[key] = v
+
+        out['city'] = ip2geo['city']['names']['en'] if ip2geo else None
+        out['country'] = ip2geo['country']['names']['en'] if ip2geo else None
+        out['latitude'] = ip2geo['location']['latitude'] if ip2geo else None
+        out['longitude'] = ip2geo['location']['longitude'] if ip2geo else None
+
+        if ip2geo:
+            traits = ip2geo['traits']
+            for k,v in traits.iteritems():
+                key = 'trait_%s' %(k)
+                out[key] = v
+
+        out.update(meta)
+
+        IPStore = apps.get_model('warehouse', 'IPStore')
+
+        try:
+            store = IPStore.objects.get(ip=out['ip'])
+        except IPStore.DoesNotExist:
+            store = None
+
+        out['nearest_address'] = store.nearest_address if store else None
+        out['postal_code'] = store.long_postal_code if store else None
+
+        print out
+
+        return out
+
+
+
+
