@@ -1,9 +1,8 @@
 from django.apps import apps
 
 class Reporter(object):
-    def __init__(self, app, model, fieldnames, serializer, update_ipstore=False):
+    def __init__(self, app, model, serializer, update_ipstore=False):
         self.model = apps.get_model(app, model)
-        self.fieldnames = fieldnames
         self.serializer = serializer
         self.update_ipstore = update_ipstore
 
