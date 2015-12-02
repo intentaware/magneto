@@ -19,7 +19,7 @@ class Reporter(object):
         queryset = self.model.objects.filter(
             meta__at_ip__isnull=False, meta__at_ip2geo__isnull=False
         )
-        self.update_warehouse_ipstore(queryset)
+        #self.update_warehouse_ipstore(queryset)
         self.reverse_geocode_ipstore()
 
     def update_warehouse_ipstore(self, queryset):
@@ -67,7 +67,11 @@ class Reporter(object):
         gmaps = Client(key=settings.GOOGLE_GEOCODE_KEY)
 
         for ip in IPStore.objects.all():
-            queryset = self.model.objects.filter(meta__at_ip=ip).order_by('-added_on')
+            import datetime
+            _now = datetime.datetime.now()
+            queryset = self.model.objects.filter(
+                meta__at_ip=ip, meta__at_ip2geo__isnull=False,
+                added_on__month=_now.month).order_by('-added_on')
             if queryset.count() > 1:
                 obj = queryset[0]
             else:
