@@ -58,7 +58,7 @@ class Reporter(object):
             except KeyError:
                 pass
 
-    def reverse_geocode_ipstore(self):
+    def reverse_geocode_ipstore(self, queryset):
         from apps.warehouse.models import IPStore
         from googlemaps import Client
         from django.conf import settings
@@ -69,9 +69,8 @@ class Reporter(object):
         for ip in IPStore.objects.all():
             import datetime
             _now = datetime.datetime.now()
-            queryset = self.model.objects.filter(
-                meta__at_ip=ip, meta__at_ip2geo__isnull=False,
-                added_on__month=_now.month).order_by('-added_on')
+            queryset = queryset.filter(
+                meta__at_ip=ip).order_by('-added_on')
             if queryset.count() > 1:
                 obj = queryset[0]
             else:
