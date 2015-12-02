@@ -23,3 +23,9 @@ class Impression(TimeStamped, IP2GeoModel):
     def __unicode__(self):
         return '%s: %s' %(self.campaign, self.id)
 
+    def _hydrate_meta(self):
+        data = super(Impression, self)._hydrate_meta()
+        data['coupon'] = self.coupon.code
+        data['campaign'] = self.campaign.name
+        return data
+

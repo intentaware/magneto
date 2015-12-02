@@ -97,8 +97,7 @@ class IP2GeoModel(BaseModel):
     class Meta:
         abstract = True
 
-    @property
-    def hydrate_meta(self):
+    def _hydrate_meta(self):
         from django.apps import apps
         out = dict()
         out['id'] = self.id
@@ -147,9 +146,12 @@ class IP2GeoModel(BaseModel):
         out['nearest_address'] = store.nearest_address if store else None
         out['postal_code'] = store.long_postal_code if store else None
 
-        print out
-
         return out
+
+    @property
+    def hydrate_meta(self):
+        return self._hydrate_meta()
+
 
 
 
