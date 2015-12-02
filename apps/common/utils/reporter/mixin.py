@@ -76,9 +76,10 @@ class Reporter(object):
                 location = obj.meta['ip2geo']['location']
                 ip.latitude = location['latitude']
                 ip.longitude = location['longitude']
-                result = gmaps.reverse_geocode((location['latitude'], location['longitude']))
-                ip.geocode = result
-                ip.save()
+                if not ip.geocode:
+                    result = gmaps.reverse_geocode((location['latitude'], location['longitude']))
+                    ip.geocode = result
+                    ip.save()
                 print '---'
                 print ip.ip
                 print '---'
