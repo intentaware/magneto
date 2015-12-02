@@ -45,7 +45,7 @@ class Reporter(object):
                         code=postal_code,
                         country=country
                     )
-                if postal_queryset.count() > 1:
+                if postal_queryset.count() > 0:
                     postal_code_id = postal_queryset[0].id
                 else:
                     postal_code_id = None
@@ -77,7 +77,7 @@ class Reporter(object):
                 meta__at_ip=ip.ip).order_by('-added_on')
             print qs
             print '---'
-            if qs.count() > 1:
+            if qs.count() > 0:
                 obj = qs[0]
             else:
                 obj = None
