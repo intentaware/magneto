@@ -80,13 +80,13 @@ class Reporter(object):
                     result = gmaps.reverse_geocode((location['latitude'], location['longitude']))
                     ip.geocode = result
                     ip.save()
-                print '---'
-                print ip.ip
-                print '---'
-                print location
-                print '---'
-                print ip.geocode
-                print '---'
+                    print '---'
+                    print ip.ip
+                    print '---'
+                    print location
+                    print '---'
+                    print ip.geocode
+                    print '---'
 
     def save(self, *args, **kwargs):
         pass
