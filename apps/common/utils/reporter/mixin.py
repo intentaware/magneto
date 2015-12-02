@@ -70,20 +70,22 @@ class Reporter(object):
             queryset = self.model.objects.filter(meta__at_ip=ip).order_by('-added_on')
             if queryset.count() > 1:
                 obj = queryset[0]
-                print obj
-                print obj.meta
             else:
                 obj = None
             if obj:
                 location = obj.meta['ip2geo']['location']
-                print location
                 ip.latitude = location['latitude']
                 ip.longitude = location['longitude']
                 result = gmaps.reverse_geocode((location['latitude'], location['longitude']))
                 ip.geocode = result
-                print ip.geocode
                 ip.save()
+                print '---'
+                print ip.ip
+                print '---'
+                print location
+                print '---'
                 print ip.geocode
+                print '---'
 
     def save(self, *args, **kwargs):
         pass
