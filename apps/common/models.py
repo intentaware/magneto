@@ -154,6 +154,8 @@ class IP2GeoModel(BaseModel):
         out['nearest_address'] = store.nearest_address if store else None
         out['postal_code'] = store.long_postal_code if store else None
 
+        print out
+
         return out
 
     @property
