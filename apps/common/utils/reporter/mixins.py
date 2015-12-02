@@ -1,7 +1,8 @@
 from django.apps import apps
+from .csvs import UnicodeDictWriter
 
 class Reporter(object):
-    def __init__(self, app, model, qs_filter, serializer, update_ipstore=False):
+    def __init__(self, app, model, serializer, qs_filter=None, update_ipstore=None):
         self.model = apps.get_model(app, model)
         self.serializer = serializer
         self.update_ipstore = update_ipstore
@@ -12,7 +13,9 @@ class Reporter(object):
         self.queryset = self.model.objects.filter(
             meta__at_ip__isnull=False,
             meta__at_ip2geo__isnull=False,
-            **self.filter)
+            #**self.filter
+            )
+        return self.queryset
 
     def perform_ipstore_update(self):
         """
@@ -122,6 +125,16 @@ class Reporter(object):
                 print ip.geocode
                 print '---'
 
-    def save(self, *args, **kwargs):
-        pass
+    def get_csv(self):
+        qs = self.get_queryset()
+        fieldnames = [k for k,v in qs.order_by('-added_on')[0].hydrate_meta.iteritems()]
+
+        with open('temp.csv', 'w') as csv_file:
+            csv_file.write(u'\ufeff'.encode('utf8'))
+            writer = UnicodeDictWriter(csv_file, fieldnames)
+            writer.writeheader()
+            for q in qs:
+                meta = q.hydrate_meta
+                writer.writerow(q.hydrate_meta)
+
 
