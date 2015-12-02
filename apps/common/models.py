@@ -123,8 +123,16 @@ class IP2GeoModel(BaseModel):
                 key = 'screen_%s' %(k)
                 out[key] = v
 
-        out['city'] = ip2geo['city']['names']['en'] if ip2geo else None
-        out['country'] = ip2geo['country']['names']['en'] if ip2geo else None
+        try:
+            out['city'] = ip2geo['city']['names']['en'] if ip2geo else None
+        except KeyError:
+            out['city'] = None
+
+        try:
+            out['country'] = ip2geo['country']['names']['en'] if ip2geo else None
+        except:
+            out['country'] = None
+
         out['latitude'] = ip2geo['location']['latitude'] if ip2geo else None
         out['longitude'] = ip2geo['location']['longitude'] if ip2geo else None
 
