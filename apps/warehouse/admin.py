@@ -5,7 +5,7 @@ from .models import IPStore
 
 class IPStoreAdmin(admin.ModelAdmin):
     list_display = ['ip', 'postal_code', 'country', 'long_postal_code', 'nearest_address', 'added_on']
-    ordering = ['postal_code__country']
+    ordering = ['-added_on']
     #list_filter = ['postal_code__country']
 
 admin.site.register(IPStore, IPStoreAdmin)
