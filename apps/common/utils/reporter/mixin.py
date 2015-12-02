@@ -71,7 +71,7 @@ class Reporter(object):
             if queryset.count() > 1:
                 obj = queryset[0]
                 print obj
-                print meta
+                print obj.meta
             else:
                 obj = None
             if obj:
