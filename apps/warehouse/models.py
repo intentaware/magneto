@@ -26,14 +26,18 @@ class IPStore(TimeStamped):
     @property
     def long_postal_code(self):
         pc = None
-        for s in self.geocode[0]['address_components']:
-            if s['types'][0] == 'postal_code':
-                pc = s['long_name']
+        if self.geocode:
+            for s in self.geocode[0]['address_components']:
+                if s['types'][0] == 'postal_code':
+                    pc = s['long_name']
         return pc
 
     @property
     def nearest_address(self):
-        return self.geocode[0]['formatted_address']
+        if self.geocode:
+            return self.geocode[0]['formatted_address']
+        else:
+            return None
 
 
 
