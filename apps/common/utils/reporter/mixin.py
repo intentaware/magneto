@@ -69,9 +69,9 @@ class Reporter(object):
         import datetime
         _now = datetime.datetime.now()
 
-        for ip in IPStore.objects.filter(added_on__month=_now.month):
+        for ip in IPStore.objects.filter(geocode__isnull=True):
             qs = queryset.filter(
-                meta__at_ip=ip).order_by('-added_on')
+                meta__at_ip=ip.ip).order_by('-added_on')
             if qs.count() > 1:
                 obj = qs[0]
             else:
