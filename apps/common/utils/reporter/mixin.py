@@ -72,7 +72,7 @@ class Reporter(object):
                 obj = queryset[0]
             else:
                 obj = None
-            if obj and obj.updated_on > ip.updated_on:
+            if obj:
                 location = obj.meta['ip2geo']['location']
                 ip.latitude = location['latitude']
                 ip.longitude = location['longitude']
