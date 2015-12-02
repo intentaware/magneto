@@ -10,7 +10,7 @@ class Reporter(object):
     def perform_ipstore_update(self):
         """
         Summary:
-            updates warehouse ipstore to all known ips, reverse geocodes the data
+            updates warehouse ipstore to all known ips, reverse geocodes data
             and perform the warehouse.
 
         Returns:
@@ -19,7 +19,7 @@ class Reporter(object):
         queryset = self.model.objects.filter(
             meta__at_ip__isnull=False, meta__at_ip2geo__isnull=False
         )
-        #self.update_warehouse_ipstore(queryset)
+        self.update_warehouse_ipstore(queryset)
         self.reverse_geocode_ipstore(queryset)
 
     def update_warehouse_ipstore(self, queryset):
