@@ -135,6 +135,7 @@ class Reporter(object):
             writer.writeheader()
             for q in qs:
                 meta = q.hydrate_meta
-                writer.writerow(q.hydrate_meta)
+                print meta
+                writer.writerow(meta)
 
 

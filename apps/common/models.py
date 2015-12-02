@@ -125,14 +125,10 @@ class IP2GeoModel(BaseModel):
 
         try:
             out['city'] = ip2geo['city']['names']['en'] if ip2geo else None
-        except KeyError:
+        except:
             out['city'] = None
 
-        try:
-            out['country'] = ip2geo['country']['names']['en'] if ip2geo else None
-        except:
-            out['country'] = None
-
+        out['country'] = ip2geo['country']['names']['en'] if ip2geo else None
         out['latitude'] = ip2geo['location']['latitude'] if ip2geo else None
         out['longitude'] = ip2geo['location']['longitude'] if ip2geo else None
 
@@ -153,8 +149,6 @@ class IP2GeoModel(BaseModel):
 
         out['nearest_address'] = store.nearest_address if store else None
         out['postal_code'] = store.long_postal_code if store else None
-
-        print out
 
         return out
 
