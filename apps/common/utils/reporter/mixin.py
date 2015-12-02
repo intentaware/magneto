@@ -28,6 +28,19 @@ class Reporter(object):
         self.reverse_geocode_ipstore(self.queryset)
 
     def update_warehouse_ipstore(self, queryset):
+        """
+        Summary:
+            Updates the ipstore with unknown ips in the queryset
+
+        Args:
+            queryset (object): django's queryset object
+
+        TODO:
+            we probably do not need the queryset input
+
+        Returns:
+            None: returns nothing, supporting method
+        """
         from apps.warehouse.models import IPStore
         from plugins.cities.models import Country, PostalCode
 
@@ -64,6 +77,14 @@ class Reporter(object):
                 pass
 
     def reverse_geocode_ipstore(self, queryset):
+        """Reverse geocode the new ip to get more info from lat/longs
+
+        Args:
+            queryset (TYPE): Description
+
+        Returns:
+            TYPE: Description
+        """
         from apps.warehouse.models import IPStore
         from googlemaps import Client
         from django.conf import settings
