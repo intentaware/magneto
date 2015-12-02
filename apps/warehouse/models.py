@@ -18,7 +18,10 @@ class IPStore(TimeStamped):
 
     @property
     def country(self):
-        return self.postal_code.country.name
+        if self.postal_code.country:
+            return self.postal_code.country.name
+        else:
+            return None
 
     @property
     def long_postal_code(self):
