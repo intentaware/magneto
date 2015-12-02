@@ -12,7 +12,7 @@ class Reporter(object):
         from apps.warehouse.models import IPStore
         from plugins.cities.models import Country, PostalCode
 
-        for imp in Impression.objects.filter(meta__at_ip__isnull=False, meta__at_ip2geo__isnull=False):
+        for imp in self.model.filter(meta__at_ip__isnull=False, meta__at_ip2geo__isnull=False):
             try:
                 country_code = imp.meta['ip2geo']['country']['iso_code']
             except KeyError:
