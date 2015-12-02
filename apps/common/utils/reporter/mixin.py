@@ -69,10 +69,10 @@ class Reporter(object):
         for ip in IPStore.objects.all():
             import datetime
             _now = datetime.datetime.now()
-            queryset = queryset.filter(
+            qs = queryset.filter(
                 meta__at_ip=ip).order_by('-added_on')
-            if queryset.count() > 1:
-                obj = queryset[0]
+            if qs.count() > 1:
+                obj = qs[0]
             else:
                 obj = None
             if obj:
