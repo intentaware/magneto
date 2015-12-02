@@ -80,7 +80,7 @@ class Reporter(object):
                 ip.latitude = location['latitude']
                 ip.longitude = location['longitude']
                 result = gmaps.reverse_geocode((location['latitude'], location['longitude']))
-                ip.geocode = json.dumps(result)
+                ip.geocode = result
                 print ip.geocode
                 ip.save()
                 print ip.geocode
