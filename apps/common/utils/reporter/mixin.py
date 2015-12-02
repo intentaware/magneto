@@ -70,13 +70,17 @@ class Reporter(object):
             queryset = self.model.objects.filter(meta__at_ip=ip).order_by('-added_on')
             if queryset.count() > 1:
                 obj = queryset[0]
+                print obj
+                print meta
             else:
                 obj = None
             if obj:
                 location = obj.meta['ip2geo']['location']
+                print location
                 ip.latitude = location['latitude']
                 ip.longitude = location['longitude']
                 result = gmaps.reverse_geocode((location['latitude'], location['longitude']))
+                print result
                 ip.geocode = json.dumps(result)
                 ip.save()
 
