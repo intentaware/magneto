@@ -20,7 +20,7 @@ class Reporter(object):
             meta__at_ip__isnull=False, meta__at_ip2geo__isnull=False
         )
         #self.update_warehouse_ipstore(queryset)
-        self.reverse_geocode_ipstore()
+        self.reverse_geocode_ipstore(queryset)
 
     def update_warehouse_ipstore(self, queryset):
         from apps.warehouse.models import IPStore
