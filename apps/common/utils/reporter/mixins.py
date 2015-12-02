@@ -131,7 +131,7 @@ class Reporter(object):
 
         with open('temp.csv', 'w') as csv_file:
             csv_file.write(u'\ufeff'.encode('utf8'))
-            writer = UnicodeDictWriter(csv_file, fieldnames)
+            writer = UnicodeDictWriter(csv_file, fieldnames, extrasaction='ignore')
             writer.writeheader()
             for q in qs:
                 meta = q.hydrate_meta
