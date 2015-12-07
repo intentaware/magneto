@@ -41,12 +41,16 @@
       }
     }
 
-
+    var origin = window.location.href;
     var out = {
       navigator: nvgtr,
-      screen: scrn
+      screen: scrn,
+      origin: origin
     };
-    return out;
+
+    return {
+      meta: btoa(JSON.stringify(out))
+    };
   };
 
   var postMatric = function () {
