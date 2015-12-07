@@ -1,9 +1,10 @@
 from json import JSONEncoder
 
 from django.template.loader import render_to_string
+from django.template import RequestContext
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from django.conf import settings
 
 from apps.api.permissions import PublisherAPIPermission
 from apps.impressions.models import Impression
@@ -60,9 +61,12 @@ class GetImpression(APIView):
                 coupon=c, campaign=c.campaign, publisher=request.publisher,
                 visitor=visitor, meta=meta
             )
-            template = render_to_string('impressions/basic.html', {
+
+            context = RequestContext(request, {
                 'impression': i
             })
+
+            template = render_to_string('impressions/basic.html', context)
             impression = {
                 'id': i.id,
                 'template': template

@@ -10,7 +10,7 @@ ALLOWED_HOSTS = [
     'ec2-52-11-62-128.us-west-2.compute.amazonaws.com', # Temporary
 ]
 
-BASE_URL = "http://app.intentaware.com"
+BASE_URL = "https://app.intentaware.com"
 
 INSTALLED_APPS += (
     'django.contrib.staticfiles',

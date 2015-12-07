@@ -2,6 +2,8 @@ from base import *
 
 SITE_ID = 1
 
+BASE_URL = 'http://localhost:9050'
+
 INSTALLED_APPS += (
     'rest_framework',
     'devserver',
