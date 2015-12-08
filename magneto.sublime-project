@@ -1,0 +1,16 @@
+{
+  "folders": [{
+    "path": ".",
+    "folder_exclude_patterns": [
+      "node_modules", "bower_components"
+    ]
+  }],
+  "settings": {
+    "AngularJS": {
+      "folders": [
+        "dashboard/src",
+        "impressions/app",
+      ]
+    }
+  }
+}

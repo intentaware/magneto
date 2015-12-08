@@ -9,7 +9,7 @@
       {% if globals.company.is_advertiser %}
       <li class="menu-heading">
         <md-button class="no-pointer">Campaigns</md-button>
-        <ul flex class="adomattic-nested-menu">
+        <ul class="adomattic-nested-menu">
           <li><md-button ng-click="goToCampaignCreate()">New Campaign</md-button></li>
           <li><md-button ng-click="gotoCampaignList()">Current Campaigns</md-button></li>
           <li><md-button ng-click="gotoCampaignList('past')">Past Campaigns</md-button></li>
@@ -28,4 +28,5 @@
     </ul>
   </md-content>
 </md-sidenav>
+
 {% endraw %}

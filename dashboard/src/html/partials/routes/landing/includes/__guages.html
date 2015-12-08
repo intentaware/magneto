@@ -1,0 +1,23 @@
+{% raw %}
+
+<div layout="row" layout-sm="column" ng-controller="GuagesLandingCtrl as gc">
+  <div flex="33" flex-sm="50">
+    <md-card class="md-whiteframe-z1">
+      <div class="tile tile-normal bg-adomattic-accent tile-linked" ng-click="gotoCampaignList()">
+        <span class="announcement mini" ng-cloak>
+          {{ gc.assets.length || 0 }} <small>Assets</small>/ {{ gc.assets[0].impressions || 0 }} <small>Views</small>
+        </span>
+        <span class="title">
+          <md-button class="md-primary md-fab md-mini md-warn" href="http://google.com" aria-label="description">
+            <md-icon class="material-icons">library_add</md-icon>
+          </md-button>
+          <md-button class="md-primary md-fab md-mini" href="http://google.com" aria-label="description">
+            <md-icon class="material-icons">library_books</md-icon>
+          </md-button>
+        </span>
+      </div>
+    </md-card>
+  </div>
+</div>
+
+{% endraw %}
