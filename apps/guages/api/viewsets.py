@@ -6,5 +6,8 @@ class AssetViewSet(BaseModelViewSet):
     serializer_class = AssetSerializer
 
     def get_queryset(self):
-        return Asset.objects.filter(
-            publisher_id=self.request.session['company'])
+        return Asset.objects.prefetch_related(
+                    'metrics'
+                ).filter(
+                    publisher_id=self.request.session['company']
+                )

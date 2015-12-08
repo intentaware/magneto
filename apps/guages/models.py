@@ -15,7 +15,5 @@ class Asset(TimeStamped):
         return '%s - %s' %(self.url, self.publisher.name)
 
 
-class Matric(TimeStamped, IP2GeoModel):
-    asset = models.ForeignKey('guages.Asset', related_name='matrices')
-    #visitor = models.ForeignKey('users.Visitor', related_name='matrics')
-    #meta = JsonBField()
+class Metric(TimeStamped, IP2GeoModel):
+    asset = models.ForeignKey('guages.Asset', related_name='metrics')

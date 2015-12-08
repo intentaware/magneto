@@ -4,7 +4,7 @@ from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.authentication import BasicAuthentication
 from apps.api.permissions import PublisherAPIPermission
 
-class PostMatric(APIView):
+class PostMetric(APIView):
     permission_classes = (PublisherAPIPermission,)
     authentication_classes = (BasicAuthentication,)
 
@@ -14,7 +14,7 @@ class PostMatric(APIView):
 
     def post(self, request, asset_id=None):
         #print asset_id
-        from apps.guages.models import Asset, Matric
+        from apps.guages.models import Asset, Metric
         from apps.users.models import Visitor
         asset = Asset.objects.get(key=asset_id)
         meta = request.data.get('meta', dict())
@@ -23,7 +23,7 @@ class PostMatric(APIView):
         backends.update(meta)
         #print request.visitor
         visitor, created = Visitor.objects.get_or_create(key=request.visitor)
-        Matric.objects.create(
+        Metric.objects.create(
             asset = asset,
             meta = backends,
             visitor = visitor
