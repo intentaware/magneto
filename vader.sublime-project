@@ -3,16 +3,24 @@
     "python_interpreter": "/Users/yosuuf/.virtualenvs/adomattic/bin/python",
     "python_package_paths": [
       "/Users/yosuuf/.virtualenvs/adomattic/lib/python2.7/site-packages/",
-    ]
+    ],
+    "SublimeLinter": {
+      "python_paths": {
+        "linux": [],
+        "osx": [
+          "/Users/yosuuf/.virtualenvs/adomattic/bin/",
+          "/Users/yosuuf/.virtualenvs/adomattic/lib/python2.7/site-packages/",
+        ],
+        "windows": []
+      },
+    }
   },
-	"folders":
-	[
-		{
-			"follow_symlinks": true,
-			"path": ".",
-      "folder_exclude_patterns": [
-        "node_modules", "bower_components", ".idea", "ipdb", "lib"
-      ]
-		}
-	]
+  "folders": [{
+    "follow_symlinks": true,
+    "path": ".",
+    "folder_exclude_patterns": [
+      "node_modules", "bower_components", ".idea", "ipdb", "lib", ".codeintel",
+      "magneto",
+    ]
+  }]
 }

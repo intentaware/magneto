@@ -92,7 +92,6 @@ THIRD_PARTY_APPS = (
     # import export
     'import_export',
 
-    'registration',
     'widget_tweaks',
     'corsheaders',
 
