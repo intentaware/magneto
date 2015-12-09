@@ -12,3 +12,10 @@ class AssetSerializer(serializers.ModelSerializer):
 
     def get_impressions(self, obj):
         return obj.metrics.all().count()
+
+
+class CreateAssetSerializer(serializers.ModelSerializer):
+    url = serializers.CharField(max_length=200)
+
+    class Meta:
+        model = Asset
