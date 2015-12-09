@@ -11,7 +11,6 @@ class CompanySerializer(serializers.ModelSerializer):
         exclude = ['users', ]
 
     def get_circles(self, obj):
-        print obj.publishercircle_set.all().count()
         return list(
                 obj.publishercircle_set.filter(
                     is_active=True
@@ -23,7 +22,6 @@ class UpdateCompanySerializer(CompanySerializer):
     circles = serializers.ListField(child=serializers.IntegerField(), required=False)
 
     def update(self, instance, validated_data):
-        print instance
         data = validated_data
         circles = set(data.pop('circles', None))
         users = data.pop('users', None)
