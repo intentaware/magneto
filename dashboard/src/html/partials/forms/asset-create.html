@@ -1,0 +1,26 @@
+{% raw %}
+<div layout="column" layout-padding layout-fill>
+  <form name="frm" ng-controller="AssetFormCtrl as fc" layout="column" ng-submit="fc.saveAsset()">
+    <div layout="row" layout-sm="column">
+      <md-input-container flex="30">
+        <label>Name of The Asset</label>
+        <input type="text" name="name" ng-model="fc.asset.name" required>
+        <div ng-messages="frm.name.$error">
+          <div ng-message="required">This is required</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex="70">
+        <label>URL</label>
+        <md-icon class="material-icons">public</md-icon>
+        <input type="text" name="url" ng-model="fc.asset.url" required>
+        <div ng-messages="frm.url.$error">
+          <div ng-message="required">This is required</div>
+        </div>
+      </md-input-container>
+    </div>
+    <div layout="row">
+      <md-button type="submit" class="md-primary md-raised">Save</md-button>
+    </div>
+  </form>
+</div>
+{% endraw %}

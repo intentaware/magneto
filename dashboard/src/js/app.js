@@ -4,7 +4,6 @@ angular.module('adomattic', [
     // angular core
     'ngAnimate',
     'ngCookies',
-    'ngTouch',
     'ngSanitize',
     'ngResource',
     'ngRoute',
@@ -81,6 +80,11 @@ angular.module('adomattic', [
       .when('/assets/', {
         templateUrl: 'routes/assets/list.html',
         controller: 'AssetListCtrl',
+        controllerAs: 'pc'
+      })
+      .when('/assets/create/', {
+        templateUrl: 'routes/assets/create.html',
+        controller: 'AssetCreateCtrl',
         controllerAs: 'pc'
       })
       // settings
