@@ -1,0 +1,45 @@
+{% raw %}
+
+<div layout="column" ng-cloak>
+  <md-content>
+    <md-list flex>
+      <md-list-item ng-repeat="asset in pc.assets">
+        <div layout="column" flex>
+          <div flex>
+            <p>
+              <strong>{{ asset.name }}</strong>
+              <small>
+                (<md-icon class="material-icons md-18">public</md-icon>
+                {{ asset.url }})
+              </small>
+            </p>
+            <md-button class="md-secondary md-fab md-mini md-primary" ng-click="pc.showCode($index)">
+              <md-icon class="material-icons md-18">code</md-icon>
+            </md-button>
+          </div>
+          <div ng-if="asset.show_code">
+            <div layout="column">
+              <md-input-container>
+                <label>Include Code</label>
+                <input type="text" ng-model="pc.pixel" ng-disabled="true">
+                <div ng-messages="helpText">
+                  <div ng-message="forPixel" class="help-text">
+                    Click copy, and place this exactly where you want your offer to appear!
+                  </div>
+                </div>
+              </md-input-container>
+              <md-button
+                class="md-primary md-raised"
+                ui-zeroclip zeroclip-model="pc.pixel" zeroclip-copied="pc.showCopied()"
+                aria-label="copy the include code">
+                Copy
+              </md-button>
+            </div>
+          </div>
+        </div>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</div>
+
+{% endraw %}

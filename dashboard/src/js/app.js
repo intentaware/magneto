@@ -77,6 +77,12 @@ angular.module('adomattic', [
         controller: 'CampaignEditCtrl',
         controllerAs: 'baseCampaignFormCtrl'
       })
+      // assets
+      .when('/assets/', {
+        templateUrl: 'routes/assets/list.html',
+        controller: 'AssetListCtrl',
+        controllerAs: 'pc'
+      })
       // settings
       .when('/settings/', {
         templateUrl: 'routes/settings/main.html',

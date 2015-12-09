@@ -4,7 +4,7 @@
       Home for <strong>{{ globals.company.name }}</strong>
     </md-subheader>
 </div>
-<div layout="row">
+<div layout="row" ng-if="globals.company.is_advertiser || globals.company.is_publisher">
   <md-card class="md-whiteframe-z1" flex>
     <div class="tile tile-normal bg-adomattic-accent tile-linked">
       <span class="announcement">
@@ -16,7 +16,8 @@
     </div>
   </md-card>
 </div>
-<md-divider></md-divider>
+
+<md-divider ng-if="globals.company.is_advertiser || globals.company.is_publisher"></md-divider>
 {% endraw %}
 
 {% include 'includes/__campaigners.html' %}

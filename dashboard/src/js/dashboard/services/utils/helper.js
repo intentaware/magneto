@@ -22,6 +22,8 @@ angular.module('adomattic.dashboard')
 
     self.getPixel = function(publisherKey, campaignID) {
       campaignID = campaignID || null;
+
+
       var assetRoot = (window.location.hostname === 'app.intentaware.com' || 'live.intentaware.com') ? window.location.protocol + '//' + window.location.host + '/magneto' : 'http://' + window.location.host + '/static/impressions/dist/';
       var pixel;
 
@@ -29,6 +31,22 @@ angular.module('adomattic.dashboard')
         pixel = '<script>(function(){document.intentaware="' + publisherKey + '";document.campaignID="' + campaignID + '";var b=document.currentScript.parentNode,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="' + assetRoot + '/aware.js";b.appendChild(a)})();</script>';
       } else {
         pixel = '<script>(function(){document.intentaware="' + publisherKey + '";var b=document.currentScript.parentNode,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="' + assetRoot + '/aware.js";b.appendChild(a)})();</script>';
+      }
+
+      return pixel;
+    };
+
+    self.getGuagePixel = function(publisherKey, assetID) {
+      assetID = assetID || null;
+
+
+      var assetRoot = (window.location.hostname === 'app.intentaware.com' || 'live.intentaware.com') ? window.location.protocol + '//' + window.location.host + '/magneto' : 'http://' + window.location.host + '/static/impressions/dist/';
+      var pixel;
+
+      if (assetID) {
+        pixel = '<script>(function(){document.intentaware="' + publisherKey + '";document.assetID="' + assetID + '";var b=document.currentScript.parentNode,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="' + assetRoot + '/guages.js";b.appendChild(a)})();</script>';
+      } else {
+        pixel = '<script>(function(){document.intentaware="' + publisherKey + '";var b=document.currentScript.parentNode,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="' + assetRoot + '/guages.js";b.appendChild(a)})();</script>';
       }
 
       return pixel;

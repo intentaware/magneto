@@ -21,4 +21,8 @@ angular.module('adomattic.dashboard')
     $scope.goToInvoices = function() {
       $location.path('/invoices/');
     };
+
+    $scope.goToAssets = function() {
+      $location.path('/assets/');
+    };
   });

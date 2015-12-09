@@ -8,7 +8,7 @@
       </li>
       {% if globals.company.is_advertiser %}
       <li class="menu-heading">
-        <md-button class="no-pointer">Campaigns</md-button>
+        <md-button class="no-pointer" ng-click="gotoCampaignList()">Campaigns</md-button>
         <ul class="adomattic-nested-menu">
           <li><md-button ng-click="goToCampaignCreate()">New Campaign</md-button></li>
           <li><md-button ng-click="gotoCampaignList()">Current Campaigns</md-button></li>
@@ -19,6 +19,13 @@
         <md-button ng-click="goToInvoices()">Invoices</md-button>
       </li>
       {% endif %}
+      <li class="menu-heading">
+        <md-button class="no-pointer" aria-label="Assets Menu">Assets</md-button>
+        <ul class="adomattic-nested-menu">
+          <li><md-button>New Asset</md-button></li>
+          <li><md-button ng-click="goToAssets()">List Assets</md-button></li>
+        </ul>
+      </li>
       <li class="menu-heading">
         <md-button ng-click="goToSettings()">Settings</md-button>
       </li>
