@@ -22,7 +22,11 @@ angular.module('adomattic.dashboard')
       $location.path('/invoices/');
     };
 
-    $scope.goToAssets = function() {
+    $scope.goToAssetCreate = function() {
+      $location.path('/assets/create/');
+    };
+
+    $scope.goToAssetList = function() {
       $location.path('/assets/');
     };
   });

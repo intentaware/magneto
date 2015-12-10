@@ -8,6 +8,27 @@ var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
 
+var uglifyCompressOptions = {
+  sequences: true, // join consecutive statemets with the “comma operator”
+  properties: true, // optimize property access: a["foo"] → a.foo
+  dead_code: true, // discard unreachable code
+  drop_debugger: true, // discard “debugger” statements
+  conditionals: true, // optimize if-s and conditional expressions
+  comparisons: true, // optimize comparisons
+  evaluate: true, // evaluate constant expressions
+  booleans: true, // optimize boolean expressions
+  loops: true, // optimize loops
+  unused: true, // drop unused variables/functions
+  hoist_funs: true, // hoist function declarations
+  hoist_vars: false, // hoist variable declarations
+  if_return: true, // optimize if-s followed by return/continue
+  join_vars: true, // join var declarations
+  cascade: true, // try to cascade `right` into `left` in sequences
+  side_effects: true, // drop side-effect-free statements
+  warnings: true, // warn about potentially dangerous optimizations/code
+  drop_console: true // drops console.log statements
+};
+
 
 gulp.task('minify:common', ['inject:common'], function() {
   var assets,
@@ -46,7 +67,8 @@ gulp.task('minify:dashboard', ['inject:dashboard'], function() {
     .pipe(jsFilter)
     //.pipe($.ngAnnotate())
     .pipe($.uglify({
-      preserveComments: $.uglifySaveLicense
+      preserveComments: $.uglifySaveLicense,
+      compress: uglifyCompressOptions
     }))
     .pipe($.size())
     .pipe(gulp.dest(paths.django.assets.dashboard + '/builds'))
@@ -72,7 +94,8 @@ gulp.task('minify:auth', ['inject:auth'], function() {
     .pipe(jsFilter)
     //.pipe($.ngAnnotate())
     .pipe($.uglify({
-      preserveComments: $.uglifySaveLicense
+      preserveComments: $.uglifySaveLicense,
+      compress: uglifyCompressOptions
     }))
     .pipe($.size())
     .pipe(gulp.dest(paths.django.assets.dashboard + '/builds'))
@@ -85,7 +108,7 @@ gulp.task('minify:auth', ['inject:auth'], function() {
 });
 
 gulp.task('restore:html', ['minify:common', 'minify:dashboard', 'minify:auth'], function() {
-  return  gulp.src('compile/builds/*.html')
+  return gulp.src('compile/builds/*.html')
     .pipe(gulp.dest(paths.django.templates.root));
 });
 
