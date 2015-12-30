@@ -108,6 +108,7 @@ THIRD_PARTY_APPS = (
 
 PLUGIN_APPS = (
     'plugins.cities',
+    'plugins.census',
 )
 
 ADOMATIC_APPS = (
@@ -201,28 +202,28 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = (
-        'x-requested-with',
-        'content-type',
-        'accept',
-        'origin',
-        'authorization',
-        'x-csrftoken',
-        'wp-api-key',
-        'publisher-key',
-        'access-control-allow-origin',
-        'access-control-allow-credentials'
-    )
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken',
+    'wp-api-key',
+    'publisher-key',
+    'access-control-allow-origin',
+    'access-control-allow-credentials'
+)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-        "django.contrib.auth.context_processors.auth",
-        "django.core.context_processors.debug",
-        "django.core.context_processors.i18n",
-        "django.core.context_processors.media",
-        "django.core.context_processors.static",
-        "django.core.context_processors.tz",
-        "django.core.context_processors.request",
-        "django.contrib.messages.context_processors.messages"
-    )
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.core.context_processors.request",
+    "django.contrib.messages.context_processors.messages"
+)
 
 
 # Impression Engine
