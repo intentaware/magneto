@@ -92,7 +92,7 @@ def update_envs():
         env.run('cp adomattic/conf/%(conf_path)s/settings.py adomattic/settings/local.py' % env)
 
 
-def prepare():
+def apt():
     """
     For things that need to be installed via apt-get.
     These are installed before requirements.txt in the venv otherwise some python modules won't install properly
@@ -126,6 +126,40 @@ def yum():
     env.run('sudo -i; curl -sL https://rpm.nodesource.com/setup_5.x | bash -; yum install nodejs;')
     #env.run('sudo yum -y install uwsgi uwsgi-plugin-python')
     env.run('sudo npm i -g bower gulp yo')
+
+def brew():
+    print "Warning!!"
+    print "On a slow internet, this may take time!!"
+    env.run('brew update')
+    env.run('brew upgrade')
+    env.run('brew tap homebrew/bundle')
+    env.run('brew tap homebrew/dupes')
+    env.run('brew tap homebrew/versions')
+    env.run("brew install openssl openjpeg jpeg libpng gd zlib pngquant imagemagick")
+    env.run("brew install elasticsearch rabbitmq")
+    env.run("brew install git-flow git-extras")
+    env.run("brew install geos geoip")
+    env.run("brew install node")
+    env.run("brew install openssl wget")
+
+
+def prepare():
+    """
+    Prepare your system, install necessary libraries and data
+    """
+    import platform
+    system = platform.system().lower()
+    if system == 'darwin':
+        brew()
+        get_ipdb()
+    elif system == 'linux':
+        if platform.dist()[0].lower() == 'ubuntu':
+            apt()
+        else:
+            yum()
+        get_ipdb()
+    else:
+        sys.exit('Unrecognized system, prepare your system manually')
 
 
 def virtualenv_setup():
