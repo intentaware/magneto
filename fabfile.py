@@ -32,6 +32,9 @@ def local():
     env.branch = 'develop'
     env.venv_root = LOCAL_ENVIRONMENT_PATH
     env.venv = 'source %(venv_root)sbin/activate && ' % env
+    env.dashboard = '%(project_root)smagneto/dashboard/' % env
+    env.impressions = '%(project_root)smagneto/impressions/' % env
+    env.emails = '%(project_root)smagneto/emails/' % env
 
 def stage():
     """
@@ -107,7 +110,8 @@ def apt():
     env.run('sudo apt-get install libreadline6 libreadline6-dev libncurses5-dev')
     env.run('sudo apt-get install libffi-dev libssl-dev')
     env.run('sudo pip install virtualenv')
-    env.run('sudo apt-get install nodejs-legacy')
+    env.run('curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -')
+    env.run('sudo apt-get install -y nodejs')
     env.run('sudo npm i -g bower gulp yo')
 
 def yum():
@@ -141,6 +145,7 @@ def brew():
     env.run("brew install geos geoip")
     env.run("brew install node")
     env.run("brew install openssl wget")
+    env.run("npm install -g gulp bower")
 
 
 def prepare():
@@ -263,6 +268,10 @@ def clean_pyc():
     with cd(env.project_root):
         env.run('find . -name "*.pyc" -exec rm -rf {} \;')
 
+def setup_magneto():
+    npm()
+    bower()
+
 def get_ipdb():
     """
     gets the latest ipdb file from maxmind
@@ -271,6 +280,7 @@ def get_ipdb():
         env.run('mkdir adomattic/ipdb')
         env.run('wget -P adomattic/ipdb/ http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz')
         env.run('gunzip adomattic/ipdb/GeoLite2-City.mmdb.gz')
+
 
 def deploy():
     """
