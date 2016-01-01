@@ -272,6 +272,8 @@ def gulp():
     with env.cd(env.impressions):
         env.run('gulp aware --%(conf_path)s' % env)
         env.run('gulp guages --%(conf_path)s' % env)
+    with env.cd(env.emails):
+        env.run('gulp emails')
 
 
 def clean_pyc():
@@ -281,6 +283,7 @@ def clean_pyc():
 def setup_magneto():
     npm()
     bower()
+    gulp()
 
 def get_ipdb():
     """
