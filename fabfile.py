@@ -281,6 +281,9 @@ def clean_pyc():
         env.run('find . -name "*.pyc" -exec rm -rf {} \;')
 
 def setup_magneto():
+    """
+    sets up the front end for environment
+    """
     npm()
     bower()
     gulp()
