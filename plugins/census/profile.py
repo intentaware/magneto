@@ -181,7 +181,7 @@ def add_metadata(dictionary, table_id, universe, acs_release):
     dictionary['metadata'] = val
 
 def geo_profile(geoid, acs='latest'):
-    api = ApiClient(settings.API_URL)
+    api = ApiClient(settings.CENSUS_BASE)
 
     item_levels = api.get_parent_geoids(geoid)['parents']
     comparison_geoids = [level['geoid'] for level in item_levels]

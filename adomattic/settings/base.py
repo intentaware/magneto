@@ -258,6 +258,11 @@ CITIES_PLUGINS = [
 # Google Geocode API
 GOOGLE_GEOCODE_KEY = 'AIzaSyCAT8k8LnKNPPnQcsGzLWuO7OhAh5tgCFo'
 
+# CENSUS URL
+CENSUS_BASE = 'http://api.censusreporter.org'
+CENSUS_GEOID_LOOKUP = CENSUS_BASE + '/1.0/geo/elasticsearch'
+
+
 try:
     from local import *
 except ImportError:
