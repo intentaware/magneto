@@ -12,6 +12,7 @@
     "gulp-closure-compiler": "^0.3.1",
     "gulp-concat": "^2.5.2",
     "gulp-csso": "^1.0.0",
+    "gulp-debug": "^2.0.1",
     "gulp-filter": "^3.0.1",
     "gulp-if": "^2.0.0",
     "gulp-imagemin": "^2.2.1",

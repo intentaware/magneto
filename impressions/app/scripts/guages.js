@@ -56,6 +56,8 @@
   var postMatric = function () {
     var meta = getMachineInfo();
     console.log(meta);
+    console.log(meta);
+    console.log(document['intentaware']);
     axios({
       url: urls.base + urls.endPoints.guages(),
       headers: {

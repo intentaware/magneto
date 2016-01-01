@@ -94,6 +94,7 @@ gulp.task('aware', function() {
     .pipe($.if(args.live, $.replace(apiString.dev, apiString.live)))
     .pipe($.if(args.stage, $.replace(apiString.dev, apiString.stage)))
     .pipe($.uglify(uglifyOptions))
+    //.pipe(console.log(args))
     .pipe($.if(!(args.live || args.stage), $.sourcemaps.write()))
     .pipe(gulp.dest(dest))
     .pipe($.size(sizeOptions));

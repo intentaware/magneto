@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('AssetListCtrl', function(Asset, Helper, $mdToast) {
+  .controller('AssetListCtrl', function(Asset, Helper, $rootScope, $mdToast) {
     var self = this;
 
     Asset.query().$promise.then(function(response) {
@@ -19,7 +19,7 @@ angular.module('adomattic.dashboard')
     };
 
     self.setActivePixel = function(asset) {
-      self.pixel = Helper.getGuagePixel(asset.key);
+      self.pixel = Helper.getGuagePixel($rootScope.globals.company.publisher_key, asset.key);
     };
 
     self.showCopied = function() {
