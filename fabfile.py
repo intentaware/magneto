@@ -1,6 +1,6 @@
 import sys
 
-from fabric.api import env, require, run, put, cd, task, settings as fabric_settings
+from fabric.api import env, require, run, put, cd, lcd, task, settings as fabric_settings
 from fabric.api import local as lrun
 from fabric.contrib.console import confirm
 
@@ -25,10 +25,10 @@ def local():
          fab local <task>
     """
     env.run = lrun
+    env.cd = lcd
     env.name = 'local'
     env.conf_path = 'local'
     env.project_root = LOCAL_PROJECT_PATH
-    env.hosts = ['localhost']
     env.branch = 'develop'
     env.venv_root = LOCAL_ENVIRONMENT_PATH
     env.venv = 'source %(venv_root)sbin/activate && ' % env
@@ -44,6 +44,7 @@ def stage():
         fab stage <task>
     """
     env.run = run
+    env.cd = cd
     env.name = 'adomattic-stage'
     env.conf_path = 'stage'
     env.project_root = '/srv/%(name)s/' % env
@@ -68,6 +69,7 @@ def live():
         fab live <task>
     """
     env.run = run
+    env.cd = cd
     env.name = 'ia-live'
     env.conf_path = 'live'
     env.project_root = '/srv/%(name)s/' % env
@@ -91,7 +93,7 @@ def update_envs():
     Usage:
         fab local update_envs
     """
-    with cd(env.project_root):
+    with env.cd(env.project_root):
         env.run('cp adomattic/conf/%(conf_path)s/settings.py adomattic/settings/local.py' % env)
 
 
@@ -100,6 +102,7 @@ def apt():
     For things that need to be installed via apt-get.
     These are installed before requirements.txt in the venv otherwise some python modules won't install properly
     """
+
     env.run('sudo apt-get update')
     env.run("sudo apt-get install locate python-setuptools git-core subversion mercurial htop screen byobu gcc")
     env.run('sudo apt-get install libjpeg62 libjpeg62-dev zlib1g-dev libfreetype6 libfreetype6-dev python-pycurl-dbg libcurl4-openssl-dev')
@@ -109,9 +112,18 @@ def apt():
     env.run('sudo apt-get install python-pip')
     env.run('sudo apt-get install libreadline6 libreadline6-dev libncurses5-dev')
     env.run('sudo apt-get install libffi-dev libssl-dev')
+    # Install Postgres 9.4 (json field)
+    env.run("""sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'""")
+    env.run('sudo apt-get install wget ca-certificates')
+    env.run('wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -')
+    env.run('sudo apt-get update')
+    env.run('sudo apt-get upgrade')
+    env.run('sudo apt-get install postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 libpq-dev')
     env.run('sudo pip install virtualenv')
+    # Install latest node and npm
     env.run('curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -')
     env.run('sudo apt-get install -y nodejs')
+    # Install bower gulp and yo
     env.run('sudo npm i -g bower gulp yo')
 
 def yum():
@@ -172,7 +184,7 @@ def virtualenv_setup():
     The third step
     """
     env.run("/usr/bin/virtualenv --no-site-packages %(venv_root)s" % env)
-    with cd(env.project_root):
+    with env.cd(env.project_root):
         env.run("mkdir logs")
         env.run("touch logs/error-django.log")
 
@@ -192,7 +204,7 @@ def git_pull():
     Usage:
         fab <env> git_pull
     """
-    with cd(env.project_root):
+    with env.cd(env.project_root):
         env.run('git fetch' % env)
         env.run('git checkout %(branch)s; git pull' % env)
         env.run('git submodule update --init --recursive' % env)
@@ -204,18 +216,18 @@ def install_requirements():
     Usage:
         fab <env> install_requirements
     """
-    with cd(env.project_root):
+    with env.cd(env.project_root):
         env.run('%(venv)s pip install -r requirements.txt' % env)
 
 def migrate():
     """
     migrates the database
     """
-    with cd(env.project_root):
+    with env.cd(env.project_root):
         env.run('%(venv)s python manage.py migrate' % env)
 
 def collect_static():
-    with cd(env.project_root):
+    with env.cd(env.project_root):
         env.run('%(venv)s python manage.py collectstatic --noinput -i node_modules' % env)
 
 
@@ -223,7 +235,7 @@ def uwsgi_install():
     """
     first install of uwsgi
     """
-    with cd(env.project_root):
+    with env.cd(env.project_root):
         env.run('%(venv)s pip install uwsgi' % env)
 
 def copy_nginx_conf():
@@ -234,38 +246,36 @@ def copy_nginx_conf():
 
 
 def restart_uwsgi():
-    with cd(env.project_root):
+    with env.cd(env.project_root):
         env.run('touch uwsgi/touch.py')
 
 
 def npm():
-    with cd(env.dashboard):
+    with env.cd(env.dashboard):
         env.run('npm install')
-    with cd(env.impressions):
+    with env.cd(env.impressions):
         env.run('npm install')
-    with cd(env.emails):
+    with env.cd(env.emails):
         env.run('npm install')
 
 
 def bower():
-    with cd(env.dashboard):
+    with env.cd(env.dashboard):
         env.run('bower install --allow-root')
-    with cd(env.impressions):
-        env.run('bower install --allow-root')
-    with cd(env.emails):
+    with env.cd(env.impressions):
         env.run('bower install --allow-root')
 
 
 def gulp():
-    with cd(env.dashboard):
+    with env.cd(env.dashboard):
         env.run('gulp build')
-    with cd(env.impressions):
+    with env.cd(env.impressions):
         env.run('gulp aware --%(conf_path)s' % env)
         env.run('gulp guages --%(conf_path)s' % env)
 
 
 def clean_pyc():
-    with cd(env.project_root):
+    with env.cd(env.project_root):
         env.run('find . -name "*.pyc" -exec rm -rf {} \;')
 
 def setup_magneto():
@@ -276,7 +286,7 @@ def get_ipdb():
     """
     gets the latest ipdb file from maxmind
     """
-    with cd(env.project_root):
+    with env.cd(env.project_root):
         env.run('mkdir adomattic/ipdb')
         env.run('wget -P adomattic/ipdb/ http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz')
         env.run('gunzip adomattic/ipdb/GeoLite2-City.mmdb.gz')
