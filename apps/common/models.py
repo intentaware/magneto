@@ -156,8 +156,8 @@ class IP2GeoModel(BaseModel):
     def hydrate_meta(self):
         return self._hydrate_meta()
 
-
-    def get_census_data(self, q):
+    @staticmethod
+    def get_census_data(q):
         """
         Gets the census data against a given lookup
 
@@ -183,13 +183,13 @@ class IP2GeoModel(BaseModel):
             geoid = json.loads(r.text)['results'][0]['full_geoid']
             from plugins.census.profile import geo_profile
             census_data = geo_profile(geoid)
-            return {
-                'census': census_data
-            }
+            return census_data
 
     def append_census_data(self, q):
         d = self.get_census_data(q)
-        self.meta.update(d)
+        self.meta.update({
+                'census': d
+            })
         self.save()
 
 

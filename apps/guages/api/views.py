@@ -21,6 +21,11 @@ class PostMetric(APIView):
         meta = self.process_base64(meta)
         backends = self.process_request(request)
         backends.update(meta)
+        postal_code = backends['ip2geo']['postal']['code']
+        census = Metric.get_census_data(postal_code)
+        backends.update({
+            'census': census
+        })
         #print request.visitor
         visitor, created = Visitor.objects.get_or_create(key=request.visitor)
         Metric.objects.create(
@@ -37,6 +42,7 @@ class PostMetric(APIView):
     def process_request(self, request):
         from ipware.ip import get_real_ip
         ip = get_real_ip(request) or '99.22.48.100'
+
         if ip:
             from geoip2 import database, webservice
             from django.conf import settings
