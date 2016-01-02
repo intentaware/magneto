@@ -156,7 +156,41 @@ class IP2GeoModel(BaseModel):
     def hydrate_meta(self):
         return self._hydrate_meta()
 
+    @staticmethod
+    def get_census_data(q):
+        """
+        Gets the census data against a given lookup
 
+        Args:
+            q (text): query string for text
+
+        Returns:
+            json: json for geo
+        """
+        import requests, json
+        from django.apps import apps
+        from django.conf import settings
+
+        params = {
+            'q': q,
+            'sumlevs': None,
+            'start': None
+        }
+        # Geography = apps.get_model('census', 'geography')
+        r = requests.get(settings.CENSUS_GEOID_LOOKUP, params=params)
+
+        if r.status_code == 200:
+            geoid = json.loads(r.text)['results'][0]['full_geoid']
+            from plugins.census.profile import geo_profile
+            census_data = geo_profile(geoid)
+            return census_data
+
+    def append_census_data(self, q):
+        d = self.get_census_data(q)
+        self.meta.update({
+                'census': d
+            })
+        self.save()
 
 
 

@@ -12,6 +12,7 @@ class IPStore(TimeStamped):
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     geocode = JsonBField(blank=True, null=True)
+    census = JsonBField(blank=True, null=True)
 
     def __unicode__(self):
         return self.ip
