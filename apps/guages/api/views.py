@@ -21,11 +21,22 @@ class PostMetric(APIView):
         meta = self.process_base64(meta)
         backends = self.process_request(request)
         backends.update(meta)
-        postal_code = backends['ip2geo']['postal']['code']
-        census = Metric.get_census_data(postal_code)
-        backends.update({
-            'census': census
-        })
+        country = backends['ip2geo']['country']['iso_code']
+        if country == 'US':
+            from apps.warehouse.models import IPStore
+            ip, created = IPStore.objects.get_or_create(ip=backends['ip'])
+            if created or not ip.census:
+                postal_code = backends['ip2geo']['postal']['code']
+                census = Metric.get_census_data(postal_code)
+                backends.update({
+                    'census': census
+                })
+                ip.census = census
+                ip.save()
+            else:
+                backends.update({
+                    'census': ip.census
+                })
         #print request.visitor
         visitor, created = Visitor.objects.get_or_create(key=request.visitor)
         Metric.objects.create(
