@@ -33,9 +33,17 @@ class UserTest(TestCase):
             return True
         else:
             return False
-        
+
     def test_update_key(self):
         update_key = self.user.update_key()
 
         print update_key
         
+    def test_get_short_name(self):
+        short_name = self.user.get_short_name()
+        if short_name == 'Robert Steve':
+            return True
+        else:
+            return False
+
+            
