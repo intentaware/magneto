@@ -26,5 +26,16 @@ class UserTest(TestCase):
             return True
         else:
             return False
+
+    def test_get_username(self):
+        username = self.user.get_username()
+        if username == 'selftest@example.com':
+            return True
+        else:
+            return False
         
+    def test_update_key(self):
+        update_key = self.user.update_key()
+
+        print update_key
         
