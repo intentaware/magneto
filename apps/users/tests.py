@@ -56,3 +56,5 @@ class UserTest(TestCase):
     def test_send_password_reset_email(self):
         p_email = self.user.send_password_reset_email()
 
+        print p_email
+
