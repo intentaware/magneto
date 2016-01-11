@@ -45,5 +45,12 @@ class UserTest(TestCase):
             return True
         else:
             return False
+    
+    def test_send_email(self):
+        send_email = self.user.send_email(subject="Test subject", message="Test message")
+        
+    def test_send_templated_email(self):
+        t_email = self.user.send_templated_email(template= "emails/welcome-email.html",context={'user': self},
+            subject="subject")      
+    
 
-            
