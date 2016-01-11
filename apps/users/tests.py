@@ -53,4 +53,6 @@ class UserTest(TestCase):
         t_email = self.user.send_templated_email(template= "emails/welcome-email.html",context={'user': self},
             subject="subject")      
     
+    def test_send_password_reset_email(self):
+        p_email = self.user.send_password_reset_email()
 
