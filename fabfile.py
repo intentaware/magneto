@@ -129,21 +129,22 @@ def apt():
     env.run('sudo npm i -g bower gulp yo')
 
 def yum():
-    env.run('sudo yum -y update')
-    env.run('sudo yum -y groupinstall "Development tools"')
-    env.run('sudo yum -y install zlib-devel')
-    env.run('sudo yum -y install python27-devel python27-tools')
-    env.run('sudo yum -y install python27-pip')
-    env.run('sudo yum -y install ibxml2-devel libxslt-devel geos')
-    env.run('sudo yum -y install freetype-devel freetype-demos libjpeg* pngquant lcms2* libtiff* openjpeg* libwebp-devel tcl-devel tk-devel')
-    env.run('sudo yum install -y gcc openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel')
+    env.sudo('yum -y update')
+    env.sudo('yum -y groupinstall "Development tools"')
+    env.sudo('yum -y install zlib-devel')
+    env.sudo('yum -y install python27-devel python27-tools')
+    env.sudo('yum -y install python27-pip')
+    env.sudo('yum -y install ibxml2-devel libxslt-devel geos')
+    env.sudo('yum -y install freetype-devel freetype-demos libjpeg* pngquant lcms2* libtiff* openjpeg* libwebp-devel tcl-devel tk-devel')
+    env.sudo('yum install -y gcc openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel')
     # Adding extra packages
-    env.run('sudo yum-config-manager --enable epel')
-    env.run('sudo yum -y install postgresql94-libs postgresql94-devel')
-    env.run('sudo yum -y install nginx')
-    env.sudo('curl -sL https://rpm.nodesource.com/setup_5.x | bash -; yum install nodejs;')
-    #env.run('sudo yum -y install uwsgi uwsgi-plugin-python')
-    env.run('sudo npm i -g bower gulp yo')
+    env.sudo('yum-config-manager --enable epel')
+    env.sudo('yum -y install postgresql94-libs postgresql94-devel')
+    env.sudo('yum -y install nginx')
+    env.sudo('curl -sL https://rpm.nodesource.com/setup_5.x | bash -')
+    env.sudo('yum -y install nodejs')
+    #env.sudo('yum -y install uwsgi uwsgi-plugin-python')
+    env.sudo('npm i -g bower gulp yo')
 
 def brew():
     print "Warning!!"
