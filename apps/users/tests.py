@@ -1,3 +1,4 @@
+from django.test.client import Client
 from django.test import TestCase
 from models import User
 import factory
@@ -15,6 +16,10 @@ class UserFactory(factory.Factory):
 class UserTest(TestCase):
     
     user = UserFactory()
+    c = Client()
+
+    def get(self, url, follow=False):
+        return self.client.get(url, follow=follow)
 
     def test_user_login_client(self):
         self.client.login(username=self.user.email, password=self.user.password)
@@ -57,4 +62,8 @@ class UserTest(TestCase):
         p_email = self.user.send_password_reset_email()
 
         print p_email
+
+    def test_user_registration(self):
+        response = self.c.get('/register/')
+        print response.status_code
 
