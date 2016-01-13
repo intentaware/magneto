@@ -1,7 +1,11 @@
 from django.test.client import Client
 from django.test import TestCase
 from models import User
+from backends.forms import *
 import factory
+import requests
+from pprint import pprint
+from apps.companies.models import *
 
 class UserFactory(factory.Factory):
     class Meta:
@@ -63,7 +67,16 @@ class UserTest(TestCase):
 
         print p_email
 
-    def test_user_registration(self):
+    def test_user_registration_view(self):
         response = self.c.get('/users/auth/register/')
-        print response.status_code
+        if response.status_code == 200:
+            confirmation  = self.c.post('/users/auth/register/', {'name' : 'SampleName', 'email' : 'selftest@example.com', 'password1' : 'alphanum', 'password2' : 'alphanum'})
+            
+            userCheck = User.objects.get(email='selftest@example.com')
+
+            companyCheck = Company.objects.get(name='SampleName')
+        else:
+            return False
+        
+
 
