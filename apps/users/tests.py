@@ -73,7 +73,6 @@ class UserTest(TestCase):
             confirmation  = self.c.post('/users/auth/register/', {'name' : 'SampleName', 'email' : 'selftest@example.com', 'password1' : 'alphanum', 'password2' : 'alphanum'})
             
             userCheck = User.objects.get(email='selftest@example.com')
-
             companyCheck = Company.objects.get(name='SampleName')
         else:
             return False
