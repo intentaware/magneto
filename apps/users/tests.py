@@ -73,6 +73,7 @@ class UserTest(TestCase):
             confirmation  = self.c.post('/users/auth/register/', {'name' : 'SampleName', 'email' : 'selftest@example.com', 'password1' : 'alphanum', 'password2' : 'alphanum'})
             userCheck = User.objects.get(email='selftest@example.com')
             companyCheck = Company.objects.get(name='SampleName')
+            key1 = userCheck.key
         else:
             return False
         """
@@ -81,9 +82,14 @@ class UserTest(TestCase):
         form = self.c.get('/users/auth/password/reset/')
         if form.status_code == 200:
             response = self.c.post('/users/auth/password/reset/',{'email' : 'selftest@example.com'})
-            key  = userCheck.update_key()
+            key2  = userCheck.key
             print response
-            print type(key)
+            print key1
+            print key2
+            if key1 != key2:
+                return True
+            else:
+                return False
     
 
 
