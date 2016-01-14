@@ -71,11 +71,19 @@ class UserTest(TestCase):
         response = self.c.get('/users/auth/register/')
         if response.status_code == 200:
             confirmation  = self.c.post('/users/auth/register/', {'name' : 'SampleName', 'email' : 'selftest@example.com', 'password1' : 'alphanum', 'password2' : 'alphanum'})
-            
             userCheck = User.objects.get(email='selftest@example.com')
             companyCheck = Company.objects.get(name='SampleName')
         else:
             return False
-        
+        """
+        Password reset url test
+        """
+        form = self.c.get('/users/auth/password/reset/')
+        if form.status_code == 200:
+            response = self.c.post('/users/auth/password/reset/',{'email' : 'selftest@example.com'})
+            key  = userCheck.update_key()
+            print response
+            print type(key)
+    
 
 
