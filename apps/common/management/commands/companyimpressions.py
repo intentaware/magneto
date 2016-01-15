@@ -15,7 +15,7 @@ class UnicodeWriter(object):
 
     def writerow(self, D):
         try:
-            self.writer.writerow({k:str(v).encode("utf-8", errors="replace") for k,v in D.items()})
+            self.writer.writerow({k:str(v).encode("utf-8", errors="ignore") for k,v in D.items()})
         except UnicodeEncodeError:
             print "Unicode Error on"
             print D
