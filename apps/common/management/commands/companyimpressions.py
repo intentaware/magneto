@@ -48,7 +48,7 @@ class Command(BaseCommand):
             'postal_code', 'nearest_address', 'longitude', 'latitude', 'country',
             'user_agent', 'campaign', 'impression', 'coupon', 'publisher']
         for c in Company.objects.all():
-            queryset = c.impressions.all().filter(meta__isnull=False, meta__at_ip__is_null=False)
+            queryset = c.impressions.all().filter(meta__isnull=False, meta__at_ip__isnull=False)
             name = '%s.csv' %(c.name)
             with open(name, 'w') as csvfile:
                 csvfile.write(u'\ufeff'.encode('utf8'))
