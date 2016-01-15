@@ -52,15 +52,12 @@ class Command(BaseCommand):
             name = '%s.csv' %(c.name)
             with open(name, 'w') as csvfile:
                 csvfile.write(u'\ufeff'.encode('utf8'))
-                writer = UnicodeWriter(csvfile, fieldnames=fieldnames)
+                writer = UnicodeWriter(csvfile, fieldnames=fieldnames, extrasaction='ignore')
                 writer.writeheader()
                 for q in queryset:
-                    q.hydrate_meta()
-                    # orignal meta
-                    meta = dict(q.meta)
+                    meta = dict(q.hydrate_meta)
                     # serialized dict
                     q = dict(ImpressionCSVSerializer(q).data)
                     # merging two dictoinaries
                     meta.update(q)
-                    print meta
                     writer.writerow(meta)
