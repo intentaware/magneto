@@ -85,7 +85,7 @@ def live():
     env.venv = 'source /srv/%(name)s/bin/activate && ' % env
     env.dashboard = '/srv/%(name)s/magneto/dashboard/' % env
     env.impressions = '/srv/%(name)s/magneto/impressions/' % env
-    env.email = '/srv/%(name)s/magneto/emails/' % env
+    env.emails = '/srv/%(name)s/magneto/emails/' % env
 
 
 
