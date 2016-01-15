@@ -19,18 +19,21 @@ class Command(BaseCommand):
 
         for q in queryset:
             ip = q.meta['ip']
-            location = q.meta['ip2geo']['location']
+            try:
+                location = q.meta['ip2geo']['location']
 
-            store, created = IPStore.objects.get_or_create(ip=ip)
+                store, created = IPStore.objects.get_or_create(ip=ip)
 
-            if created:
-                print "Reverse geocoding against ip: %s" %(store.ip)
-                self.update_gecode(store, location)
-            else:
-                if q.updated_on > _delta and store.updated_on < _delta:
-                    if not (store.latitude == location['latitude'] and store.longitude == location['longitude']):
-                        print "Updating reverse geocoding against ip: %s" %(store.ip)
-                        self.update_gecode(store, location)
+                if created:
+                    print "Reverse geocoding against ip: %s" %(store.ip)
+                    self.update_gecode(store, location)
+                else:
+                    if q.updated_on > _delta and store.updated_on < _delta:
+                        if not (store.latitude == location['latitude'] and store.longitude == location['longitude']):
+                            print "Updating reverse geocoding against ip: %s" %(store.ip)
+                            self.update_gecode(store, location)
+            except KeyError:
+                pass
 
     def update_gecode(self, ip, location):
         from googlemaps import Client
