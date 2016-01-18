@@ -1,3 +1,11 @@
 from django.test import TestCase
+from models import Company
+import factory
 
-# Create your tests here.
+class CompaniesFactory(factory.Factory):
+    class Meta:
+        model = Company
+
+        
+
+
