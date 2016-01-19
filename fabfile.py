@@ -49,7 +49,7 @@ def stage():
     env.name = 'ia-stage'
     env.conf_path = 'stage'
     env.project_root = '/srv/%(name)s/' % env
-    env.hosts = ['ec2-54-213-252-222.us-west-2.compute.amazonaws.com']
+    env.hosts = ['54.213.228.61']
     env.user = 'ec2-user'
     env.key_filename = STAGE_KEY
     # env.no_keys = True
@@ -198,7 +198,7 @@ def clone():
     """
     env.run("sudo mkdir %(project_root)s" % env)
     env.run("sudo chown -R ec2-user:ec2-user %(project_root)s" % env)
-    env.run("git clone --recursive git@github.com:adomattic/Vader.git %(project_root)s" % env)
+    env.run("git clone --recursive git@github.com:intentaware/Vader.git %(project_root)s" % env)
 
 
 def git_pull():
