@@ -1,5 +1,5 @@
 from django.test import TestCase
-from models import Campaign
+from models import *
 import factory
 from apps.companies.models import *
 from django.test.client import Client
@@ -15,10 +15,12 @@ class CampaignFactory(factory.Factory):
 
 
 class CampaignTests(TestCase):
+    c = Client()
+    
     campaign = CampaignFactory()
     rawName = "SampleSite"
     rawDesc = "Some words about campaign "
-    c = Client()
+    
 
     def test_name(self):
         name = self.campaign.name
@@ -31,17 +33,23 @@ class CampaignTests(TestCase):
         print "Campaign test_desc Passed"
 
     def test_save(self):
+        #TODO: should not be able to create campaign without a company
+        register = self.c.post('/users/auth/register/', {'name' : 'SampleName', 'email' : 'selftest@example.com', 'password1' : 'alphanum', 'password2' : 'alphanum'})
+        company = Company.objects.get(name='SampleName')
         response = self.campaign.save()
         check = Campaign.objects.get(name="SampleSite")
         self.assertEqual(check.name, "SampleSite", "Campaign test_save Failed")
         self.assertEqual(check.description, self.rawDesc, "Campaign test_save Failed")
+        
         print "Campaign test_save Passed"
         
+        #invoice = self.campaign.set_invoice(self)
+
         """
     def test_set_invoice(self):
         
-        register = self.c.post('/users/auth/register/', {'name' : 'SampleName', 'email' : 'selftest@example.com', 'password1' : 'alphanum', 'password2' : 'alphanum'})
-        company = Company.objects.get(name='SampleName')
-        response = self.campaign.set_invoice(company='SampleName')
-        print response
+        Still not figured out 
+
         """
+        
+        
