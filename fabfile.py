@@ -291,6 +291,10 @@ def setup_magneto():
     bower()
     gulp()
 
+def rabbitmq():
+    with env.cd(env.project_root):
+        sudo('service rabbitmq-server restart')
+
 def get_ipdb():
     """
     gets the latest ipdb file from maxmind
