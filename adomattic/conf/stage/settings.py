@@ -38,8 +38,8 @@ DATABASES = {
 
 STRIPE_KEY = 'sk_test_s0cxlb2a5kArqUwfSGeig5CI'
 
-BROKER_URL = 'amqp://vader:vader@localhost/iaware'
-CELERY_RESULT_BACKEND = 'amqp://vader:vader@localhost/iaware'
+BROKER_URL = 'amqp://vader:multiscan@rabbit/iaware'
+CELERY_RESULT_BACKEND = 'amqp://vader:multiscan@rabbit/iaware'
 
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
