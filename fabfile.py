@@ -245,7 +245,7 @@ def copy_nginx_conf():
     """
     update nginx settings for the site and make them available in sites-available
     """
-    env.run('sudo cp /srv/%(name)s/adomattic/conf/%(conf_path)s/nginx/%(conf_path)s.conf /etc/nginx/sites-available/%(conf_path)s.conf' % env)
+    env.sudo('cp /srv/%(name)s/adomattic/conf/%(conf_path)s/nginx/%(conf_path)s.conf /etc/nginx/sites-available/%(conf_path)s.conf' % env)
 
 
 def restart_uwsgi():
