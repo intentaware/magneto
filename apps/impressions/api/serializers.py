@@ -14,8 +14,13 @@ class ImpressionSerializer(serializers.ModelSerializer):
 class ImpressionCSVSerializer(ImpressionSerializer):
     visitor = serializers.SerializerMethodField()
     ip = serializers.SerializerMethodField()
+    city = serializers.SerializerMethodField()
     postal_code = serializers.SerializerMethodField()
     nearest_address = serializers.SerializerMethodField()
+    country = serializers.SerializerMethodField()
+    screen = serializers.SerializerMethodField()
+    navigator = serializers.SerializerMethodField()
+    is_claimed = serializer.SerializerMethodField()
 
     def get_ipstore(self, obj):
         from apps.warehouse.models import IPStore
@@ -55,6 +60,13 @@ class ImpressionCSVSerializer(ImpressionSerializer):
         else:
             return None
 
+    def get_city(self, obj):
+        ip2geo = obj.meta.get('ip2geo', None)
+        city = None
+        if ip2geo:
+            city = ip2geo['city']['names']['en']
+        return city
+
     def get_nearest_address(self, obj):
         store = self.get_ipstore(obj)
         if store:
@@ -66,3 +78,21 @@ class ImpressionCSVSerializer(ImpressionSerializer):
         else:
             return None
 
+    def get_country(self, obj):
+        ip2geo = obj.meta.get('ip2geo', None)
+        country = None
+        if ip2geo:
+            country = ip2geo['country']['names']['en']
+        return country
+
+    def get_screen(self, obj):
+        return obj.meta.get('screen', None)
+
+    def get_navigator(self, obj):
+        return obj.meta.get('navigator', None)
+
+    def get_is_claimed(self, obj):
+        if obj.coupon.claimed_on:
+            return True
+        else:
+            return False

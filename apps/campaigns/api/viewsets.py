@@ -4,18 +4,16 @@ from rest_framework.decorators import detail_route, list_route
 from apps.campaigns.models import Campaign
 from apps.api.viewsets import BaseModelViewSet
 from .serializers import CampaignSerializer, CreateCampaignSerializer
+from apps.impressions.api.serializers import ImpressionCSVSerializer
 
 
 class CampaignViewSet(BaseModelViewSet):
     serializer_class = CampaignSerializer
-    #queryset = Campaign.objects.prefetch_related('image').all()
+    prefetch_args = ['image', 'coupons', 'invoice', 'coupons__impressions', 'impressions',]
+    model = Campaign
 
     def get_queryset(self):
-        return Campaign.objects.prefetch_related(
-                'image', 'coupons', 'invoice', 'coupons__impressions',
-            ).filter(
-                company_id=self.request.session['company']
-            ).active()
+        return super(CampaignViewSet, self).get_queryset().active()
 
     def create(self, request):
         data = request.data
@@ -45,3 +43,9 @@ class CampaignViewSet(BaseModelViewSet):
         return Response(
                 CampaignSerializer(Campaign.objects.inactive(), many=True).data, 200
             )
+
+    @detail_route(methods=['get'])
+    def impressions(self, request, pk=None, *args, **kwargs):
+        campaign = Campaign.objects.prefetch_related('impressions').get(pk=pk)
+        impressions = campaign.impressions.all()
+        return Response(ImpressionCSVSerializer(impressions, many=True).data)

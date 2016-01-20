@@ -10,7 +10,7 @@ class CampaignSerializer(serializers.ModelSerializer):
     preview_image_url = serializers.SerializerMethodField()
     claimed_coupons_sum = serializers.SerializerMethodField()
     circles = serializers.SerializerMethodField()
-    is_paid = ModelPropertyField()
+    is_paid = serializers.SerializerMethodField()
 
     class Meta:
         model = Campaign
@@ -31,6 +31,11 @@ class CampaignSerializer(serializers.ModelSerializer):
             ).order_by(
                 'circle_id'
             ).values_list('circle_id', flat=True)
+    def get_is_paid(self, obj):
+        paid = False
+        if obj.invoice:
+            paid = obj.invoice.is_paid
+        return paid
 
 
 class CreateCampaignSerializer(serializers.ModelSerializer):
