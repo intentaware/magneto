@@ -20,7 +20,7 @@ class ImpressionCSVSerializer(ImpressionSerializer):
     country = serializers.SerializerMethodField()
     screen = serializers.SerializerMethodField()
     navigator = serializers.SerializerMethodField()
-    is_claimed = serializer.SerializerMethodField()
+    is_claimed = serializers.SerializerMethodField()
 
     def get_ipstore(self, obj):
         from apps.warehouse.models import IPStore
