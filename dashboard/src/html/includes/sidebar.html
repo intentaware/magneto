@@ -1,7 +1,7 @@
 {% raw %}
 
-<md-sidenav layout="row" class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
-  <md-content flex>
+<md-sidenav layout="row" class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+  <div flex>
     <ul class="adomattic-menu ng-cloak" ng-controller="SidebarNavigationCtrl">
       <li class="menu-heading">
         <md-button ng-click="gotoHome()">Home</md-button>
@@ -33,7 +33,7 @@
         <md-button href="{% url 'auth_logout' %}">Logout</md-button>
       </li>
     </ul>
-  </md-content>
+  </div>
 </md-sidenav>
 
 {% endraw %}

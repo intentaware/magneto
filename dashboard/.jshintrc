@@ -24,6 +24,8 @@
   "globals": {
     "angular": false,
     "_": false,
+    "UAParser": false,
+    "moment": false,
     // Angular Mocks
     "inject": false,
     // JASMINE

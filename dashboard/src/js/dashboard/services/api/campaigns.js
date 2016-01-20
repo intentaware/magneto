@@ -23,6 +23,13 @@ angular.module('adomattic.dashboard')
           params: {
             list: 'past'
           }
+        },
+        impressions: {
+          method: 'GET',
+          isArray: true,
+          params: {
+            doc: 'impressions'
+          }
         }
       }
     );
