@@ -21,6 +21,7 @@ class ImpressionCSVSerializer(ImpressionSerializer):
     screen = serializers.SerializerMethodField()
     navigator = serializers.SerializerMethodField()
     is_claimed = serializers.SerializerMethodField()
+    is_redeemed = serializers.SerializerMethodField()
 
     def get_ipstore(self, obj):
         from apps.warehouse.models import IPStore
@@ -93,6 +94,12 @@ class ImpressionCSVSerializer(ImpressionSerializer):
 
     def get_is_claimed(self, obj):
         if obj.coupon.claimed_on:
-            return True
+            return 1
         else:
-            return False
+            return 0
+
+    def get_is_redeemed(self, obj):
+        if obj.coupon.redeemed_on:
+            return 1
+        else:
+            return 0
