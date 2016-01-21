@@ -51,12 +51,23 @@ angular.module('adomattic.dashboard')
       console.log(data);
 
       $scope.impressionData = _.reduce(data, function(result, value) {
+        /*
+        Reduce the impression data to generate reports, daily, monthly and like that.
+         */
         (result.days[value._added_day]) ? result.days[value._added_day] += 1: result.days[value._added_day] = 1;
+        (result.days_claimed[value._added_day]) ? result.days_claimed[value._added_day] += 1: result.days_claimed[value._added_day] = value.is_claimed;
+        (result.days_redeemed[value._added_day]) ? result.days_redeemed[value._added_day] += 1: result.days_redeemed[value._added_day] = value.is_redeemed;
+
         (result.months[value._added_month]) ? result.months[value._added_month] += 1: result.months[value._added_month] = 1;
+
         (result.cities[value.city]) ? result.cities[value.city] += 1: result.cities[value.city] = 1;
+
+
         return result;
       }, {
         days: {},
+        days_claimed: {},
+        days_redeemed: {},
         months: {},
         cities: {}
       });
@@ -64,6 +75,16 @@ angular.module('adomattic.dashboard')
       console.log($scope.impressionData);
 
       var countData = _.reduce($scope.impressionData.days, function(result, count, key) {
+        result.push([key, count]);
+        return result;
+      }, []);
+
+      var claimedData = _.reduce($scope.impressionData.days_claimed, function(result, count, key) {
+        result.push([key, count]);
+        return result;
+      }, []);
+
+      var redeemData = _.reduce($scope.impressionData.days_redeemed, function(result, count, key) {
         result.push([key, count]);
         return result;
       }, []);
@@ -79,14 +100,14 @@ angular.module('adomattic.dashboard')
           y: function(d) {
             return d[1];
           },
-          //showValues: true,
+          showValues: true,
           duration: 300,
           xAxis: {
             axisLabel: 'Dates'
           },
           yAxis: {
             axisLabel: 'Count',
-            axisLabelDistance: -10,
+            axisLabelDistance: -20,
             tickFormat: function(d) {
               return d3.format(',.0f')(d);
             }
@@ -97,8 +118,14 @@ angular.module('adomattic.dashboard')
       console.log(countData);
 
       $scope.data = [{
-        key: 'Impressions Count',
+        key: 'Displayed',
         values: countData
+      }, {
+        key: 'Interacted',
+        values: claimedData
+      }, {
+        key: 'Sales',
+        values: redeemData
       }];
 
     });
