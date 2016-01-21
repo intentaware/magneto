@@ -12,7 +12,10 @@ class CampaignFactory(factory.Factory):
 
     name = "SampleSite"
     description = "Some words about campaign "
-
+    budget = 600
+    coupon_value = 10
+    coupon_count = 5
+    is_active = True
 
 class CampaignTests(TestCase):
     c = Client()
@@ -20,7 +23,6 @@ class CampaignTests(TestCase):
     campaign = CampaignFactory()
     rawName = "SampleSite"
     rawDesc = "Some words about campaign "
-    
 
     def test_name(self):
         name = self.campaign.name
@@ -31,6 +33,18 @@ class CampaignTests(TestCase):
         desc = self.campaign.description
         self.assertEqual(desc, self.rawDesc, "Campaign test_desc Failed")
         print "Campaign test_desc Passed"
+
+    def test_budget(self):
+        self.assertEqual(self.campaign.budget, 600, "Campaign test_budget Failed")
+        print "Campaign test _budget Passed"
+
+    def test_coupon_value(self):
+        self.assertEqual(self.campaign.coupon_value, 10, "Campaign test_coupon_value Failed")
+        print "Campaign test_coupon_value Passed"
+
+    def test_coupon_count(self):
+        self.assertEqual(self.campaign.coupon_count, 5, "Campaign test_coupon_count Failed")
+        print "Campaign test_coupon_count Passed"
 
     def test_save(self):
         #TODO: should not be able to create campaign without a company
