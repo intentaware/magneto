@@ -7,6 +7,10 @@ class CompaniesFactory(factory.Factory):
         model = Company
 
     is_active = True
+    is_advertiser = True
+    publisher_key = "YufjaydQ_U2NQ2Qq8kogKA"
+    advertiser_rate = 1.045
+    payment_data = {'method' : 'bank', 'bank_name' : 'citi', 'acc_no' : '04596'}
 
 class CompaniesTest(TestCase):
     company = CompaniesFactory()
@@ -15,6 +19,20 @@ class CompaniesTest(TestCase):
         self.assertEqual(self.company.is_active, True, "Company is_active test Failed.")
         print "Company is_active test Passed"
 
+    def test_is_advertiser(self):
+        self.assertEqual(self.company.is_advertiser, True, "Company is_advertiser test Failed.")
+        print "Company is_advertiser test Passed."
 
+    def test_publisher_key(self):
+        self.assertEqual(self.company.publisher_key, "YufjaydQ_U2NQ2Qq8kogKA", "Company publisher_key test Failed")
+        print "Company publisher_key test Passed"
+
+    def test_advertiser_rate(self):
+        self.assertEqual(self.company.advertiser_rate, 1.045, "Company advertiser_rate test Failed")
+        print "Company advertiser_rate test Passed"
+
+    def test_payment_data(self):
+        self.assertEqual(self.company.payment_data, {'method' : 'bank', 'bank_name' : 'citi', 'acc_no' : '04596'}, "Company payment_data test Failed")
+        print "Company payment_data test Passed"
 
 
