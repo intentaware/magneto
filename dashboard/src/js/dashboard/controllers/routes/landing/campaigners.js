@@ -42,8 +42,9 @@ angular.module('adomattic.dashboard')
     $scope.impressionData = null;
 
     Campaign.impressions({
-      id: 11
+      id: 10
     }).$promise.then(function(data) {
+      console.log(data);
       data.map(function(d) {
         d._added_day = moment(d.added_on).format('DD-MMM-YYYY');
         d._added_month = moment(d.added_on).format('MMM');
@@ -51,7 +52,26 @@ angular.module('adomattic.dashboard')
 
       var parser = new UAParser();
 
-      $scope.impressionData = _.reduce(data, function(result, value) {
+      var setInfo = function(parser, ua, obj) {
+
+        var info = parser.setUA(ua).getResult();
+
+        console.log(info);
+
+        (obj.devices.os[info.os.name]) ? obj.devices.os[info.os.name] ++ : obj.devices.os[info.os.name] = 1;
+
+        (obj.devices.browser[info.browser.name]) ? obj.devices.browser[info.browser.name] ++ : obj.devices.browser[info.browser.name] = 1;
+
+        if (info.device.type) {
+          (obj.devices.device[info.device.type]) ? obj.devices.device[info.device.type] ++ : obj.devices.device[info.device.type] = 1;
+        } else {
+          (obj.devices.device['system-x86']) ? obj.devices.device['system-x86'] ++ : obj.devices.device['system-x86'] = 1;
+        }
+
+      };
+
+      $scope.impressionData = _.reduce(data, function(result, value, inx) {
+        console.log(inx);
         /*
         Reduce the impression data to generate reports, daily, monthly and like that.
          */
@@ -63,12 +83,64 @@ angular.module('adomattic.dashboard')
 
         (result.cities[value.city]) ? result.cities[value.city] += 1: result.cities[value.city] = 1;
 
-        if (value.navigator) {
-          console.log(value.navigator.userAgent);
-          var sysInfo = parser.setUA(value.navigator.userAgent).getResult();
-          (result.sysInfo.os[sysInfo.os.name]) ? (result.sysInfo.os[sysInfo.os.name]) += 1: (result.sysInfo.os[sysInfo.os.name]) = 1;
-          (result.sysInfo.browser[sysInfo.browser.name]) ? (result.sysInfo.browser[sysInfo.browser.name]) += 1: (result.sysInfo.browser[sysInfo.browser.name]) = 1;
-          (result.sysInfo.device[sysInfo.device.type]) ? (result.sysInfo.device[sysInfo.device.type]) += 1: (result.sysInfo.device[sysInfo.device.type]) = 1;
+        // if (value.navigator) {
+        //   //console.log(value.navigator.userAgent);
+        //   var sysInfo = parser.setUA(value.navigator.userAgent).getResult();
+        //   (result.sysInfo.os[sysInfo.os.name]) ? (result.sysInfo.os[sysInfo.os.name]) += 1: (result.sysInfo.os[sysInfo.os.name]) = 1;
+        //   (result.sysInfo.browser[sysInfo.browser.name]) ? (result.sysInfo.browser[sysInfo.browser.name]) += 1: (result.sysInfo.browser[sysInfo.browser.name]) = 1;
+        //   (result.sysInfo.device[sysInfo.device.type]) ? (result.sysInfo.device[sysInfo.device.type]) += 1: (result.sysInfo.device[sysInfo.device.type]) = 1;
+        // }
+
+        if (result.countries[value.country]) {
+          // Setting Country level data
+
+          result.countries[value.country].count ++;
+
+          if (value.navigator) {
+              setInfo(parser, value.navigator.userAgent, result.countries[value.country]);
+          }
+
+          // Setting City Level Data
+          if (result.countries[value.country].cities[value.city]) {
+            // Adding count and seeting city level matrix
+            result.countries[value.country].cities[value.city].count ++;
+
+
+            // Setting Postal Code Level Data
+            if (result.countries[value.country].cities[value.city].postal_codes[value.postal_code]) {
+              // Adding if exists
+              result.countries[value.country].cities[value.city].postal_codes[value.postal_code].count ++;
+            } else {
+              // Setting default count to 1
+              result.countries[value.country].cities[value.city].postal_codes[value.postal_code] = { count: 1, devices: { os: {}, browser: {}, device: {} }};
+            }
+
+            if (value.navigator) {
+              setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city]);
+              setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city].postal_codes[value.postal_code]);
+            }
+
+          } else {
+            // Settings the city level Data (if it does not exist)
+            result.countries[value.country].cities[value.city] = { count: 1, devices: { os: {}, browser: {}, device: {} }, postal_codes: {}};
+            result.countries[value.country].cities[value.city].postal_codes[value.postal_code] = { count: 1, devices: { os: {}, browser: {}, device: {} }};
+
+            if (value.navigator) {
+
+              setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city]);
+              setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city].postal_codes[value.postal_code]);
+            }
+          }
+        } else {
+          result.countries[value.country] = { count: 1, devices: { os: {}, browser: {}, device: {} }, cities: {} };
+          result.countries[value.country].cities[value.city] = { count: 1, devices: { os: {}, browser: {}, device: {} }, postal_codes: {}};
+          result.countries[value.country].cities[value.city].postal_codes[value.postal_code] = { count: 1, devices: { os: {}, browser: {}, device: {} }};
+
+          if (value.navigator) {
+            setInfo(parser, value.navigator.userAgent, result.countries[value.country]);
+            setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city]);
+            setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city].postal_codes[value.postal_code]);
+          }
         }
 
         return result;
@@ -78,6 +150,8 @@ angular.module('adomattic.dashboard')
         days_redeemed: {},
         months: {},
         cities: {},
+        countries: {
+        },
         sysInfo: {
           os: {},
           browser: {},
@@ -90,7 +164,7 @@ angular.module('adomattic.dashboard')
       delete $scope.impressionData.sysInfo.device['undefined'];
 
       $scope.impressionData.sysInfo.device.desktop = desktop;
-      console.log($scope.impressionData);
+      // console.log($scope.impressionData);
 
       // simplifying time data
 
@@ -104,10 +178,10 @@ angular.module('adomattic.dashboard')
         return result;
       }, []);
 
-      var redeemTimeData = _.reduce($scope.impressionData.days_redeemed, function(result, count, key) {
-        result.push([key, count]);
-        return result;
-      }, []);
+      // var redeemTimeData = _.reduce($scope.impressionData.days_redeemed, function(result, count, key) {
+      //   result.push([key, count]);
+      //   return result;
+      // }, []);
 
       var cityData = _.reduce($scope.impressionData.cities, function(result, count, key) {
         result.push([key, count]);
@@ -146,168 +220,15 @@ angular.module('adomattic.dashboard')
       }, {
         key: 'Interacted',
         values: claimedTimeData
-      }, {
-        key: 'Sales',
-        values: redeemTimeData
       }];
 
       $scope.cityOptions = angular.copy($scope.timeOptions);
       $scope.cityOptions.chart.xAxis.axisLabel = 'City';
 
       $scope.cityData = [{
-        key: 'Cities',
+        key: 'Count',
         values: cityData
       }];
-
-        $scope.incomeOptions = {
-            chart: {
-                type: 'sunburstChart',
-                height: 450,
-                color: d3.scale.category20c(),
-                duration: 250
-            }
-        };
-
-        $scope.incomeData = [{
-            'name': 'Demographics',
-            children: [
-              {
-                name: 'Vancouver',
-                'children': [
-                    {
-                        'name': 'Income',
-                        'children': [
-                            {'name': '200K +', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '150K - 200K', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '100K - 150K', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '60K - 100K', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '> 60K', 'size': Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Education',
-                        children: [
-                            {name: 'No Educaiton', size: Math.floor((Math.random() * 1000) + 1)},
-                            {name: 'High School', size: Math.floor((Math.random() * 1000) + 1)},
-                            {name: 'Some School', size: Math.floor((Math.random() * 1000) + 1)},
-                            {name: 'Bechelors', size: Math.floor((Math.random() * 10000) + 1)},
-                            {name: 'Post Grad', size: Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Transport',
-                        children: [
-                          {name: 'Drives Alone', size: Math.floor((Math.random() * 10000) + 1)},
-                          {name: 'Carpooled', size: Math.floor((Math.random() * 1000) + 1)},
-                          {name: 'Public Transit', size: Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Marital Status',
-                        children: [
-                          {name: 'Single', size: Math.floor((Math.random() * 2000) + 1)},
-                          {name: 'Married', size: Math.floor((Math.random() * 1000) + 1)},
-                          {name: 'Divorced', size: Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Device Info',
-                        children: [
-                          {name: 'mobile', size: Math.floor((Math.random() * 2000) + 1)},
-                          {name: 'tablet', size: Math.floor((Math.random() * 500) + 1)},
-                          {name: 'desktop', size: Math.floor((Math.random() * 5000) + 1)}
-                        ]
-                    }
-                ]
-              },
-              {
-                name: 'Toronto',
-                'children': [
-                    {
-                        'name': 'Income',
-                        'children': [
-                            {'name': '200K +', 'size': Math.floor((Math.random() * 6000) + 1)},
-                            {'name': '150K - 200K', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '100K - 150K', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '60K - 100K', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '> 60K', 'size': Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Education',
-                        children: [
-                            {name: 'No Educaiton', size: Math.floor((Math.random() * 1000) + 1)},
-                            {name: 'High School', size: Math.floor((Math.random() * 1000) + 1)},
-                            {name: 'Some School', size: Math.floor((Math.random() * 1000) + 1)},
-                            {name: 'Bechelors', size: Math.floor((Math.random() * 6000) + 1)},
-                            {name: 'Post Grad', size: Math.floor((Math.random() * 2000) + 1)}
-                        ]
-                    }, {
-                        name: 'Transport',
-                        children: [
-                          {name: 'Drives Alone', size: Math.floor((Math.random() * 6000) + 1)},
-                          {name: 'Carpooled', size: Math.floor((Math.random() * 2000) + 1)},
-                          {name: 'Public Transit', size: Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Marital Status',
-                        children: [
-                          {name: 'Single', size: Math.floor((Math.random() * 1000) + 1)},
-                          {name: 'Married', size: Math.floor((Math.random() * 1000) + 1)},
-                          {name: 'Divorced', size: Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Device Info',
-                        children: [
-                          {name: 'mobile', size: Math.floor((Math.random() * 2000) + 1)},
-                          {name: 'tablet', size: Math.floor((Math.random() * 500) + 1)},
-                          {name: 'desktop', size: Math.floor((Math.random() * 5000) + 1)}
-                        ]
-                    }
-                ]
-              },
-              {
-                name: 'Mississauga',
-                'children': [
-                    {
-                        'name': 'Income',
-                        'children': [
-                            {'name': '200K +', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '150K - 200K', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '100K - 150K', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '60K - 100K', 'size': Math.floor((Math.random() * 1000) + 1)},
-                            {'name': '> 60K', 'size': Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Education',
-                        children: [
-                            {name: 'No Educaiton', size: Math.floor((Math.random() * 1000) + 1)},
-                            {name: 'High School', size: Math.floor((Math.random() * 1000) + 1)},
-                            {name: 'Some School', size: Math.floor((Math.random() * 5000) + 1)},
-                            {name: 'Bechelors', size: Math.floor((Math.random() * 6000) + 1)},
-                            {name: 'Post Grad', size: Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Transport',
-                        children: [
-                          {name: 'Drives Alone', size: Math.floor((Math.random() * 1000) + 1)},
-                          {name: 'Carpooled', size: Math.floor((Math.random() * 4000) + 1)},
-                          {name: 'Public Transit', size: Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Marital Status',
-                        children: [
-                          {name: 'Single', size: Math.floor((Math.random() * 1000) + 1)},
-                          {name: 'Married', size: Math.floor((Math.random() * 1000) + 1)},
-                          {name: 'Divorced', size: Math.floor((Math.random() * 1000) + 1)}
-                        ]
-                    }, {
-                        name: 'Device Info',
-                        children: [
-                          {name: 'mobile', size: Math.floor((Math.random() * 2000) + 1)},
-                          {name: 'tablet', size: Math.floor((Math.random() * 500) + 1)},
-                          {name: 'desktop', size: Math.floor((Math.random() * 5000) + 1)}
-                        ]
-                    }
-                ]
-              }
-            ]
-        }];
 
     });
   });

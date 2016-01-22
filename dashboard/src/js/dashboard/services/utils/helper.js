@@ -40,7 +40,7 @@ angular.module('adomattic.dashboard')
       assetID = assetID || null;
 
 
-      var assetRoot = ((window.location.hostname === 'app.intentaware.com') || (window.location.hostname ==='live.intentaware.com')) ? window.location.protocol + '//' + window.location.host + '/magneto' : 'scripts';
+      var assetRoot = ((window.location.hostname === 'app.intentaware.com') || (window.location.hostname === 'live.intentaware.com')) ? window.location.protocol + '//' + window.location.host + '/magneto' : 'scripts';
       console.log(window.location.hostname);
       console.log(assetRoot);
       console.log(assetID);
@@ -53,5 +53,81 @@ angular.module('adomattic.dashboard')
       }
 
       return pixel;
+    };
+
+    self.mockDemographics = function(count) {
+      return [{
+        'name': 'Income',
+        'children': [{
+          'name': '200K +',
+          'size': Math.floor((Math.random() * count) + 1)
+        }, {
+          'name': '150K - 200K',
+          'size': Math.floor((Math.random() * count) + 1)
+        }, {
+          'name': '100K - 150K',
+          'size': Math.floor((Math.random() * count) + 1)
+        }, {
+          'name': '60K - 100K',
+          'size': Math.floor((Math.random() * count) + 1)
+        }, {
+          'name': '> 60K',
+          'size': Math.floor((Math.random() * count) + 1)
+        }]
+      }, {
+        name: 'Education',
+        children: [{
+          name: 'No Educaiton',
+          size: Math.floor((Math.random() * count) + 1)
+        }, {
+          name: 'High School',
+          size: Math.floor((Math.random() * count) + 1)
+        }, {
+          name: 'Some School',
+          size: Math.floor((Math.random() * count) + 1)
+        }, {
+          name: 'Bechelors',
+          size: Math.floor((Math.random() * count) + 1)
+        }, {
+          name: 'Post Grad',
+          size: Math.floor((Math.random() * count) + 1)
+        }]
+      }, {
+        name: 'Transport',
+        children: [{
+          name: 'Drives Alone',
+          size: Math.floor((Math.random() * count) + 1)
+        }, {
+          name: 'Carpooled',
+          size: Math.floor((Math.random() * count) + 1)
+        }, {
+          name: 'Public Transit',
+          size: Math.floor((Math.random() * count) + 1)
+        }]
+      }, {
+        name: 'Marital Status',
+        children: [{
+          name: 'Single',
+          size: Math.floor((Math.random() * count) + 1)
+        }, {
+          name: 'Married',
+          size: Math.floor((Math.random() * count) + 1)
+        }, {
+          name: 'Divorced',
+          size: Math.floor((Math.random() * count) + 1)
+        }]
+      }, {
+        name: 'Device Info',
+        children: [{
+          name: 'mobile',
+          size: Math.floor((Math.random() * count) + 1)
+        }, {
+          name: 'tablet',
+          size: Math.floor((Math.random() * count) + 1)
+        }, {
+          name: 'desktop',
+          size: Math.floor((Math.random() * count) + 1)
+        }]
+      }];
     };
   });
