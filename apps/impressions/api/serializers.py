@@ -65,7 +65,10 @@ class ImpressionCSVSerializer(ImpressionSerializer):
         ip2geo = obj.meta.get('ip2geo', None)
         city = None
         if ip2geo:
-            city = ip2geo['city']['names']['en']
+            try:
+                city = ip2geo['city']['names']['en']
+            except KeyError:
+                city = None
         return city
 
     def get_nearest_address(self, obj):
@@ -83,7 +86,10 @@ class ImpressionCSVSerializer(ImpressionSerializer):
         ip2geo = obj.meta.get('ip2geo', None)
         country = None
         if ip2geo:
-            country = ip2geo['country']['names']['en']
+            try:
+                country = ip2geo['country']['names']['en']
+            except KeyError:
+                country = None
         return country
 
     def get_screen(self, obj):

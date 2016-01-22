@@ -46,6 +46,10 @@ class CampaignViewSet(BaseModelViewSet):
 
     @detail_route(methods=['get'])
     def impressions(self, request, pk=None, *args, **kwargs):
+        from dateutil.relativedelta import *
+        from django.utils import timezone as _tz
+        _now = _tz.now()
+        _delta = _now + relativedelta(months=-0) + relativedelta(days=-3)
         campaign = Campaign.objects.prefetch_related('impressions').get(pk=pk)
-        impressions = campaign.impressions.all()
+        impressions = campaign.impressions.filter(added_on__gte=_delta)
         return Response(ImpressionCSVSerializer(impressions, many=True).data)
