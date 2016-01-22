@@ -1,9 +1,35 @@
 {% raw %}
 <div ng-controller="CampaignersLandingCtrl" layout="column">
-  <div flex>
-    <md-card class="md-whiteframe-z1">
+  <div layout="column" layout-sm="column">
+    <div layout="row" flex>
+      <md-card class="md-whiteframe-z1" flex="66">
+        <md-card-content class="tile tile-long-3x">
+          <nvd3 options="incomeOptions" data="incomeData"></nvd3>
+        </md-card-content>
+      </md-card>
+      <md-card class="md-whiteframe-z1" flex="33">
+        <md-card-content class="tile tile-normal">
+        </md-card-content>
+      </md-card>
+    </div>
+    <md-card class="md-whiteframe-z1" flex>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span>Performace</span>
+        </div>
+      </md-toolbar>
       <md-card-content class="tile tile-long">
-        <nvd3 options="options" data="data"></nvd3>
+        <nvd3 options="timeOptions" data="timeData"></nvd3>
+      </md-card-content>
+    </md-card>
+    <md-card class="md-whiteframe-z1" flex>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span>Demographics</span>
+        </div>
+      </md-toolbar>
+      <md-card-content class="tile tile-long">
+        <nvd3 options="cityOptions" data="cityData"></nvd3>
       </md-card-content>
     </md-card>
   </div>

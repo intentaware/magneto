@@ -42,13 +42,14 @@ angular.module('adomattic.dashboard')
     $scope.impressionData = null;
 
     Campaign.impressions({
-      id: 55
+      id: 11
     }).$promise.then(function(data) {
       data.map(function(d) {
         d._added_day = moment(d.added_on).format('DD-MMM-YYYY');
         d._added_month = moment(d.added_on).format('MMM');
       });
-      console.log(data);
+
+      var parser = new UAParser();
 
       $scope.impressionData = _.reduce(data, function(result, value) {
         /*
@@ -62,6 +63,13 @@ angular.module('adomattic.dashboard')
 
         (result.cities[value.city]) ? result.cities[value.city] += 1: result.cities[value.city] = 1;
 
+        if (value.navigator) {
+          console.log(value.navigator.userAgent);
+          var sysInfo = parser.setUA(value.navigator.userAgent).getResult();
+          (result.sysInfo.os[sysInfo.os.name]) ? (result.sysInfo.os[sysInfo.os.name]) += 1: (result.sysInfo.os[sysInfo.os.name]) = 1;
+          (result.sysInfo.browser[sysInfo.browser.name]) ? (result.sysInfo.browser[sysInfo.browser.name]) += 1: (result.sysInfo.browser[sysInfo.browser.name]) = 1;
+          (result.sysInfo.device[sysInfo.device.type]) ? (result.sysInfo.device[sysInfo.device.type]) += 1: (result.sysInfo.device[sysInfo.device.type]) = 1;
+        }
 
         return result;
       }, {
@@ -69,27 +77,44 @@ angular.module('adomattic.dashboard')
         days_claimed: {},
         days_redeemed: {},
         months: {},
-        cities: {}
+        cities: {},
+        sysInfo: {
+          os: {},
+          browser: {},
+          device: {},
+        }
       });
 
+      var desktop = $scope.impressionData.sysInfo.device['undefined'];
+
+      delete $scope.impressionData.sysInfo.device['undefined'];
+
+      $scope.impressionData.sysInfo.device.desktop = desktop;
       console.log($scope.impressionData);
 
-      var countData = _.reduce($scope.impressionData.days, function(result, count, key) {
+      // simplifying time data
+
+      var countTimeData = _.reduce($scope.impressionData.days, function(result, count, key) {
         result.push([key, count]);
         return result;
       }, []);
 
-      var claimedData = _.reduce($scope.impressionData.days_claimed, function(result, count, key) {
+      var claimedTimeData = _.reduce($scope.impressionData.days_claimed, function(result, count, key) {
         result.push([key, count]);
         return result;
       }, []);
 
-      var redeemData = _.reduce($scope.impressionData.days_redeemed, function(result, count, key) {
+      var redeemTimeData = _.reduce($scope.impressionData.days_redeemed, function(result, count, key) {
         result.push([key, count]);
         return result;
       }, []);
 
-      $scope.options = {
+      var cityData = _.reduce($scope.impressionData.cities, function(result, count, key) {
+        result.push([key, count]);
+        return result;
+      }, []);
+
+      $scope.timeOptions = {
         chart: {
           type: 'multiBarChart',
           clipEdge: true,
@@ -115,18 +140,174 @@ angular.module('adomattic.dashboard')
         }
       };
 
-      console.log(countData);
-
-      $scope.data = [{
+      $scope.timeData = [{
         key: 'Displayed',
-        values: countData
+        values: countTimeData
       }, {
         key: 'Interacted',
-        values: claimedData
+        values: claimedTimeData
       }, {
         key: 'Sales',
-        values: redeemData
+        values: redeemTimeData
       }];
+
+      $scope.cityOptions = angular.copy($scope.timeOptions);
+      $scope.cityOptions.chart.xAxis.axisLabel = 'City';
+
+      $scope.cityData = [{
+        key: 'Cities',
+        values: cityData
+      }];
+
+        $scope.incomeOptions = {
+            chart: {
+                type: 'sunburstChart',
+                height: 450,
+                color: d3.scale.category20c(),
+                duration: 250
+            }
+        };
+
+        $scope.incomeData = [{
+            'name': 'Demographics',
+            children: [
+              {
+                name: 'Vancouver',
+                'children': [
+                    {
+                        'name': 'Income',
+                        'children': [
+                            {'name': '200K +', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '150K - 200K', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '100K - 150K', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '60K - 100K', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '> 60K', 'size': Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Education',
+                        children: [
+                            {name: 'No Educaiton', size: Math.floor((Math.random() * 1000) + 1)},
+                            {name: 'High School', size: Math.floor((Math.random() * 1000) + 1)},
+                            {name: 'Some School', size: Math.floor((Math.random() * 1000) + 1)},
+                            {name: 'Bechelors', size: Math.floor((Math.random() * 10000) + 1)},
+                            {name: 'Post Grad', size: Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Transport',
+                        children: [
+                          {name: 'Drives Alone', size: Math.floor((Math.random() * 10000) + 1)},
+                          {name: 'Carpooled', size: Math.floor((Math.random() * 1000) + 1)},
+                          {name: 'Public Transit', size: Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Marital Status',
+                        children: [
+                          {name: 'Single', size: Math.floor((Math.random() * 2000) + 1)},
+                          {name: 'Married', size: Math.floor((Math.random() * 1000) + 1)},
+                          {name: 'Divorced', size: Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Device Info',
+                        children: [
+                          {name: 'mobile', size: Math.floor((Math.random() * 2000) + 1)},
+                          {name: 'tablet', size: Math.floor((Math.random() * 500) + 1)},
+                          {name: 'desktop', size: Math.floor((Math.random() * 5000) + 1)}
+                        ]
+                    }
+                ]
+              },
+              {
+                name: 'Toronto',
+                'children': [
+                    {
+                        'name': 'Income',
+                        'children': [
+                            {'name': '200K +', 'size': Math.floor((Math.random() * 6000) + 1)},
+                            {'name': '150K - 200K', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '100K - 150K', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '60K - 100K', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '> 60K', 'size': Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Education',
+                        children: [
+                            {name: 'No Educaiton', size: Math.floor((Math.random() * 1000) + 1)},
+                            {name: 'High School', size: Math.floor((Math.random() * 1000) + 1)},
+                            {name: 'Some School', size: Math.floor((Math.random() * 1000) + 1)},
+                            {name: 'Bechelors', size: Math.floor((Math.random() * 6000) + 1)},
+                            {name: 'Post Grad', size: Math.floor((Math.random() * 2000) + 1)}
+                        ]
+                    }, {
+                        name: 'Transport',
+                        children: [
+                          {name: 'Drives Alone', size: Math.floor((Math.random() * 6000) + 1)},
+                          {name: 'Carpooled', size: Math.floor((Math.random() * 2000) + 1)},
+                          {name: 'Public Transit', size: Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Marital Status',
+                        children: [
+                          {name: 'Single', size: Math.floor((Math.random() * 1000) + 1)},
+                          {name: 'Married', size: Math.floor((Math.random() * 1000) + 1)},
+                          {name: 'Divorced', size: Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Device Info',
+                        children: [
+                          {name: 'mobile', size: Math.floor((Math.random() * 2000) + 1)},
+                          {name: 'tablet', size: Math.floor((Math.random() * 500) + 1)},
+                          {name: 'desktop', size: Math.floor((Math.random() * 5000) + 1)}
+                        ]
+                    }
+                ]
+              },
+              {
+                name: 'Mississauga',
+                'children': [
+                    {
+                        'name': 'Income',
+                        'children': [
+                            {'name': '200K +', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '150K - 200K', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '100K - 150K', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '60K - 100K', 'size': Math.floor((Math.random() * 1000) + 1)},
+                            {'name': '> 60K', 'size': Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Education',
+                        children: [
+                            {name: 'No Educaiton', size: Math.floor((Math.random() * 1000) + 1)},
+                            {name: 'High School', size: Math.floor((Math.random() * 1000) + 1)},
+                            {name: 'Some School', size: Math.floor((Math.random() * 5000) + 1)},
+                            {name: 'Bechelors', size: Math.floor((Math.random() * 6000) + 1)},
+                            {name: 'Post Grad', size: Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Transport',
+                        children: [
+                          {name: 'Drives Alone', size: Math.floor((Math.random() * 1000) + 1)},
+                          {name: 'Carpooled', size: Math.floor((Math.random() * 4000) + 1)},
+                          {name: 'Public Transit', size: Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Marital Status',
+                        children: [
+                          {name: 'Single', size: Math.floor((Math.random() * 1000) + 1)},
+                          {name: 'Married', size: Math.floor((Math.random() * 1000) + 1)},
+                          {name: 'Divorced', size: Math.floor((Math.random() * 1000) + 1)}
+                        ]
+                    }, {
+                        name: 'Device Info',
+                        children: [
+                          {name: 'mobile', size: Math.floor((Math.random() * 2000) + 1)},
+                          {name: 'tablet', size: Math.floor((Math.random() * 500) + 1)},
+                          {name: 'desktop', size: Math.floor((Math.random() * 5000) + 1)}
+                        ]
+                    }
+                ]
+              }
+            ]
+        }];
 
     });
   });

@@ -26,6 +26,7 @@
     "_": false,
     "UAParser": false,
     "moment": false,
+    "d3": false,
     // Angular Mocks
     "inject": false,
     // JASMINE

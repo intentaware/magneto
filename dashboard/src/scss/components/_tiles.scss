@@ -38,6 +38,10 @@
   @include size(auto 328px);
 }
 
+.tile-long-3x {
+  @include size(auto 480px);
+}
+
 .bg-adomattic-primary {
   @include background(#bf2932);
 }
