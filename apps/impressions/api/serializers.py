@@ -49,17 +49,25 @@ class ImpressionCSVSerializer(ImpressionSerializer):
 
 
     def get_postal_code(self, obj):
-        store = self.get_ipstore(obj)
-        if store:
-            lpc = store.long_postal_code
-            if lpc:
-                return lpc
-            elif store.postal_code:
-                return store.postal_code.code
-            else:
-                return None
-        else:
-            return None
+        # store = self.get_ipstore(obj)
+        # if store:
+        #     lpc = store.long_postal_code
+        #     if lpc:
+        #         return lpc
+        #     elif store.postal_code:
+        #         return store.postal_code.code
+        #     else:
+        #         return None
+        # else:
+        #     return None
+        ip2geo = obj.meta.get('ip2geo', None)
+        postal_code = None
+        if ip2geo:
+            try:
+                postal_code = ip2geo['postal']['code']
+            except KeyError:
+                postal_code = None
+        return postal_code
 
     def get_city(self, obj):
         ip2geo = obj.meta.get('ip2geo', None)
