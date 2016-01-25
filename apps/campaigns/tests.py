@@ -1,21 +1,10 @@
 from django.test import TestCase
 from models import *
-import factory
 from apps.companies.models import *
 from django.test.client import Client
-from apps.users.tests import UserFactory
-from apps.companies.tests import CompaniesFactory
+from apps.factories import *
 
-class CampaignFactory(factory.Factory):
-    class Meta:
-        model = Campaign
 
-    name = "SampleSite"
-    description = "Some words about campaign "
-    budget = 600
-    coupon_value = 10
-    coupon_count = 5
-    is_active = True
 
 class CampaignTests(TestCase):
     c = Client()

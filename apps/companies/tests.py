@@ -1,18 +1,9 @@
 from django.test import TestCase
 from models import Company
 from apps.campaigns.models import *
-from apps.campaigns.tests import CampaignFactory
-import factory
+from apps.factories import *
 
-class CompaniesFactory(factory.Factory):
-    class Meta:
-        model = Company
 
-    is_active = True
-    is_advertiser = True
-    publisher_key = "YufjaydQ_U2NQ2Qq8kogKA"
-    advertiser_rate = 1.045
-    payment_data = {'method' : 'bank', 'bank_name' : 'citi', 'acc_no' : '04596'}
 
 class CompaniesTest(TestCase):
     company = CompaniesFactory()
