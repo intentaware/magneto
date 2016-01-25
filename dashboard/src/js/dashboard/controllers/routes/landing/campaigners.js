@@ -42,7 +42,7 @@ angular.module('adomattic.dashboard')
     $scope.impressionData = null;
 
     Campaign.impressions({
-      id: 10
+      id: 11
     }).$promise.then(function(data) {
       console.log(data);
       data.map(function(d) {
@@ -56,8 +56,6 @@ angular.module('adomattic.dashboard')
 
         var info = parser.setUA(ua).getResult();
 
-        console.log(info);
-
         (obj.devices.os[info.os.name]) ? obj.devices.os[info.os.name] ++ : obj.devices.os[info.os.name] = 1;
 
         (obj.devices.browser[info.browser.name]) ? obj.devices.browser[info.browser.name] ++ : obj.devices.browser[info.browser.name] = 1;
@@ -70,8 +68,7 @@ angular.module('adomattic.dashboard')
 
       };
 
-      $scope.impressionData = _.reduce(data, function(result, value, inx) {
-        console.log(inx);
+      $scope.impressionData = _.reduce(data, function(result, value) {
         /*
         Reduce the impression data to generate reports, daily, monthly and like that.
          */
@@ -81,7 +78,9 @@ angular.module('adomattic.dashboard')
 
         (result.months[value._added_month]) ? result.months[value._added_month] += 1: result.months[value._added_month] = 1;
 
-        (result.cities[value.city]) ? result.cities[value.city] += 1: result.cities[value.city] = 1;
+        if (value.city) {
+          (result.cities[value.city]) ? result.cities[value.city] += 1: result.cities[value.city] = 1;
+        }
 
         // if (value.navigator) {
         //   //console.log(value.navigator.userAgent);
@@ -164,7 +163,7 @@ angular.module('adomattic.dashboard')
       delete $scope.impressionData.sysInfo.device['undefined'];
 
       $scope.impressionData.sysInfo.device.desktop = desktop;
-      // console.log($scope.impressionData);
+      console.log($scope.impressionData);
 
       // simplifying time data
 
@@ -182,7 +181,67 @@ angular.module('adomattic.dashboard')
       //   result.push([key, count]);
       //   return result;
       // }, []);
+      //
+      $scope.starBurstOptions = {
+          chart: {
+              type: 'sunburstChart',
+              height: 450,
+              color: d3.scale.category20(),
+              duration: 500
+          }
+      };
 
+      var starBurst = _.reduce($scope.impressionData.countries, function(r, v, k) {
+        //console.log(k);
+        if (k && k !== 'null') {
+          r.children.push({
+            name: k,
+            children: _.reduce(v.cities, function(rr, vv, kk) {
+              if (kk && kk !== 'null') {
+                rr.push({
+                  name: kk,
+                  children: _.reduce(vv.postal_codes, function(rrr, vvv, kkk) {
+                    //console.log(vvv);
+
+                    rrr.push({
+                      name: kkk,
+                      children: _.reduce(vvv.devices, function(rrrr, vvvv, kkkk) {
+                        //console.log(kkkk);
+
+                        if (kkkk && kkkk !== 'null') {
+                          rrrr.push({
+                            name: kkkk,
+                            children: _.reduce(vvvv, function(rd, vd, kd) {
+                              rd.push({
+                                name: kd,
+                                size: vd
+                              });
+
+                              console.log(rd);
+
+                              return rd;
+                            }, [])
+                          });
+                        }
+
+                        return rrrr;
+                      }, [])
+                    });
+
+                    return rrr;
+                  }, [])
+                });
+              }
+
+              return rr;
+            }, [])
+          });
+        }
+
+        return r;
+      }, { name: 'Breakdown', children: [] });
+
+      $scope.starBurst = [starBurst];
       var cityData = _.reduce($scope.impressionData.cities, function(result, count, key) {
         result.push([key, count]);
         return result;
