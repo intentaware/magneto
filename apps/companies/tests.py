@@ -44,4 +44,4 @@ class CompaniesTest(TestCase):
         count  = Coupon.objects.all().count()
 
         print type(response)
-        print count 
+       
