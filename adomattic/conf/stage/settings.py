@@ -30,9 +30,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'vader',
-        'USER': 'vaderstage',
+        'USER': 'vader',
         'PASSWORD': 'e9x2055KK013Qjbz0S8ex5QA',
-        'HOST': 'vaderstage.c3udwfzrnadp.us-west-2.rds.amazonaws.com',
+        'HOST': 'istage.c3udwfzrnadp.us-west-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
