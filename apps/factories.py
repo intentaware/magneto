@@ -3,6 +3,7 @@ from apps.campaigns.models import *
 from apps.companies.models import *
 from apps.guages.models import *
 from apps.users.models import *
+from apps.finances.models import *
 
 
 class CampaignFactory(factory.Factory):
@@ -42,3 +43,15 @@ class UserFactory(factory.Factory):
     last_name = 'Steve'
     email = 'selftest@example.com'
     password = 'password'
+
+class BasePaymentModelFactory(factory.Factory):
+    class Meta:
+        model = BasePaymentModel
+
+    amount = 30.25
+    attempts = 3
+    service_charges = 10
+    taxes = 17
+    gateway_response = {'status' : 'passed', 'amount' : '30', 'tax' : '17'}
+    is_paid = True
+    
