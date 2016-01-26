@@ -3,12 +3,9 @@ from models import Company
 from apps.campaigns.models import *
 from apps.factories import *
 
-
-
 class CompaniesTest(TestCase):
-    company = CompaniesFactory()
-    campaign = CampaignFactory()
-
+    company = CompaniesFactory.create()
+    campaign = CampaignFactory.create()
 
     def test_is_active(self):
         self.assertEqual(self.company.is_active, True, "Company is_active test Failed.")
@@ -33,6 +30,6 @@ class CompaniesTest(TestCase):
     def test_get_target_campaigns(self):
         response = self.company.get_target_campaigns(request='GET',campaign_id=self.campaign.id)
         count  = Coupon.objects.all().count()
-
-        print type(response)
+        companies = Campaign.objects.all().count()
+        
        

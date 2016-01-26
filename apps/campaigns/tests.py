@@ -47,12 +47,4 @@ class CampaignTests(TestCase):
         print "Campaign test_save Passed"
         
         #invoice = self.campaign.set_invoice(self)
-
-        """
-    def test_set_invoice(self):
-        
-        Still not figured out 
-
-        """
-        
         
