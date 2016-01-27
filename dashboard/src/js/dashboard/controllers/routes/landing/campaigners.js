@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignersLandingCtrl', function($rootScope, $scope, $location, Campaign) {
+  .controller('CampaignersLandingCtrl', function($rootScope, $scope, $location, Campaign, Reporter) {
     var getCampaigns = function() {
       Campaign.query().$promise.then(function(data) {
         $scope.campaigns = data;
@@ -14,32 +14,11 @@ angular.module('adomattic.dashboard')
 
     getCampaigns();
 
-    // $scope.options = {
-    //   chart: {
-    //     type: 'pieChart',
-    //     height: '300',
-    //     donut: true,
-    //     x: function(d) {
-    //       return d.key;
-    //     },
-    //     y: function(d) {
-    //       return d.y;
-    //     },
-    //     //showLabels: true,
-    //     transitionDuration: 500,
-    //     labelThreshold: 0.01,
-    //   }
-    // };
-
-    // $scope.data = [{
-    //   key: 'Return on Investment',
-    //   y: $rootScope.globals.coupons.claimed || 0
-    // }, {
-    //   key: 'Carry Over',
-    //   y: $rootScope.globals.coupons.remaining || 0
-    // }];
-
     $scope.impressionData = null;
+
+    var map = L.mapbox.map('map')
+      .setView([0, 0], 1)
+      .addLayer(L.mapbox.tileLayer('mapbox.streets'));
 
     Campaign.impressions({
       id: 11
@@ -51,22 +30,6 @@ angular.module('adomattic.dashboard')
       });
 
       var parser = new UAParser();
-
-      var setInfo = function(parser, ua, obj) {
-
-        var info = parser.setUA(ua).getResult();
-
-        (obj.devices.os[info.os.name]) ? obj.devices.os[info.os.name] ++ : obj.devices.os[info.os.name] = 1;
-
-        (obj.devices.browser[info.browser.name]) ? obj.devices.browser[info.browser.name] ++ : obj.devices.browser[info.browser.name] = 1;
-
-        if (info.device.type) {
-          (obj.devices.device[info.device.type]) ? obj.devices.device[info.device.type] ++ : obj.devices.device[info.device.type] = 1;
-        } else {
-          (obj.devices.device['system-x86']) ? obj.devices.device['system-x86'] ++ : obj.devices.device['system-x86'] = 1;
-        }
-
-      };
 
       $scope.impressionData = _.reduce(data, function(result, value) {
         /*
@@ -93,53 +56,100 @@ angular.module('adomattic.dashboard')
         if (result.countries[value.country]) {
           // Setting Country level data
 
-          result.countries[value.country].count ++;
+          result.countries[value.country].count++;
 
           if (value.navigator) {
-              setInfo(parser, value.navigator.userAgent, result.countries[value.country]);
+            Reporter.setUserAgentInfo(parser, value.navigator.userAgent, result.countries[value.country]);
           }
 
           // Setting City Level Data
           if (result.countries[value.country].cities[value.city]) {
             // Adding count and seeting city level matrix
-            result.countries[value.country].cities[value.city].count ++;
+            result.countries[value.country].cities[value.city].count++;
 
 
             // Setting Postal Code Level Data
             if (result.countries[value.country].cities[value.city].postal_codes[value.postal_code]) {
               // Adding if exists
-              result.countries[value.country].cities[value.city].postal_codes[value.postal_code].count ++;
+              result.countries[value.country].cities[value.city].postal_codes[value.postal_code].count++;
             } else {
               // Setting default count to 1
-              result.countries[value.country].cities[value.city].postal_codes[value.postal_code] = { count: 1, devices: { os: {}, browser: {}, device: {} }};
+              result.countries[value.country].cities[value.city].postal_codes[value.postal_code] = {
+                count: 1,
+                devices: {
+                  os: {},
+                  browser: {},
+                  device: {}
+                }
+              };
             }
 
             if (value.navigator) {
-              setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city]);
-              setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city].postal_codes[value.postal_code]);
+              Reporter.setUserAgentInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city]);
+              Reporter.setUserAgentInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city].postal_codes[value.postal_code]);
             }
 
           } else {
             // Settings the city level Data (if it does not exist)
-            result.countries[value.country].cities[value.city] = { count: 1, devices: { os: {}, browser: {}, device: {} }, postal_codes: {}};
-            result.countries[value.country].cities[value.city].postal_codes[value.postal_code] = { count: 1, devices: { os: {}, browser: {}, device: {} }};
+            result.countries[value.country].cities[value.city] = {
+              count: 1,
+              devices: {
+                os: {},
+                browser: {},
+                device: {}
+              },
+              postal_codes: {}
+            };
+            result.countries[value.country].cities[value.city].postal_codes[value.postal_code] = {
+              count: 1,
+              devices: {
+                os: {},
+                browser: {},
+                device: {}
+              }
+            };
 
             if (value.navigator) {
 
-              setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city]);
-              setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city].postal_codes[value.postal_code]);
+              Reporter.setUserAgentInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city]);
+              Reporter.setUserAgentInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city].postal_codes[value.postal_code]);
             }
           }
         } else {
-          result.countries[value.country] = { count: 1, devices: { os: {}, browser: {}, device: {} }, cities: {} };
-          result.countries[value.country].cities[value.city] = { count: 1, devices: { os: {}, browser: {}, device: {} }, postal_codes: {}};
-          result.countries[value.country].cities[value.city].postal_codes[value.postal_code] = { count: 1, devices: { os: {}, browser: {}, device: {} }};
+          result.countries[value.country] = {
+            count: 1,
+            devices: {
+              os: {},
+              browser: {},
+              device: {}
+            },
+            cities: {}
+          };
+          result.countries[value.country].cities[value.city] = {
+            count: 1,
+            devices: {
+              os: {},
+              browser: {},
+              device: {}
+            },
+            postal_codes: {}
+          };
+          result.countries[value.country].cities[value.city].postal_codes[value.postal_code] = {
+            count: 1,
+            devices: {
+              os: {},
+              browser: {},
+              device: {}
+            }
+          };
 
           if (value.navigator) {
-            setInfo(parser, value.navigator.userAgent, result.countries[value.country]);
-            setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city]);
-            setInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city].postal_codes[value.postal_code]);
+            Reporter.setUserAgentInfo(parser, value.navigator.userAgent, result.countries[value.country]);
+            Reporter.setUserAgentInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city]);
+            Reporter.setUserAgentInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city].postal_codes[value.postal_code]);
           }
+
+          result.markers.push(value.marker);
         }
 
         return result;
@@ -149,13 +159,13 @@ angular.module('adomattic.dashboard')
         days_redeemed: {},
         months: {},
         cities: {},
-        countries: {
-        },
+        countries: {},
         sysInfo: {
           os: {},
           browser: {},
           device: {},
-        }
+        },
+        markers: []
       });
 
       var desktop = $scope.impressionData.sysInfo.device['undefined'];
@@ -164,6 +174,19 @@ angular.module('adomattic.dashboard')
 
       $scope.impressionData.sysInfo.device.desktop = desktop;
       console.log($scope.impressionData);
+
+      // Adding cluster of markers and settings bounds
+      var markers = new L.MarkerClusterGroup();
+
+      $scope.impressionData.markers.forEach(function(k) {
+        var marker =  L.marker(new L.LatLng(k[0], k[1]), {
+          'marker-color': '0044FF'
+        });
+        markers.addLayer(marker);
+      });
+
+      map.addLayer(markers);
+      map.fitBounds(markers.getBounds());
 
       // simplifying time data
 
@@ -183,12 +206,12 @@ angular.module('adomattic.dashboard')
       // }, []);
       //
       $scope.starBurstOptions = {
-          chart: {
-              type: 'sunburstChart',
-              height: 450,
-              color: d3.scale.category20(),
-              duration: 500
-          }
+        chart: {
+          type: 'sunburstChart',
+          height: 450,
+          color: d3.scale.category20(),
+          duration: 500
+        }
       };
 
       var starBurst = _.reduce($scope.impressionData.countries, function(r, v, k) {
@@ -217,7 +240,7 @@ angular.module('adomattic.dashboard')
                                 size: vd
                               });
 
-                              console.log(rd);
+                              //console.log(rd);
 
                               return rd;
                             }, [])
@@ -239,7 +262,10 @@ angular.module('adomattic.dashboard')
         }
 
         return r;
-      }, { name: 'Breakdown', children: [] });
+      }, {
+        name: 'Breakdown',
+        children: []
+      });
 
       $scope.starBurst = [starBurst];
       var cityData = _.reduce($scope.impressionData.cities, function(result, count, key) {

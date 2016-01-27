@@ -15,7 +15,11 @@
 {% block styles_inline %}
 {% endblock %}
 
-
+{% block styles_extra %}
+<link href='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css' rel='stylesheet' />
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+{% endblock %}
 
 {% block content %}
   <div ng-app="adomattic" layout="column" flex layout-fill ng-init="globals = {{ globals | jsonify }};">
@@ -55,6 +59,7 @@
   <!-- endinject -->
   <!-- endbuild -->
 
+  <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
   {% comment %}
   var html = 'src="dash/bower_components/angular/angular.js" src="dash/bower_components/angular/angular-material.js"';
   var r = /(src=)("[^"]*"|^[^"]*$)/g;
@@ -96,6 +101,13 @@
     ZeroClipboard.config({
       swfPath: '{{ STATIC_URL }}dashboard/swf/ZeroClipboard.swf'
     });
+  </script>
+
+  <!-- Mapbox Config -->
+  <script type="text/javascript">
+  // Provide your access token
+  L.mapbox.accessToken = 'pk.eyJ1IjoiaW50ZW50YXdhcmUiLCJhIjoiY2lqdXA0ZGFmMGZkbHVva2dqYXEzMmcycyJ9.EksiZNadDOPtItgok9cVpg';
+  // Create a map in the div #map
   </script>
 {% endblock %}
 

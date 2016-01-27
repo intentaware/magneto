@@ -24,6 +24,7 @@
   "globals": {
     "angular": false,
     "_": false,
+    "L": false,
     "UAParser": false,
     "moment": false,
     "d3": false,
