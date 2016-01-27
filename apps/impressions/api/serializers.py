@@ -22,6 +22,7 @@ class ImpressionCSVSerializer(ImpressionSerializer):
     navigator = serializers.SerializerMethodField()
     is_claimed = serializers.SerializerMethodField()
     is_redeemed = serializers.SerializerMethodField()
+    marker = serializers.SerializerMethodField()
 
     def get_ipstore(self, obj):
         from apps.warehouse.models import IPStore
@@ -99,6 +100,20 @@ class ImpressionCSVSerializer(ImpressionSerializer):
             except KeyError:
                 country = None
         return country
+
+    def get_marker(self, obj):
+        ip2geo = obj.meta.get('ip2geo', None)
+
+        marker = []
+
+        if ip2geo:
+            try:
+                location = ip2geo['location']
+                marker = [location['latitude'], location['longitude']]
+            except KeyError:
+                pass
+
+        return marker
 
     def get_screen(self, obj):
         return obj.meta.get('screen', None)
