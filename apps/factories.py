@@ -4,6 +4,7 @@ from apps.companies.models import *
 from apps.guages.models import *
 from apps.users.models import *
 from apps.finances.models import *
+from apps.warehouse.models import *
 
 
 class CampaignFactory(factory.Factory):
@@ -55,3 +56,11 @@ class BasePaymentModelFactory(factory.Factory):
     gateway_response = {'status' : 'passed', 'amount' : '30', 'tax' : '17'}
     is_paid = True
     
+class IPStoreFactory(factory.Factory):
+    class Meta:
+        model = IPStore
+
+    ip = "69.89.31.226"
+    latitude = 30.1978
+    longitude = 71.4697
+
