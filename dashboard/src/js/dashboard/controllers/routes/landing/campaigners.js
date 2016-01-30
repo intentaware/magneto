@@ -222,7 +222,11 @@ angular.module('adomattic.dashboard')
         return result;
       }, []);
 
-      cityData = _.orderBy(cityData, ['count'], ['desc']);
+      cityData = _.sortByOrder(cityData, ['count'], ['desc']);
+
+      cityData = _.filter(cityData, function(o) {
+        return (o.count > cityData[0].count / 20) ? true : false;
+      });
 
       console.log(cityData);
 
