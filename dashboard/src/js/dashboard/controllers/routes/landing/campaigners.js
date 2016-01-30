@@ -23,7 +23,8 @@ angular.module('adomattic.dashboard')
     Campaign.impressions({
       id: 11
     }).$promise.then(function(data) {
-      console.log(data);
+
+
       data.map(function(d) {
         d._added_day = moment(d.added_on).format('DD-MMM-YYYY');
         d._added_month = moment(d.added_on).format('MMM');
@@ -214,9 +215,16 @@ angular.module('adomattic.dashboard')
 
 
       var cityData = _.reduce($scope.impressionData.cities, function(result, count, key) {
-        result.push([key, count]);
+        result.push({
+          name: key,
+          count: count
+        });
         return result;
       }, []);
+
+      cityData = _.orderBy(cityData, ['count'], ['desc']);
+
+      console.log(cityData);
 
       $scope.timeOptions = {
         chart: {
@@ -252,7 +260,15 @@ angular.module('adomattic.dashboard')
         values: claimedTimeData
       }];
 
-      $scope.cityOptions = angular.copy($scope.timeOptions);
+      var cityOptions = angular.copy($scope.timeOptions);
+
+      cityOptions.chart.x = function(d) {
+        return d.name;
+      };
+      cityOptions.chart.y = function(d) {
+        return d.count;
+      };
+      $scope.cityOptions = cityOptions;
       $scope.cityOptions.chart.xAxis.axisLabel = 'City';
 
       $scope.cityData = [{
