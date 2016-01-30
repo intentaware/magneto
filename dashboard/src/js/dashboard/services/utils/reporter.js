@@ -18,7 +18,7 @@ angular.module('adomattic.dashboard')
       }
     };
 
-    self.parseUserAgent = function(nav, parser) {
+    self.setMarkerInfo = function(nav, parser, country) {
       var info = {
         device: {
           type: undefined
@@ -52,10 +52,29 @@ angular.module('adomattic.dashboard')
         info.color = '#a04d00';
       }
 
+      var profile = ['White Collar', 'Blue Collar'];
+
+      var white_education = ['PHD', 'Masters', 'Bechelors'];
+      var blue_education = ['Bechelors', 'High School'];
+
+      var mStatus = ['Single', 'Married', 'Married with Kids'];
+
       info.tooltip = '<p><strong>Device: <\/strong>' + info.device.type + '<\/p>';
       info.tooltip += '<p><strong>OS: <\/strong>' + info.os.name;
       info.tooltip += '<br><strong>Browser: <\/strong>' + info.browser.name + '<\/p>';
-      console.log(info);
+
+      if (country === 'United States' || country === 'Canada') {
+        var p = _.sample(profile);
+        var e;
+        if (p === profile[0]) {
+          e = _.sample(white_education);
+        } else {
+          e = _.sample(blue_education);
+        }
+        info.tooltip += '<br><p><strong>Income: <\/strong>' + p;
+        info.tooltip += '<br><strong>Education: <\/strong>' + e;
+        info.tooltip += '<br><strong>Household Info: <\/strong>' + _.sample(mStatus) + '<\/p>';
+      }
       //info.tooltip += '<p>' + info.os.type + '<\/p>';
       //info.tooltip += '<p>' + info.
 

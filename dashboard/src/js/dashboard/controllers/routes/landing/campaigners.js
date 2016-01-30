@@ -17,7 +17,7 @@ angular.module('adomattic.dashboard')
     $scope.impressionData = null;
 
     var map = L.mapbox.map('map')
-      .setView([0, 0], 1)
+      .setView([0, 0], 2)
       .addLayer(L.mapbox.tileLayer('mapbox.streets'));
 
     Campaign.impressions({
@@ -150,7 +150,7 @@ angular.module('adomattic.dashboard')
           }
         }
 
-        var info = Reporter.parseUserAgent(value.navigator, parser);
+        var info = Reporter.setMarkerInfo(value.navigator, parser, value.country);
         value.marker.push(info);
         result.markers.push(value.marker);
         return result;

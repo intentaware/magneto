@@ -5,9 +5,14 @@
       <md-toolbar>
         <div class="md-toolbar-tools">
           <span>Demographic Insights</span>
+          <span flex></span>
+          <md-progress-circular class="md-accent" md-mode="indeterminate" ng-if="!impressionData"></md-progress-circular>
+          <md-button class="md-raised md-primary" aria-label="Reset Zoom" ng-click="defaultZoom()">
+            Reset Zoom
+          </md-button>
         </div>
       </md-toolbar>
-      <md-card-content class="tile tile-long">
+      <md-card-content class="tile tile-long-3x">
         <div class="custom-popup" id="map" style="width: 100%; height: 100%;"></div>
       </md-card-content>
     </md-card>
@@ -33,6 +38,8 @@
       <md-toolbar>
         <div class="md-toolbar-tools">
           <span>Customer By Cities</span>
+          <span flex></span>
+          <md-progress-circular class="md-accent" md-mode="indeterminate" ng-if="!impressionData"></md-progress-circular>
         </div>
       </md-toolbar>
       <md-card-content class="tile tile-long">
