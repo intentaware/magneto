@@ -14,7 +14,51 @@ angular.module('adomattic.dashboard')
       if (info.device.type) {
         (obj.devices.device[info.device.type]) ? obj.devices.device[info.device.type]++: obj.devices.device[info.device.type] = 1;
       } else {
-        (obj.devices.device['system-x86']) ? obj.devices.device['system-x86']++: obj.devices.device['system-x86'] = 1;
+        (obj.devices.device['computer']) ? obj.devices.device['computer']++: obj.devices.device['computer'] = 1;
       }
+    };
+
+    self.parseUserAgent = function(nav, parser) {
+      var info = {
+        device: {
+          type: undefined
+        },
+        browser: {
+          name: undefined
+        },
+        cpu: {},
+        os: {
+          name: undefined
+        }
+      };
+
+      if (nav) {
+        info = parser.setUA(nav.userAgent).getResult();
+
+        if (!info.device.type) {
+          info.device = {
+            type: 'computer'
+          };
+        }
+      }
+
+      if (info.device.type === 'computer') {
+        info.color = '#0053a0';
+      } else if (info.device.type === 'mobile') {
+        info.color = '#a00053';
+      } else if (info.device.type === 'tablet') {
+        info.color = '#00a04d';
+      } else {
+        info.color = '#a04d00';
+      }
+
+      info.tooltip = '<p><strong>Device: <\/strong>' + info.device.type + '<\/p>';
+      info.tooltip += '<p><strong>OS: <\/strong>' + info.os.name;
+      info.tooltip += '<br><strong>Browser: <\/strong>' + info.browser.name + '<\/p>';
+      console.log(info);
+      //info.tooltip += '<p>' + info.os.type + '<\/p>';
+      //info.tooltip += '<p>' + info.
+
+      return info;
     };
   });

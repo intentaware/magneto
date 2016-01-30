@@ -148,10 +148,11 @@ angular.module('adomattic.dashboard')
             Reporter.setUserAgentInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city]);
             Reporter.setUserAgentInfo(parser, value.navigator.userAgent, result.countries[value.country].cities[value.city].postal_codes[value.postal_code]);
           }
-
-          result.markers.push(value.marker);
         }
 
+        var info = Reporter.parseUserAgent(value.navigator, parser);
+        value.marker.push(info);
+        result.markers.push(value.marker);
         return result;
       }, {
         days: {},
@@ -173,20 +174,31 @@ angular.module('adomattic.dashboard')
       delete $scope.impressionData.sysInfo.device['undefined'];
 
       $scope.impressionData.sysInfo.device.desktop = desktop;
+
       console.log($scope.impressionData);
 
       // Adding cluster of markers and settings bounds
-      var markers = new L.MarkerClusterGroup();
+      var markers = new L.MarkerClusterGroup({ disableClusteringAtZoom: 10 });
 
       $scope.impressionData.markers.forEach(function(k) {
         var marker =  L.marker(new L.LatLng(k[0], k[1]), {
-          'marker-color': '0044FF'
+           icon: L.mapbox.marker.icon({
+              'marker-size': 'small',
+              'marker-color': k[2].color
+            })
         });
+        marker.bindPopup(k[2].tooltip);
         markers.addLayer(marker);
       });
 
       map.addLayer(markers);
       map.fitBounds(markers.getBounds());
+
+      // global function to reset map
+      $scope.mapMarkers = markers;
+      $scope.defaultZoom = function() {
+        map.fitBounds($scope.mapMarkers.getBounds());
+      };
 
       // simplifying time data
 
@@ -200,74 +212,7 @@ angular.module('adomattic.dashboard')
         return result;
       }, []);
 
-      // var redeemTimeData = _.reduce($scope.impressionData.days_redeemed, function(result, count, key) {
-      //   result.push([key, count]);
-      //   return result;
-      // }, []);
-      //
-      $scope.starBurstOptions = {
-        chart: {
-          type: 'sunburstChart',
-          height: 450,
-          color: d3.scale.category20(),
-          duration: 500
-        }
-      };
 
-      var starBurst = _.reduce($scope.impressionData.countries, function(r, v, k) {
-        //console.log(k);
-        if (k && k !== 'null') {
-          r.children.push({
-            name: k,
-            children: _.reduce(v.cities, function(rr, vv, kk) {
-              if (kk && kk !== 'null') {
-                rr.push({
-                  name: kk,
-                  children: _.reduce(vv.postal_codes, function(rrr, vvv, kkk) {
-                    //console.log(vvv);
-
-                    rrr.push({
-                      name: kkk,
-                      children: _.reduce(vvv.devices, function(rrrr, vvvv, kkkk) {
-                        //console.log(kkkk);
-
-                        if (kkkk && kkkk !== 'null') {
-                          rrrr.push({
-                            name: kkkk,
-                            children: _.reduce(vvvv, function(rd, vd, kd) {
-                              rd.push({
-                                name: kd,
-                                size: vd
-                              });
-
-                              //console.log(rd);
-
-                              return rd;
-                            }, [])
-                          });
-                        }
-
-                        return rrrr;
-                      }, [])
-                    });
-
-                    return rrr;
-                  }, [])
-                });
-              }
-
-              return rr;
-            }, [])
-          });
-        }
-
-        return r;
-      }, {
-        name: 'Breakdown',
-        children: []
-      });
-
-      $scope.starBurst = [starBurst];
       var cityData = _.reduce($scope.impressionData.cities, function(result, count, key) {
         result.push([key, count]);
         return result;
