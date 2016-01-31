@@ -151,7 +151,7 @@ angular.module('adomattic.dashboard')
           }
         }
 
-        var info = Reporter.setMarkerInfo(value.navigator, parser, value.country);
+        var info = Reporter.setMarkerInfo(value.navigator, parser, value.country, value.postal_code);
         value.marker.push(info);
         result.markers.push(value.marker);
         return result;
