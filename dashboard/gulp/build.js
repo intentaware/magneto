@@ -42,7 +42,7 @@ gulp.task('minify:common', ['inject:common'], function() {
     }))
     .pipe($.rev())
     .pipe(cssFilter)
-    .pipe($.csso())
+    //.pipe($.csso())
     .pipe($.size())
     .pipe(gulp.dest(paths.django.assets.dashboard + '/builds'))
     .pipe(cssFilter.restore())
