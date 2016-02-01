@@ -12,6 +12,57 @@ angular.module('adomattic.dashboard')
       $location.path('/campaigns/');
     };
 
+    $scope.multiBarOptions = {
+      chart: {
+        type: 'multiBarChart',
+        clipEdge: true,
+        height: 300,
+        x: function(d) {
+          return d[0];
+        },
+        y: function(d) {
+          return d[1];
+        },
+        showValues: true,
+        duration: 300,
+        xAxis: {
+          axisLabel: 'Dates'
+        },
+        yAxis: {
+          axisLabel: 'Count',
+          axisLabelDistance: -20,
+          tickFormat: function(d) {
+            return d3.format(',.0f')(d);
+          }
+        }
+      }
+    };
+
+    $scope.pieOptions = {
+      chart: {
+        type: 'pieChart',
+        height: 300,
+        x: function(d) {
+          return d.key;
+        },
+        y: function(d) {
+          return d.value;
+        },
+        showLabels: false,
+        donut: true,
+        duration: 500,
+        labelThreshold: 0.01,
+        labelSunbeamLayout: true,
+        legend: {
+          margin: {
+            top: 5,
+            right: 5,
+            bottom: 5,
+            left: 0
+          }
+        }
+      }
+    };
     getCampaigns();
 
     $scope.impressionData = null;
@@ -36,6 +87,8 @@ angular.module('adomattic.dashboard')
         /*
         Reduce the impression data to generate reports, daily, monthly and like that.
          */
+        (value.added_on) ? result.performance.displayed += 1: result.performance.displayed;
+        (value.is_claimed) ? result.performance.claimed += 1: result.performance.claimed;
         (result.days[value._added_day]) ? result.days[value._added_day] += 1: result.days[value._added_day] = 1;
         (result.days_claimed[value._added_day]) ? result.days_claimed[value._added_day] += 1: result.days_claimed[value._added_day] = value.is_claimed;
         (result.days_redeemed[value._added_day]) ? result.days_redeemed[value._added_day] += 1: result.days_redeemed[value._added_day] = value.is_redeemed;
@@ -45,14 +98,6 @@ angular.module('adomattic.dashboard')
         if (value.city) {
           (result.cities[value.city]) ? result.cities[value.city] += 1: result.cities[value.city] = 1;
         }
-
-        // if (value.navigator) {
-        //   //console.log(value.navigator.userAgent);
-        //   var sysInfo = parser.setUA(value.navigator.userAgent).getResult();
-        //   (result.sysInfo.os[sysInfo.os.name]) ? (result.sysInfo.os[sysInfo.os.name]) += 1: (result.sysInfo.os[sysInfo.os.name]) = 1;
-        //   (result.sysInfo.browser[sysInfo.browser.name]) ? (result.sysInfo.browser[sysInfo.browser.name]) += 1: (result.sysInfo.browser[sysInfo.browser.name]) = 1;
-        //   (result.sysInfo.device[sysInfo.device.type]) ? (result.sysInfo.device[sysInfo.device.type]) += 1: (result.sysInfo.device[sysInfo.device.type]) = 1;
-        // }
 
         if (result.countries[value.country]) {
           // Setting Country level data
@@ -167,6 +212,10 @@ angular.module('adomattic.dashboard')
           browser: {},
           device: {},
         },
+        performance: {
+          displayed: 0,
+          claimed: 0
+        },
         markers: []
       });
 
@@ -179,14 +228,16 @@ angular.module('adomattic.dashboard')
       console.log($scope.impressionData);
 
       // Adding cluster of markers and settings bounds
-      var markers = new L.MarkerClusterGroup({ disableClusteringAtZoom: 10 });
+      var markers = new L.MarkerClusterGroup({
+        disableClusteringAtZoom: 10
+      });
 
       $scope.impressionData.markers.forEach(function(k) {
-        var marker =  L.marker(new L.LatLng(k[0], k[1]), {
-           icon: L.mapbox.marker.icon({
-              'marker-size': 'small',
-              'marker-color': k[2].color
-            })
+        var marker = L.marker(new L.LatLng(k[0], k[1]), {
+          icon: L.mapbox.marker.icon({
+            'marker-size': 'small',
+            'marker-color': k[2].color
+          })
         });
         marker.bindPopup(k[2].tooltip);
         markers.addLayer(marker);
@@ -228,34 +279,6 @@ angular.module('adomattic.dashboard')
         return (o.count > cityData[0].count / 20) ? true : false;
       });
 
-      console.log(cityData);
-
-      $scope.timeOptions = {
-        chart: {
-          type: 'multiBarChart',
-          clipEdge: true,
-          height: 300,
-          x: function(d) {
-            return d[0];
-          },
-          y: function(d) {
-            return d[1];
-          },
-          showValues: true,
-          duration: 300,
-          xAxis: {
-            axisLabel: 'Dates'
-          },
-          yAxis: {
-            axisLabel: 'Count',
-            axisLabelDistance: -20,
-            tickFormat: function(d) {
-              return d3.format(',.0f')(d);
-            }
-          }
-        }
-      };
-
       $scope.timeData = [{
         key: 'Displayed',
         values: countTimeData
@@ -264,7 +287,9 @@ angular.module('adomattic.dashboard')
         values: claimedTimeData
       }];
 
-      var cityOptions = angular.copy($scope.timeOptions);
+      $scope.timeOptions = angular.copy($scope.lineOptions);
+
+      var cityOptions = angular.copy($scope.multiBarOptions);
 
       cityOptions.chart.x = function(d) {
         return d.name;
@@ -278,6 +303,14 @@ angular.module('adomattic.dashboard')
       $scope.cityData = [{
         key: 'Count',
         values: cityData
+      }];
+
+      $scope.performanceData = [{
+        key: 'Displayed',
+        value: $scope.impressionData.performance.displayed
+      }, {
+        key: 'Claimed',
+        value: $scope.impressionData.performance.claimed
       }];
 
     });

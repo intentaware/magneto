@@ -40,10 +40,36 @@
     <!-- Content Analysis End -->
     <!-- Offer Delivery -->
     <!-- Offer Delivery End -->
+    <div layout="row">
+    <md-card class="md-whiteframe-z1" flex="40">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span>Performance Overview</span>
+          <span flex></span>
+          <md-progress-circular class="md-accent" md-mode="indeterminate" ng-if="!impressionData"></md-progress-circular>
+        </div>
+      </md-toolbar>
+      <md-card-content class="tile tile-long">
+        <nvd3 options="pieOptions" data="performanceData"></nvd3>
+      </md-card-content>
+    </md-card>
+    <md-card class="md-whiteframe-z1" flex="60">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span>Performance (Over last month)</span>
+          <span flex></span>
+          <md-progress-circular class="md-accent" md-mode="indeterminate" ng-if="!impressionData"></md-progress-circular>
+        </div>
+      </md-toolbar>
+      <md-card-content class="tile tile-long">
+        <nvd3 options="multiBarOptions" data="timeData"></nvd3>
+      </md-card-content>
+    </md-card>
+    </div>
     <md-card class="md-whiteframe-z1" flex>
       <md-toolbar>
         <div class="md-toolbar-tools">
-          <span>Customer By Cities</span>
+          <span>Popular Locations</span>
           <span flex></span>
           <md-progress-circular class="md-accent" md-mode="indeterminate" ng-if="!impressionData"></md-progress-circular>
         </div>
