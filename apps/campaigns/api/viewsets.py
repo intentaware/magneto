@@ -50,10 +50,9 @@ class CampaignViewSet(BaseModelViewSet):
         from django.utils import timezone as _tz
         from apps.impressions.models import Impression
         _now = _tz.now()
-        _delta = _now + relativedelta(months=-0) + relativedelta(days=-15)
-        campaign = Campaign.objects.prefetch_related('impressions').get(pk=pk)
+        _delta = _now + relativedelta(months=-0) + relativedelta(days=-30)
         impressions = Impression.objects.filter(
                 publisher=request.session['company'],
                 added_on__gte=_delta
-            )
+            ).order_by('added_on')
         return Response(ImpressionCSVSerializer(impressions, many=True).data)
