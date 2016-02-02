@@ -5,6 +5,12 @@ from apps.campaigns.models import Campaign
 from apps.metas.models import CampaignCircle
 from apps.api.fields import Base64ImageField, ModelPropertyField
 
+class BaseCampaignSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Campaign
+        exclude = ['image', 'circles']
+
 
 class CampaignSerializer(serializers.ModelSerializer):
     preview_image_url = serializers.SerializerMethodField()
@@ -26,11 +32,12 @@ class CampaignSerializer(serializers.ModelSerializer):
         return obj.coupons.claimed().coupons_value_sum()
 
     def get_circles(self, obj):
-        return obj.campaigncircle_set.filter(
-                is_active=True
-            ).order_by(
-                'circle_id'
-            ).values_list('circle_id', flat=True)
+        return list(obj.campaigncircle_set.filter(
+                        is_active=True
+                    ).order_by(
+                        'circle_id'
+                    ).values_list('circle_id', flat=True))
+
     def get_is_paid(self, obj):
         paid = False
         if obj.invoice:
