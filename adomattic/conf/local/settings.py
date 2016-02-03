@@ -1,4 +1,5 @@
 from base import *
+import os
 
 SITE_ID = 1
 
@@ -21,6 +22,8 @@ INTERNAL_IPS = (
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
+DB_PORT = os.environ.get('DB_PORT', 5432)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -28,7 +31,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': DB_PORT,
     }
 }
 
