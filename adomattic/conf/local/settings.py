@@ -22,14 +22,16 @@ INTERNAL_IPS = (
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
+DB_USER = os.environ.get('PG_USER', root)
+DB_PASSWORD = os.environ.get('PG_PASSWORD', '')
 DB_PORT = os.environ.get('DB_PORT', 5432)
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'vader',
-        'USER': 'root',
-        'PASSWORD': '',
+        'NAME': 'test',
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
         'HOST': 'localhost',
         'PORT': DB_PORT,
     }
