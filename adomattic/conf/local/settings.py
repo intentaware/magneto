@@ -22,9 +22,9 @@ INTERNAL_IPS = (
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-DB_USER = os.environ.get('PG_USER', root)
-DB_PASSWORD = os.environ.get('PG_PASSWORD', '')
-DB_PORT = os.environ.get('DB_PORT', 5432)
+DB_USER = os.environ.get('PG_USER')
+DB_PASSWORD = os.environ.get('PG_PASSWORD')
+DB_PORT = os.environ.get('DB_PORT', 5434)
 
 DATABASES = {
     'default': {
