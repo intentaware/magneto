@@ -2,19 +2,12 @@ from django.test.client import Client
 from django.test import TestCase
 from models import User
 from backends.forms import *
-import factory
 import requests
 from pprint import pprint
 from apps.companies.models import *
+from apps.common.factories import *
 
-class UserFactory(factory.Factory):
-    class Meta:
-        model = User
 
-    first_name = 'Robert'
-    last_name = 'Steve'
-    email = 'selftest@example.com'
-    password = 'password'
 
 
 class UserTest(TestCase):
@@ -80,10 +73,10 @@ class UserTest(TestCase):
             response = self.c.post('/users/auth/password/reset/',{'email' : 'selftest@example.com'})
             key2  = userCheck.key
             if key1 != key2:
-                print "User test_user_registration_view Passed"
+                print "User test_user_registration_view Failed"
                 return True
             else:
-                print "User test_user_registration_view Failed"
+                print "User test_user_registration_view Passed"
                 return False
     
 
