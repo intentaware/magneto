@@ -50,7 +50,7 @@
     <!-- End Dates -->
 
     <!-- Budget -->
-<!--     <div layout="row" layout-sm="column">
+    <div layout="row" layout-sm="column">
       <md-input-container flex>
         <label>Budget</label>
         <input type="number" name="input_budget" ng-model="campaignForm.campaign.input_budget" min="10" ng-disabled="campaignForm.isDisabled()">
@@ -73,7 +73,7 @@
         <span><small><strong>Total: </strong>{{ campaignForm.getImpressionCount().charge | currency }}</small></span>
         </div>
       </div>
-    </div> -->
+    </div>
     <!-- End Budget -->
     <div layout="row" layout-sm="column" class="md-padding">
       <read-file label="Choose Campaign Image (maximum 1MB)" accept="image/*" max-size="1024000" ng-model="campaignForm.campaign.image" flex></read-file>
