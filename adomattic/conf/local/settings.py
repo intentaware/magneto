@@ -6,9 +6,9 @@ SITE_ID = 1
 BASE_URL = 'http://localhost:9050'
 
 INSTALLED_APPS += (
+    'django.contrib.staticfiles',
     'rest_framework',
     'devserver',
-    'django.contrib.staticfiles',
 )
 
 MIDDLEWARE_CLASSES += (
