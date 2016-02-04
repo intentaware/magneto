@@ -1,22 +1,33 @@
 {% raw %}
   <div layout="column">
     <div layout="row" layout-sm="column">
-      <div flex="75" flex-sm="100" ng-include="'forms/campaign-create.html'">
-      </div>
+      <div flex="75" flex-sm="100" ng-include="'forms/campaign-create.html'"></div>
       <div flex="25" flex-sm="100">
+        <!--
         <md-card>
-          <md-toolbar class="live-preview">
-            <div class="md-toolbar-tools">
-              <span>{{ baseCampaignFormCtrl.campaign.name || "Live Preview" }}</span>
-            </div>
-          </md-toolbar>
           <img ng-src="{{ baseCampaignFormCtrl.campaign.image }}">
           <md-card-content>
             <small>{{ baseCampaignFormCtrl.campaign.description }}</small>
             {% endraw %}
             <br>
-            <span flex ng-if="baseCampaignFormCtrl.campaign.description" style="text-align: right;"><img src="{{ STATIC_URL }}dash/src/assets/images/lg.png" height="15"></span>
+            <span flex ng-if="baseCampaignFormCtrl.campaign.description" style="text-align: right;">
+              <img src="{{ STATIC_URL }}dash/src/assets/images/lg.png" height="15">
+            </span>
             {% raw %}
+          </md-card-content>
+        </md-card>
+        -->
+        <md-card>
+          <md-card-header>
+            <md-card-header-text>
+              <span class="md-title">{{ baseCampaignFormCtrl.campaign.name || 'Preview' }}</span>
+            </md-card-header-text>
+          </md-card-header>
+          <img ng-src="{{ baseCampaignFormCtrl.campaign.image }}" class="card-img">
+          <md-card-content>
+            <p>
+              <small>{{ baseCampaignFormCtrl.campaign.description  }}</small>
+            </p>
           </md-card-content>
         </md-card>
       </div>
