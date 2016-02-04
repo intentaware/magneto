@@ -1,11 +1,11 @@
 from django.test import TestCase
 from models import Company
 from apps.campaigns.models import *
-from apps.factories import *
+from apps.common.factories import *
 
 class CompaniesTest(TestCase):
-    company = CompaniesFactory.create()
-    campaign = CampaignFactory.create()
+    company = CompaniesFactory()
+    campaign = CampaignFactory()
 
     def test_is_active(self):
         self.assertEqual(self.company.is_active, True, "Company is_active test Failed.")
@@ -31,5 +31,7 @@ class CompaniesTest(TestCase):
         response = self.company.get_target_campaigns(request='GET',campaign_id=self.campaign.id)
         count  = Coupon.objects.all().count()
         companies = Campaign.objects.all().count()
+
+        print self.campaign.invoice
         
        

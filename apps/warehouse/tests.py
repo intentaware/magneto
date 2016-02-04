@@ -1,5 +1,5 @@
 from django.test import TestCase
-from apps.factories import *
+from apps.common.factories import *
 from models import *
 
 class WarehouseTest(TestCase):

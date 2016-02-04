@@ -1,6 +1,6 @@
 from django.test import TestCase
 from models import models
-from apps.factories import *
+from apps.common.factories import *
 
 
 class GuagesTese(TestCase):

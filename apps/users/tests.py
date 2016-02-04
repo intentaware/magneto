@@ -5,7 +5,7 @@ from backends.forms import *
 import requests
 from pprint import pprint
 from apps.companies.models import *
-from apps.factories import *
+from apps.common.factories import *
 
 
 

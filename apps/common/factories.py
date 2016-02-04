@@ -6,6 +6,21 @@ from apps.users.models import *
 from apps.finances.models import *
 from apps.warehouse.models import *
 
+class CompaniesFactory(factory.Factory):
+    class Meta:
+        model = Company
+
+    is_active = True
+    is_advertiser = True
+    publisher_key = "YufjaydQ_U2NQ2Qq8kogKA"
+    advertiser_rate = 1.045
+    payment_data = {'method' : 'bank', 'bank_name' : 'citi', 'acc_no' : '04596'}
+
+class InvoiceFactory(factory.Factory):
+    class Meta:
+        model = Invoice
+
+  #  company = factory.SubFactory(CompaniesFactory)
 
 class CampaignFactory(factory.Factory):
     class Meta:
@@ -18,16 +33,8 @@ class CampaignFactory(factory.Factory):
     coupon_count = 5
     is_active = True
 
-class CompaniesFactory(factory.Factory):
-    class Meta:
-        model = Company
-
-    is_active = True
-    is_advertiser = True
-    publisher_key = "YufjaydQ_U2NQ2Qq8kogKA"
-    advertiser_rate = 1.045
-    payment_data = {'method' : 'bank', 'bank_name' : 'citi', 'acc_no' : '04596'}
-
+ #   invoice = factory.SubFactory(InvoiceFactory)
+    
 class AssetFactory(factory.Factory):
     class Meta:
         model = Asset
@@ -63,4 +70,6 @@ class IPStoreFactory(factory.Factory):
     ip = "69.89.31.226"
     latitude = 30.1978
     longitude = 71.4697
+
+
 

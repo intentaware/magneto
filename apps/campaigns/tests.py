@@ -2,7 +2,7 @@ from django.test import TestCase
 from models import *
 from apps.companies.models import *
 from django.test.client import Client
-from apps.factories import *
+from apps.common.factories import *
 
 
 
