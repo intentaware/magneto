@@ -54,8 +54,8 @@ angular.module('adomattic.dashboard')
 
       var profile = ['White Collar', 'Blue Collar'];
 
-      var white_education = ['PHD', 'Masters', 'Bechelors'];
-      var blue_education = ['Bechelors', 'High School'];
+      var white_education = ['PHD', 'Masters', 'Bachelors'];
+      var blue_education = ['Bachelors', 'High School'];
 
       var mStatus = ['Single', 'Married', 'Married with Kids'];
 

@@ -15,7 +15,7 @@ angular.module('adomattic.dashboard')
     };
 
     self.getEducation = function() {
-      return ['High School', 'Bechelors', 'Post Graduate', 'PHD', 'All'];
+      return ['High School', 'Bachelors', 'Post Graduate', 'PHD', 'All'];
     };
 
     self.getCommuteChoices = function() {
