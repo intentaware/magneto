@@ -8,12 +8,12 @@ BASE_URL = 'http://localhost:9050'
 INSTALLED_APPS += (
     'django.contrib.staticfiles',
     'rest_framework',
-    'devserver',
+    #'devserver',
 )
 
-MIDDLEWARE_CLASSES += (
-    'devserver.middleware.DevServerMiddleware',
-)
+# MIDDLEWARE_CLASSES += (
+#     'devserver.middleware.DevServerMiddleware',
+# )
 
 INTERNAL_IPS = (
     '0.0.0.0', '127.0.0.1'
