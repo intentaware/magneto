@@ -41,4 +41,5 @@ class Audience(TimeStamped, ToCompany):
 
 
 class CampaignAudience(TimeStamped):
+    audience = models.ForeignKey('metas.Audience', default=1)
     campaign = models.ForeignKey('campaigns.Campaign')
