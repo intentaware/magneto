@@ -18,6 +18,7 @@ angular.module('adomattic.dashboard')
         image: undefined,
         input_budget: 10,
         coupon_value: 2,
+        audience: {},
         circles: []
       };
     });

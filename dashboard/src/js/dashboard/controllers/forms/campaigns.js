@@ -4,18 +4,35 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Circle, Money, Helper) {
+  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Circle, Money, Helper, AudienceManager) {
     var self = this;
 
+    self.campaign = {
+      name: undefined,
+      description: undefined,
+      image: undefined,
+      input_budget: 10,
+      coupon_value: 2,
+      audience: {},
+      circles: []
+    };
+
+    self.minAges = AudienceManager.getAges();
+
+    self.maxAges = AudienceManager.getAges(self.campaign.audience.min_age);
+
+    self.educationChoices = AudienceManager.getEducation();
+    self.commute = AudienceManager.getCommuteChoices();
+
     // md-autocomplete settings
-    self.getMatches = function (query, lookup) {
+    self.getMatches = function(query, lookup) {
       var results = query ? lookup.filter(createFilterFor(query)) : [];
       //console.log(results);
       console.log(self.campaign);
       return results;
     };
 
-    var createFilterFor = function (query) {
+    var createFilterFor = function(query) {
       var _q = isNaN(parseInt(query)) ? query.toLowerCase() : parseInt(query);
       //console.log(_q);
       return function(index) {
@@ -79,7 +96,6 @@ angular.module('adomattic.dashboard')
     });
 
     $scope.$watch('baseCampaignFormCtrl.circles', function(n) {
-      console.log(n);
       self.circles = n;
     });
 

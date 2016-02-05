@@ -28,7 +28,7 @@
         md-selected-item="campaignForm.selectedItem"
         md-search-text="searchText"
         md-items="item in campaignForm.getMatches(searchText, campaignForm.circles)"
-        placeholder="Personalize your offer"
+        placeholder="Interests to Target"
         md-item-text="item.name">
           <span md-highlight-text="campaignForm.searchText">{{ item.name }}</span>
       </md-autocomplete>
@@ -37,6 +37,37 @@
       </md-chip-template>
     </md-chips>
     <!-- End Target Circle -->
+  </div>
+
+  <div layout="row" layout-lt-sm="column" class="md-padding">
+      <md-input-container flex>
+        <label>Age (Min)</label>
+        <md-select ng-model="campaignForm.campaign.audience.min_age"> <!--md-on-close: expression; multiple:boolean; placeholder: string;-->
+          <md-select-label>Age (Min)</md-select-label>
+          <md-option ng-value="age" ng-repeat="age in campaignForm.minAges">{{ age }}</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Age (Max)</label>
+        <md-select ng-model="campaignForm.campaign.audience.max_age"> <!--md-on-close: expression; multiple:boolean; placeholder: string;-->
+          <md-select-label>Age (Max)</md-select-label>
+          <md-option ng-value="age" ng-repeat="age in campaignForm.maxAges">{{ age }}</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Education (Min)</label>
+        <md-select ng-model="campaignForm.campaign.audience.min_education"> <!--md-on-close: expression; multiple:boolean; placeholder: string;-->
+          <md-select-label>Education (Min)</md-select-label>
+          <md-option ng-value="edu" ng-repeat="edu in campaignForm.educationChoices">{{ edu }}</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Commute</label>
+        <md-select ng-model="campaignForm.campaign.audience.commute"> <!--md-on-close: expression; multiple:boolean; placeholder: string;-->
+          <md-select-label>Education (Min)</md-select-label>
+          <md-option ng-value="comm" ng-repeat="comm in campaignForm.commute">{{ comm }}</md-option>
+        </md-select>
+      </md-input-container>
   </div>
 
     <!-- Target Cities -->
@@ -50,7 +81,7 @@
     <!-- End Dates -->
 
     <!-- Budget -->
-    <div layout="row" layout-sm="column">
+    <div layout="row" layout-sm="column" class="after-chips">
       <md-input-container flex>
         <label>Budget</label>
         <input type="number" name="input_budget" ng-model="campaignForm.campaign.input_budget" min="10" ng-disabled="campaignForm.isDisabled()">
