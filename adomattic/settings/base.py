@@ -260,8 +260,16 @@ CITIES_PLUGINS = [
 GOOGLE_GEOCODE_KEY = 'AIzaSyCAT8k8LnKNPPnQcsGzLWuO7OhAh5tgCFo'
 
 # CENSUS URL
-CENSUS_BASE = 'http://api.censusreporter.org'
-CENSUS_GEOID_LOOKUP = CENSUS_BASE + '/1.0/geo/elasticsearch'
+US_CENSUS_BASE = 'http://api.censusreporter.org'
+US_CENSUS_GEOID_LOOKUP = US_CENSUS_BASE + '/1.0/geo/elasticsearch'
+US_CENSUS_DB = {
+    'ENGINE': 'django.contrib.gis.db.backends.postgis',
+    'NAME': 'us_census',
+    'USER': 'census',
+    'PASSWORD': 'RnEnrChWdJUq9g6VTvhPbHEt8mRzW9We',
+    'HOST': 'us-census.c3udwfzrnadp.us-west-2.rds.amazonaws.com',
+    'PORT': '5432',
+}
 
 
 try:
