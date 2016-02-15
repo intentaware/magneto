@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Created by https://www.gitignore.io/api/node,bower,pycharm,webstorm,osx,windows,linux,python
 
 ### Node ###
@@ -136,6 +137,8 @@ crashlytics.properties
 crashlytics-build.properties
 
 
+=======
+>>>>>>> c8041b4072bd9cdeb1cd136ea2f4a0c7a6833c50
 ### OSX ###
 .DS_Store
 .AppleDouble
@@ -148,6 +151,7 @@ Icon
 # Thumbnails
 ._*
 
+<<<<<<< HEAD
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
@@ -155,6 +159,11 @@ Icon
 .TemporaryItems
 .Trashes
 .VolumeIcon.icns
+=======
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+>>>>>>> c8041b4072bd9cdeb1cd136ea2f4a0c7a6833c50
 
 # Directories potentially created on remote AFP share
 .AppleDB
@@ -164,6 +173,7 @@ Temporary Items
 .apdisk
 
 
+<<<<<<< HEAD
 ### Windows ###
 # Windows image file caches
 Thumbs.db
@@ -194,12 +204,17 @@ $RECYCLE.BIN/
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
 
+=======
+>>>>>>> c8041b4072bd9cdeb1cd136ea2f4a0c7a6833c50
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+<<<<<<< HEAD
 *$py.class
+=======
+>>>>>>> c8041b4072bd9cdeb1cd136ea2f4a0c7a6833c50
 
 # C extensions
 *.so
@@ -212,15 +227,25 @@ develop-eggs/
 dist/
 downloads/
 eggs/
+<<<<<<< HEAD
 .eggs/
 lib/
 lib64/
+=======
+lib/
+lib64/
+lib64
+>>>>>>> c8041b4072bd9cdeb1cd136ea2f4a0c7a6833c50
 parts/
 sdist/
 var/
 *.egg-info/
 .installed.cfg
 *.egg
+<<<<<<< HEAD
+=======
+pip-selfcheck.json
+>>>>>>> c8041b4072bd9cdeb1cd136ea2f4a0c7a6833c50
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -236,11 +261,17 @@ pip-delete-this-directory.txt
 htmlcov/
 .tox/
 .coverage
+<<<<<<< HEAD
 .coverage.*
 .cache
 nosetests.xml
 coverage.xml
 *,cover
+=======
+.cache
+nosetests.xml
+coverage.xml
+>>>>>>> c8041b4072bd9cdeb1cd136ea2f4a0c7a6833c50
 
 # Translations
 *.mo
@@ -255,9 +286,21 @@ docs/_build/
 # PyBuilder
 target/
 
+<<<<<<< HEAD
 # Created by https://www.gitignore.io/api/ublime,sublimetext
 
 #!! ERROR: ublime is undefined. Use list command to see defined gitignore types !!#
+=======
+
+
+### Bower ###
+bower_components
+.bower-cache
+.bower-registry
+.bower-tmp
+
+
+>>>>>>> c8041b4072bd9cdeb1cd136ea2f4a0c7a6833c50
 
 ### SublimeText ###
 # cache files for sublime text
@@ -274,3 +317,100 @@ target/
 
 # sftp configuration file
 sftp-config.json
+<<<<<<< HEAD
+=======
+
+
+
+### PyCharm ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
+
+*.iml
+
+## Directory-based project format:
+.idea/
+# if you remove the above rule, at least ignore the following:
+
+# User-specific stuff:
+# .idea/workspace.xml
+# .idea/tasks.xml
+# .idea/dictionaries
+
+# Sensitive or high-churn files:
+# .idea/dataSources.ids
+# .idea/dataSources.xml
+# .idea/sqlDataSources.xml
+# .idea/dynamic.xml
+# .idea/uiDesigner.xml
+
+# Gradle:
+# .idea/gradle.xml
+# .idea/libraries
+
+# Mongo Explorer plugin:
+# .idea/mongoSettings.xml
+
+## File-based project format:
+*.ipr
+*.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+
+
+### SQLITE ###
+*.sqlite3
+
+
+### FABRIC ###
+adomattic/conf/fabric/
+
+
+### LOCAL_SETTINGS ###
+adomattic/settings/local.py
+
+### Ignore Maxmind GeoIP files ###
+adomattic/ipdb/
+
+
+### DJANGO ENVIRONMENT IGNORE ###
+/lib/
+bin
+/media/
+/static/
+/include/
+/local/
+/share/
+/uwsgi/
+
+
+### AUTOENV IGNORE ###
+.env
+
+### code intel ###
+.codeintel/
+
+### celery ###
+celerybeat-schedule
+
+# Project Exports
+*.csv
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+>>>>>>> c8041b4072bd9cdeb1cd136ea2f4a0c7a6833c50

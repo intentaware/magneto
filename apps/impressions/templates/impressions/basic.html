@@ -1,0 +1,31 @@
+{% load base_url %}
+
+<div class="impression">
+  <div class="title">
+    {{ impression.campaign.name }}
+  </div>
+  <img src="{{ impression.campaign.image.get_preview_url }}" />
+  <div class="description">
+    {{ impression.campaign.description }}
+  </div>
+</div>
+<div class="info hide">
+  <form name="adomattic-login">
+    <input name="email" type="text" class="adomattic-input" placeholder="Enter email to claim your offer">
+    <div class="tos-container">
+      <input name="tos" type="checkbox" checked>I agree to <a href="http://intentaware.com/tos/" target="_blank">Terms and Conditions</a> <br>
+    </div>
+    <button name="submit">Claim your offer now!</button>
+  </form>
+</div>
+<div class="result hide">
+  <span>Your offer has been emailed to you. Happy Shopping.</span>
+</div>
+<div class="powered-by">
+  <span>Powered By</span>
+  {% if debug %}
+  <a href="{% base_url %}"><img src="{% base_url %}/static/dashboard/imgs/logo-full.png"></a>
+  {% else %}
+  <a href="{% base_url %}"><img src="{{ STATIC_URL }}dashboard/imgs/logo-full.png"></a>
+  {% endif %}
+</div>
