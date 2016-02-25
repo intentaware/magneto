@@ -9,7 +9,12 @@
     </div>
   </md-toolbar>
 
-  <div ng-controller="AuthCtrl" layout="row" layout-align="center center" layout-fill flex>
+  {% if plans %}
+  <div ng-controller="AuthCtrl as ac" layout="row" layout-align="center center" layout-fill flex ng-init="ac.plans={{ plans }}">
+  {% else %}
+  <div ng-controller="AuthCtrl" layout="row" layout-align="center center" layout-fill flex></div>
+  {% endif %}
+
 
     {% block auth_content %}
     {% endblock %}

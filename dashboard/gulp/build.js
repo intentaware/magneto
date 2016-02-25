@@ -25,7 +25,7 @@ var uglifyCompressOptions = {
   join_vars: true, // join var declarations
   cascade: true, // try to cascade `right` into `left` in sequences
   side_effects: true, // drop side-effect-free statements
-  warnings: true, // warn about potentially dangerous optimizations/code
+  warnings: false, // warn about potentially dangerous optimizations/code
   drop_console: true // drops console.log statements
 };
 
