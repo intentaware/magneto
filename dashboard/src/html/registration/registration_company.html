@@ -47,48 +47,9 @@
         {% endif %}
       </md-input-container>
 
-      <md-input-container>
-        <label>Select Plan</label>
-        <md-select ng-model="fc.reg.plan"> <!--md-on-close: expression; multiple:boolean; placeholder: string;-->
-          <md-option ng-value="1">
-            Basic
-          </md-option>
-          <md-option ng-value="2">
-            Small Business
-          </md-option>
-        </md-select>
-      </md-input-container>
-
 
       <md-button class="md-raised md-primary" type="submit">Register</md-button>
     </form>
-  </md-content>
-</div>
-
-<div flex="60" flex-sm="100" layout-align="center center">
-  <md-content class="md-padding auth-content md-whiteframe-z2" layout="column">
-    <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="Small">
-        <md-content class="auth-content" layout-padding layout-wrap>
-            Lorem ipsum dolor sit amet, ne quod novum mei
-        </md-content>
-      </md-tab>
-      <md-tab label="Medium">
-        <md-content class="auth-content" layout-padding layout-wrap>
-            Lorem ipsum dolor sit amet, ne quod novum mei
-        </md-content>
-      </md-tab>
-      <md-tab label="Professional">
-        <md-content class="auth-content" layout-padding layout-wrap>
-          Does this work?
-        </md-content>
-      </md-tab>
-      <md-tab label="Enterprise">
-        <md-content class="auth-content" layout-padding layout-wrap>
-            Lorem ipsum dolor sit amet, ne quod novum mei
-        </md-content>
-      </md-tab>
-    </md-tabs>
   </md-content>
 </div>
 {% endblock %}

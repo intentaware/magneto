@@ -8,17 +8,10 @@
       <span flex style="text-align: center; margin-top: 5px;"><img src="{{ STATIC_URL }}dashboard/imgs/logo-full.png" height="50"></span>
     </div>
   </md-toolbar>
-
-  {% if plans %}
-  <div ng-controller="AuthCtrl as ac" layout="row" layout-align="center center" layout-fill flex ng-init="ac.plans={{ plans }}">
-  {% else %}
-  <div ng-controller="AuthCtrl" layout="row" layout-align="center center" layout-fill flex>
-  {% endif %}
-
-
-    {% block auth_content %}
-    {% endblock %}
-  </div>
+    <div ng-controller="AuthCtrl" layout="row" layout-align="center center" layout-fill flex>
+      {% block auth_content %}
+      {% endblock %}
+    </div>
   </div>
 {% endblock %}
 
