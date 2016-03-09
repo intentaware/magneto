@@ -8,44 +8,32 @@
 {% endblock %}
 
 {% block auth_content %}
-<div flex="100" flex-sm="100" layout-align="center center">
+<div flex="30" flex-sm="100" layout-align="center center">
   <md-content class="md-padding auth-content md-whiteframe-z2" layout="column">
-    <form name="signupForm" method="post" action="." layout="column" ng-controller="FormCtrl as fc" ng-init="fc.reg.name='{{ form.data.name }}'; fc.reg.email='{{ form.data.email }}';">
+    <form name="subsciptionForm" method="post" action="." layout="column" ng-controller="FormCtrl as fc" ng-init="fc.reg.name='{{ form.data.name }}'; fc.reg.email='{{ form.data.email }}';">
       {% csrf_token %}
 
       <md-input-container>
         <label>{{ form.name.label }}</label>
-        {% render_field form.name placeholder=form.name.label ng-model="fc.reg.name" md-maxlength="128" %}
+        {% render_field form.name ng-model="fc.reg.name" md-maxlength="256" %}
       </md-input-container>
 
       <md-input-container>
-        <label>{{ form.email.label }}</label>
-        {% render_field form.email type=email placeholder=form.email.label ng-model="fc.reg.email" %}
-        {% if form.email.errors %}
-          <div ng-messages>
-          {% for error in form.email.errors %}
-            <small style="color:red;">{{ error | escape }}</small>
-          {% endfor %}
-          </div>
-        {% endif %}
+        <label>{{ form.number.label }}</label>
+        {% render_field form.number ng-model="fc.reg.name" md-maxlength="16" %}
       </md-input-container>
 
-      <md-input-container>
-        <label>{{ form.password1.label }}</label>
-        {% render_field form.password1 placeholder=form.password1.label ng-model="fc.reg.password1" %}
-      </md-input-container>
+      <div layout="row">
+        <md-input-container flex="50">
+          <label>Expiration</label>
+          {% render_field form.expiration %}
+        </md-input-container>
+        <md-input-container flex="50">
+          <label>{{ form.cvc.label }}</label>
+          {% render_field form.cvc  %}
+        </md-input-container>
+      </div>
 
-      <md-input-container>
-        <label>{{ form.password2.label }}</label>
-        {% render_field form.password2 placeholder=form.password2.label ng-model="fc.reg.password2" %}
-        {% if form.password2.errors %}
-          <div ng-messages>
-          {% for error in form.password2.errors %}
-            <small style="color:red;">Password Mismatch</small>
-          {% endfor %}
-          </div>
-        {% endif %}
-      </md-input-container>
 
 
       <md-button class="md-raised md-primary" type="submit">Register</md-button>
