@@ -30,4 +30,7 @@ angular.module('auth', ['ngMaterial', 'ngMessages'])
   .controller('AuthCtrl', function() {
   })
   .controller('FormCtrl', function() {
+  })
+  .controller('SubscriptionCtrl', function() {
+
   });
