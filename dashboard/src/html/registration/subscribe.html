@@ -8,60 +8,79 @@
 {% endblock %}
 
 {% block auth_content %}
-<div flex="30" flex-sm="100" layout-align="center center">
-  <md-content class="md-padding auth-content md-whiteframe-z2" layout="column">
-    <form name="subsciptionForm" method="post" action="." layout="column" ng-controller="SubscriptionCtrl as fc" ng-init="fc.card.name='{{ form.data.name }}'; fc.card.number='{{ form.data.number }}'; fc.card.cvc='{{ form.data.cvc }}'">
-      {% csrf_token %}
+<div layout="row" flex>
+  <div flex="30" flex-offset="10" flex-sm="100" layout-align="center center">
+    <md-content class="auth-content md-whiteframe-z2" layout="column" layout-padding>
+      <form name="subsciptionForm" method="post" action="." layout="column" ng-controller="SubscriptionCtrl as fc" ng-init="fc.card.name='{{ form.data.name }}'; fc.card.number='{{ form.data.number }}'; fc.card.cvc='{{ form.data.cvc }}'">
+        {% csrf_token %}
 
-      <md-input-container>
-        <label>{{ form.name.label }}</label>
-        {% render_field form.name ng-model="fc.card.name" md-maxlength="256" %}
-      </md-input-container>
-
-      <md-input-container>
-        <label>{{ form.number.label }}</label>
-        {% render_field form.number ng-model="fc.card.number" md-maxlength="16" %}
-          {% if form.number.errors %}
-            <div ng-messages>
-            {% for error in form.number.errors %}
-              <small style="color:red;">{{ error | escape }}</small>
-            {% endfor %}
-            </div>
-          {% endif %}
-      </md-input-container>
-
-      <div layout="row">
-        <md-input-container flex="50">
-          <label>Expiration</label>
-          {% render_field form.expiration %}
-          {% if form.expiration.errors %}
-            <div ng-messages>
-            {% for error in form.expiration.errors %}
-              <small style="color:red;">{{ error | escape }}</small>
-            {% endfor %}
-            </div>
-          {% endif %}
+        <md-input-container>
+          <label>{{ form.name.label }}</label>
+          {% render_field form.name ng-model="fc.card.name" md-maxlength="256" %}
         </md-input-container>
 
-
-        <md-input-container flex="50">
-          <label>{{ form.cvc.label }}</label>
-          {% render_field form.cvc ng-model="fc.card.cvc" md-maxlength="4" %}
-          {% if form.cvc.errors %}
-            <div ng-messages>
-            {% for error in form.cvc.errors %}
-              <small style="color:red;">{{ error | escape }}</small>
-            {% endfor %}
-            </div>
-          {% endif %}
+        <md-input-container>
+          <label>{{ form.number.label }}</label>
+          {% render_field form.number ng-model="fc.card.number" md-maxlength="16" %}
+            {% if form.number.errors %}
+              <div ng-messages>
+              {% for error in form.number.errors %}
+                <small style="color:red;">{{ error | escape }}</small>
+              {% endfor %}
+              </div>
+            {% endif %}
         </md-input-container>
-      </div>
 
-      {% render_field form.plan ng-model="fc.card.plan" value="1" %}
+        <div layout="row">
+          <md-input-container flex="50">
+            <label>Expiration</label>
+            {% render_field form.expiration %}
+            {% if form.expiration.errors %}
+              <div ng-messages>
+              {% for error in form.expiration.errors %}
+                <small style="color:red;">{{ error | escape }}</small>
+              {% endfor %}
+              </div>
+            {% endif %}
+          </md-input-container>
 
-      <md-button class="md-raised md-primary" type="submit">Subscribe</md-button>
-    </form>
-  </md-content>
+
+          <md-input-container flex="50">
+            <label>{{ form.cvc.label }}</label>
+            {% render_field form.cvc ng-model="fc.card.cvc" md-maxlength="4" %}
+            {% if form.cvc.errors %}
+              <div ng-messages>
+              {% for error in form.cvc.errors %}
+                <small style="color:red;">{{ error | escape }}</small>
+              {% endfor %}
+              </div>
+            {% endif %}
+          </md-input-container>
+        </div>
+
+        {% render_field form.plan ng-model="fc.card.plan" value="1" %}
+
+        <md-button class="md-raised md-primary" type="submit">Subscribe</md-button>
+      </form>
+    </md-content>
+  </div>
+  <div flex="40" flex-offset="10" layout-align="center center">
+    <md-content layout-padding class="auth-content">
+       <md-tabs md-border-bottom>
+       {% for plan in plans %}
+         <md-tab>
+          <md-tab-label>
+            {{ plan.name }}
+          </md-tab-label>
+          <md-tab-body>
+            {{ plan.features }}
+          </md-tab-body>
+        </md-tab>
+       {% endfor %}
+    </md-tabs>
+    </md-content>
+  </div>
+  <div flex></div>
 </div>
 {% endblock %}
 
