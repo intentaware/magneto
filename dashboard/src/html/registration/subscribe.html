@@ -73,27 +73,27 @@
             {{ plan.name }}
           </md-tab-label>
           <md-tab-body>
-            <md-list class="md-dense" flex>
+            <div flex>
               {% for segment, features in plan.features.items %}
                 <md-subheader>
                   {{ segment }}
-                  <md-list>
-                    {% for feature in features %}
-                      <md-list-item>
-                        {% if feature.is_included %}
-                          <md-icon class="material-icons">check_circle</md-icon>
-                        {% else %}
-                          <md-icon class="material-icons">block</md-icon>
-                        {% endif %}
-                        <div class="md-list-item-text">
-                          {{ feature.name }}
-                        </div>
-                      </md-list-item>
-                    {% endfor %}
-                  </md-list>
                 </md-subheader><!--You can use md-no-sticky class-->
+                <md-list class="md-dense" flex>
+                  {% for feature in features %}
+                    <md-list-item>
+                      {% if feature.is_included %}
+                        <md-icon class="material-icons">check_circle</md-icon>
+                      {% else %}
+                        <md-icon class="material-icons">block</md-icon>
+                      {% endif %}
+                      <div class="md-list-item-text">
+                        {{ feature.name }}
+                      </div>
+                    </md-list-item>
+                  {% endfor %}
+                </md-list>
               {% endfor %}
-            </md-list>
+            </div>
           </md-tab-body>
         </md-tab>
        {% endfor %}
