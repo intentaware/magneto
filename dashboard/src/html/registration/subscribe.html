@@ -66,38 +66,64 @@
   </div>
   <div flex="40" flex-offset="10" layout-align="center center">
     <md-content layout-padding class="auth-content">
-       <md-tabs md-border-bottom>
-       {% for plan in plans %}
-         <md-tab>
-          <md-tab-label>
-            {{ plan.name }}
-          </md-tab-label>
-          <md-tab-body>
-            <div flex>
-              {% for segment, features in plan.features.items %}
-                <md-subheader>
-                  {{ segment }}
-                </md-subheader><!--You can use md-no-sticky class-->
-                <md-list class="md-dense" flex>
-                  {% for feature in features %}
-                    <md-list-item>
-                      {% if feature.is_included %}
-                        <md-icon class="material-icons">check_circle</md-icon>
-                      {% else %}
-                        <md-icon class="material-icons">block</md-icon>
-                      {% endif %}
-                      <div class="md-list-item-text">
-                        {{ feature.name }}
-                      </div>
-                    </md-list-item>
-                  {% endfor %}
-                </md-list>
-              {% endfor %}
-            </div>
-          </md-tab-body>
-        </md-tab>
-       {% endfor %}
-    </md-tabs>
+       <md-tabs>
+         {% for plan in plans %}
+           <md-tab>
+            <md-tab-label>
+              {{ plan.name }}
+            </md-tab-label>
+            <md-tab-body>
+              <div flex>
+                {% for segment, features in plan.features.items %}
+                  <md-subheader>
+                    {{ segment }}
+                  </md-subheader><!--You can use md-no-sticky class-->
+                  <md-list class="md-dense" flex>
+                    {% if segment == 'Core' %}
+                      <md-list-item>
+                        <md-item-text flex>
+                          Campaigns
+                        </md-item-text>
+                        <div>
+                          {% if plan.limit_campaigns %}
+                            {{ plan.limit_campaigns }}
+                          {% else %}
+                            Unlimited
+                          {% endif %}
+                        </div>
+                      </md-list-item>
+                      <md-list-item>
+                        <md-item-text flex>
+                          Impressions
+                        </md-item-text>
+                        <div>
+                          {% if plan.limit_impressions %}
+                            {{ plan.limit_impressions }}
+                          {% else %}
+                            Unlimited
+                          {% endif %}
+                        </div>
+                      </md-list-item>
+                    {% endif %}
+                    {% for feature in features %}
+                      <md-list-item>
+                        <div class="md-item-text" flex>
+                          {{ feature.name }}
+                        </div>
+                        {% if feature.is_included %}
+                          <md-icon class="material-icons color-green">check_circle</md-icon>
+                        {% else %}
+                          <md-icon class="material-icons color-red">block</md-icon>
+                        {% endif %}
+                      </md-list-item>
+                    {% endfor %}
+                  </md-list>
+                {% endfor %}
+              </div>
+            </md-tab-body>
+          </md-tab>
+          {% endfor %}
+        </md-tabs>
     </md-content>
   </div>
   <div flex></div>

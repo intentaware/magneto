@@ -7,7 +7,7 @@
     "angular-sanitize": "~1.4.7",
     "angular-resource": "~1.4.7",
     "angular-route": "~1.4.7",
-    "angular-material": "~1.0.5",
+    "angular-material": "^1.0.6",
     "angular": "~1.4.7",
     "angular-material-scss": "git@github.com:angular/material.git#~v1.0.0",
     "angular-messages": "~1.4.7",
