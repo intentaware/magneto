@@ -33,4 +33,12 @@ angular.module('auth', ['ngMaterial', 'ngMessages'])
   })
   .controller('SubscriptionCtrl', function() {
 
+  })
+  .controller('PlanCtrl', function() {
+    var self = this;
+    self.plan = 1;
+    self.selectPlan = function(id) {
+      console.log(id);
+      self.plan = id;
+    };
   });

@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block auth_content %}
-<div layout="row" flex>
+<div layout="row" flex ng-controller="PlanCtrl as pc">
   <div flex="30" flex-offset="10" flex-sm="100" layout-align="center center">
     <md-content class="auth-content md-whiteframe-z2" layout="column" layout-padding>
       <form name="subsciptionForm" method="post" action="." layout="column" ng-controller="SubscriptionCtrl as fc" ng-init="fc.card.name='{{ form.data.name }}'; fc.card.number='{{ form.data.number }}'; fc.card.cvc='{{ form.data.cvc }}'">
@@ -58,7 +58,7 @@
           </md-input-container>
         </div>
 
-        {% render_field form.plan ng-model="fc.card.plan" value="1" %}
+        {% render_field form.plan ng-value="pc.plan" %}
 
         <md-button class="md-raised md-primary" type="submit">Subscribe</md-button>
       </form>
@@ -68,7 +68,7 @@
     <md-content layout-padding class="auth-content">
        <md-tabs>
          {% for plan in plans %}
-           <md-tab>
+           <md-tab md-on-select="pc.selectPlan({{ plan.id }})">
             <md-tab-label>
               {{ plan.name }}
             </md-tab-label>
