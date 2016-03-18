@@ -81,6 +81,12 @@
                   <md-list class="md-dense" flex>
                     {% if segment == 'Core' %}
                       <md-list-item>
+                        <md-item-text flex>Price</md-item-text>
+                        <div>
+                          <strong>$ {{ plan.amount }}</strong>
+                        </div>
+                      </md-list-item>
+                      <md-list-item>
                         <md-item-text flex>
                           Campaigns
                         </md-item-text>
