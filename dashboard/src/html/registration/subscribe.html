@@ -8,8 +8,8 @@
 {% endblock %}
 
 {% block auth_content %}
-<div layout="row" flex ng-controller="PlanCtrl as pc">
-  <div flex="30" flex-offset="10" flex-sm="100" layout-align="center center">
+<div ng-controller="PlanCtrl as pc"  layout="row"  layout-align="center center" style="width: 100%; height: 90%;">
+  <div flex="30" flex-offset="5" flex-sm="100" layout-align="center center">
     <md-content class="auth-content md-whiteframe-z2" layout="column" layout-padding>
       <form name="subsciptionForm" method="post" action="." layout="column" ng-controller="SubscriptionCtrl as fc" ng-init="fc.card.name='{{ form.data.name }}'; fc.card.number='{{ form.data.number }}'; fc.card.cvc='{{ form.data.cvc }}'">
         {% csrf_token %}
@@ -64,9 +64,10 @@
       </form>
     </md-content>
   </div>
-  <div flex="40" flex-offset="10" layout-align="center center">
-    <md-content layout-padding class="auth-content">
-       <md-tabs>
+  <!-- plans -->
+  <div flex="55" flex-offset="5" layout-align="center center" style="height: 90%;">
+    <md-content layout-padding class="auth-content" style="height: 100%;">
+       <md-tabs md-dynamic-height="true">
          {% for plan in plans %}
            <md-tab md-on-select="pc.selectPlan({{ plan.id }})">
             <md-tab-label>
@@ -132,7 +133,6 @@
         </md-tabs>
     </md-content>
   </div>
-  <div flex></div>
 </div>
 {% endblock %}
 
