@@ -60,6 +60,17 @@
 
         {% render_field form.plan ng-value="pc.plan" %}
 
+        {% for plan in plans %}
+          <div layout="row" layout-padding layout-wrap ng-if="pc.plan == {{ plan.id }}">
+              <div flex>
+                {{ plan.name }}
+              </div>
+              <div flex="25">
+                <strong>${{ plan.amount }}</strong>
+              </div>
+          </div layout="row">
+        {% endfor %}
+
         <md-button class="md-raised md-primary" type="submit">Subscribe</md-button>
       </form>
     </md-content>
