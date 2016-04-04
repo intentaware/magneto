@@ -32,24 +32,26 @@ var uglifyCompressOptions = {
 
 gulp.task('minify:common', ['inject:common'], function() {
   var assets,
-    cssFilter = $.filter('**/*.css');
+    cssFilter = $.filter('**/*.css', { restore: true });
+    var indexHtmlFilter = $.filter(['**/*', '!**/__base.html'], { restore: true });
 
   return gulp.src(paths.django.templates.root + '/__base.html')
-    //.pipe($.debug())
     .pipe($.replace('href="{{ STATIC_URL }}dashboard', 'href="compile'))
-    .pipe(assets = $.useref.assets({
-      searchPath: ['.']
+    .pipe(assets = $.useref({
+      searchPath: '.'
     }))
-    .pipe($.rev())
+
     .pipe(cssFilter)
-    //.pipe($.csso())
-    .pipe($.size())
-    .pipe(gulp.dest(paths.django.assets.dashboard + '/builds'))
-    .pipe(cssFilter.restore())
-    .pipe(assets.restore())
-    .pipe($.useref())
-    .pipe($.revReplace())
-    .pipe($.replace('href="styles', 'href="{{ STATIC_URL }}dashboard/builds/styles'))
+    .pipe($.rev())
+    .pipe($.debug())
+    .pipe(cssFilter.restore)
+
+    //.pipe(indexHtmlFilter)
+    //.pipe($.rev())
+    //.pipe(indexHtmlFilter.restore)
+    //.pipe($.revReplace())
+
+    //.pipe($.replace('href="styles', 'href="{{ STATIC_URL }}dashboard/builds/styles'))
     .pipe(gulp.dest('compile/builds'));
 });
 

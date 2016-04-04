@@ -22,6 +22,10 @@ var vendorOptions = _.merge({
   name: 'bower'
 }, injectOptions);
 
+var cacheOptions = _.merge({
+  name: 'partials'
+}, injectOptions);
+
 // injectionstyles common base
 gulp.task('inject:common', ['styles', 'deps:css'], function() {
   // style injection for application styles
@@ -68,10 +72,6 @@ gulp.task('inject:dashboard', ['ng', 'deps:js'], function() {
   var templateCache = gulp.src([
     paths.compile + '/source/**/templates/**/*.js'
   ]);
-
-  var cacheOptions = _.merge({
-    name: 'partials'
-  }, injectOptions);
 
   return gulp.src(paths.html.root + '/__dashboard.html')
     .pipe($.inject(injectScripts, injectOptions))
