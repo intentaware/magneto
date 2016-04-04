@@ -8,6 +8,16 @@ var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
 
+var jsFilter = $.filter('**/*.js', {
+  restore: true
+});
+var cssFilter = $.filter('**/*.css', {
+  restore: true
+});
+var indexHtmlFilter = $.filter(['**/*', '!**/*.html'], {
+  restore: true
+});
+
 var uglifyCompressOptions = {
   sequences: true, // join consecutive statemets with the “comma operator”
   properties: true, // optimize property access: a["foo"] → a.foo
@@ -31,33 +41,35 @@ var uglifyCompressOptions = {
 
 
 gulp.task('minify:common', ['inject:common'], function() {
-  var assets,
-    cssFilter = $.filter('**/*.css', { restore: true });
-    var indexHtmlFilter = $.filter(['**/*', '!**/__base.html'], { restore: true });
+  var assets;
 
   return gulp.src(paths.django.templates.root + '/__base.html')
     .pipe($.replace('href="{{ STATIC_URL }}dashboard', 'href="compile'))
+
     .pipe(assets = $.useref({
       searchPath: '.'
     }))
 
+    // versioning assets
+    .pipe(indexHtmlFilter)
+      .pipe($.rev())
+      .pipe(indexHtmlFilter.restore)
+
+    // processing css
     .pipe(cssFilter)
-    .pipe($.rev())
-    .pipe($.debug())
-    .pipe(cssFilter.restore)
+      //.pipe($.csso())
+      .pipe(gulp.dest(paths.django.assets.dashboard + '/builds'))
+      .pipe(cssFilter.restore)
 
-    //.pipe(indexHtmlFilter)
-    //.pipe($.rev())
-    //.pipe(indexHtmlFilter.restore)
-    //.pipe($.revReplace())
-
-    //.pipe($.replace('href="styles', 'href="{{ STATIC_URL }}dashboard/builds/styles'))
-    .pipe(gulp.dest('compile/builds'));
+    // updating references
+    .pipe($.revReplace())
+    //updating path
+    .pipe($.replace('href="styles', 'href="{{ STATIC_URL }}dashboard/builds/styles'))
+      .pipe(gulp.dest('compile/builds'));
 });
 
 gulp.task('minify:dashboard', ['inject:dashboard'], function() {
-  var assets,
-    jsFilter = $.filter('**/*.js');
+  var assets
 
   return gulp.src(paths.django.templates.root + '/__dashboard.html')
     .pipe($.replace('script src="{{ STATIC_URL }}dashboard', 'script src="compile'))
