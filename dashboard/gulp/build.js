@@ -31,7 +31,6 @@ var uglifyCompressOptions = {
 
 
 gulp.task('minify:common', ['inject:common'], function() {
-  var jsFilter = $.filter('**/*.js');
 
   var cssFilter = $.filter('**/*.css');
 
