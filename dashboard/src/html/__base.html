@@ -1,5 +1,12 @@
+{% load ng_app %}
+{% ng_app as ng_app %}
+
 <!doctype html>
-<html ng-app="dash">
+{% if ng_app %}
+<html class="no-js" ng-app="dash">
+{% else %}
+<html class="no-js">
+{% endif %}
 
 <head>
   {% block meta %}
