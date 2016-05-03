@@ -1,6 +1,7 @@
 {% raw %}
 
 <div layout="row" layout-sm="column" ng-controller="GuagesLandingCtrl as gc">
+  <!--
   <div flex="33" flex-sm="50">
     <md-card class="md-whiteframe-z1">
       <div class="tile tile-normal bg-adomattic-accent tile-linked" ng-click="gotoCampaignList()">
@@ -23,6 +24,25 @@
         </span>
       </div>
     </md-card>
+  </div>
+  -->
+  <div flex="33" layout="row" class="tile md-whiteframe-z1">
+    <div class="number">
+      {{ gc.assets.length || 0 }}
+    </div>
+    <div class="summary" flex>
+      <h1>
+        Assets
+      </h1>
+      <p class="color-red">
+        {{ gc.assets[0].impressions || 0 }} Page Views
+      </p>
+    </div>
+    <div class="actions">
+      <md-button class="md-fab md-primary md-mini" aria-label="Eat cake">
+        <md-icon class="material-icons">view_list</md-icon>
+      </md-button>
+    </div>
   </div>
 </div>
 

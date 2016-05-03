@@ -4,6 +4,8 @@ angular.module('adomattic.dashboard')
   .controller('CampaignListCtrl', function($mdDialog, $location, $routeParams, Campaign) {
     var self = this;
 
+    self.campaigns = false;
+
     var path = window.location.href;
 
 

@@ -1,6 +1,9 @@
 {% raw %}
   <div layout="column">
-    <div class="md-headline">{{ campaignsList.title }} Campaigns</div>
+    <div layout="row">
+      <div class="md-headline" flex>{{ campaignsList.title }} Campaigns</div>
+      <!--For operations where the user is asked to wait a moment while something finishes up, and it’s not necessary to expose what's happening behind the scenes and how long it will take, use an md-mode="indeterminate" indicator.-->
+    </div>
     <md-list>
       <md-list-item class="md-3-line" ng-repeat="c in campaignsList.campaigns" layout-wrap>
         <img ng-src="{{ c.preview_image_url }}" class="md-avatar" alt="{{ c.name }}" />
