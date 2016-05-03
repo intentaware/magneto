@@ -26,7 +26,7 @@
     </md-card>
   </div>
   -->
-  <div flex="33" layout="row" class="tile md-whiteframe-z1">
+  <div flex flex-gt-sm="33" layout="row" class="tile md-whiteframe-z1">
     <div class="number">
       {{ gc.assets.length || 0 }}
     </div>
@@ -39,7 +39,7 @@
       </p>
     </div>
     <div class="actions">
-      <md-button class="md-fab md-primary md-mini" aria-label="Eat cake">
+      <md-button class="md-fab md-primary md-mini" aria-label="View Assets" ng-click="gc.goToAssetList()">
         <md-icon class="material-icons">view_list</md-icon>
       </md-button>
     </div>

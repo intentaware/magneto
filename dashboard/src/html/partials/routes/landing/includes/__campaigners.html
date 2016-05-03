@@ -1,21 +1,6 @@
 {% raw %}
 <div ng-controller="CampaignersLandingCtrl" layout="column">
   <div layout="column" layout-sm="column">
-    <md-card class="md-whiteframe-z1" flex>
-      <md-toolbar>
-        <div class="md-toolbar-tools">
-          <span>Know Your Customers</span>
-          <span flex></span>
-          <md-progress-circular class="md-accent" md-mode="indeterminate" ng-if="!impressionData"></md-progress-circular>
-          <md-button class="md-raised md-primary" aria-label="Reset Zoom" ng-click="defaultZoom()">
-            Reset Zoom
-          </md-button>
-        </div>
-      </md-toolbar>
-      <md-card-content class="tile tile-long-3x">
-        <div class="custom-popup" id="map" style="width: 100%; height: 100%;"></div>
-      </md-card-content>
-    </md-card>
     <!--
     <div layout="row" flex>
       <md-card class="md-whiteframe-z1" flex="66">
@@ -40,6 +25,7 @@
     <!-- Content Analysis End -->
     <!-- Offer Delivery -->
     <!-- Offer Delivery End -->
+    <!--
     <div layout="row">
     <md-card class="md-whiteframe-z1" flex="40">
       <md-toolbar>
@@ -78,6 +64,7 @@
         <nvd3 options="cityOptions" data="cityData"></nvd3>
       </md-card-content>
     </md-card>
+     -->
   </div>
 </div>
 {% endraw %}

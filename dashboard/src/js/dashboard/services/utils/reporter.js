@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .service('Reporter', function() {
+  .service('ReporterOld', function() {
     var self = this;
 
     self.setUserAgentInfo = function(parser, ua, obj) {
