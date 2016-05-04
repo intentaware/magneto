@@ -23,19 +23,10 @@
 
 {% block content %}
   <div ng-app="adomattic" layout="column" flex layout-fill ng-init="globals = {{ globals | jsonify }};">
-
-    {% if debug %}
-      {% include 'includes/header.html' %}
-    {% else %}
-      {% include 'includes/header.html' %}
-    {% endif %}
+    {% include 'includes/header.html' %}
 
     <div class="main" layout="row">
-      {% if debug %}
-        {% include 'includes/sidebar.html' %}
-      {% else %}
-        {% include 'includes/sidebar.html' %}
-      {% endif %}
+      {% include 'includes/sidebar.html' %}
       <div layout="column" layout-fill>
         <div class="md-padding" ng-view></div>
       </div>
