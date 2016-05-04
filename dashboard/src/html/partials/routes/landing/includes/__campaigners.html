@@ -1,6 +1,22 @@
 {% raw %}
 <div ng-controller="CampaignersLandingCtrl" layout="column">
   <div layout="column" layout-sm="column">
+    <div layout="row" flex>
+      <md-card flex >
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <span>Performance</span>
+          </div>
+        </md-toolbar>
+        <md-card-content layout="row">
+          <div class="graph" flex="100">
+            <div class="graph-3x" ng-if="history">
+              <nvd3 options="historyOptions" data="history"></nvd3>
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
     <!--
     <div layout="row" flex>
       <md-card class="md-whiteframe-z1" flex="66">

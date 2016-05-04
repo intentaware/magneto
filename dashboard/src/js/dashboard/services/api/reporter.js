@@ -13,9 +13,14 @@ angular.module('adomattic.dashboard')
         useragents: {
           method: 'GET',
           params: {
-            app: 'campaigns',
-            endPoint: 'campaigns',
             doc: 'useragents'
+          }
+        },
+        history: {
+          method: 'GET',
+          isArray: true,
+          params: {
+            doc: 'history'
           }
         }
       }

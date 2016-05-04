@@ -1,0 +1,35 @@
+@mixin base-graph($x) {
+  width:        100%;
+  height:       100px * $x;
+  min-height:   100px * $x;
+  max-height:   100px * $x;
+}
+
+
+.graph {
+  .graph-1x {
+    @include base-graph(1);
+  }
+
+  .graph-2x {
+    @include base-graph(2);
+  }
+
+  .graph-3x {
+    @include base-graph(3);
+  }
+
+  .graph-4x {
+    @include base-graph(4);
+  }
+
+  .graph-5x {
+    @include base-graph(5);
+  }
+}
+
+.nvd3 {
+  text, .title, .nvtooltip {
+    font-family: 'Open Sans';
+  }
+}

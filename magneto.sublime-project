@@ -11,6 +11,9 @@
         "dashboard/src",
         "impressions/app",
       ]
-    }
+    },
+    "ignored_packages": [
+      "SublimeLinter-contrib-eslint"
+    ]
   }
 }
