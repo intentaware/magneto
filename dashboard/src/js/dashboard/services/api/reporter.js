@@ -22,6 +22,12 @@ angular.module('adomattic.dashboard')
           params: {
             doc: 'history'
           }
+        },
+        datatable: {
+          method: 'GET',
+          params: {
+            doc: 'datatable'
+          }
         }
       }
     );

@@ -1,1 +1,6 @@
-<p>I am testing report landing</p>
+<dtable options="options" rows="pc.data" class="material">
+  <column name="Name" width="300" flex-grow="2"></column>
+  <column name="Id">
+    <strong>{{$row.id}}</strong>: {{$cell}}
+  </column>
+</dtable>

@@ -78,7 +78,9 @@ angular.module('adomattic', [
         controllerAs: 'baseCampaignFormCtrl'
       })
       .when('/campaigns/:campaignID/report/', {
-        templateUrl: 'routes/campaigns/report.html'
+        templateUrl: 'routes/campaigns/report.html',
+        controller: 'CampaignReportCtrl',
+        controllerAs: 'pc'
       })
       // assets
       .when('/assets/', {
