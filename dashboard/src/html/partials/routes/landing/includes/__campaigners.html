@@ -5,7 +5,8 @@
       <md-card flex >
         <md-toolbar>
           <div class="md-toolbar-tools">
-            <span>Performance</span>
+            <span flex>Performance</span>
+            <md-button class="md-primary md-raised" ng-if="campaigns.length" ng-click="gotoCampaignReport(campaigns[0].id)">Detail Report</md-button>
           </div>
         </md-toolbar>
         <md-card-content layout="row">

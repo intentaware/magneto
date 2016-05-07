@@ -28,10 +28,14 @@ angular.module('adomattic.dashboard')
       });
     };
 
+    // navigations
     $scope.gotoCampaignList = function() {
       $location.path('/campaigns/');
     };
 
+    $scope.gotoCampaignReport = function(id) {
+      $location.path('/campaigns/' + id + '/report/');
+    };
     // various graph options
     $scope.historyOptions = {
       'chart': {
