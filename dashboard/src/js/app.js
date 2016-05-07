@@ -11,6 +11,7 @@ angular.module('adomattic', [
     'ngMaterial',
     // 3rd party
     'ngMask',
+    'data-table',
     'nvd3',
     'zeroclipboard',
     // adomattic
@@ -49,92 +50,6 @@ angular.module('adomattic', [
       .primaryPalette('adomattic', {
         'default': '200'
       });
-    // var customPrimary = {
-    //   '50': '#ffffff',
-    //   '100': '#fefefe',
-    //   '200': '#fdfdfd',
-    //   '300': '#fcfcfc',
-    //   '400': '#fbfbfb',
-    //   '500': '#eeeeee',
-    //   '600': '#e1e1e1',
-    //   '700': '#d4d4d4',
-    //   '800': '#c8c8c8',
-    //   '900': '#bbbbbb',
-    //   'A100': '#fefefe',
-    //   'A200': '#fdfdfd',
-    //   'A400': '#fcfcfc',
-    //   'A700': '#aeaeae'
-    // };
-
-    // $mdThemingProvider
-    //   .definePalette('customPrimary',
-    //     customPrimary);
-
-    // var customAccent = {
-    //   '50': '#e7a2a0',
-    //   '100': '#e28d8c',
-    //   '200': '#dd7977',
-    //   '300': '#d86563',
-    //   '400': '#d3514e',
-    //   '500': '#CE3D3A',
-    //   '600': '#bf3230',
-    //   '700': '#ab2d2a',
-    //   '800': '#962825',
-    //   '900': '#822220',
-    //   'A100': '#ecb6b5',
-    //   'A200': '#f2cac9',
-    //   'A400': '#f7dedd',
-    //   'A700': '#6d1d1b'
-    // };
-    // $mdThemingProvider
-    //   .definePalette('customAccent',
-    //     customAccent);
-
-    // var customWarn = {
-    //   '50': '#ffd280',
-    //   '100': '#ffc966',
-    //   '200': '#ffc04d',
-    //   '300': '#ffb733',
-    //   '400': '#ffae1a',
-    //   '500': '#ffa500',
-    //   '600': '#e69500',
-    //   '700': '#cc8400',
-    //   '800': '#b37300',
-    //   '900': '#996300',
-    //   'A100': '#ffdb99',
-    //   'A200': '#ffe4b3',
-    //   'A400': '#ffedcc',
-    //   'A700': '#805300'
-    // };
-    // $mdThemingProvider
-    //   .definePalette('customWarn',
-    //     customWarn);
-
-    // var customBackground = {
-    //   '50': '#ffffff',
-    //   '100': '#ffffff',
-    //   '200': '#ffffff',
-    //   '300': '#ffffff',
-    //   '400': '#fdfdfd',
-    //   '500': '#f0f0f0',
-    //   '600': '#e3e3e3',
-    //   '700': '#d6d6d6',
-    //   '800': '#cacaca',
-    //   '900': '#bdbdbd',
-    //   'A100': '#ffffff',
-    //   'A200': '#ffffff',
-    //   'A400': '#ffffff',
-    //   'A700': '#b0b0b0'
-    // };
-    // $mdThemingProvider
-    //   .definePalette('customBackground',
-    //     customBackground);
-
-    // $mdThemingProvider.theme('default')
-    //   .primaryPalette('customPrimary')
-    //   .accentPalette('customAccent')
-    //   .warnPalette('customWarn')
-    //   .backgroundPalette('customBackground');
   })
   .config(function($routeProvider) {
     $routeProvider
@@ -161,6 +76,9 @@ angular.module('adomattic', [
         templateUrl: 'routes/campaigns/edit.html',
         controller: 'CampaignEditCtrl',
         controllerAs: 'baseCampaignFormCtrl'
+      })
+      .when('/campaigns/:campaignID/report/', {
+        templateUrl: 'routes/campaigns/report.html'
       })
       // assets
       .when('/assets/', {
