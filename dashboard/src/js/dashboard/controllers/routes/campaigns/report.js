@@ -10,8 +10,14 @@ angular.module('adomattic.dashboard')
     };
 
     Reporter.datatable(urlParams).$promise.then(function(response) {
-      console.log(response);
-      self.columns = response.columns;
+      self.options = {
+        rowHeight: 50,
+        headerHeight: 50,
+        footerHeight: false,
+        scrollbarV: false,
+        selectable: false,
+        columns: response.columns,
+      };
       self.data = response.data;
     });
-});
+  });

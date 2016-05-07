@@ -1,6 +1,2 @@
-<dtable options="options" rows="pc.data" class="material">
-  <column name="Name" width="300" flex-grow="2"></column>
-  <column name="Id">
-    <strong>{{$row.id}}</strong>: {{$cell}}
-  </column>
+<dtable options="pc.options" rows="pc.data" class="material" ng-if="pc.data">
 </dtable>
