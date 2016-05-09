@@ -21,7 +21,7 @@ angular.module('adomattic.dashboard')
         // columnMode: 'force',
         paging: {
           externalPaging: true,
-          size: 15
+          size: 12
         }
       };
 
