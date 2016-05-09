@@ -7,7 +7,7 @@ angular.module('adomattic.dashboard')
     };
 
     $scope.gotoCampaignList = function(level) {
-      level ? $location.path('/campaigns/' + level + '/') : $location.path('/campaigns/');
+      level = level ? $location.path('/campaigns/' + level + '/') : $location.path('/campaigns/');
     };
 
     $scope.goToCampaignCreate = function() {

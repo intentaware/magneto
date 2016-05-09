@@ -10,14 +10,33 @@ angular.module('adomattic.dashboard')
     };
 
     Reporter.datatable(urlParams).$promise.then(function(response) {
+
       self.options = {
-        rowHeight: 50,
+        rowHeight: 30,
         headerHeight: 50,
-        footerHeight: false,
+        footerHeight: 50,
         scrollbarV: false,
         selectable: false,
         columns: response.columns,
+        // columnMode: 'force',
+        paging: {
+          externalPaging: true,
+          size: 15
+        }
       };
-      self.data = response.data;
+
+      self.data = [];
+      self.response = response.data;
+      self.options.paging.count = response.data.length;
+
+      self.paging = function(offset, size) {
+        var set = self.response.splice(offset, size);
+
+        _.forEach(set, function(value, key) {
+          var index = key + offset * size;
+
+          self.data[index] = value;
+        });
+      };
     });
   });

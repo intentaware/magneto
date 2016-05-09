@@ -8,27 +8,28 @@ angular.module('adomattic.dashboard')
         label: '@',
         accept: '@',
         maxSize: '@',
-        ngModel: '=',
+        ngModel: '='
       },
       templateUrl: 'directives/file-reader.html',
       replace: true,
       require: '^ngModel',
       link: function(scope, elm, atr, ngModelCtrl) {
         ngModelCtrl.$render = function() {};
-        //scope.fileName = '';
+        // scope.fileName = '';
         var $file = elm[0].querySelector('.overlay');
-        console.log($file);
+
+        // console.log($file);
 
         // watch for a new file in input
         $file.onchange = function(e) {
           var el = e.target;
-          console.log(el.value);
+          // console.log(el.value);
 
           if (!el.value) {
             return;
           }
 
-          //scope.apply();
+          // scope.apply();
           var name = el.files[0].name;
 
           $q.all(Array.prototype.slice.call(el.files, 0).map(read))
@@ -38,23 +39,23 @@ angular.module('adomattic.dashboard')
               ngModelCtrl.$setViewValue(vals.length ? vals[0] : null);
             }, function() {
               scope.fileName = 'Unable to load file, please try again';
-              //scope.$apply();
+              // scope.$apply();
             });
         };
 
         // return the file contents in base64 format
         var read = function(f) {
           var d = $q.defer();
-          var size = parseInt(scope.maxSize);
-          console.log(size);
-          console.log(f.size);
+          // var size = parseInt(scope.maxSize);
+
+
+          var r = new FileReader();
+          // console.log(size);
+          // console.log(f.size);
 
           if (parseInt(scope.maxSize) <= f.size) {
             d.reject();
           } else {
-
-            var r = new FileReader();
-
             r.onload = function(ev) {
               d.resolve(ev.target.result);
             };
@@ -68,7 +69,6 @@ angular.module('adomattic.dashboard')
 
           return d.promise;
         };
-
       }
     };
   });

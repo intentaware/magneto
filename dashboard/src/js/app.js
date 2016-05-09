@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('adomattic', [
+  /*eslint-disable */
     // angular core
     'ngAnimate',
     'ngCookies',
@@ -17,6 +18,7 @@ angular.module('adomattic', [
     // adomattic
     'adomattic.dashboard'
   ])
+  /*eslint-enable */
   .constant('urls', {
     partials: {
       routes: '/dashboard/partials/routes/',
@@ -95,7 +97,7 @@ angular.module('adomattic', [
       })
       // settings
       .when('/settings/', {
-        templateUrl: 'routes/settings/main.html',
+        templateUrl: 'routes/settings/main.html'
       })
       // invoices
       .when('/invoices/', {
@@ -109,7 +111,7 @@ angular.module('adomattic', [
     $resourceProvider.defaults.stripTrailingSlashes = false;
   })
   .config(function($httpProvider) {
-    //$httpProvider.defaults.useXDomain = true;
+    // $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
