@@ -3,6 +3,7 @@
 angular.module('adomattic.dashboard')
   .controller('CampaignReportCtrl', function($routeParams, Reporter) {
     var self = this;
+
     var urlParams = {
       app: 'campaigns',
       endPoint: 'campaigns',
@@ -10,7 +11,6 @@ angular.module('adomattic.dashboard')
     };
 
     Reporter.datatable(urlParams).$promise.then(function(response) {
-
       self.options = {
         rowHeight: 30,
         headerHeight: 50,
@@ -38,5 +38,14 @@ angular.module('adomattic.dashboard')
           self.data[index] = value;
         });
       };
+    });
+
+    self.periodOptions = [];
+
+    _.forEach(_.range(1, 13), function(val) {
+      self.periodOptions.push({
+        name: val + 'months',
+        val: val
+      });
     });
   });

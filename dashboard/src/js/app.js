@@ -12,9 +12,12 @@ angular.module('adomattic', [
     'ngMaterial',
     // 3rd party
     'ngMask',
-    'data-table',
     'nvd3',
     'zeroclipboard',
+
+    // angular data table
+    'data-table',
+    // 'dt.menu',
     // adomattic
     'adomattic.dashboard'
   ])

@@ -1,2 +1,24 @@
-<dtable class="material" options="pc.options" rows="pc.data" on-page="pc.paging(offset, size)" ng-if="pc.response">
-</dtable>
+{% raw %}
+
+<md-card>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <span flex ng-if="!pc.data">Crunching Data</span>
+      <span flex ng-if="pc.data.length">Report</span>
+      <!-- Interactions -->
+      <md-select ng-model="pc.periodOption"> <!--md-on-close: expression; multiple:boolean; placeholder: string;-->
+        <md-select-label>Select a Filter</md-select-label>
+        <md-option ng-value="opt.val" ng-repeat="opt in pc.periodOptions">{{ opt.name }}</md-option>
+      </md-select>
+      <md-button class="md-primary md-raised" ng-if="pc.data.length">Download as CSV</md-button>
+    </div>
+  </md-toolbar>
+  <md-progress-linear md-mode="indeterminate" ng-if="!pc.data" class="md-warn"></md-progress-linear>
+  <!--md-mode  can be select from one of four modes: determinate, indeterminate, buffer or query..-->
+  <dtable class="material"
+        options="pc.options" rows="pc.data" on-page="pc.paging(offset, size)"
+        ng-if="pc.response">
+  </dtable>
+</md-card>
+
+{% endraw %}
