@@ -1,12 +1,11 @@
 'use strict';
 
 var gulp = require('gulp');
-/* jshint ignore:start */
 var _ = require('lodash');
-/* jshint ignore:end */
 
-
-var $ = require('gulp-load-plugins')();
+var $ = require('gulp-load-plugins')({
+  pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
+});
 
 var paths = gulp.paths;
 
@@ -15,7 +14,7 @@ var injectOptions = {
   ignorePath: [paths.src, paths.compile],
   addRootSlash: false,
   addPrefix: '{{ STATIC_URL }}dashboard'
-    //relative: true
+  // relative: true
 };
 
 var vendorOptions = _.merge({
@@ -30,16 +29,16 @@ var cacheOptions = _.merge({
 gulp.task('inject:common', ['styles', 'deps:css'], function() {
   // style injection for application styles
   var injectStyles = gulp.src([
-    paths.compile + '/source/**/*.css',
-    //'!' + paths.compile + '/vendor/**/*.css'
+    paths.compile + '/source/**/*.css'
+    // '!' + paths.compile + '/vendor/**/*.css'
   ], {
     read: false
   });
 
   // style setup for vendor styles
   var vendorStyles = gulp.src([
-    paths.compile + '/vendor/**/*.css',
-    //'!' + paths.compile + '/serve/**/*.css',
+    paths.compile + '/vendor/**/*.css'
+    // '!' + paths.compile + '/serve/**/*.css',
   ], {
     read: false
   });
@@ -51,20 +50,21 @@ gulp.task('inject:common', ['styles', 'deps:css'], function() {
     .pipe(gulp.dest(paths.django.templates.root));
 });
 
-
 // injecting scripts into dashboard
 gulp.task('inject:dashboard', ['ng', 'deps:js'], function() {
-
+  // first we inject dashboard scripts
   var injectScripts = gulp.src([
       paths.compile + '/source/**/*.js',
       '!' + paths.compile + '/source/**/auth/**/*.js',
       '!' + paths.compile + '/source/**/templates/*.js'
     ])
-    .pipe($.angularFilesort());
+    .pipe($.angularFilesort())
+    .pipe($.eslint())
+    .pipe($.eslint.format());
 
   // setup for vendor scripts
   var vendorScripts = gulp.src([
-    paths.compile + '/vendor/**/*.js',
+    paths.compile + '/vendor/**/*.js'
   ], {
     read: false
   });
@@ -84,13 +84,13 @@ gulp.task('inject:dashboard', ['ng', 'deps:js'], function() {
 gulp.task('inject:auth', ['ng', 'deps:js'], function() {
   var injectScripts = gulp.src([
       paths.compile + '/source/**/auth/**/*.js',
-      '!' + paths.compile + '/source/**/dashboard/**/*.js',
+      '!' + paths.compile + '/source/**/dashboard/**/*.js'
     ])
     .pipe($.angularFilesort());
 
   // setup for vendor scripts
   var vendorScripts = gulp.src([
-    paths.compile + '/vendor/**/*.js',
+    paths.compile + '/vendor/**/*.js'
   ], {
     read: false
   });
