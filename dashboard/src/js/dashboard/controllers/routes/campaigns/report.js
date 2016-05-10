@@ -44,7 +44,7 @@ angular.module('adomattic.dashboard')
 
     _.forEach(_.range(1, 13), function(val) {
       self.periodOptions.push({
-        name: val + 'months',
+        name: val + ' months',
         val: val
       });
     });
