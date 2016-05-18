@@ -10,37 +10,41 @@ angular.module('adomattic.dashboard')
       id: $routeParams.campaignID
     };
 
-    Reporter.datatable(urlParams).$promise.then(function(response) {
-      self.options = {
-        rowHeight: 30,
-        headerHeight: 50,
-        footerHeight: 50,
-        scrollbarV: false,
-        selectable: false,
-        columns: response.columns,
-        // columnMode: 'force',
-        paging: {
-          externalPaging: true,
-          size: 12
-        }
-      };
-
+    self.getData = function() {
+      urlParams.period = self.periodOption;
       self.data = [];
-      self.response = response.data;
-      self.options.paging.count = response.data.length;
+      Reporter.datatable(urlParams).$promise.then(function(response) {
+        self.options = {
+          rowHeight: 30,
+          headerHeight: 50,
+          footerHeight: 50,
+          scrollbarV: false,
+          selectable: false,
+          columns: response.columns,
+          // columnMode: 'force',
+          paging: {
+            externalPaging: true,
+            size: 12
+          }
+        };
 
-      self.paging = function(offset, size) {
-        var set = self.response.splice(offset, size);
+        self.response = response.data;
+        self.options.paging.count = response.data.length;
 
-        _.forEach(set, function(value, key) {
-          var index = key + offset * size;
+        self.paging = function(offset, size) {
+          var set = self.response.splice(offset, size);
 
-          self.data[index] = value;
-        });
-      };
-    });
+          _.forEach(set, function(value, key) {
+            var index = key + offset * size;
+
+            self.data[index] = value;
+          });
+        };
+      });
+    };
 
     self.periodOptions = [];
+    self.periodOption = 1;
 
     _.forEach(_.range(1, 13), function(val) {
       self.periodOptions.push({
@@ -48,4 +52,11 @@ angular.module('adomattic.dashboard')
         val: val
       });
     });
+
+    self.csv = function() {
+      return '/api/campaigns/campaigns/' + $routeParams.campaignID + '/reports/csv/';
+    };
+
+    // init view
+    self.getData();
   });
