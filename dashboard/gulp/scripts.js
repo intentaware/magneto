@@ -10,10 +10,10 @@ var paths = gulp.paths;
 
 gulp.task('ng', ['partials'], function() {
   return gulp.src([
-      paths.src + '/js/**/*.js',
-      //'!' + paths.src + '/js/**/auth/**/*.js',
-      //'!' + paths.src + '/{app,components}/**/*.spec.js',
-      //'!' + paths.src + '/{app,components}/**/*.mock.js'
+      paths.src + '/js/**/*.js'
+      // '!' + paths.src + '/js/**/auth/**/*.js',
+      // '!' + paths.src + '/{app,components}/**/*.spec.js',
+      // '!' + paths.src + '/{app,components}/**/*.mock.js'
     ])
     .pipe($.changed(paths.compile + '/source/js'))
     .pipe($.ngAnnotate({
