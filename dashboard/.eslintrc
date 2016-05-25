@@ -62,7 +62,7 @@
     "no-empty": 2,
     "no-ex-assign": 2,
     "no-extra-boolean-cast": 2,
-    "no-extra-parens": [1, "all"], // `[2, "all"]` is default
+    "no-extra-parens": [0, "all"], // `[2, "all"]` is default
     "no-extra-semi": 1, // `2` is default
     "no-func-assign": 2,
     "no-inner-declarations": [2, "both"], // `[2, "functions"]` is default

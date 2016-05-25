@@ -32,6 +32,33 @@ angular.module('adomattic.dashboard')
           // scope.apply();
           var name = el.files[0].name;
 
+          // return the file contents in base64 format
+          var read = function(f) {
+            var d = $q.defer();
+            // var size = parseInt(scope.maxSize);
+
+
+            var r = new FileReader();
+            // console.log(size);
+            // console.log(f.size);
+
+            if (parseInt(scope.maxSize) <= f.size) {
+              d.reject();
+            } else {
+              r.onload = function(ev) {
+                d.resolve(ev.target.result);
+              };
+
+              r.onerror = function(ev) {
+                d.reject(ev);
+              };
+
+              r.readAsDataURL(f);
+            }
+
+            return d.promise;
+          };
+
           $q.all(Array.prototype.slice.call(el.files, 0).map(read))
             .then(function(vals) {
               scope.fileName = name;
@@ -41,33 +68,6 @@ angular.module('adomattic.dashboard')
               scope.fileName = 'Unable to load file, please try again';
               // scope.$apply();
             });
-        };
-
-        // return the file contents in base64 format
-        var read = function(f) {
-          var d = $q.defer();
-          // var size = parseInt(scope.maxSize);
-
-
-          var r = new FileReader();
-          // console.log(size);
-          // console.log(f.size);
-
-          if (parseInt(scope.maxSize) <= f.size) {
-            d.reject();
-          } else {
-            r.onload = function(ev) {
-              d.resolve(ev.target.result);
-            };
-
-            r.onerror = function(ev) {
-              d.reject(ev);
-            };
-
-            r.readAsDataURL(f);
-          }
-
-          return d.promise;
         };
       }
     };

@@ -8,9 +8,9 @@ angular.module('adomattic.dashboard')
     var self = this;
 
     self.campaign = {
-      name: undefined,
-      description: undefined,
-      image: undefined,
+      name: false,
+      description: false,
+      image: false,
       input_budget: 10,
       coupon_value: 2,
       audience: {},
@@ -24,21 +24,19 @@ angular.module('adomattic.dashboard')
     self.educationChoices = AudienceManager.getEducation();
     self.commute = AudienceManager.getCommuteChoices();
 
-    // md-autocomplete settings
-    self.getMatches = function(query, lookup) {
-      var results = query ? lookup.filter(createFilterFor(query)) : [];
-      //console.log(results);
-      console.log(self.campaign);
-      return results;
-    };
-
     var createFilterFor = function(query) {
       var _q = isNaN(parseInt(query)) ? query.toLowerCase() : parseInt(query);
-      //console.log(_q);
+
+      // console.log(_q);
       return function(index) {
-        //console.log(index.id);
+        // console.log(index.id);
         return (index._name.indexOf(_q) === 0) || (index.id === _q);
       };
+    };
+
+    // md-autocomplete settings
+    self.getMatches = function(query, lookup) {
+      return query ? lookup.filter(createFilterFor(query)) : [];
     };
 
     self.now = new Date();
@@ -58,6 +56,22 @@ angular.module('adomattic.dashboard')
       return (self.campaign && self.campaign.id) ? true : false;
     };
 
+
+    var openStripePaymentDialog = function(invoiceID) {
+      $mdDialog.show({
+        controller: 'StripeCreditCardDialogCtrl',
+        controllerAs: 'creditCard',
+        templateUrl: 'dialogs/payments/stripe-credit-card.html',
+        locals: {
+          invoiceID: invoiceID
+        },
+        // targetEvent: ev,
+        parent: angular.element(document.body)
+      }).then(function() {
+        $location.path('/campaigns/');
+      });
+    };
+
     self.saveAd = function() {
       self.$saving = true;
       self.campaign.budget = self.money.charge;
@@ -65,14 +79,14 @@ angular.module('adomattic.dashboard')
       self.campaign.taxes = self.money.taxes;
       self.campaign.coupon_count = self.money.impressions;
       self.campaign.circles = Helper.toIDs(self.campaign.circles);
-      console.log(self.campaign);
+      // console.log(self.campaign);
       if (!self.campaign.id) {
         Campaign.save(self.campaign).$promise.then(function(data) {
-          console.log(data);
-          //$location.path('/campaigns/');
+          // console.log(data);
+          // $location.path('/campaigns/');
           openStripePaymentDialog(data.invoice);
-        }, function(data) {
-          console.log(data);
+        }, function() {
+          // console.log(data);
           self.$saving = false;
         });
       } else {
@@ -84,9 +98,9 @@ angular.module('adomattic.dashboard')
       }
     };
 
-    //this watches changes on the main controller
+    // this watches changes on the main controller
     $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {
-      //console.log(self.campaign);
+      // console.log(self.campaign);
       $rootScope.$emit('campaginFormUpdated', self.campaign);
     });
 
@@ -98,19 +112,4 @@ angular.module('adomattic.dashboard')
     $scope.$watch('baseCampaignFormCtrl.circles', function(n) {
       self.circles = n;
     });
-
-    var openStripePaymentDialog = function(invoiceID) {
-      $mdDialog.show({
-        controller: 'StripeCreditCardDialogCtrl',
-        controllerAs: 'creditCard',
-        templateUrl: 'dialogs/payments/stripe-credit-card.html',
-        locals: {
-          invoiceID: invoiceID
-        },
-        //targetEvent: ev,
-        parent: angular.element(document.body)
-      }).then(function() {
-        $location.path('/campaigns/');
-      });
-    };
   });

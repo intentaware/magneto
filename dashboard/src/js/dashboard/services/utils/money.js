@@ -28,12 +28,12 @@ angular.module('adomattic.dashboard')
        * @param  {float} number         the number to round up
        * @return {float}                the returned number
        */
-      var toFixed = function (number) {
+      var toFixed = function(number) {
         return parseFloat(number.toFixed(2));
       };
 
       if (inclusiveCharges) {
-        muxFactor = (1/(1+advertiserRate)) * (1/(1+taxRate));
+        muxFactor = (1 / (1 + advertiserRate)) * (1 / (1 + taxRate));
       }
 
 

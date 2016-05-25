@@ -6,7 +6,8 @@ angular.module('adomattic.dashboard')
 
     self.getAges = function(min) {
       min = min || null;
-      var range = (min) ? _.range(min, 99) : _.range(13, 99);
+      var range = min ? _.range(min, 99) : _.range(13, 99);
+
       return range;
     };
 

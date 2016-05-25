@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignReportCtrl', function($routeParams, Reporter) {
+  .controller('CampaignReportCtrl', function($routeParams, Reporter, Helper) {
     var self = this;
 
     var urlParams = {
@@ -54,7 +54,14 @@ angular.module('adomattic.dashboard')
     });
 
     self.csv = function() {
-      return '/api/campaigns/campaigns/' + $routeParams.campaignID + '/reports/csv/';
+      var URL = '/api/campaigns/campaigns/' + $routeParams.campaignID + '/reports/csv/';
+      var queryParams = Helper.jsonToURL({
+        period: self.periodOption
+      }, URL);
+
+      console.log(queryParams);
+
+      return queryParams;
     };
 
     // init view

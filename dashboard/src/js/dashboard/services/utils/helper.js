@@ -16,8 +16,26 @@ angular.module('adomattic.dashboard')
         var index = _.findIndex(objectArray, function(object) {
           return parseInt(object.id) === parseInt(id);
         });
+
         return objectArray[index];
       });
+    };
+
+    /**
+     * converts json to query params on a url
+     * @param  {json} obj the json to be converted
+     * @return {str}     string that is to be converted
+     */
+    self.jsonToURL = function(obj, prefix) {
+      var str = [];
+
+      _.each(obj, function(val, key) {
+        str.push(encodeURIComponent(key) + '=' + encodeURIComponent(val));
+      });
+
+      str = str.join('&');
+      str = prefix ? prefix + '?' + str : str;
+      return str;
     };
 
     self.getPixel = function(publisherKey, campaignID) {
@@ -41,9 +59,7 @@ angular.module('adomattic.dashboard')
 
 
       var assetRoot = ((window.location.hostname === 'app.intentaware.com') || (window.location.hostname === 'live.intentaware.com')) ? window.location.protocol + '//' + window.location.host + '/magneto' : 'scripts';
-      console.log(window.location.hostname);
-      console.log(assetRoot);
-      console.log(assetID);
+
       var pixel;
 
       if (assetID) {
