@@ -12,7 +12,8 @@ angular.module('adomattic.dashboard')
         $scope.campaigns = data;
         if (data.length) {
           var params = urlParamsCampaign;
-          params.id = data[0].id;
+          // params.id = data[0].id;
+          params.id = 10;
 
           Reporter.useragents(params).$promise.then(function(d) {
             $scope.useragents = d;
