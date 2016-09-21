@@ -6,6 +6,9 @@
         <md-toolbar>
           <div class="md-toolbar-tools">
             <span flex>Performance</span>
+            <md-select ng-model="activeCampaign" ng-change="getCampaignReport(activeCampaign)">
+              <md-option ng-value="campaign.id" ng-repeat="campaign in campaigns">{{ campaign.name }}</md-option>
+            </md-select>
             <md-button class="md-primary md-raised" ng-if="campaigns.length" ng-click="gotoCampaignReport(campaigns[0].id)">Detail Report</md-button>
           </div>
         </md-toolbar>

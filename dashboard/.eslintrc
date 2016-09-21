@@ -65,7 +65,7 @@
     "no-extra-parens": [0, "all"], // `[2, "all"]` is default
     "no-extra-semi": 1, // `2` is default
     "no-func-assign": 2,
-    "no-inner-declarations": [2, "both"], // `[2, "functions"]` is default
+    "no-inner-declarations": [0, "both"], // `[2, "functions"]` is default
     "no-invalid-regexp": 2,
     "no-irregular-whitespace": 2,
     "no-negated-in-lhs": 2,
