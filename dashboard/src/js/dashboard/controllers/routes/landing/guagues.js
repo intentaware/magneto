@@ -11,6 +11,37 @@ angular.module('adomattic.dashboard')
 
     self.activeAsset = null;
 
+    self.historyOptions = {
+      'chart': {
+        'type': 'multiBarChart',
+        'height': 300,
+        'margin': {
+          'top': 25,
+          'right': 25,
+          'bottom': 50,
+          'left': 50
+        },
+        x: function(d) {
+          return d.date;
+        },
+        y: function(d) {
+          return d.count;
+        },
+        'clipEdge': true,
+        'duration': 500,
+        'stacked': true,
+        'xAxis': {
+          'axisLabel': 'Date',
+          'rotateLabels': -30,
+          'showMaxMin': false
+        },
+        'yAxis': {
+          'axisLabel': 'Count',
+          'axisLabelDistance': -20
+        }
+      }
+    };
+
     self.getAssetReport = function(id) {
       var params = urlParamsReports;
 
