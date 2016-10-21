@@ -98,6 +98,11 @@ angular.module('adomattic', [
         controller: 'AssetCreateCtrl',
         controllerAs: 'pc'
       })
+      .when('/assets/:assetID/report/', {
+        templateUrl: 'routes/assets/report.html',
+        controller: 'AssetReportCtrl',
+        controllerAs: 'pc'
+      })
       // settings
       .when('/settings/', {
         templateUrl: 'routes/settings/main.html'

@@ -59,8 +59,6 @@ angular.module('adomattic.dashboard')
         period: self.periodOption
       }, URL);
 
-      console.log(queryParams);
-
       return queryParams;
     };
 
