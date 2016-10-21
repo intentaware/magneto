@@ -1,6 +1,6 @@
 {% raw %}
 
-<div layout="row" layout-sm="column" ng-controller="GuagesLandingCtrl as gc">
+<div layout="column" layout-sm="column" ng-controller="GuagesLandingCtrl as gc">
   <!--
   <div flex="33" flex-sm="50">
     <md-card class="md-whiteframe-z1">
@@ -26,22 +26,51 @@
     </md-card>
   </div>
   -->
-  <div flex flex-gt-sm="33" layout="row" class="tile md-whiteframe-z1">
-    <div class="number">
-      {{ gc.assets.length || 0 }}
+  <div layout="row">
+    <div flex flex-gt-sm="33" layout="row" class="tile md-whiteframe-z1">
+      <div class="number">
+        {{ gc.assets.length || 0 }}
+      </div>
+      <div class="summary" flex>
+        <h1>
+          Assets
+        </h1>
+        <p class="color-red">
+          {{ gc.assets[0].impressions || 0 }} Page Views
+        </p>
+      </div>
+      <div class="actions">
+        <md-button class="md-fab md-primary md-mini" aria-label="View Assets" ng-click="gc.goToAssetList()">
+          <md-icon class="material-icons">view_list</md-icon>
+        </md-button>
+      </div>
     </div>
-    <div class="summary" flex>
-      <h1>
-        Assets
-      </h1>
-      <p class="color-red">
-        {{ gc.assets[0].impressions || 0 }} Page Views
-      </p>
-    </div>
-    <div class="actions">
-      <md-button class="md-fab md-primary md-mini" aria-label="View Assets" ng-click="gc.goToAssetList()">
-        <md-icon class="material-icons">view_list</md-icon>
-      </md-button>
+  </div>
+  <div layout="column" layout-sm="column">
+    <div layout="row" flex>
+      <md-card flex >
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <span flex>Asset Performance</span>
+            <md-select ng-model="gc.activeAsset"
+                  ng-change="gc.getAssetReport(gc.activeAsset)">
+              <md-option ng-value="asset.id"
+                    ng-repeat="asset in gc.assets">
+                {{ asset.name }}
+              </md-option>
+            </md-select>
+            <md-button class="md-primary md-raised" ng-if="gc.assets.length"
+                ng-click="gc.gotoAssetReport(gc.activeAsset)">Detail Report</md-button>
+          </div>
+        </md-toolbar>
+        <md-card-content layout="row">
+          <div class="graph" flex="100">
+            <div class="graph-3x" ng-if="history">
+              <nvd3 options="historyOptions" data="history"></nvd3>
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
     </div>
   </div>
 </div>
