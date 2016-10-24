@@ -55,6 +55,7 @@ angular.module('adomattic.dashboard')
           key: 'History',
           values: d
         }];
+        console.log(self.history);
       });
     };
 
