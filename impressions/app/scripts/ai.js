@@ -62,7 +62,7 @@
       headers: {
         'PUBLISHER-KEY': document['intentaware']
       },
-      withCredentials: true
+      //withCredentials: true
     }).then(function(response) {
       //console.log(response.data[0]);
       populateCampaign(response.data[0]);
