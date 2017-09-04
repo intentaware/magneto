@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .factory('Circle', function($resource, urls) {
+  .factory('Circle', function ($resource, urls) {
     return $resource(
       urls.apiBaseUrl + 'metas/circles/:id:list/:doc/',
       {

@@ -5,7 +5,7 @@
  */
 
 angular.module('adomattic.dashboard')
-  .service('Money', function() {
+  .service('Money', function () {
     var self = this;
 
     /**
@@ -17,7 +17,7 @@ angular.module('adomattic.dashboard')
      * @param  {boolean} inclusiveCharges flag to check if we are to allow to exceed the budget
      * @return {json}                  json {impressions: int, charge: float, serviceCharges: float, taxes: float}
      */
-    self.getImpressionCountAndChargeValue = function(budget, offer, advertiserRate, taxRate, inclusiveCharges) {
+    self.getImpressionCountAndChargeValue = function (budget, offer, advertiserRate, taxRate, inclusiveCharges) {
       advertiserRate = parseFloat(advertiserRate);
       taxRate = parseFloat(taxRate);
       var actualBudget = budget;
@@ -28,7 +28,7 @@ angular.module('adomattic.dashboard')
        * @param  {float} number         the number to round up
        * @return {float}                the returned number
        */
-      var toFixed = function(number) {
+      var toFixed = function (number) {
         return parseFloat(number.toFixed(2));
       };
 

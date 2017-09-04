@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .service('Helper', function() {
+  .service('Helper', function () {
     var self = this;
 
-    self.toIDs = function(array) {
-      return array.map(function(s) {
+    self.toIDs = function (array) {
+      return array.map(function (s) {
         s = s.id;
         return s;
       });
     };
 
-    self.toObjects = function(idArray, objectArray) {
-      return idArray.map(function(id) {
-        var index = _.findIndex(objectArray, function(object) {
+    self.toObjects = function (idArray, objectArray) {
+      return idArray.map(function (id) {
+        var index = _.findIndex(objectArray, function (object) {
           return parseInt(object.id) === parseInt(id);
         });
 
@@ -26,10 +26,10 @@ angular.module('adomattic.dashboard')
      * @param  {json} obj the json to be converted
      * @return {str}     string that is to be converted
      */
-    self.jsonToURL = function(obj, prefix) {
+    self.jsonToURL = function (obj, prefix) {
       var str = [];
 
-      _.each(obj, function(val, key) {
+      _.each(obj, function (val, key) {
         str.push(encodeURIComponent(key) + '=' + encodeURIComponent(val));
       });
 
@@ -38,7 +38,7 @@ angular.module('adomattic.dashboard')
       return str;
     };
 
-    self.getPixel = function(publisherKey, campaignID) {
+    self.getPixel = function (publisherKey, campaignID) {
       campaignID = campaignID || null;
 
 
@@ -54,7 +54,7 @@ angular.module('adomattic.dashboard')
       return pixel;
     };
 
-    self.getGuagePixel = function(publisherKey, assetID) {
+    self.getGuagePixel = function (publisherKey, assetID) {
       assetID = assetID || null;
 
 
@@ -71,7 +71,7 @@ angular.module('adomattic.dashboard')
       return pixel;
     };
 
-    self.mockDemographics = function(count) {
+    self.mockDemographics = function (count) {
       return [{
         'name': 'Income',
         'children': [{

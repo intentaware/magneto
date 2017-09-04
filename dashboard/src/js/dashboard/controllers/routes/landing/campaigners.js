@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignersLandingCtrl', function($scope, $location, Campaign, Reporter) {
+  .controller('CampaignersLandingCtrl', function ($scope, $location, Campaign, Reporter) {
     var urlParamsCampaign = {
       app: 'campaigns',
       endPoint: 'campaigns'
@@ -9,15 +9,15 @@ angular.module('adomattic.dashboard')
 
     $scope.activeCampaign = null;
 
-    $scope.getCampaignReport = function(id) {
+    $scope.getCampaignReport = function (id) {
       var params = urlParamsCampaign;
 
       params.id = id;
-      Reporter.useragents(params).$promise.then(function(d) {
+      Reporter.useragents(params).$promise.then(function (d) {
         $scope.useragents = d;
       });
 
-      Reporter.history(params).$promise.then(function(d) {
+      Reporter.history(params).$promise.then(function (d) {
         $scope.history = [{
           key: 'History',
           values: d
@@ -25,8 +25,8 @@ angular.module('adomattic.dashboard')
       });
     };
 
-    var init = function() {
-      Campaign.query().$promise.then(function(data) {
+    var init = function () {
+      Campaign.query().$promise.then(function (data) {
         $scope.campaigns = data;
         if (data.length) {
           $scope.activeCampaign = data[0].id;
@@ -52,11 +52,11 @@ angular.module('adomattic.dashboard')
     };
 
     // navigations
-    $scope.gotoCampaignList = function() {
+    $scope.gotoCampaignList = function () {
       $location.path('/campaigns/');
     };
 
-    $scope.gotoCampaignReport = function(id) {
+    $scope.gotoCampaignReport = function (id) {
       $location.path('/campaigns/' + id + '/report/');
     };
     // various graph options
@@ -70,10 +70,10 @@ angular.module('adomattic.dashboard')
           'bottom': 50,
           'left': 50
         },
-        x: function(d) {
+        x: function (d) {
           return d.date;
         },
-        y: function(d) {
+        y: function (d) {
           return d.count;
         },
         'clipEdge': true,

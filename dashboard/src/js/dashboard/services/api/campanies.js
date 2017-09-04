@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .factory('Company', function($resource, urls) {
+  .factory('Company', function ($resource, urls) {
     return $resource(
       urls.apiBaseUrl + 'companies/companies/:id:list/:doc/',
       {

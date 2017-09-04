@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('AssetReportCtrl', function($routeParams, Reporter, Helper) {
+  .controller('AssetReportCtrl', function ($routeParams, Reporter, Helper) {
     var self = this;
     var urlParams = {
       app: 'guages',
@@ -9,10 +9,10 @@ angular.module('adomattic.dashboard')
       id: $routeParams.assetID
     };
 
-    self.getData = function() {
+    self.getData = function () {
       urlParams.period = self.periodOption;
       self.data = [];
-      Reporter.datatable(urlParams).$promise.then(function(response) {
+      Reporter.datatable(urlParams).$promise.then(function (response) {
         self.options = {
           rowHeight: 30,
           headerHeight: 50,
@@ -30,10 +30,10 @@ angular.module('adomattic.dashboard')
         self.response = response.data;
         self.options.paging.count = response.data.length;
 
-        self.paging = function(offset, size) {
+        self.paging = function (offset, size) {
           var set = self.response.splice(offset, size);
 
-          _.forEach(set, function(value, key) {
+          _.forEach(set, function (value, key) {
             var index = key + offset * size;
 
             self.data[index] = value;
@@ -45,14 +45,14 @@ angular.module('adomattic.dashboard')
     self.periodOptions = [];
     self.periodOption = 1;
 
-    _.forEach(_.range(1, 13), function(val) {
+    _.forEach(_.range(1, 13), function (val) {
       self.periodOptions.push({
         name: val + ' months',
         val: val
       });
     });
 
-    self.csv = function() {
+    self.csv = function () {
       var URL = '/api/guages/assets/' + $routeParams.assetID + '/reports/csv/';
       var queryParams = Helper.jsonToURL({
         period: self.periodOption

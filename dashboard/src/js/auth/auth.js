@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('auth', ['ngMaterial', 'ngMessages'])
-  .config(function($mdThemingProvider) {
+  .config(function ($mdThemingProvider) {
     $mdThemingProvider.definePalette('adomattic', {
       '0': '#ffffff',
       '50': '#fafafa',
@@ -27,18 +27,16 @@ angular.module('auth', ['ngMaterial', 'ngMessages'])
         'default': '200'
       });
   })
-  .controller('AuthCtrl', function() {
-  })
-  .controller('FormCtrl', function() {
-  })
-  .controller('SubscriptionCtrl', function() {
+  .controller('AuthCtrl', function () {})
+  .controller('FormCtrl', function () {})
+  .controller('SubscriptionCtrl', function () {
 
   })
-  .controller('PlanCtrl', function() {
+  .controller('PlanCtrl', function () {
     var self = this;
+
     self.plan = 1;
-    self.selectPlan = function(id) {
-      console.log(id);
+    self.selectPlan = function (id) {
       self.plan = id;
     };
   });

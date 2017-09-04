@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignCreateCtrl', function($rootScope, Circle) {
+  .controller('CampaignCreateCtrl', function ($rootScope, Circle) {
     var self = this;
 
-    Circle.query().$promise.then(function(data) {
-
-      self.circles = data.map(function(d) {
+    Circle.query().$promise.then(function (data) {
+      self.circles = data.map(function (d) {
         d._id = String(d.id);
         d._name = d.name.toLowerCase();
         return d;
@@ -23,7 +22,7 @@ angular.module('adomattic.dashboard')
       };
     });
 
-    $rootScope.$on('campaginFormUpdated', function(e, args) {
+    $rootScope.$on('campaginFormUpdated', function (e, args) {
       self.campaign = args;
     });
   });

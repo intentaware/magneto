@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('GuagesLandingCtrl', function(Asset, Reporter, $location) {
+  .controller('GuagesLandingCtrl', function (Asset, Reporter, $location) {
     var self = this;
 
     var urlParamsReports = {
@@ -21,10 +21,10 @@ angular.module('adomattic.dashboard')
           'bottom': 50,
           'left': 50
         },
-        x: function(d) {
+        x: function (d) {
           return d.date;
         },
-        y: function(d) {
+        y: function (d) {
           return d.count;
         },
         'clipEdge': true,
@@ -42,15 +42,15 @@ angular.module('adomattic.dashboard')
       }
     };
 
-    self.getAssetReport = function(id) {
+    self.getAssetReport = function (id) {
       var params = urlParamsReports;
 
       params.id = id;
-      Reporter.useragents(params).$promise.then(function(d) {
+      Reporter.useragents(params).$promise.then(function (d) {
         self.useragents = d;
       });
 
-      Reporter.history(params).$promise.then(function(d) {
+      Reporter.history(params).$promise.then(function (d) {
         self.history = [{
           key: 'History',
           values: d
@@ -59,8 +59,8 @@ angular.module('adomattic.dashboard')
       });
     };
 
-    self.init = function() {
-      Asset.query().$promise.then(function(r) {
+    self.init = function () {
+      Asset.query().$promise.then(function (r) {
         self.assets = r;
 
         if (self.assets.length) {
@@ -72,7 +72,7 @@ angular.module('adomattic.dashboard')
 
     self.init();
 
-    self.gotoAssetReport = function(id) {
+    self.gotoAssetReport = function (id) {
       $location.path('/assets/' + id + '/report/');
     };
 
@@ -80,11 +80,11 @@ angular.module('adomattic.dashboard')
     //   self.assets = r;
     // });
 
-    self.goToAssetCreate = function() {
+    self.goToAssetCreate = function () {
       $location.path('/assets/create/');
     };
 
-    self.goToAssetList = function() {
+    self.goToAssetList = function () {
       $location.path('/assets/');
     };
   });

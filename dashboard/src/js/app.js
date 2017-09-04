@@ -30,7 +30,7 @@ angular.module('adomattic', [
     },
     apiBaseUrl: '/api/'
   })
-  .config(function($mdThemingProvider) {
+  .config(function ($mdThemingProvider) {
     $mdThemingProvider.definePalette('adomattic', {
       '0': '#ffffff',
       '50': '#fafafa',
@@ -56,7 +56,7 @@ angular.module('adomattic', [
         'default': '200'
       });
   })
-  .config(function($routeProvider) {
+  .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'routes/landing/main.html'
@@ -115,15 +115,15 @@ angular.module('adomattic', [
       })
       .otherwise('/');
   })
-  .config(function($resourceProvider) {
+  .config(function ($resourceProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;
   })
-  .config(function($httpProvider) {
+  .config(function ($httpProvider) {
     // $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
   })
-  .config(function(uiZeroclipConfigProvider) {
+  .config(function (uiZeroclipConfigProvider) {
     uiZeroclipConfigProvider.setOverrideConfig(false);
   });

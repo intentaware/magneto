@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignPreviewDialogCtrl', function($mdDialog, data) {
+  .controller('CampaignPreviewDialogCtrl', function ($mdDialog, data) {
     console.log('dialog');
     console.log(data);
 
@@ -9,7 +9,7 @@ angular.module('adomattic.dashboard')
 
     self.data = data;
 
-    self.hide = function() {
+    self.hide = function () {
       $mdDialog.hide();
     };
   });

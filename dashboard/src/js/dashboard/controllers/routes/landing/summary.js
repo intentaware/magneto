@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .controller('SummaryCtrl', function() {
+  .controller('SummaryCtrl', function () {
 
   });

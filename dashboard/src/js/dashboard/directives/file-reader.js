@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .directive('readFile', function($q) {
+  .directive('readFile', function ($q) {
     return {
       restrict: 'E',
       scope: {
@@ -13,15 +13,15 @@ angular.module('adomattic.dashboard')
       templateUrl: 'directives/file-reader.html',
       replace: true,
       require: '^ngModel',
-      link: function(scope, elm, atr, ngModelCtrl) {
-        ngModelCtrl.$render = function() {};
+      link: function (scope, elm, atr, ngModelCtrl) {
+        ngModelCtrl.$render = function () {};
         // scope.fileName = '';
         var $file = elm[0].querySelector('.overlay');
 
         // console.log($file);
 
         // watch for a new file in input
-        $file.onchange = function(e) {
+        $file.onchange = function (e) {
           var el = e.target;
           // console.log(el.value);
 
@@ -33,7 +33,7 @@ angular.module('adomattic.dashboard')
           var name = el.files[0].name;
 
           // return the file contents in base64 format
-          var read = function(f) {
+          var read = function (f) {
             var d = $q.defer();
             // var size = parseInt(scope.maxSize);
 
@@ -45,11 +45,11 @@ angular.module('adomattic.dashboard')
             if (parseInt(scope.maxSize) <= f.size) {
               d.reject();
             } else {
-              r.onload = function(ev) {
+              r.onload = function (ev) {
                 d.resolve(ev.target.result);
               };
 
-              r.onerror = function(ev) {
+              r.onerror = function (ev) {
                 d.reject(ev);
               };
 
@@ -60,11 +60,11 @@ angular.module('adomattic.dashboard')
           };
 
           $q.all(Array.prototype.slice.call(el.files, 0).map(read))
-            .then(function(vals) {
+            .then(function (vals) {
               scope.fileName = name;
               // ng-model contains the binary value, file the file name is the view value
               ngModelCtrl.$setViewValue(vals.length ? vals[0] : null);
-            }, function() {
+            }, function () {
               scope.fileName = 'Unable to load file, please try again';
               // scope.$apply();
             });

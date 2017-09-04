@@ -4,7 +4,7 @@
  */
 
 angular.module('adomattic.dashboard')
-  .controller('CampaignFormCtrl', function($scope, $rootScope, $location, $mdDialog, urls, Campaign, Circle, Money, Helper, AudienceManager) {
+  .controller('CampaignFormCtrl', function ($scope, $rootScope, $location, $mdDialog, urls, Campaign, Circle, Money, Helper, AudienceManager) {
     var self = this;
 
     self.campaign = {
@@ -24,24 +24,24 @@ angular.module('adomattic.dashboard')
     self.educationChoices = AudienceManager.getEducation();
     self.commute = AudienceManager.getCommuteChoices();
 
-    var createFilterFor = function(query) {
+    var createFilterFor = function (query) {
       var _q = isNaN(parseInt(query)) ? query.toLowerCase() : parseInt(query);
 
       // console.log(_q);
-      return function(index) {
+      return function (index) {
         // console.log(index.id);
         return (index._name.indexOf(_q) === 0) || (index.id === _q);
       };
     };
 
     // md-autocomplete settings
-    self.getMatches = function(query, lookup) {
+    self.getMatches = function (query, lookup) {
       return query ? lookup.filter(createFilterFor(query)) : [];
     };
 
     self.now = new Date();
 
-    self.getImpressionCount = function() {
+    self.getImpressionCount = function () {
       if (self.campaign) {
         self.money = Money.getImpressionCountAndChargeValue(
           self.campaign.input_budget, self.campaign.coupon_value, $rootScope.globals.company.advertiser_rate, 0.25, true
@@ -52,12 +52,12 @@ angular.module('adomattic.dashboard')
       return self.money;
     };
 
-    self.isDisabled = function() {
+    self.isDisabled = function () {
       return (self.campaign && self.campaign.id) ? true : false;
     };
 
 
-    var openStripePaymentDialog = function(invoiceID) {
+    var openStripePaymentDialog = function (invoiceID) {
       $mdDialog.show({
         controller: 'StripeCreditCardDialogCtrl',
         controllerAs: 'creditCard',
@@ -67,12 +67,12 @@ angular.module('adomattic.dashboard')
         },
         // targetEvent: ev,
         parent: angular.element(document.body)
-      }).then(function() {
+      }).then(function () {
         $location.path('/campaigns/');
       });
     };
 
-    self.saveAd = function() {
+    self.saveAd = function () {
       self.$saving = true;
       self.campaign.budget = self.money.charge;
       self.campaign.service_charges = self.money.serviceCharges;
@@ -81,35 +81,35 @@ angular.module('adomattic.dashboard')
       self.campaign.circles = Helper.toIDs(self.campaign.circles);
       // console.log(self.campaign);
       if (!self.campaign.id) {
-        Campaign.save(self.campaign).$promise.then(function(data) {
+        Campaign.save(self.campaign).$promise.then(function (data) {
           // console.log(data);
           // $location.path('/campaigns/');
           openStripePaymentDialog(data.invoice);
-        }, function() {
+        }, function () {
           // console.log(data);
           self.$saving = false;
         });
       } else {
-        Campaign.update(self.campaign).$promise.then(function() {
+        Campaign.update(self.campaign).$promise.then(function () {
           $location.path('/campaigns/');
-        }, function() {
+        }, function () {
           self.$saving = false;
         });
       }
     };
 
     // this watches changes on the main controller
-    $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function() {
+    $scope.$watchGroup(['campaignForm.ad.name', 'campaignForm.ad.description', 'campaignForm.ad.image'], function () {
       // console.log(self.campaign);
       $rootScope.$emit('campaginFormUpdated', self.campaign);
     });
 
     // initializing the main controller
-    $scope.$watch('baseCampaignFormCtrl.campaign', function(n) {
+    $scope.$watch('baseCampaignFormCtrl.campaign', function (n) {
       self.campaign = n;
     });
 
-    $scope.$watch('baseCampaignFormCtrl.circles', function(n) {
+    $scope.$watch('baseCampaignFormCtrl.circles', function (n) {
       self.circles = n;
     });
   });

@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .factory('Invoice', function($resource, urls) {
+  .factory('Invoice', function ($resource, urls) {
     return $resource(
-      urls.apiBaseUrl + 'finances/invoices/:id:list/:doc/',
-      {
+      urls.apiBaseUrl + 'finances/invoices/:id:list/:doc/', {
         id: '@id',
         doc: '@doc',
         list: '@list'

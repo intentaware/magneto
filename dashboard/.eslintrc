@@ -195,7 +195,7 @@
     //"space-after-keywords": [1, "always"],
     // "space-before-keywords": [1, "always"],
     "space-before-blocks": [1, "always"], // optionally set `[2, {"functions": "never", "keywords": "always"}]`
-    "space-before-function-paren": [1, "never"], // optionally set `[2, {"anonymous": "always", "named": "never"}]`
+    "space-before-function-paren": [1, "always"], // optionally set `[2, {"anonymous": "always", "named": "never"}]`
     "space-in-parens": [1, "never"], // optionally set `[2, "always", {"exceptions": ["empty"]}]`
     "space-infix-ops": [1, {"int32Hint": false}],
     //"space-return-throw-case": 1,

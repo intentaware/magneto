@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adomattic.dashboard')
-  .factory('Asset', function($resource, urls) {
+  .factory('Asset', function ($resource, urls) {
     return $resource(
       urls.apiBaseUrl + 'guages/assets/:id:list/:doc/',
       {
