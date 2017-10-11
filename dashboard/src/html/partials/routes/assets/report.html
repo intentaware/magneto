@@ -10,15 +10,16 @@
         <md-select-label>Select a Filter</md-select-label>
         <md-option ng-value="opt.val" ng-repeat="opt in pc.periodOptions">{{ opt.name }}</md-option>
       </md-select>
-      <md-button class="md-primary md-raised" ng-if="pc.data.length" ng-href="{{ pc.csv() }}" target="_blank">Download as CSV</md-button>
+      <!-- <md-button class="md-primary md-raised" ng-href="{{ pc.csv() }}" target="_blank">Download as CSV</md-button> -->
     </div>
   </md-toolbar>
-  <md-progress-linear md-mode="indeterminate" ng-if="!pc.data" class="md-warn"></md-progress-linear>
+  <md-button class="md-primary md-raised" ng-href="{{ pc.csv() }}" target="_blank">Download as CSV</md-button>
+  <!-- <md-progress-linear md-mode="indeterminate" ng-if="!pc.data" class="md-warn"></md-progress-linear> -->
   <!--md-mode  can be select from one of four modes: determinate, indeterminate, buffer or query..-->
-  <dtable class="material"
+  <!-- <dtable class="material"
         options="pc.options" rows="pc.data" on-page="pc.paging(offset, size)"
         ng-if="pc.response">
-  </dtable>
+  </dtable> -->
 </md-card>
 
 {% endraw %}
