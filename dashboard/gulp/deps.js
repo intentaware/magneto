@@ -17,6 +17,7 @@ gulp.task('deps:css', function() {
 
 gulp.task('deps:js', function() {
   return gulp.src(wiredep().js)
+    .pipe($.debug())
     .pipe($.sourcemaps.init())
     .pipe($.concat('vendor.js'))
     .pipe($.sourcemaps.write())

@@ -10,25 +10,29 @@ angular.module('adomattic.dashboard')
       id: $routeParams.campaignID
     };
 
+    self.options = {
+      rowHeight: 30,
+      headerHeight: 50,
+      footerHeight: 50,
+      scrollbarV: false,
+      selectable: false,
+      // columns: response.columns,
+      // columnMode: 'force',
+      internal: {},
+      paging: {
+        externalPaging: true,
+        size: 12
+      }
+    };
+
+
     self.getData = function () {
       urlParams.period = self.periodOption;
       self.data = [];
-      Reporter.datatable(urlParams).$promise.then(function (response) {
-        self.options = {
-          rowHeight: 30,
-          headerHeight: 50,
-          footerHeight: 50,
-          scrollbarV: false,
-          selectable: false,
-          columns: response.columns,
-          // columnMode: 'force',
-          paging: {
-            externalPaging: true,
-            size: 12
-          }
-        };
 
-        self.response = response.data;
+      Reporter.datatable(urlParams).$promise.then(function (response) {
+
+        self.options.columns = response.columns;
         self.options.paging.count = response.data.length;
 
         self.paging = function (offset, size) {
@@ -40,6 +44,8 @@ angular.module('adomattic.dashboard')
             self.data[index] = value;
           });
         };
+
+        self.response = response.data;
       });
     };
 
@@ -59,9 +65,12 @@ angular.module('adomattic.dashboard')
         period: self.periodOption
       }, URL);
 
+      console.log(queryParams);
       return queryParams;
     };
 
+    self.csv();
+
     // init view
-    self.getData();
+    // self.getData();
   });
